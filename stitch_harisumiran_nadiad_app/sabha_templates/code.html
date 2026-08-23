@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Sabha Management - HariSumiran</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container": "#f4ece9",
+                        "secondary-container": "#aeedca",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "primary-fixed-dim": "#ffb597",
+                        "secondary-fixed": "#b1f0cd",
+                        "inverse-on-surface": "#f7efec",
+                        "surface-variant": "#e8e1dd",
+                        "on-surface-variant": "#57423a",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#e0d9d5",
+                        "primary-fixed": "#ffdbcd",
+                        "on-surface": "#1e1b19",
+                        "on-primary-fixed": "#360f00",
+                        "on-tertiary-fixed": "#001d33",
+                        "background": "#fff8f5",
+                        "surface": "#fff8f5",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-background": "#1e1b19",
+                        "surface-container-high": "#eee7e3",
+                        "inverse-surface": "#33302e",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e8e1dd",
+                        "tertiary-container": "#3c72a1",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "surface-container-low": "#faf2ee",
+                        "surface-bright": "#fff8f5",
+                        "error": "#ba1a1a",
+                        "secondary": "#2d694d",
+                        "outline-variant": "#dec0b5",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#ffb597",
+                        "on-secondary-fixed-variant": "#105137",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#a33e05",
+                        "outline": "#8b7268",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "on-secondary-container": "#326e51",
+                        "primary": "#963700",
+                        "on-primary-container": "#ffeee9",
+                        "tertiary-fixed": "#cfe5ff",
+                        "tertiary": "#1f5987",
+                        "primary-container": "#b84d17"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "touch-target-min": "44px",
+                        "unit": "8px",
+                        "stack-gap": "12px",
+                        "margin-main": "20px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "gujarati-body": ["Noto Sans"],
+                        "body-md": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "gujarati-body": ["17px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "nav-large-title": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700"}],
+                        "branding-header": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500"}],
+                        "body-lg": ["17px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "25px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .mandala-watermark {
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="none" opacity="0.05"/><circle cx="50" cy="50" r="30" stroke="black" stroke-width="1" fill="none" opacity="0.05"/><circle cx="50" cy="50" r="20" stroke="black" stroke-width="0.5" fill="none" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md antialiased relative pb-32">
+<!-- Background Watermark -->
+<div class="fixed inset-0 pointer-events-none mandala-watermark z-0"></div>
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-xl border-b-[0.5px] border-surface-variant flex items-center justify-between px-margin-main min-h-[56px] w-full z-40 sticky top-0">
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover border border-surface-variant" data-alt="A highly detailed, professional headshot of a young Indian male volunteer in a serene temple setting, warm natural lighting, modern minimalist background, highly polished, photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTMb32G1MVXKxlyyS7rakOSupyKVO3mzD2ectJ7cKniIs9-Ctkdsr6dTtYxMkDyfQaLxW5-wSxopl7D_Ek3ek_uUjbmXfnfMbSzQkm-KBczcb7EN8m38cWPOKGJq5CpTM1pxLZKuaSKFruUWk4Vs3D2WenP9EAR5aLm-pp73sVR_YqivCRv_9FplLid5MSF1gs4pDlpkTPzhG5RwEFMk4QV8WI0dvwTOGtlfUBjpLTrZZQTqwOwck5"/>
+<span class="font-branding-header text-branding-header text-primary">HariSumiran</span>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="relative z-10 w-full max-w-[720px] mx-auto pt-4 px-margin-main">
+<!-- Page Title -->
+<div class="mb-6">
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface">Sabha Management</h1>
+</div>
+<!-- Search Bar -->
+<div class="mb-stack-gap liquid-glass rounded-xl border border-surface-variant p-3 flex items-center gap-3 shadow-sm">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none outline-none w-full font-body-md text-body-md text-on-surface placeholder-on-surface-variant focus:ring-0 p-0" placeholder="Search templates..." type="text"/>
+</div>
+<!-- Template List -->
+<div class="space-y-stack-gap">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl border-[0.5px] border-surface-variant p-5 shadow-[0_4px_12px_rgba(36,33,31,0.04)] hover:scale-[0.98] transition-transform cursor-pointer relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface pr-8">Weekly Bal Sabha</h2>
+<button class="text-on-surface-variant hover:text-primary transition-colors absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-lowest/50 backdrop-blur-sm">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="font-body-md text-body-md">Recurs Weekly</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">Youth Hall</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-variant flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">checklist</span>
+<span class="font-label-sm text-label-sm font-semibold">4 Items</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward_ios</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl border-[0.5px] border-surface-variant p-5 shadow-[0_4px_12px_rgba(36,33,31,0.04)] hover:scale-[0.98] transition-transform cursor-pointer relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface pr-8">Sunday Evening Sabha</h2>
+<button class="text-on-surface-variant hover:text-primary transition-colors absolute right-4 top-4 w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-lowest/50 backdrop-blur-sm">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="font-body-md text-body-md">Recurs Weekly</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md">Main Mandir</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-variant flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">checklist</span>
+<span class="font-label-sm text-label-sm font-semibold">6 Items</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-28 right-5 z-40 bg-primary text-on-primary h-14 px-5 rounded-full shadow-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-wide">New Template</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md z-50 flex justify-around items-center px-2 bg-white/70 backdrop-blur-2xl border-[0.5px] border-surface-variant shadow-sm h-16 rounded-full">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-12 h-12 hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-0.5">Home</span>
+</button>
+<!-- Families -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-12 h-12 hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-[10px] mt-0.5">Families</span>
+</button>
+<!-- Sabha (Active) -->
+<button class="flex flex-col items-center justify-center bg-gradient-to-tr from-primary-container to-primary text-white rounded-full w-12 h-12 shadow-md active:scale-90 duration-200 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-sm text-[10px] mt-0.5 hidden">Sabha</span> <!-- Hidden label for pure icon active state if desired, but keeping to maintain layout rhythm -->
+</button>
+<!-- Tasks -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-12 h-12 hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-[10px] mt-0.5">Tasks</span>
+</button>
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-12 h-12 hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px] mt-0.5">Profile</span>
+</button>
+</nav>
+</body></html>

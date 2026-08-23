@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Role Permissions - Admin Settings</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from instructions -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#aeedca",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-error": "#ffffff",
+                        "surface": "#fff8f5",
+                        "primary-container": "#b84d17",
+                        "surface-bright": "#fff8f5",
+                        "on-secondary-fixed-variant": "#105137",
+                        "secondary-fixed": "#b1f0cd",
+                        "surface-variant": "#e8e1dd",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-secondary-container": "#326e51",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#faf2ee",
+                        "inverse-surface": "#33302e",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#ffeee9",
+                        "on-background": "#1e1b19",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdbcd",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#eaf2ff",
+                        "outline-variant": "#dec0b5",
+                        "on-tertiary-fixed": "#001d33",
+                        "tertiary-container": "#3c72a1",
+                        "inverse-primary": "#ffb597",
+                        "tertiary": "#1f5987",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#e0d9d5",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-primary-fixed": "#360f00",
+                        "on-surface": "#1e1b19",
+                        "surface-container-high": "#eee7e3",
+                        "background": "#fff8f5",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "secondary": "#2d694d",
+                        "surface-container": "#f4ece9",
+                        "inverse-on-surface": "#f7efec",
+                        "on-surface-variant": "#57423a",
+                        "surface-tint": "#a33e05",
+                        "outline": "#8b7268",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "primary": "#963700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "margin-main": "20px",
+                        "touch-target-min": "44px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Abstract Mandala Watermark */
+        .mandala-watermark {
+            background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M100 0C44.7715 0 0 44.7715 0 100C0 155.228 44.7715 200 100 200C155.228 200 200 155.228 200 100C200 44.7715 155.228 0 100 0ZM100 180C55.8172 180 20 144.183 20 100C20 55.8172 55.8172 20 100 20C144.183 20 180 55.8172 180 100C180 144.183 144.183 180 100 180Z" fill="black" opacity="0.03"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Toggle Switch Custom Styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: theme('colors.primary');
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: theme('colors.primary');
+        }
+        .toggle-checkbox {
+            right: 0;
+            z-index: 1;
+            border-color: theme('colors.outline');
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            width: 44px;
+            height: 24px;
+            background-color: theme('colors.surface-variant');
+            border-radius: 9999px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .toggle-label::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .toggle-checkbox:checked + .toggle-label::after {
+            transform: translateX(20px);
+        }
+
+        /* Glassmorphism utility for scrollable matrix area */
+        .glass-header {
+            background-color: rgba(255, 248, 245, 0.85); /* surface color with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Smooth reveal for banner */
+        .reveal-banner {
+            animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen pb-32">
+<!-- TopAppBar (From JSON) -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl fixed top-0 w-full border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-margin-main h-16 w-full z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-label-sm font-bold overflow-hidden shadow-[0_2px_8px_rgba(36,33,31,0.08)]">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a serene administrative volunteer in a well-lit, minimal white office setting. The lighting is soft and bright, casting gentle shadows. The volunteer wears subtle, warm-toned traditional clothing, blending spiritual warmth with modern productivity. The background features a subtle hint of green plants, conveying life and energy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqWt6Zlc9PnqmKZBiRg0tMJAal-CRaNIQnrl3eXpWehdVDJ-MeU3619JMjK88AtIU8Q69R8CR3Ovu-wjItNfAD7er6t34KSCK8Aa_zfUOEutrOr28nWAPlLCSdFwRCoT9ZONVRBM7zyG0EOOdKwwXBVv8TO5tZr1IUA_7KrZEfIDfGdsoy71PqVaG79PxA_Ee0qDy_SP74wwViUIo_cC58sOcMxLCYCn3cEpUOYtiBS5YTZGZ9I-9w"/>
+</div>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed">Admin Settings</h1>
+</div>
+<button aria-label="Settings" class="w-touch-target-min h-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-high/50 transition-colors active:scale-95 transition-transform duration-200 text-primary dark:text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-margin-main max-w-[1024px] mx-auto mandala-watermark min-h-[707px]">
+<!-- Page Title & Context -->
+<div class="mb-stack-gap">
+<h2 class="font-nav-large-title text-nav-large-title text-on-background mb-2">Role Permissions</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Configure access levels across all operational modules.</p>
+</div>
+<!-- Dynamic Warning Banner (Hidden by default, shown via JS on change) -->
+<div class="hidden overflow-hidden rounded-xl bg-error-container/40 border border-error-container mb-stack-gap relative" id="impact-banner">
+<div class="p-gutter flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5" data-icon="warning">warning</span>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-on-error-container font-bold mb-1">Downstream Impact</p>
+<p class="font-body-md text-body-md text-on-surface-variant" id="impact-message">Modifying these permissions will affect active sessions.</p>
+</div>
+</div>
+</div>
+<!-- Permissions Matrix Bento Grid -->
+<div class="bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 shadow-[0_12px_40px_rgba(36,33,31,0.04)] overflow-hidden relative">
+<!-- Sticky Header for Columns -->
+<div class="grid grid-cols-[140px_1fr] md:grid-cols-[180px_1fr] border-b border-outline-variant/30 glass-header sticky top-16 z-30">
+<div class="p-gutter flex items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Role</span>
+</div>
+<!-- Scrollable Module Headers -->
+<div class="overflow-x-auto hide-scrollbar flex w-full">
+<div class="flex min-w-max">
+<div class="w-[100px] p-gutter flex flex-col items-center justify-end text-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm text-on-surface">Families</span>
+</div>
+<div class="w-[100px] p-gutter flex flex-col items-center justify-end text-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="temple_hindu">temple_hindu</span>
+<span class="font-label-sm text-label-sm text-on-surface">Sabha</span>
+</div>
+<div class="w-[100px] p-gutter flex flex-col items-center justify-end text-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="restaurant">restaurant</span>
+<span class="font-label-sm text-label-sm text-on-surface">Thal</span>
+</div>
+<div class="w-[100px] p-gutter flex flex-col items-center justify-end text-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-label-sm text-on-surface">Tasks</span>
+</div>
+<div class="w-[100px] p-gutter flex flex-col items-center justify-end text-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="history">history</span>
+<span class="font-label-sm text-label-sm text-on-surface">History</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Matrix Body (Rows) -->
+<div class="divide-y divide-outline-variant/20 relative z-20">
+<!-- Row 1: Karyakarta -->
+<div class="grid grid-cols-[140px_1fr] md:grid-cols-[180px_1fr] group hover:bg-surface-container-lowest/50 transition-colors">
+<div class="p-gutter border-r border-outline-variant/20 flex flex-col justify-center bg-surface-container-lowest">
+<span class="font-headline-md text-headline-md text-on-surface mb-1">Karyakarta</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Field Vol.</span>
+</div>
+<div class="overflow-x-auto hide-scrollbar flex w-full">
+<div class="flex min-w-max items-center">
+<!-- Toggle Cell -->
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="12 Karyakartas will lose Families access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="12 Karyakartas will gain Sabha access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0 bg-surface-container-low/50">
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">Locked</span>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="12 Karyakartas will lose Tasks access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="12 Karyakartas will gain History access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Row 2: Lead -->
+<div class="grid grid-cols-[140px_1fr] md:grid-cols-[180px_1fr] group hover:bg-surface-container-lowest/50 transition-colors">
+<div class="p-gutter border-r border-outline-variant/20 flex flex-col justify-center bg-surface-container-lowest">
+<span class="font-headline-md text-headline-md text-on-surface mb-1">Mandal Lead</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Supervisor</span>
+</div>
+<div class="overflow-x-auto hide-scrollbar flex w-full">
+<div class="flex min-w-max items-center">
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="3 Leads will lose Families access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="3 Leads will lose Sabha access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="3 Leads will gain Thal access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="3 Leads will lose Tasks access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+<div class="w-[100px] h-[72px] flex items-center justify-center shrink-0">
+<div class="relative inline-block w-[44px] h-[24px] align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" data-impact="3 Leads will lose History access if saved." name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-8 flex justify-end pb-8">
+<button class="bg-primary hover:bg-surface-tint text-on-primary h-[44px] px-6 rounded-full font-label-sm text-label-sm shadow-[0_4px_12px_rgba(150,55,0,0.2)] transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2" disabled="" id="save-btn">
+<span class="material-symbols-outlined text-[18px]" data-icon="save">save</span>
+                Save Permissions
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (From JSON) -->
+<nav class="bg-surface/70 dark:bg-inverse-surface/70 backdrop-blur-2xl border border-outline-variant/20 shadow-[0_12px_40px_rgba(36,33,31,0.04)] fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full fixed bottom-6 left-0 right-0 flex justify-around items-center px-gutter py-unit z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm text-[10px]">Families</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="temple_hindu">temple_hindu</span>
+<span class="font-label-sm text-label-sm text-[10px]">Sabha</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-label-sm text-[10px]">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold scale-110 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="admin_panel_settings" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+<span class="font-label-sm text-label-sm text-[10px]">Admin</span>
+</a>
+</nav>
+<!-- Confirmation Modal Overlay (Hidden) -->
+<div class="fixed inset-0 bg-on-background/40 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4" id="confirm-modal">
+<div class="bg-surface-container-lowest rounded-2xl w-full max-w-[400px] p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]" data-icon="security">security</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Confirm Changes</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Are you sure you want to apply these permission changes? This will immediately affect active users.</p>
+<div class="flex justify-end gap-3">
+<button class="h-touch-target-min px-6 rounded-full font-label-sm text-label-sm text-on-surface hover:bg-surface-variant transition-colors" id="cancel-btn">Cancel</button>
+<button class="bg-primary hover:bg-surface-tint text-on-primary h-touch-target-min px-6 rounded-full font-label-sm text-label-sm shadow-sm transition-transform active:scale-[0.98]">Confirm Update</button>
+</div>
+</div>
+</div>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggles = document.querySelectorAll('.toggle-checkbox');
+            const banner = document.getElementById('impact-banner');
+            const impactMessage = document.getElementById('impact-message');
+            const saveBtn = document.getElementById('save-btn');
+            
+            const modal = document.getElementById('confirm-modal');
+            const modalContent = document.getElementById('modal-content');
+            const cancelBtn = document.getElementById('cancel-btn');
+
+            let hasChanges = false;
+
+            // Simple state tracking for demo purposes
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', (e) => {
+                    hasChanges = true;
+                    saveBtn.disabled = false;
+                    
+                    // Show banner with specific impact message
+                    const impactText = e.target.dataset.impact;
+                    if(impactText) {
+                        impactMessage.textContent = impactText;
+                        banner.classList.remove('hidden');
+                        banner.classList.add('reveal-banner');
+                        
+                        // small haptic feedback simulation
+                        if (navigator.vibrate) navigator.vibrate(50);
+                    }
+                });
+            });
+
+            // Modal interactions
+            saveBtn.addEventListener('click', () => {
+                if(!saveBtn.disabled) {
+                    modal.classList.remove('hidden');
+                    // Small delay to allow display:block to apply before animating opacity/transform
+                    setTimeout(() => {
+                        modalContent.classList.remove('scale-95', 'opacity-0');
+                        modalContent.classList.add('scale-100', 'opacity-100');
+                    }, 10);
+                }
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            });
+        });
+    </script>
+</body></html>

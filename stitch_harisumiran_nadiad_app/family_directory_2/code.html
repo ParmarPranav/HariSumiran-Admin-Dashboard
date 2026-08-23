@@ -1,0 +1,415 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>HariSumiran - Families Directory</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Config (from Brand Anchors) -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#326e51",
+                    "primary-fixed-dim": "#ffb597",
+                    "secondary-fixed": "#b1f0cd",
+                    "on-surface": "#1e1b19",
+                    "primary": "#963700",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#eaf2ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#001d33",
+                    "on-secondary-fixed-variant": "#105137",
+                    "secondary": "#2d694d",
+                    "outline": "#8b7268",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fff8f5",
+                    "on-primary-fixed-variant": "#7e2c00",
+                    "surface-container": "#f4ece9",
+                    "secondary-fixed-dim": "#96d4b2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#002113",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#57423a",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#98cbff",
+                    "on-tertiary-fixed-variant": "#024a77",
+                    "secondary-container": "#aeedca",
+                    "surface-bright": "#fff8f5",
+                    "primary-container": "#b84d17",
+                    "surface-container-highest": "#e8e1dd",
+                    "surface-container-high": "#eee7e3",
+                    "surface-dim": "#e0d9d5",
+                    "surface-variant": "#e8e1dd",
+                    "background": "#fff8f5",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#ffdbcd",
+                    "tertiary-fixed": "#cfe5ff",
+                    "surface-container-low": "#faf2ee",
+                    "inverse-surface": "#33302e",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1e1b19",
+                    "tertiary": "#1f5987",
+                    "outline-variant": "#dec0b5",
+                    "tertiary-container": "#3c72a1",
+                    "surface-tint": "#a33e05",
+                    "inverse-primary": "#ffb597",
+                    "on-primary-container": "#ffeee9",
+                    "on-primary-fixed": "#360f00",
+                    "inverse-on-surface": "#f7efec"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "touch-target-min": "44px",
+                    "margin-main": "20px",
+                    "stack-gap": "12px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "branding-header": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "nav-large-title": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "gujarati-body": [
+                            "Noto Sans"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "branding-header": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "25px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "17px",
+                            {
+                                    "lineHeight": "22px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "nav-large-title": [
+                            "34px",
+                            {
+                                    "lineHeight": "41px",
+                                    "letterSpacing": "-0.4pt",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "letterSpacing": "0.2pt",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "gujarati-body": [
+                            "17px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "15px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #fff8f5; /* surface */
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-nav {
+            background-color: rgba(255, 248, 245, 0.85); /* surface with opacity */
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+        }
+        
+        .glass-bottom-bar {
+            background-color: rgba(255, 255, 255, 0.85); /* surface-container-lowest */
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+        }
+
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Subtle shadow for Level 1 Cards */
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(36, 33, 31, 0.04);
+        }
+        
+        /* Interaction states */
+        .interactive-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(36, 33, 31, 0.06);
+        }
+        
+        /* Mandala Watermark Pattern (CSS Base64 for the subtle background, keeping it clean as requested, but user requested no base64, so we will use a subtle CSS radial gradient to simulate the vibe) */
+        .mandala-bg {
+            background-image: radial-gradient(circle at center, rgba(139, 114, 104, 0.03) 0%, transparent 70%);
+            background-size: 300px 300px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased pb-[100px]"> <!-- Padding bottom for safe area + bottom nav -->
+<!-- TopAppBar (Based on JSON, adapted for Large Title Scroll behavior) -->
+<!-- Note: Initial state is Large Title. A real implementation would use JS to transition to compact TopAppBar on scroll. -->
+<header class="fixed top-0 w-full z-50 glass-nav border-b border-outline-variant/30 flex justify-between items-center px-margin-main h-touch-target-min transition-all duration-300" id="top-nav">
+<!-- Leading: Hidden on default large title, visible on scroll. We'll show an invisible placeholder for layout balance -->
+<div class="w-touch-target-min h-touch-target-min flex items-center justify-start invisible" id="nav-leading">
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<!-- Placeholder for Avatar -->
+</div>
+</div>
+<!-- Center Title: Hidden on large title, visible on scroll -->
+<div class="font-branding-header text-branding-header text-primary opacity-0 transition-opacity duration-300" id="nav-title">
+            Families
+        </div>
+<!-- Trailing Action -->
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-end text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[80px] px-margin-main relative z-0 min-h-screen mandala-bg">
+<!-- Large Title Area -->
+<div class="mb-stack-gap pt-stack-gap">
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface">Families</h1>
+</div>
+<!-- Search & Filter Bar -->
+<div class="flex items-center gap-unit mb-[24px]">
+<!-- Search Field -->
+<div class="flex-1 h-[40px] bg-black/5 rounded-lg flex items-center px-3 gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none p-0 flex-1 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:ring-0" placeholder="Search families..." type="text">
+</div>
+<!-- Filter Button -->
+<button class="h-[40px] px-4 rounded-lg bg-surface-container border border-outline-variant/50 flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                Filter
+            </button>
+</div>
+<!-- Directory List (Bento/Card Style) -->
+<div class="flex flex-col gap-stack-gap">
+<!-- Card 1 -->
+<article class="interactive-card bg-surface-container-lowest rounded-[16px] border border-[#E8E0D8] p-4 card-shadow transition-all duration-200">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Ghanshyamdas Patel Family</h2>
+<div class="flex items-center gap-1 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                            Nadiad West
+                        </div>
+</div>
+<!-- Status Chip: Success -->
+<div class="px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+                        Active
+                    </div>
+</div>
+<div class="h-[1px] w-full bg-outline-variant/30 my-3"></div>
+<!-- Quick Actions -->
+<div class="flex justify-around items-center pt-1">
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">call</span>
+<span class="font-label-sm text-label-sm">Call</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="font-label-sm text-label-sm">Navigate</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-sm text-label-sm">Message</span>
+</button>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="interactive-card bg-surface-container-lowest rounded-[16px] border border-[#E8E0D8] p-4 card-shadow transition-all duration-200">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Narayanbhai Amin Family</h2>
+<div class="flex items-center gap-1 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                            Piplag Road
+                        </div>
+</div>
+<!-- Status Chip: Warning (using error container colors as a proxy for warning in this palette) -->
+<div class="px-2 py-1 rounded-full bg-[#FFEED4] text-[#8C5A00] font-label-sm text-label-sm flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-[#CC8400]"></div>
+                        Visit Due
+                    </div>
+</div>
+<div class="h-[1px] w-full bg-outline-variant/30 my-3"></div>
+<!-- Quick Actions -->
+<div class="flex justify-around items-center pt-1">
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">call</span>
+<span class="font-label-sm text-label-sm">Call</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="font-label-sm text-label-sm">Navigate</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-sm text-label-sm">Message</span>
+</button>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="interactive-card bg-surface-container-lowest rounded-[16px] border border-[#E8E0D8] p-4 card-shadow transition-all duration-200">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Rameshwar Bhatt Family</h2>
+<div class="flex items-center gap-1 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                            College Road
+                        </div>
+</div>
+<!-- Status Chip: Success -->
+<div class="px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+                        Active
+                    </div>
+</div>
+<div class="h-[1px] w-full bg-outline-variant/30 my-3"></div>
+<!-- Quick Actions -->
+<div class="flex justify-around items-center pt-1">
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">call</span>
+<span class="font-label-sm text-label-sm">Call</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="font-label-sm text-label-sm">Navigate</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary hover:bg-primary/5 p-2 rounded-lg w-full">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-sm text-label-sm">Message</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Empty State (Hidden by default, used for structural demonstration) -->
+<div class="hidden flex-col items-center justify-center mt-[100px] text-center">
+<span class="material-symbols-outlined text-[64px] text-outline-variant mb-4 opacity-50">group_off</span>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">No families found in this area.</p>
+<button class="px-6 py-3 bg-primary text-on-primary rounded-full font-label-sm text-label-sm active:scale-95 transition-transform shadow-md">
+                Add New Family
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (From JSON) -->
+<!-- style_component_shape: fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 -->
+<!-- style_bg_color: bg-surface-container-lowest/70 backdrop-blur-2xl -->
+<!-- style_separation_logic: border border-white/20 shadow-sm -->
+<!-- style_shadows_and_elevation: shadow-xl shadow-on-surface/5 -->
+<!-- style_shell_layout: flex justify-around items-center py-2 px-4 -->
+<nav class="md:hidden glass-bottom-bar fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 border border-white/20 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Home</span>
+</a>
+<!-- Families (Active) -->
+<!-- style_active_navigation: flex flex-col items-center justify-center text-primary scale-110 transition-transform -->
+<a class="flex flex-col items-center justify-center text-primary scale-110 transition-transform w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Families</span>
+</a>
+<!-- Sabha (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors" href="#">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Sabha</span>
+</a>
+<!-- Tasks (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Tasks</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+<!-- Scroll Interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const topNav = document.getElementById('top-nav');
+            const navTitle = document.getElementById('nav-title');
+            
+            window.addEventListener('scroll', () => {
+                // If scrolled past 40px, show compact title, otherwise hide it
+                if (window.scrollY > 40) {
+                    navTitle.classList.remove('opacity-0');
+                    navTitle.classList.add('opacity-100');
+                    // Optional: Make background more opaque on scroll
+                    topNav.style.backgroundColor = 'rgba(255, 248, 245, 0.95)';
+                } else {
+                    navTitle.classList.remove('opacity-100');
+                    navTitle.classList.add('opacity-0');
+                    topNav.style.backgroundColor = 'rgba(255, 248, 245, 0.85)';
+                }
+            });
+        });
+    </script>
+</body></html>

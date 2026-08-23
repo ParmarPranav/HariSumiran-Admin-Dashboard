@@ -1,0 +1,276 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>HariSumiran - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#326e51",
+                        "primary-fixed-dim": "#ffb597",
+                        "secondary-fixed": "#b1f0cd",
+                        "on-surface": "#1e1b19",
+                        "primary": "#963700",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-secondary-fixed-variant": "#105137",
+                        "secondary": "#2d694d",
+                        "outline": "#8b7268",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fff8f5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "surface-container": "#f4ece9",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#57423a",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "secondary-container": "#aeedca",
+                        "surface-bright": "#fff8f5",
+                        "primary-container": "#b84d17",
+                        "surface-container-highest": "#e8e1dd",
+                        "surface-container-high": "#eee7e3",
+                        "surface-dim": "#e0d9d5",
+                        "surface-variant": "#e8e1dd",
+                        "background": "#fff8f5",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbcd",
+                        "tertiary-fixed": "#cfe5ff",
+                        "surface-container-low": "#faf2ee",
+                        "inverse-surface": "#33302e",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1e1b19",
+                        "tertiary": "#1f5987",
+                        "outline-variant": "#dec0b5",
+                        "tertiary-container": "#3c72a1",
+                        "surface-tint": "#a33e05",
+                        "inverse-primary": "#ffb597",
+                        "on-primary-container": "#ffeee9",
+                        "on-primary-fixed": "#360f00",
+                        "inverse-on-surface": "#f7efec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "touch-target-min": "44px",
+                        "margin-main": "20px",
+                        "stack-gap": "12px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased pb-32 selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20 flex justify-between items-center px-margin-main h-touch-target-min transition-all duration-200">
+<!-- Leading: Karyakarta Profile -->
+<button class="h-8 w-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/50 flex items-center justify-center hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a Karyakarta wearing traditional attire, softly lit against a calm, warm-toned background, conveying spiritual warmth and approachability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6MMlRvxkth3sKARLQ_Vx7kUqA-nOg-qGK6hT8P7c3KYL7j4MocKEEJw0NBLzsa56K0T-twodJOojg5GpRNr64Zm0ZZaFlLdYHILvhRBYIrv5ks2ZR2ftTw7c9XdlJK9V43FDGYCvYx69aynsBkvhawr-2J-HGsF918xcU5DWme21JepXHcbytR52V8dfcOej98sQ43XPCnhsv6q17d-bonLvCVMuLq_0Ri_y8wweu9hY9MkcQpl4B">
+</button>
+<!-- Headline -->
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim">HariSumiran</h1>
+<!-- Trailing: add_circle -->
+<button class="hover:opacity-80 transition-opacity text-primary dark:text-primary-fixed-dim flex items-center justify-center h-touch-target-min w-touch-target-min focus:outline-none">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">add_circle</span>
+</button>
+</header>
+<main class="pt-[72px] min-h-screen">
+<!-- Dynamic Header & Search -->
+<section class="px-margin-main pt-2 pb-6">
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface tracking-tight">Jai Swaminarayan</h2>
+<p class="font-body-lg text-on-surface-variant mt-1">Karyakarta Dashboard</p>
+<!-- iOS 27 Integrated Search Bar -->
+<div class="mt-5 flex items-center bg-surface-container-high/50 backdrop-blur-md rounded-xl px-4 py-2.5 border border-outline-variant/30 focus-within:border-primary/50 focus-within:bg-surface-container-highest transition-all duration-300">
+<span class="material-symbols-outlined text-on-surface-variant/70 mr-2 text-[20px]">search</span>
+<input aria-label="Search" class="bg-transparent border-none outline-none flex-1 text-on-surface placeholder:text-on-surface-variant/60 font-body-md w-full" placeholder="Search families, tasks, sabha..." type="text">
+<button class="ml-2 text-on-surface-variant/70 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+</section>
+<!-- Hero Section: Today's Focus -->
+<section class="px-margin-main mb-8">
+<div class="relative bg-surface-container-lowest rounded-2xl border border-outline-variant/40 p-6 shadow-sm overflow-hidden flex flex-col items-center text-center">
+<!-- Mandala Background -->
+<div class="absolute inset-0 opacity-[0.04] pointer-events-none" data-alt="A delicate, abstract geometric mandala pattern with seamless tiling, using subtle monochromatic tones to represent spiritual harmony and calm, serving as a minimal watermark background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCSNZJDbF1oHP9IWtl1areQQnAdDhJaEVBuQSrLm-HVuci4_vuQOFYbuJaOG-0C_cXPBRgKt1F_gPTRLqHQ_zBaHsDsLlEMolRHlp6FJ2GmDVdIgFBDIv0kqQPRxnTNY58gGBpk5CM1_Oe06os6_6syQLlp_xxBij-KegpmQ4lGirqrNHW0so2SkHyX4hbPTTQKNJmwiS3iopv_w2dSiC8ys3czqIzyrTwgbq-Ar4qrupQZz3kLqZpZ')"></div>
+<div class="relative z-10 w-full flex flex-col items-center">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-symbols-outlined text-[18px]">event</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest font-semibold">Today's Focus</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Sunday Sabha</h3>
+<!-- Countdown -->
+<div class="font-nav-large-title text-nav-large-title text-primary my-4 tabular-nums tracking-tighter flex items-baseline gap-1">
+<span>04</span><span class="text-body-md font-medium text-on-surface-variant opacity-70 mb-2">:</span>
+<span>12</span><span class="text-body-md font-medium text-on-surface-variant opacity-70 mb-2">:</span>
+<span>45</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-6">Starts at 6:30 PM</p>
+<!-- Primary Action -->
+<button class="bg-primary hover:bg-primary-container text-on-primary hover:text-on-primary-container rounded-full px-8 py-3.5 flex items-center justify-center gap-2 font-label-sm text-label-sm w-full max-w-[240px] transition-all duration-200 shadow-md shadow-primary/20 active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+                        Scan QR Attendance
+                    </button>
+</div>
+</div>
+</section>
+<!-- Task List: Pending for You -->
+<section class="px-margin-main mb-10">
+<div class="flex justify-between items-end mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Pending for You</h3>
+<button class="font-label-sm text-label-sm text-primary hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-stack-gap">
+<!-- Task Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-4 shadow-sm flex items-start gap-4 active:scale-[0.98] transition-transform duration-150">
+<div class="mt-1 h-6 w-6 rounded-full border-2 border-outline-variant flex items-center justify-center flex-shrink-0 cursor-pointer hover:border-primary transition-colors">
+<!-- Checkbox area -->
+</div>
+<div class="flex-1">
+<h4 class="font-label-sm text-label-sm text-on-surface font-semibold mb-1">Follow-up with Patel Family</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-[13px] leading-tight mb-2">Discuss upcoming festival seva availability.</p>
+<div class="flex items-center gap-1 text-error text-[11px] font-medium tracking-wide">
+<span class="material-symbols-outlined text-[14px]">schedule</span> Overdue
+                        </div>
+</div>
+<button class="text-on-surface-variant/50 hover:text-primary p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-4 shadow-sm flex items-start gap-4 active:scale-[0.98] transition-transform duration-150">
+<div class="mt-1 h-6 w-6 rounded-full border-2 border-outline-variant flex items-center justify-center flex-shrink-0 cursor-pointer hover:border-primary transition-colors"></div>
+<div class="flex-1">
+<h4 class="font-label-sm text-label-sm text-on-surface font-semibold mb-1">Thal Confirmation</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-[13px] leading-tight mb-2">Confirm menu for Sunday morning.</p>
+<div class="flex items-center gap-1 text-secondary text-[11px] font-medium tracking-wide">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span> Today
+                        </div>
+</div>
+<button class="text-on-surface-variant/50 hover:text-primary p-1">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Schedule: Upcoming Events -->
+<section class="mb-8">
+<div class="px-margin-main flex justify-between items-end mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Upcoming Events</h3>
+</div>
+<!-- Horizontal Scroll Container -->
+<div class="flex overflow-x-auto gap-gutter px-margin-main pb-4 snap-x hide-scrollbar">
+<!-- Event Card 1 -->
+<div class="snap-start flex-shrink-0 w-[240px] bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex items-center gap-2 text-primary mb-3">
+<span class="material-symbols-outlined text-[18px]">event_repeat</span>
+<span class="font-label-sm text-label-sm font-semibold">Today</span>
+</div>
+<h4 class="font-headline-md text-[16px] leading-tight text-on-surface mb-2">Weekly Sabha</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-[14px] flex items-center gap-1.5 mb-1">
+<span class="material-symbols-outlined text-[16px] opacity-70">schedule</span> 6:30 PM - 8:00 PM
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant text-[14px] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] opacity-70">location_on</span> Main Hall
+                    </p>
+</div>
+<!-- Event Card 2 -->
+<div class="snap-start flex-shrink-0 w-[240px] bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm relative overflow-hidden opacity-80">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="flex items-center gap-2 text-secondary mb-3">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="font-label-sm text-label-sm font-semibold">Tomorrow</span>
+</div>
+<h4 class="font-headline-md text-[16px] leading-tight text-on-surface mb-2">Karyakarta Goshthi</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-[14px] flex items-center gap-1.5 mb-1">
+<span class="material-symbols-outlined text-[16px] opacity-70">schedule</span> 8:00 PM
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant text-[14px] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] opacity-70">videocam</span> Zoom
+                    </p>
+</div>
+</div>
+</section>
+<!-- Sync Banner -->
+<div class="flex justify-center pb-8 pt-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 flex items-center gap-1.5 bg-surface-container-high/50 px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">cloud_done</span>
+                Last synced 2m ago
+            </p>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 dark:bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 dark:border-outline/10 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4">
+<!-- Tab: Home (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 transition-transform w-[60px] h-[50px]" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm text-[10px] leading-none">Home</span>
+</a>
+<!-- Tab: Families -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[60px] h-[50px] transition-colors" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="font-label-sm text-label-sm text-[10px] leading-none">Families</span>
+</a>
+<!-- Tab: Sabha -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[60px] h-[50px] transition-colors" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">event_repeat</span>
+<span class="font-label-sm text-label-sm text-[10px] leading-none">Sabha</span>
+</a>
+<!-- Tab: Tasks -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[60px] h-[50px] transition-colors" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">assignment</span>
+<span class="font-label-sm text-label-sm text-[10px] leading-none">Tasks</span>
+</a>
+<!-- Tab: Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[60px] h-[50px] transition-colors" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-sm text-label-sm text-[10px] leading-none">Profile</span>
+</a>
+</nav>
+</body></html>

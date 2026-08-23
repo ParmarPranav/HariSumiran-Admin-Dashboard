@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Approval Rules Control Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#aeedca",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-error": "#ffffff",
+                        "surface": "#fff8f5",
+                        "primary-container": "#b84d17",
+                        "surface-bright": "#fff8f5",
+                        "on-secondary-fixed-variant": "#105137",
+                        "secondary-fixed": "#b1f0cd",
+                        "surface-variant": "#e8e1dd",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-secondary-container": "#326e51",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#faf2ee",
+                        "inverse-surface": "#33302e",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#ffeee9",
+                        "on-background": "#1e1b19",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdbcd",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#eaf2ff",
+                        "outline-variant": "#dec0b5",
+                        "on-tertiary-fixed": "#001d33",
+                        "tertiary-container": "#3c72a1",
+                        "inverse-primary": "#ffb597",
+                        "tertiary": "#1f5987",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#e0d9d5",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-primary-fixed": "#360f00",
+                        "on-surface": "#1e1b19",
+                        "surface-container-high": "#eee7e3",
+                        "background": "#fff8f5",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "secondary": "#2d694d",
+                        "surface-container": "#f4ece9",
+                        "inverse-on-surface": "#f7efec",
+                        "on-surface-variant": "#57423a",
+                        "surface-tint": "#a33e05",
+                        "outline": "#8b7268",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "primary": "#963700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "margin-main": "20px",
+                        "touch-target-min": "44px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF9F5;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .liquid-glass {
+            background: rgba(255, 248, 245, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #963700;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #963700;
+        }
+        
+        .watermark-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" stroke="%23963700" stroke-width="1" fill="none" opacity="0.03"/><path d="M50 10 L50 90 M10 50 L90 50" stroke="%23963700" stroke-width="1" opacity="0.03"/></svg>');
+            background-repeat: repeat;
+            background-size: 200px 200px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased watermark-bg min-h-screen relative pb-32 md:pb-8">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl shadow-sm z-50 flex justify-between items-center px-margin-main h-16">
+<div class="flex items-center gap-3">
+<button aria-label="Go back" class="w-touch-target-min h-touch-target-min flex items-center justify-center text-primary dark:text-primary-fixed active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed">Approval Rules</h1>
+</div>
+<button aria-label="Settings" class="w-touch-target-min h-touch-target-min flex items-center justify-center text-primary dark:text-primary-fixed active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 px-margin-main max-w-[720px] mx-auto">
+<!-- Header Section -->
+<div class="mb-8">
+<p class="font-body-md text-on-surface-variant">Configure operational triggers that require human confirmation to proceed. Ensure appropriate security boundaries are maintained.</p>
+</div>
+<!-- Rule Categories (Bento-ish Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<!-- Category: Financial & Inventory -->
+<div class="col-span-1 md:col-span-2 mb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-unit">Financial &amp; Inventory</h2>
+</div>
+<!-- Rule Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-gutter shadow-[0_12px_40px_rgba(36,33,31,0.04)] active:scale-[0.98] transition-transform duration-200 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-unit">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<h3 class="font-label-sm text-label-sm font-semibold">Thal Swaps</h3>
+</div>
+<!-- Toggle -->
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="toggle-thal" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer" for="toggle-thal"></label>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-gap">Requires approval when a requested thal is swapped with another after confirmation.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto bg-surface-container-low rounded-lg p-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Approver: <strong class="text-on-surface">Coordinator</strong></span>
+</div>
+</div>
+<!-- Rule Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-gutter shadow-[0_12px_40px_rgba(36,33,31,0.04)] active:scale-[0.98] transition-transform duration-200 flex flex-col justify-between opacity-75">
+<div>
+<div class="flex justify-between items-start mb-unit">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock_open">lock_open</span>
+<h3 class="font-label-sm text-label-sm font-semibold">Expense &gt; ₹5000</h3>
+</div>
+<!-- Toggle -->
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="toggle-expense" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer" for="toggle-expense"></label>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-gap">Flag any single expense submission exceeding the 5000 limit.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto bg-surface-container-low rounded-lg p-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="shield_person">shield_person</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Approver: <strong class="text-on-surface">Administrator</strong></span>
+</div>
+</div>
+<!-- Category: Communications -->
+<div class="col-span-1 md:col-span-2 mt-4 mb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-unit">Communications</h2>
+</div>
+<!-- Rule Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-gutter shadow-[0_12px_40px_rgba(36,33,31,0.04)] active:scale-[0.98] transition-transform duration-200 flex flex-col justify-between md:col-span-2">
+<div class="md:flex md:justify-between md:gap-4">
+<div class="flex-1">
+<div class="flex justify-between items-start mb-unit md:justify-start md:gap-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<h3 class="font-label-sm text-label-sm font-semibold">Broadcasts &gt; 200 Recipients</h3>
+</div>
+<!-- Toggle Mobile -->
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in md:hidden">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="toggle-broadcast-m" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer" for="toggle-broadcast-m"></label>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-gap">Mass communications require sign-off to prevent spam and ensure messaging alignment.</p>
+</div>
+<div class="flex flex-col items-end justify-between">
+<!-- Toggle Desktop -->
+<div class="relative hidden md:inline-block w-10 mb-4 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="toggle-broadcast-d" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer" for="toggle-broadcast-d"></label>
+</div>
+<div class="flex items-center gap-2 w-full md:w-auto bg-surface-container-low rounded-lg p-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="shield_person">shield_person</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Approver: <strong class="text-on-surface">Administrator</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: System Access -->
+<div class="col-span-1 md:col-span-2 mt-4 mb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-unit">System Access</h2>
+</div>
+<!-- Rule Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-gutter shadow-[0_12px_40px_rgba(36,33,31,0.04)] active:scale-[0.98] transition-transform duration-200 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-unit">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<h3 class="font-label-sm text-label-sm font-semibold">New Karyakarta Onboarding</h3>
+</div>
+<!-- Toggle -->
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="toggle-onboard" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer" for="toggle-onboard"></label>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-gap">Finalize system access and role assignments for new volunteers.</p>
+</div>
+<div class="flex items-center gap-2 mt-auto bg-surface-container-low rounded-lg p-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Approver: <strong class="text-on-surface">Coordinator</strong></span>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation suppressed as this is a specific settings/control panel intent (Task-focused/Sub-page) -->
+<script>
+        // Simple toggle sync for the responsive broadcast card
+        document.getElementById('toggle-broadcast-m').addEventListener('change', function(e) {
+            document.getElementById('toggle-broadcast-d').checked = e.target.checked;
+            toggleOpacity(this.closest('.bg-surface-container-lowest'), e.target.checked);
+        });
+        
+        document.getElementById('toggle-broadcast-d').addEventListener('change', function(e) {
+            document.getElementById('toggle-broadcast-m').checked = e.target.checked;
+            toggleOpacity(this.closest('.bg-surface-container-lowest'), e.target.checked);
+        });
+
+        // Add visual feedback for toggles
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            toggle.addEventListener('change', function(e) {
+                const card = this.closest('.bg-surface-container-lowest');
+                const icon = card.querySelector('.material-symbols-outlined');
+                const titleContainer = icon.closest('div');
+                
+                toggleOpacity(card, e.target.checked);
+
+                if(e.target.checked) {
+                    icon.textContent = 'lock';
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                    titleContainer.classList.replace('text-on-surface-variant', 'text-primary');
+                } else {
+                    icon.textContent = 'lock_open';
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                    titleContainer.classList.replace('text-primary', 'text-on-surface-variant');
+                }
+            });
+        });
+
+        function toggleOpacity(card, isChecked) {
+             if(isChecked) {
+                    card.classList.remove('opacity-75');
+                } else {
+                    card.classList.add('opacity-75');
+                }
+        }
+    </script>
+</body></html>

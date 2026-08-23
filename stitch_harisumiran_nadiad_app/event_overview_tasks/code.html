@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Event Overview - Diwali Utsav 2024</title>
+<!-- Tailwind CSS & Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: 300;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+            .liquid-glass {
+                background: rgba(255, 255, 255, 0.65);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+            }
+            .dark .liquid-glass {
+                background: rgba(244, 236, 233, 0.65); /* surface-container */
+            }
+        }
+        
+        @supports not ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+            .liquid-glass {
+                background: rgba(255, 255, 255, 0.95);
+            }
+            .dark .liquid-glass {
+                background: rgba(244, 236, 233, 0.95);
+            }
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .touch-feedback:active {
+            transform: scale(0.98);
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            background-color: #FBF9F5;
+            -webkit-tap-highlight-color: transparent;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<!-- Tailwind Configuration from Brand Anchors -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#360f00",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "inverse-on-surface": "#f7efec",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#ffeee9",
+                        "inverse-surface": "#33302e",
+                        "on-secondary-fixed-variant": "#105137",
+                        "background": "#fff8f5",
+                        "surface-variant": "#e8e1dd",
+                        "surface-dim": "#e0d9d5",
+                        "error": "#ba1a1a",
+                        "primary-container": "#b84d17",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#dec0b5",
+                        "on-surface": "#1e1b19",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "on-background": "#1e1b19",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "inverse-primary": "#ffb597",
+                        "secondary-container": "#aeedca",
+                        "on-secondary-container": "#326e51",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fff8f5",
+                        "surface-tint": "#a33e05",
+                        "surface-container": "#f4ece9",
+                        "tertiary-container": "#3c72a1",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary-fixed": "#b1f0cd",
+                        "secondary": "#2d694d",
+                        "tertiary": "#1f5987",
+                        "surface-container-high": "#eee7e3",
+                        "on-surface-variant": "#57423a",
+                        "primary-fixed": "#ffdbcd",
+                        "surface": "#fff8f5",
+                        "primary-fixed-dim": "#ffb597",
+                        "surface-container-low": "#faf2ee",
+                        "primary": "#963700",
+                        "outline": "#8b7268",
+                        "canvas": "#FBF9F5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "touch-target": "44px",
+                        "margin-mobile": "20px",
+                        "stack-gap": "12px",
+                        "unit": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "gujarati-body": ["Noto Sans Gujarati", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "wordmark": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500"}],
+                        "gujarati-body": ["17px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "body-lg": ["17px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "wordmark": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "25px", "fontWeight": "600"}],
+                        "headline-lg": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.4pt", "fontWeight": "700"}],
+                        "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "0.5pt", "fontWeight": "600", "textTransform": "uppercase"}]
+                    },
+                    "boxShadow": {
+                        "liquid-card": "0 4px 24px -8px rgba(36, 33, 31, 0.08), 0 0 1px 0 rgba(36, 33, 31, 0.15)",
+                        "liquid-nav": "0 -4px 24px -8px rgba(36, 33, 31, 0.04), 0 -1px 0 0 rgba(232, 224, 216, 0.5)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-canvas text-on-surface antialiased selection:bg-primary/20 selection:text-primary font-body-md">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-40 bg-canvas/80 backdrop-blur-md border-b-[0.5px] border-border-subtle flat no shadows">
+<div class="flex items-center justify-between px-margin-mobile h-touch-target w-full z-40 pt-[env(safe-area-inset-top)]">
+<!-- Leading -->
+<button aria-label="Go Back" class="flex items-center justify-center w-touch-target h-touch-target rounded-full hover:bg-surface-variant transition-colors group touch-feedback">
+<span class="material-symbols-outlined text-primary group-hover:opacity-80 transition-opacity">arrow_back</span>
+</button>
+<!-- Headline -->
+<div class="flex-1 flex justify-center">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed truncate px-4">Event Overview</h1>
+</div>
+<!-- Trailing -->
+<button aria-label="Edit Event" class="flex items-center justify-center w-touch-target h-touch-target rounded-full hover:bg-surface-variant transition-colors group touch-feedback">
+<span class="material-symbols-outlined text-primary group-hover:opacity-80 transition-opacity">edit</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pb-32 px-margin-mobile pt-stack-gap max-w-3xl mx-auto space-y-6">
+<!-- Hero Card: Event Overview -->
+<section class="bg-surface-container-lowest rounded-3xl p-6 shadow-liquid-card border-[0.5px] border-surface-variant relative overflow-hidden">
+<!-- Decorative Background Element -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-secondary-container text-on-secondary-container mb-2">Upcoming</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Diwali Utsav 2024</h2>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            Nov 12 - Nov 15, 2024
+                        </p>
+</div>
+<div class="w-12 h-12 bg-primary-container rounded-2xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">celebration</span>
+</div>
+</div>
+<!-- Progress Section -->
+<div class="mt-2 bg-surface p-4 rounded-2xl border border-surface-variant">
+<div class="flex justify-between items-end mb-2">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Overall Readiness</p>
+<p class="font-headline-md text-headline-md text-primary">75%</p>
+</div>
+<p class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> On Track
+                        </p>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-1000 ease-out" style="width: 75%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Custom Segmented Control (Tabs) -->
+<div class="sticky top-[calc(env(safe-area-inset-top)+44px)] z-30 -mx-margin-mobile px-margin-mobile py-2 bg-canvas/90 backdrop-blur-md">
+<div class="flex overflow-x-auto hide-scrollbar gap-2 p-1 bg-surface-variant/50 rounded-2xl">
+<button class="flex-1 min-w-[80px] px-4 py-2 rounded-xl text-label-sm font-label-sm whitespace-nowrap transition-colors text-on-surface-variant hover:text-on-surface touch-feedback">Timeline</button>
+<button class="flex-1 min-w-[80px] px-4 py-2 rounded-xl text-label-sm font-label-sm whitespace-nowrap transition-colors text-on-surface-variant hover:text-on-surface touch-feedback">Committee</button>
+<!-- Active Tab -->
+<button class="flex-1 min-w-[80px] px-4 py-2 rounded-xl text-label-sm font-label-sm whitespace-nowrap transition-all shadow-sm bg-surface-container-lowest text-primary ring-1 ring-primary/10 touch-feedback">Tasks</button>
+<button class="flex-1 min-w-[80px] px-4 py-2 rounded-xl text-label-sm font-label-sm whitespace-nowrap transition-colors text-on-surface-variant hover:text-on-surface touch-feedback">Registrations</button>
+</div>
+</div>
+<!-- Tab Content: Tasks Preview -->
+<section class="space-y-4 animate-[fadeIn_0.3s_ease-out]">
+<div class="flex justify-between items-center px-1">
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Critical Tasks</h3>
+<button class="text-primary font-label-sm text-label-sm hover:opacity-80 transition-opacity">View All</button>
+</div>
+<!-- Task List Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<!-- Task Card 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-liquid-card border-[0.5px] border-surface-variant touch-feedback flex gap-4 cursor-pointer hover:bg-surface transition-colors">
+<button aria-label="Mark Complete" class="w-6 h-6 rounded-full border-2 border-outline-variant flex-shrink-0 flex items-center justify-center hover:border-primary hover:bg-primary/5 transition-colors mt-0.5"></button>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-medium text-on-surface line-clamp-2">Finalize Sabha Mandap Layout &amp; Seating</h4>
+<div class="flex items-center gap-3 mt-2">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-error">
+<span class="material-symbols-outlined text-[14px]">warning</span> High Priority
+                            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Due Today</span>
+</div>
+</div>
+<img alt="Assignee" class="w-8 h-8 rounded-full object-cover border-[0.5px] border-border-subtle shadow-sm bg-surface-variant" data-alt="A small, professional headshot photo of an Indian male volunteer (Karyakarta) in his 30s, wearing traditional neat attire, softly lit against a bright, modern, minimalist background. The lighting is bright and even, fitting a light-mode UI avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfmGBBQeitKSLDU_KhkTtsBtpVwNLjPCQC5e6OSMyVkBreHyRNoKKPyiYh52WMaHTCFHpDf8qcmNJ68NmfDsJfhWdvDB1S0eS9Mbq6dvhk5rvFgtb3ut77nRBYvI6E6Q3c3UEENG4yrcmGRbvNXk61wjOGFivQJPDtHcPFYIGuuS0KIA3FgHTE19J8tUrTjVy72_3faJf7WnqPQW9I6V54XLpRi_UEXvwFNkjb3LHS3Sk81kcaKbNg"/>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-liquid-card border-[0.5px] border-surface-variant touch-feedback flex gap-4 cursor-pointer hover:bg-surface transition-colors">
+<button aria-label="Mark Complete" class="w-6 h-6 rounded-full border-2 border-outline-variant flex-shrink-0 flex items-center justify-center hover:border-primary hover:bg-primary/5 transition-colors mt-0.5"></button>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md font-medium text-on-surface line-clamp-2">Confirm Prasad Vendor Deliveries</h4>
+<div class="flex items-center gap-3 mt-2">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary">
+<span class="material-symbols-outlined text-[14px]">local_dining</span> Catering
+                            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Due Tomorrow</span>
+</div>
+</div>
+<img alt="Assignee" class="w-8 h-8 rounded-full object-cover border-[0.5px] border-border-subtle shadow-sm bg-surface-variant" data-alt="A small, professional headshot photo of an Indian female volunteer (Karyakarta) in her 40s, with a warm smile, wearing neat, modest attire, softly lit against a bright, modern, minimalist white background. Light-mode UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHiFeOiIeXRSdq2KgAR1P6F6_6O9Yf1VoZJ2GwWb8kPdmUx2u6dvNPTRVBnuJ4d1aNpJyFTX_SdvJxnKmvZDh5WkanRcrFU3qFo-1BX-4nEY__oIyYOn5arv_2Xf0q8OU438bDf5onUScjgwcqSU0YYX_mq-haLix8ujA9k7XT-8TpsNwUQct3OGdxjtbLmOolpSWXaeulEZVeeWaQ6DvjQxOzO2DV74lw6FX6mODguVLkwOW29Hao"/>
+</div>
+</div>
+<!-- Quick Add Action -->
+<button class="w-full py-4 border-2 border-dashed border-primary/20 rounded-2xl flex items-center justify-center gap-2 text-primary font-body-md text-body-md font-medium hover:bg-primary/5 transition-colors touch-feedback">
+<span class="material-symbols-outlined">add_circle</span>
+                Add New Task
+            </button>
+</section>
+</main>
+<!-- BottomNavBar (Shared Component JSON execution) -->
+<nav class="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md z-50 flex justify-around items-center px-2 bg-white/70 backdrop-blur-2xl dark:bg-surface-container/70 border-[0.5px] border-border-subtle shadow-liquid-nav docked full-width bottom-4 px-4 h-16 rounded-full">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-touch-target h-touch-target rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">home</span>
+<span class="font-label-caps text-[10px] mt-0.5 uppercase">Home</span>
+</a>
+<!-- Families -->
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-touch-target h-touch-target rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">group</span>
+<span class="font-label-caps text-[10px] mt-0.5 uppercase">Families</span>
+</a>
+<!-- Sabha (Active) - Semantic Match for Event -->
+<a class="flex flex-col items-center justify-center bg-gradient-to-tr from-primary-container to-surface-tint text-white rounded-full w-12 h-12 scale-95 duration-150 shadow-sm relative -top-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<!-- Hidden label for accessibility, visible visually in inactive state normally, but JSON says active state is just icon -->
+</a>
+<!-- Tasks -->
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-touch-target h-touch-target rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">assignment</span>
+<span class="font-label-caps text-[10px] mt-0.5 uppercase">Tasks</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-touch-target h-touch-target rounded-full group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">person</span>
+<span class="font-label-caps text-[10px] mt-0.5 uppercase">Profile</span>
+</a>
+</nav>
+</body></html>

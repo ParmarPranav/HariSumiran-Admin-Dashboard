@@ -1,0 +1,508 @@
+{
+  "info": {
+    "_postman_id": "harisumiran-nadiad-api-v2",
+    "name": "HariSumiran Mandir Operations API",
+    "description": "Comprehensive RESTful API collection for HariSumiran (HariPrabodham, Nadiad) covering Auth, Families, Members, Sabha Attendance, Follow-Up, Seva, Assets, Events, Thal Rotation, and Admin settings.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "demo_jwt_token_harisumiran",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Auth & Session",
+      "item": [
+        {
+          "name": "Send OTP (Mobile/Email)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"send_otp\",\n  \"phone\": \"9825023456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth"]
+            }
+          }
+        },
+        {
+          "name": "Verify OTP (Code 123456)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"verify_otp\",\n  \"phone\": \"9825023456\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth"]
+            }
+          }
+        },
+        {
+          "name": "Switch Persona Role",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"switch_role\",\n  \"role\": \"karyakarta\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Database Seed & Health",
+      "item": [
+        {
+          "name": "Get MongoDB Atlas Health & Counts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/seed",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "seed"]
+            }
+          }
+        },
+        {
+          "name": "Seed Initial Nadiad Operations Data",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/seed",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "seed"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Families Directory & 360",
+      "item": [
+        {
+          "name": "List Families (with Filters)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/families?search=&area=Station Road&engagement=High",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "families"],
+              "query": [
+                { "key": "search", "value": "" },
+                { "key": "area", "value": "Station Road" },
+                { "key": "engagement", "value": "High" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Register New Household",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Vora Family (Ashokbhai)\",\n  \"gujaratiName\": \"વોરા પરિવાર\",\n  \"captainName\": \"Ashokbhai Vora\",\n  \"phone\": \"9825044556\",\n  \"address\": \"12, Vallabh Park, Petlad Road\",\n  \"area\": \"Petlad Road\",\n  \"zone\": \"West Nadiad\",\n  \"notes\": \"Regular contributors to Seva activities\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/families",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "families"]
+            }
+          }
+        },
+        {
+          "name": "Log Touchpoint / Interaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interactionType\": \"Home Visit\",\n  \"notes\": \"Visited with Mahaprasad; family confirmed upcoming Sabha attendance.\",\n  \"requiresFollowUp\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/families/sample_family_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "families", "sample_family_id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Member Registry & Verification",
+      "item": [
+        {
+          "name": "List Members (with Skills Filter)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/members?skill=Sound&status=Verified",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members"],
+              "query": [
+                { "key": "skill", "value": "Sound" },
+                { "key": "status", "value": "Verified" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Register Individual Member",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Devansh Patel\",\n  \"familyName\": \"Patel Household (Rameshbhai)\",\n  \"dob\": \"2000-11-05\",\n  \"gender\": \"Male\",\n  \"phone\": \"9825067890\",\n  \"relationship\": \"Son\",\n  \"sevaSkills\": [\"Sound & Broadcast\", \"Live Streaming\"],\n  \"communicationConsent\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/members",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "members"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Sabha & Live Attendance",
+      "item": [
+        {
+          "name": "List Sabha Sessions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/sabha",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sabha"]
+            }
+          }
+        },
+        {
+          "name": "Mark Attendance (QR or Code)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sabhaId\": \"sample_sabha_id\",\n  \"memberCode\": \"MEM-NAD-001\",\n  \"mode\": \"QR\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sabha/attendance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sabha", "attendance"]
+            }
+          }
+        },
+        {
+          "name": "Schedule New Satsang Sabha",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Special Janmashtami Mahotsav Sabha\",\n  \"type\": \"Special Mahotsav\",\n  \"date\": \"2026-08-30\",\n  \"startTime\": \"17:30\",\n  \"endTime\": \"21:30\",\n  \"location\": \"Mandir Ground, Nadiad\",\n  \"expectedCount\": 350\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sabha",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sabha"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Follow-Up & Pastoral Care",
+      "item": [
+        {
+          "name": "List Prioritized Cases (Overdue / Due Today)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/follow-up?urgency=Overdue",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "follow-up"],
+              "query": [{ "key": "urgency", "value": "Overdue" }]
+            }
+          }
+        },
+        {
+          "name": "Add Confidential Interaction Note",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"add_note\",\n  \"authorName\": \"Jaimin Trivedi\",\n  \"note\": \"Spoke with family elder; recovering well after surgery.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/follow-up/sample_case_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "follow-up", "sample_case_id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Seva Opportunities & Rosters",
+      "item": [
+        {
+          "name": "Get Seva Opportunities Catalog",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/seva",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "seva"]
+            }
+          }
+        },
+        {
+          "name": "Schedule Volunteer Shift",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"opportunityId\": \"sample_opp_id\",\n  \"volunteerName\": \"Hansaben Patel\",\n  \"volunteerPhone\": \"9825056780\",\n  \"date\": \"2026-08-23\",\n  \"shiftStartTime\": \"16:00\",\n  \"shiftEndTime\": \"19:00\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/seva/roster",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "seva", "roster"]
+            }
+          }
+        },
+        {
+          "name": "Duty Check-In / Check-Out",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rosterId\": \"sample_roster_id\",\n  \"action\": \"check_in\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/seva/check-in",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "seva", "check-in"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Assets & Hall Bookings",
+      "item": [
+        {
+          "name": "List Assets Inventory",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/assets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "assets"]
+            }
+          }
+        },
+        {
+          "name": "Issue / Borrow Asset",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assetId\": \"sample_asset_id\",\n  \"action\": \"borrow\",\n  \"holderName\": \"Devansh Patel\",\n  \"returnDate\": \"2026-08-24\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/assets/borrow",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "assets", "borrow"]
+            }
+          }
+        },
+        {
+          "name": "Reserve Hall (with Conflict Check)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomName\": \"Conference Hall B\",\n  \"purpose\": \"Festival Coordination Meeting\",\n  \"bookedBy\": \"Nitinbhai Patel\",\n  \"date\": \"2026-08-25\",\n  \"startTime\": \"19:00\",\n  \"endTime\": \"20:30\",\n  \"attendees\": 15\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/assets/rooms",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "assets", "rooms"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. Events & Passes",
+      "item": [
+        {
+          "name": "List Upcoming Festivals",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "events"]
+            }
+          }
+        },
+        {
+          "name": "Register for Event & Issue QR Pass",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": \"sample_event_id\",\n  \"memberName\": \"Devansh Patel\",\n  \"familyName\": \"Patel Household (Rameshbhai)\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/events/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "events", "register"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Thal Rotation & Swaps",
+      "item": [
+        {
+          "name": "Get Monthly Thal Calendar & AI Ranking",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/thal?month=2026-08",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal"],
+              "query": [{ "key": "month", "value": "2026-08" }]
+            }
+          }
+        },
+        {
+          "name": "Assign Household Thal Turn",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2026-08-27\",\n  \"mealType\": \"Morning Thal\",\n  \"assignedFamilyName\": \"Shah Family (Mukeshbhai)\",\n  \"assignedPhone\": \"9825098765\",\n  \"headcount\": 45\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal"]
+            }
+          }
+        },
+        {
+          "name": "Submit Thal Swap Request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"thalScheduleId\": \"sample_thal_id\",\n  \"originalDate\": \"2026-08-26\",\n  \"requestingFamilyName\": \"Trivedi Parivar (Hareshbhai)\",\n  \"reason\": \"Medical recovery after surgery\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal/swap",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal", "swap"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "11. Communication & Broadcast",
+      "item": [
+        {
+          "name": "List Announcements & Delivery Stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "announcements"]
+            }
+          }
+        },
+        {
+          "name": "Send Multilingual Broadcast",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Janmashtami Mahotsav Gate Timings\",\n  \"gujaratiTitle\": \"શ્રીકૃષ્ણ જન્માષ્ટમી સમય અને પ્રવેશ\",\n  \"body\": \"Grand celebration commences at 5:30 PM. Please have your QR passes ready.\",\n  \"targetAudience\": \"Everyone\",\n  \"channels\": [\"App Push\", \"WhatsApp\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "announcements"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "12. Admin & Analytics",
+      "item": [
+        {
+          "name": "Get Mandir Operations Dashboard Analytics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/analytics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analytics"]
+            }
+          }
+        },
+        {
+          "name": "Get Role-Permission Matrix & System Info",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/admin",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HariSumiran - Asset Registry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=Noto+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#8b7268",
+                        "surface-container-low": "#faf2ee",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e8e1dd",
+                        "surface": "#fff8f5",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#360f00",
+                        "on-secondary-fixed-variant": "#105137",
+                        "primary-fixed": "#ffdbcd",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-background": "#1e1b19",
+                        "primary-container": "#b84d17",
+                        "on-primary-container": "#ffeee9",
+                        "on-secondary-container": "#326e51",
+                        "inverse-primary": "#ffb597",
+                        "on-secondary-fixed": "#002113",
+                        "on-surface-variant": "#57423a",
+                        "outline-variant": "#dec0b5",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fff8f5",
+                        "inverse-surface": "#33302e",
+                        "secondary": "#2d694d",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "primary": "#963700",
+                        "tertiary": "#1f5987",
+                        "secondary-fixed": "#b1f0cd",
+                        "surface-tint": "#a33e05",
+                        "tertiary-fixed": "#cfe5ff",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-surface": "#1e1b19",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "tertiary-container": "#3c72a1",
+                        "secondary-container": "#aeedca",
+                        "surface-container": "#f4ece9",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#e0d9d5",
+                        "inverse-on-surface": "#f7efec",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "surface-container-highest": "#e8e1dd",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#eee7e3",
+                        "surface-bright": "#fff8f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "touch-target-min": "44px",
+                        "gutter": "16px",
+                        "margin-main": "20px",
+                        "unit": "8px",
+                        "stack-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .haptic-feedback:active {
+            transform: scale(0.95);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-32 pt-20 antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 flex justify-between items-center px-margin-main h-touch-target-min">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden shrink-0 bg-cover bg-center" data-alt="A subtle, minimalist profile avatar silhouette against a soft warm gradient background, high-end ui aesthetic, soft lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBUjPFIOknAji-3blGPcj4jxMF8rbIl3sw6L73aSgh2X-t4t4XhQ95zeIfhRl_CL8mnfYoLWqmAcVK0kIH0x0KvS6vhKsxfBl0IkCo9-a4CRujLEAS6IlhQSRTQu9ruGD4P4ZYts7wadm2sRsY4HPU8oPp5_mZA2RWvfVM1s3rJWBHQACjzGTOS55NYZUC7-kQJPuoy8apKCeYgHznoQ2fgN4ei69nY8YtX6X9DKvpSTdXY8NCQHpBN')"></div>
+<h1 class="font-branding-header text-branding-header text-primary absolute left-1/2 -translate-x-1/2">HariSumiran</h1>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out shrink-0 flex items-center justify-center w-8 h-8">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-3xl mx-auto md:px-margin-main">
+<!-- Header & Search -->
+<div class="px-margin-main md:px-0 mt-6 mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4">Asset Registry</h2>
+<div class="relative w-full h-touch-target-min flex items-center bg-surface-container-lowest rounded-full px-4 border border-outline-variant/50 shadow-sm shadow-on-surface/5 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-3">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 p-0 outline-none" placeholder="Search assets, rooms, or QR..." type="text"/>
+</div>
+</div>
+<!-- Filters -->
+<div class="px-margin-main md:px-0 overflow-x-auto no-scrollbar flex gap-2 pb-4">
+<button class="h-8 px-4 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap shadow-sm">All</button>
+<button class="h-8 px-4 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors">Available</button>
+<button class="h-8 px-4 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors">In Use</button>
+<button class="h-8 px-4 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high transition-colors">Maintenance</button>
+</div>
+<!-- List Content -->
+<div class="px-margin-main md:px-0 flex flex-col gap-unit">
+<!-- Row 1: PA System (Available) -->
+<div class="bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 shadow-sm shadow-on-surface/5 p-4 flex justify-between items-center active:scale-[0.98] transition-transform cursor-pointer">
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md text-on-surface font-medium">PA System #4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 opacity-80">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Main Hall
+                    </span>
+</div>
+<div class="flex items-center gap-1 bg-secondary-container/50 text-on-secondary-container px-2.5 py-1 rounded-full font-label-sm text-[11px] uppercase tracking-wider font-semibold border border-secondary-container">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Available
+                </div>
+</div>
+<!-- Row 2: Folding Tables (In Use) -->
+<div class="bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 shadow-sm shadow-on-surface/5 p-4 flex flex-col gap-3 active:scale-[0.98] transition-transform cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#fbbf24]"></div>
+<div class="flex justify-between items-start pl-2">
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md text-on-surface font-medium">Folding Tables (10)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 opacity-80">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Storage A
+                        </span>
+</div>
+<div class="flex items-center gap-1 bg-[#fffbeb] text-[#b45309] px-2.5 py-1 rounded-full font-label-sm text-[11px] uppercase tracking-wider font-semibold border border-[#fde68a]">
+<span class="material-symbols-outlined text-[14px]">schedule</span> In Use
+                    </div>
+</div>
+<div class="ml-2 font-label-sm text-[12px] text-on-surface-variant flex items-center gap-1.5 bg-surface-container-high/50 px-2 py-1.5 rounded-lg w-fit border border-outline-variant/20">
+<span class="material-symbols-outlined text-[16px]">person</span> Borrowed by Amit S.
+                </div>
+</div>
+<!-- Row 3: Projector B (Maintenance) -->
+<div class="bg-surface-container-lowest rounded-[16px] border border-outline-variant/30 shadow-sm shadow-on-surface/5 p-4 flex justify-between items-center active:scale-[0.98] transition-transform cursor-pointer opacity-80 hover:opacity-100">
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md text-on-surface font-medium">Projector B</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 opacity-80">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Media Room
+                    </span>
+</div>
+<div class="flex items-center gap-1 bg-error-container/50 text-on-error-container px-2.5 py-1 rounded-full font-label-sm text-[11px] uppercase tracking-wider font-semibold border border-error-container">
+<span class="material-symbols-outlined text-[14px]">build</span> Maintenance
+                </div>
+</div>
+</div>
+</main>
+<!-- FAB: QR Scanner -->
+<button class="fixed bottom-28 right-margin-main w-[56px] h-[56px] bg-primary text-on-primary rounded-[16px] shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-95 transition-transform z-40 active:bg-surface-tint haptic-feedback md:right-[calc(50%-360px+20px)]">
+<span class="material-symbols-outlined text-[24px]">qr_code_scanner</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4 md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full p-2 haptic-feedback transition-colors w-14">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-0.5">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full p-2 haptic-feedback transition-colors w-14">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-[10px] mt-0.5">Families</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full p-2 haptic-feedback transition-colors w-14">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-sm text-[10px] mt-0.5">Sabha</span>
+</button>
+<!-- Active Tab: Tasks represents the registry functionality -->
+<button class="flex flex-col items-center justify-center text-primary scale-110 transition-transform haptic-feedback w-14">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-sm text-[10px] mt-0.5 font-semibold">Tasks</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full p-2 haptic-feedback transition-colors w-14">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px] mt-0.5">Profile</span>
+</button>
+</nav>
+</body></html>

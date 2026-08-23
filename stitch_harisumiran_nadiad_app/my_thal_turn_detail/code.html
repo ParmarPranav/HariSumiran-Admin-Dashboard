@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>HariSumiran - Thal Turn Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&amp;family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#963700",
+                    "inverse-on-surface": "#f7efec",
+                    "on-secondary-container": "#326e51",
+                    "secondary": "#2d694d",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fff8f5",
+                    "primary-fixed": "#ffdbcd",
+                    "surface-container": "#f4ece9",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#eee7e3",
+                    "on-primary-fixed": "#360f00",
+                    "surface-dim": "#e0d9d5",
+                    "surface-variant": "#e8e1dd",
+                    "background": "#fff8f5",
+                    "on-primary-fixed-variant": "#7e2c00",
+                    "secondary-container": "#aeedca",
+                    "on-tertiary-fixed-variant": "#024a77",
+                    "tertiary-container": "#3c72a1",
+                    "inverse-surface": "#33302e",
+                    "on-secondary-fixed-variant": "#105137",
+                    "on-secondary-fixed": "#002113",
+                    "tertiary-fixed": "#cfe5ff",
+                    "inverse-primary": "#ffb597",
+                    "surface-tint": "#a33e05",
+                    "secondary-fixed-dim": "#96d4b2",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#ffb597",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1e1b19",
+                    "surface-container-low": "#faf2ee",
+                    "primary-container": "#b84d17",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#98cbff",
+                    "secondary-fixed": "#b1f0cd",
+                    "on-surface": "#1e1b19",
+                    "outline": "#8b7268",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#dec0b5",
+                    "surface": "#fff8f5",
+                    "on-tertiary-container": "#eaf2ff",
+                    "on-tertiary-fixed": "#001d33",
+                    "on-primary-container": "#ffeee9",
+                    "surface-container-highest": "#e8e1dd",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#1f5987",
+                    "on-surface-variant": "#57423a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "stack-gap": "12px",
+                    "margin-main": "20px",
+                    "unit": "8px",
+                    "touch-target-min": "44px"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "gujarati-body": [
+                            "Noto Sans"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "branding-header": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "nav-large-title": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "25px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "15px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "letterSpacing": "0.2pt",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "gujarati-body": [
+                            "17px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "17px",
+                            {
+                                    "lineHeight": "22px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "branding-header": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "nav-large-title": [
+                            "34px",
+                            {
+                                    "lineHeight": "41px",
+                                    "letterSpacing": "-0.4pt",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Level 0 Watermark */
+        .bg-watermark {
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="%23963700" stroke-width="2" opacity="0.05"/></svg>');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 80%;
+        }
+        
+        /* Level 1 Shadows */
+        .shadow-level-1 {
+            box-shadow: 0 4px 12px rgba(36, 33, 31, 0.04);
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Interactive touch */
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+        }
+        .active-scale:active {
+            transform: scale(0.98);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md antialiased pb-24 md:pb-0 relative bg-watermark">
+<!-- Top Navigation (Task-Focused: Suppressing Main Global Nav, Using Modal/Detail Header) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20">
+<div class="flex justify-between items-center px-margin-main h-touch-target-min w-full">
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity flex items-center justify-center touch-target">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back_ios</span>
+</button>
+<div class="font-headline-md text-headline-md text-on-surface">Your Thal Turn</div>
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity flex items-center justify-center touch-target">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">more_horiz</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[80px] px-margin-main max-w-[720px] mx-auto pb-12">
+<!-- Large Title Area (Scroll Transition Placeholder) -->
+<div class="mb-stack-gap">
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface">Thal Detail</h1>
+</div>
+<!-- Bento Grid Layout for Details -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<!-- Date & Time Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-level-1 flex flex-col justify-between">
+<div class="flex items-center gap-2 mb-4 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Date</h2>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">Nov 15</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Friday</div>
+</div>
+</div>
+<!-- Meal Type Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-level-1 flex flex-col justify-between">
+<div class="flex items-center gap-2 mb-4 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Meal</h2>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">Evening Prasad</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Dinner Service</div>
+</div>
+</div>
+<!-- Headcount Card (Full Width on Mobile, Half on Desktop) -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-level-1 flex items-center justify-between md:col-span-2">
+<div class="flex items-center gap-3 text-primary">
+<div class="bg-primary/10 p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<div>
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Expected Headcount</h2>
+<div class="font-headline-md text-headline-md text-on-surface">150</div>
+</div>
+</div>
+</div>
+<!-- Instructions Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-level-1 md:col-span-2">
+<div class="flex items-center gap-2 mb-2 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">info</span>
+<h2 class="font-label-sm text-label-sm uppercase tracking-wide">Special Instructions</h2>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant/50">
+<p class="font-body-md text-body-md text-on-surface">Low spice requested. Ensure enough mild options are available for the elders.</p>
+</div>
+</div>
+<!-- Swap Status Banner (Conditional rendering example) -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-level-1 md:col-span-2 flex items-center gap-3">
+<div class="bg-outline/10 p-2 rounded-full text-outline">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">swap_horiz</span>
+</div>
+<div class="flex-1">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Swap Status</h2>
+<div class="font-body-md text-body-md text-on-surface flex items-center gap-2">
+                        Pending Request
+                        <span class="w-2 h-2 rounded-full bg-outline animate-pulse"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Actions Group -->
+<div class="mt-8 flex flex-col gap-3">
+<button class="bg-primary text-on-primary font-headline-md text-headline-md rounded-xl py-3 w-full active-scale transition-transform shadow-md touch-target flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Confirm Turn
+            </button>
+<button class="bg-transparent border border-outline text-on-surface font-body-md text-body-md rounded-xl py-3 w-full active-scale transition-transform touch-target flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">cancel</span>
+                Decline / Swap
+            </button>
+</div>
+</main>
+<!-- Suppressed BottomNavBar due to Task-Focused intent (Detail Screen) -->
+</body></html>

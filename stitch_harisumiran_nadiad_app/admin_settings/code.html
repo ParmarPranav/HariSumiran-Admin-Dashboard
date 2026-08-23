@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Admin Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#aeedca",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-error": "#ffffff",
+                        "surface": "#fff8f5",
+                        "primary-container": "#b84d17",
+                        "surface-bright": "#fff8f5",
+                        "on-secondary-fixed-variant": "#105137",
+                        "secondary-fixed": "#b1f0cd",
+                        "surface-variant": "#e8e1dd",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-secondary-container": "#326e51",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#faf2ee",
+                        "inverse-surface": "#33302e",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#ffeee9",
+                        "on-background": "#1e1b19",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdbcd",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#eaf2ff",
+                        "outline-variant": "#dec0b5",
+                        "on-tertiary-fixed": "#001d33",
+                        "tertiary-container": "#3c72a1",
+                        "inverse-primary": "#ffb597",
+                        "tertiary": "#1f5987",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#e0d9d5",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-primary-fixed": "#360f00",
+                        "on-surface": "#1e1b19",
+                        "surface-container-high": "#eee7e3",
+                        "background": "#fff8f5",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "secondary": "#2d694d",
+                        "surface-container": "#f4ece9",
+                        "inverse-on-surface": "#f7efec",
+                        "on-surface-variant": "#57423a",
+                        "surface-tint": "#a33e05",
+                        "outline": "#8b7268",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "primary": "#963700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "margin-main": "20px",
+                        "touch-target-min": "44px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .liquid-glass {
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+        }
+        .hairline-border {
+            border: 0.5px solid rgba(222, 192, 181, 0.4);
+        }
+        .subtle-shadow {
+            box-shadow: 0 4px 12px rgba(36, 33, 31, 0.04);
+        }
+        .watermark {
+            background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="80" fill="none" stroke="%23963700" stroke-width="2" opacity="0.03"/><path d="M100 20 L100 180 M20 100 L180 100" stroke="%23963700" stroke-width="2" opacity="0.03"/></svg>');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 80%;
+        }
+        
+        /* Smooth scrolling and hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased pb-32 pt-24 font-body-md no-scrollbar">
+<!-- Watermark Background -->
+<div class="fixed inset-0 watermark pointer-events-none z-[-1]"></div>
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-margin-main h-16 w-full z-50 fixed top-0 w-full liquid-glass">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-body-md">
+                AP
+            </div>
+<span class="font-branding-header text-branding-header text-primary dark:text-primary-fixed">Admin Settings</span>
+</div>
+<button class="w-[touch-target-min] h-[touch-target-min] flex items-center justify-center text-primary dark:text-primary-fixed hover:bg-surface-container-high/50 transition-colors rounded-full active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-margin-main max-w-[720px] mx-auto space-y-[32px]">
+<!-- Large Title Area (Hidden on scroll up, visible on top) - Simulated behavior -->
+<div class="py-4">
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface">Settings</h1>
+<p class="font-body-md text-on-surface-variant mt-2">Manage organization parameters and system health.</p>
+</div>
+<!-- Bento Grid Layout for Settings -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Organization Section -->
+<section class="col-span-1 md:col-span-2 space-y-unit">
+<h2 class="font-label-sm text-label-sm text-primary uppercase tracking-wider ml-4">Organization</h2>
+<div class="bg-surface-container-lowest rounded-2xl hairline-border subtle-shadow overflow-hidden flex flex-col">
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined">corporate_fare</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Departments</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">5 Active Departments</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<div class="h-[1px] bg-outline-variant/20 ml-16"></div>
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined">map</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Areas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">12 Geographic Zones</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- People & Access Section -->
+<section class="col-span-1 space-y-unit">
+<h2 class="font-label-sm text-label-sm text-primary uppercase tracking-wider ml-4">People &amp; Access</h2>
+<div class="bg-surface-container-lowest rounded-2xl hairline-border subtle-shadow overflow-hidden flex flex-col h-full">
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Users</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">14 Active Users</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<div class="h-[1px] bg-outline-variant/20 ml-16"></div>
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Roles</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">6 Configured Roles</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- Data Section -->
+<section class="col-span-1 space-y-unit">
+<h2 class="font-label-sm text-label-sm text-primary uppercase tracking-wider ml-4">Data</h2>
+<div class="bg-surface-container-lowest rounded-2xl hairline-border subtle-shadow overflow-hidden flex flex-col h-full">
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">database</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Master Data</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">4 Core Entities</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<div class="h-[1px] bg-outline-variant/20 ml-16"></div>
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">sync_alt</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Imports</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">Last import: Yesterday</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- System Health Section -->
+<section class="col-span-1 md:col-span-2 space-y-unit">
+<h2 class="font-label-sm text-label-sm text-primary uppercase tracking-wider ml-4">System Health</h2>
+<div class="bg-surface-container-lowest rounded-2xl hairline-border subtle-shadow overflow-hidden flex flex-col">
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container/30 text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Audit Logs</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">1,024 events this week</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<div class="h-[1px] bg-outline-variant/20 ml-16"></div>
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors active:scale-[0.99]" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined">cloud_done</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface">Backup</h3>
+<p class="font-body-md text-body-md text-on-surface-variant/70">Last backup: 2h ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface/70 dark:bg-inverse-surface/70 backdrop-blur-2xl border border-outline-variant/20 shadow-[0_12px_40px_rgba(36,33,31,0.04)] fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 liquid-glass md:hidden">
+<ul class="flex justify-around items-center px-gutter py-unit h-[64px]">
+<li class="flex-1 flex justify-center">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out h-[touch-target-min] w-[touch-target-min]" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-1">Home</span>
+</a>
+</li>
+<li class="flex-1 flex justify-center">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out h-[touch-target-min] w-[touch-target-min]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-[10px] mt-1">Families</span>
+</a>
+</li>
+<li class="flex-1 flex justify-center">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out h-[touch-target-min] w-[touch-target-min]" href="#">
+<span class="material-symbols-outlined">temple_hindu</span>
+<span class="font-label-sm text-[10px] mt-1">Sabha</span>
+</a>
+</li>
+<li class="flex-1 flex justify-center">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-surface-variant/60 hover:opacity-80 active:scale-[0.98] transition-all duration-300 ease-out h-[touch-target-min] w-[touch-target-min]" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-[10px] mt-1">Tasks</span>
+</a>
+</li>
+<li class="flex-1 flex justify-center">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold scale-110 active:scale-[0.98] transition-all duration-300 ease-out h-[touch-target-min] w-[touch-target-min]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+<span class="font-label-sm text-[10px] mt-1">Admin</span>
+</a>
+</li>
+</ul>
+</nav>
+</body></html>

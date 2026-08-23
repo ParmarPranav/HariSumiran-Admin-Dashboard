@@ -1,0 +1,338 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>HariSumiran - Families Directory</title>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d33",
+                        "surface": "#fff8f5",
+                        "on-surface": "#1e1b19",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#b1f0cd",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#e0d9d5",
+                        "inverse-surface": "#33302e",
+                        "primary-fixed": "#ffdbcd",
+                        "on-surface-variant": "#57423a",
+                        "on-secondary-container": "#326e51",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#8b7268",
+                        "secondary-container": "#aeedca",
+                        "surface-bright": "#fff8f5",
+                        "inverse-primary": "#ffb597",
+                        "outline-variant": "#dec0b5",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary": "#2d694d",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-tertiary-container": "#eaf2ff",
+                        "inverse-on-surface": "#f7efec",
+                        "surface-container-high": "#eee7e3",
+                        "primary-container": "#b84d17",
+                        "on-primary-container": "#ffeee9",
+                        "on-background": "#1e1b19",
+                        "surface-tint": "#a33e05",
+                        "primary": "#963700",
+                        "surface-variant": "#e8e1dd",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#105137",
+                        "surface-container-low": "#faf2ee",
+                        "surface-container": "#f4ece9",
+                        "tertiary": "#1f5987",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#3c72a1",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#360f00",
+                        "surface-container-highest": "#e8e1dd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "touch-target-min": "44px",
+                        "gutter": "16px",
+                        "stack-gap": "12px",
+                        "margin-main": "20px",
+                        "nav-height": "64px",
+                        "bottom-nav": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Liquid Glass Utility */
+        .liquid-glass {
+            background: rgba(255, 248, 245, 0.75);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 4px 12px -2px rgba(36, 33, 31, 0.04);
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        body {
+            background-color: #fff8f5; /* surface */
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased text-on-surface pb-[120px] font-body-md text-body-md">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20">
+<div class="flex justify-between items-center px-margin-main h-[56px] w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A close up, professional portrait of a serene indian volunteer (karyakarta) in their 30s. Soft, warm natural lighting from a nearby window. They are smiling gently. Bright, modern, light-mode aesthetic with a pristine white background and subtle saffron accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn3MUHIUXIghnbLQj5NaTaUjY67PC_ckxRXPcJP_EzvSRFa-jqTX04CUgq168DFoOQNFiy3Dwwc15HYIW7ffZj9uEev1OHeT6xwg9vh4m0X7GL39PbibNLBZAS-7d0D57AUIiIJ7awYlNpfux5VZ4-s8rnNJeRi4-m9EQCG3ceExU0G_T22jGlSD_gSOjGJcETaGKkyVP-wsWJ54Z-iEq1DdIo6cuCreJeCZLIUOSY37CT1kZY5_MW">
+</div>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim">HariSumiran</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center hover:opacity-80 transition-opacity text-primary dark:text-primary-fixed-dim rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-[72px] px-margin-main pb-bottom-nav">
+<!-- Large Title Area (Scrolls away) -->
+<div class="py-stack-gap mb-stack-gap">
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface mb-2">Families</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Directory of registered families</p>
+</div>
+<!-- Search & Filter Bar -->
+<div class="sticky top-[56px] z-40 bg-surface/95 backdrop-blur-md pt-2 pb-4 -mx-margin-main px-margin-main mb-stack-gap border-b border-outline-variant/10">
+<!-- Search Input -->
+<div class="relative w-full h-[44px] mb-3">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant/70">search</span>
+</div>
+<input class="w-full h-full bg-surface-variant/50 border border-outline-variant/30 rounded-xl pl-10 pr-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Search families..." type="text">
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+</button>
+</div>
+<!-- Filter Chips (Horizontal Scroll) -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+<button class="flex-shrink-0 h-[32px] px-3 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm border border-primary/20 flex items-center gap-1 transition-transform active:scale-95">
+                    Area
+                    <span class="material-symbols-outlined text-[14px]">arrow_drop_down</span>
+</button>
+<button class="flex-shrink-0 h-[32px] px-3 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm border border-outline-variant/40 hover:bg-surface-variant transition-colors flex items-center gap-1">
+                    Engagement
+                    <span class="material-symbols-outlined text-[14px]">arrow_drop_down</span>
+</button>
+<button class="flex-shrink-0 h-[32px] px-3 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm border border-outline-variant/40 hover:bg-surface-variant transition-colors">
+                    Open Follow-up
+                </button>
+</div>
+</div>
+<!-- Directory List (Bento-ish Cards) -->
+<div class="flex flex-col gap-stack-gap">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 card-shadow p-4 active:scale-[0.98] transition-transform duration-200 cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_50}}'">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Ghanshyamdas Patel Family</h3>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                            Nadiad West
+                        </div>
+</div>
+<span class="px-2 py-1 rounded-md bg-secondary-container/50 text-on-secondary-container font-label-sm text-[11px] border border-secondary-container">Active</span>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">badge</span>
+</div>
+<div>
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Captain</p>
+<p class="font-body-md text-[13px] text-on-surface">Amit Patel</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+</div>
+<div>
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Members</p>
+<p class="font-body-md text-[13px] text-on-surface">5 Total</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 card-shadow p-4 active:scale-[0.98] transition-transform duration-200 cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_50}}'">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Swaminarayan Das Family</h3>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                            Nadiad East
+                        </div>
+</div>
+<span class="px-2 py-1 rounded-md bg-secondary-container/50 text-on-secondary-container font-label-sm text-[11px] border border-secondary-container">Active</span>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">badge</span>
+</div>
+<div>
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Captain</p>
+<p class="font-body-md text-[13px] text-on-surface">Ramesh Bhai</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+</div>
+<div>
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Members</p>
+<p class="font-body-md text-[13px] text-on-surface">3 Total</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 card-shadow p-4 active:scale-[0.98] transition-transform duration-200 opacity-70 cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_50}}'">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Hari Bhakta Family</h3>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm mt-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                            Kheda Road
+                        </div>
+</div>
+<span class="px-2 py-1 rounded-md bg-surface-variant text-on-surface-variant font-label-sm text-[11px] border border-outline-variant">Inactive</span>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary grayscale">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">badge</span>
+</div>
+<div>
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Captain</p>
+<p class="font-body-md text-[13px] text-on-surface">Suresh Patel</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary grayscale">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+</div>
+<div>
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Members</p>
+<p class="font-body-md text-[13px] text-on-surface">2 Total</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty space for FAB -->
+<div class="h-20 w-full"></div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<div class="fixed bottom-[96px] right-margin-main z-40">
+<button class="bg-primary hover:bg-primary/90 text-on-primary h-[56px] px-6 rounded-full shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-transform active:scale-95 duration-200" onclick="window.location.href='{{DATA:SCREEN:SCREEN_51}}'">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label-sm text-[15px] font-semibold">Register Family</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 dark:bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 dark:border-outline/10 shadow-xl shadow-on-surface/5">
+<div class="flex justify-around items-center py-2 px-4 h-touch-target-min">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-1">Home</span>
+</a>
+<!-- Active State -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-transform haptic-feedback" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-[10px] mt-1 font-semibold">Families</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-all" href="#">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-sm text-[10px] mt-1">Sabha</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-all" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-[10px] mt-1">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px] mt-1">Profile</span>
+</a>
+</div>
+</nav>
+<script>
+        // Simple haptic feedback simulation
+        document.querySelectorAll('.haptic-feedback').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if(navigator.vibrate) {
+                    navigator.vibrate(15);
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Thal Management &amp; Swaps</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#963700",
+                        "inverse-on-surface": "#f7efec",
+                        "on-secondary-container": "#326e51",
+                        "secondary": "#2d694d",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fff8f5",
+                        "primary-fixed": "#ffdbcd",
+                        "surface-container": "#f4ece9",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#eee7e3",
+                        "on-primary-fixed": "#360f00",
+                        "surface-dim": "#e0d9d5",
+                        "surface-variant": "#e8e1dd",
+                        "background": "#fff8f5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "secondary-container": "#aeedca",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "tertiary-container": "#3c72a1",
+                        "inverse-surface": "#33302e",
+                        "on-secondary-fixed-variant": "#105137",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary-fixed": "#cfe5ff",
+                        "inverse-primary": "#ffb597",
+                        "surface-tint": "#a33e05",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#ffb597",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1e1b19",
+                        "surface-container-low": "#faf2ee",
+                        "primary-container": "#b84d17",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "secondary-fixed": "#b1f0cd",
+                        "on-surface": "#1e1b19",
+                        "outline": "#8b7268",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#dec0b5",
+                        "surface": "#fff8f5",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-primary-container": "#ffeee9",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#1f5987",
+                        "on-surface-variant": "#57423a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "stack-gap": "12px",
+                        "margin-main": "20px",
+                        "unit": "8px",
+                        "touch-target-min": "44px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-lg": ["Inter"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Glassmorphism helpers */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(232, 224, 216, 0.8);
+        }
+        
+        .soft-shadow {
+            box-shadow: 0 4px 12px rgba(36, 33, 31, 0.04);
+        }
+        
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Mandala Watermark -->
+<div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-[0.03]">
+<svg class="text-primary fill-current" height="400" viewbox="0 0 100 100" width="400">
+<circle cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="none" r="35" stroke="currentColor" stroke-width="0.5"></circle>
+<path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" stroke="currentColor" stroke-width="0.5"></path>
+</svg>
+</div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 flex justify-between items-center px-margin-main h-touch-target-min">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0 border border-outline/20">
+<img alt="Karyakarta Profile" class="w-full h-full object-cover" data-alt="A macro portrait of an Indian administrator or Karyakarta. Soft, warm lighting emphasizes a serene, respectful expression. The background is slightly blurred with subtle orange hues, conveying a sense of spiritual warmth and modern productivity. Extremely high quality, realistic photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6Vs2qX28S18p9g0SINMraiqg0kRpHNBSUInzrXgUsVHnDpyhht6hKNHS8778zTaG5juw0EgKa48yFRaJRIp2E_6nAgLyZmwqIXquOZr_3sTaL4twCzfAu8JDtywUUvHSjlVerVMJcalxjNzuno41COvADF-dQq0gIY-k55snOFHKNrP_lKC9tGv8Hj9QKPmeEuu3Xqkq9-upxBCUqHLFIZLyJorGCP4KobvvI4EkqWP4mIqXYfIs4"/>
+</div>
+<span class="font-branding-header text-branding-header text-primary">HariSumiran</span>
+</div>
+<button class="h-touch-target-min w-touch-target-min flex items-center justify-center text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-[80px] px-margin-main relative z-10 max-w-[720px] mx-auto">
+<!-- Header Section -->
+<div class="mb-stack-gap pt-4">
+<h1 class="font-nav-large-title text-nav-large-title text-on-background">Thal Swaps</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Manage pending swap requests and coordinator approvals for upcoming Thal assignments.</p>
+</div>
+<!-- Pending Swap Requests Bento Grid -->
+<section class="mt-8">
+<h2 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-unit ml-2">Pending Swap Requests</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<!-- Request Card 1 -->
+<div class="glass-panel rounded-[16px] p-4 soft-shadow active:scale-[0.98] transition-transform">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined">family_restroom</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[16px]">Patel Family</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-[13px]">Sunday, Oct 15 • 11:30 AM</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-secondary-container text-on-secondary-container font-label-sm text-[11px]">Proposed Swap</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 mb-4">
+<p class="font-body-md text-[14px] text-on-surface"><span class="font-semibold">Reason:</span> Family travel out of town.</p>
+<div class="mt-2 flex items-center gap-2 text-on-surface-variant font-body-md text-[13px]">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+<span>Swapping with: <strong>Shah Family</strong> (Oct 22)</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 h-touch-target-min rounded-lg bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">check_circle</span> Approve
+                        </button>
+<button class="flex-1 h-touch-target-min rounded-lg border border-outline text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">undo</span> Return
+                        </button>
+</div>
+</div>
+<!-- Request Card 2 -->
+<div class="glass-panel rounded-[16px] p-4 soft-shadow active:scale-[0.98] transition-transform">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined">family_restroom</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[16px]">Desai Family</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-[13px]">Tuesday, Oct 17 • 06:30 PM</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-error-container text-on-error-container font-label-sm text-[11px]">Find Substitute</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 mb-4">
+<p class="font-body-md text-[14px] text-on-surface"><span class="font-semibold">Reason:</span> Medical emergency.</p>
+<div class="mt-2 flex items-center gap-2 text-error font-body-md text-[13px]">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span>Urgent substitute required.</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 h-touch-target-min rounded-lg bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">person_search</span> Find Sub
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Coordinator Approval Section -->
+<section class="mt-10 mb-8">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-unit ml-2">Coordinator Approval Needed</h2>
+<div class="glass-panel rounded-[16px] overflow-hidden soft-shadow">
+<!-- List Item 1 -->
+<div class="p-4 border-b border-outline-variant/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim text-on-surface-variant flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[15px] text-on-surface">Mehta Family Declined</h3>
+<p class="font-body-md text-[13px] text-on-surface-variant">Thal assigned for Oct 20. Reason: Prior commitment.</p>
+</div>
+</div>
+<button class="h-touch-target-min px-4 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-[13px] whitespace-nowrap active:scale-95 transition-transform border border-outline/20">
+                        Review Decline
+                    </button>
+</div>
+<!-- List Item 2 -->
+<div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim text-on-surface-variant flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[15px] text-on-surface">Joshi Family Declined</h3>
+<p class="font-body-md text-[13px] text-on-surface-variant">Thal assigned for Oct 25. Reason: Not available.</p>
+</div>
+</div>
+<button class="h-touch-target-min px-4 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-[13px] whitespace-nowrap active:scale-95 transition-transform border border-outline/20">
+                        Review Decline
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min w-16" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1 text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min w-16" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm mt-1 text-[10px]">Families</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min w-16" href="#">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-sm text-label-sm mt-1 text-[10px]">Sabha</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary scale-110 transition-transform h-touch-target-min w-16 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined fill">assignment</span>
+<span class="font-label-sm text-label-sm mt-1 text-[10px]">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min w-16" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1 text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple scroll handler for top bar large title effect (simulated)
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+        });
+    </script>
+</body></html>

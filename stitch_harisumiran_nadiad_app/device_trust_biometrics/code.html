@@ -1,0 +1,207 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>Device Trust - HariSumiran</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        /* Custom iOS-like toggle switch */
+        .ios-toggle:checked {
+            background-color: #2d694d; /* secondary color for success/active */
+            border-color: #2d694d;
+        }
+        .ios-toggle:checked:after {
+            transform: translateX(100%);
+            border-color: white;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#ffb597",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#faf2ee",
+                        "surface-variant": "#e8e1dd",
+                        "on-secondary-fixed": "#002113",
+                        "primary-fixed": "#ffdbcd",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "surface-bright": "#fff8f5",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffeee9",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f4ece9",
+                        "tertiary-fixed": "#cfe5ff",
+                        "primary": "#963700",
+                        "on-surface-variant": "#57423a",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-secondary-container": "#326e51",
+                        "secondary": "#2d694d",
+                        "surface": "#fff8f5",
+                        "surface-container-highest": "#e8e1dd",
+                        "secondary-fixed": "#b1f0cd",
+                        "on-tertiary-container": "#eaf2ff",
+                        "background": "#fff8f5",
+                        "tertiary": "#1f5987",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1e1b19",
+                        "surface-dim": "#e0d9d5",
+                        "on-primary-fixed": "#360f00",
+                        "outline": "#8b7268",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#33302e",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-surface": "#1e1b19",
+                        "primary-container": "#b84d17",
+                        "surface-container-high": "#eee7e3",
+                        "secondary-container": "#aeedca",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "outline-variant": "#dec0b5",
+                        "surface-tint": "#a33e05",
+                        "on-secondary-fixed-variant": "#105137",
+                        "tertiary-container": "#3c72a1",
+                        "inverse-on-surface": "#f7efec",
+                        "primary-fixed-dim": "#ffb597"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-main": "20px",
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "touch-target-min": "44px"
+                    },
+                    "fontFamily": {
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-md": ["Inter"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col pt-safe-top pb-safe-bottom">
+<!-- Top Navigation Layer (No Shell JSON applied as this is a linear transactional screen) -->
+<header class="fixed top-0 w-full z-50 glass-panel border-b border-outline-variant/30 h-16 flex items-center px-margin-main">
+<button aria-label="Go Back" class="w-touch-target-min h-touch-target-min flex items-center justify-start text-primary active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px]">arrow_back_ios</span>
+</button>
+<!-- Title emerges on scroll in iOS Large Title style, but centered here for simple header -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col px-margin-main pt-24 pb-8 overflow-y-auto">
+<!-- Header Section -->
+<div class="mb-10 text-center flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-surface-container-high flex items-center justify-center mb-6 shadow-sm shadow-on-surface/5">
+<span class="material-symbols-outlined text-[48px] text-primary" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+</div>
+<h1 class="font-nav-large-title text-nav-large-title text-on-background mb-unit">Device Trust</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[300px] mx-auto text-center">
+                Secure your device for faster access to HariSumiran services.
+            </p>
+</div>
+<!-- Settings Cards Area -->
+<div class="flex flex-col gap-6 w-full max-w-md mx-auto mb-auto">
+<!-- Biometrics Card -->
+<div class="bg-surface-container-lowest rounded-[16px] border border-outline-variant/50 p-5 shadow-[0_4px_12px_rgba(36,33,31,0.04)] flex items-start gap-4 active:scale-[0.98] transition-transform duration-200 cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[24px]">face</span>
+</div>
+<div class="flex-1">
+<h2 class="font-headline-md text-[18px] leading-[22px] font-semibold text-on-background mb-1">Enable Face ID</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Use biometric authentication for quick, secure login without a password.</p>
+</div>
+<div class="flex items-center justify-center h-10 text-outline">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- Remember Device Card -->
+<div class="bg-surface-container-lowest rounded-[16px] border border-outline-variant/50 p-5 shadow-[0_4px_12px_rgba(36,33,31,0.04)]">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[24px]">devices</span>
+<h2 class="font-headline-md text-[18px] leading-[22px] font-semibold text-on-background">Remember this device</h2>
+</div>
+<!-- Custom Toggle -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer ios-toggle" type="checkbox" value="">
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-surface-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pl-[36px]">
+                    Keeps you signed in for 30 days. Reduces the need for OTP verifications on this trusted device.
+                </p>
+</div>
+<div class="px-2">
+<p class="font-label-sm text-label-sm text-on-surface-variant/80 text-center">
+                    By enabling trust features, you agree to the security policies of the HariPrabodham temple network.
+                 </p>
+</div>
+</div>
+<!-- Bottom Action Area -->
+<div class="mt-8 flex flex-col gap-4 w-full max-w-md mx-auto pt-6 border-t border-outline-variant/30">
+<button class="w-full h-[52px] bg-primary text-on-primary rounded-xl font-headline-md text-[17px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">face</span>
+                Enable Face ID
+            </button>
+<button class="w-full h-[52px] bg-transparent text-primary rounded-xl font-body-lg text-body-lg font-medium flex items-center justify-center hover:bg-primary/5 active:scale-[0.98] transition-all">
+                Maybe Later
+            </button>
+</div>
+</main>
+<!-- Background Mandala Watermark (Level 0) -->
+<div class="fixed inset-0 z-[-1] pointer-events-none flex items-center justify-center opacity-[0.03]">
+<svg class="fill-current text-primary" height="400" viewBox="0 0 100 100" width="400">
+<circle cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="none" r="35" stroke="currentColor" stroke-dasharray="2 2" stroke-width="0.5"></circle>
+<path d="M50 5 L50 95 M5 50 L95 50" stroke="currentColor" stroke-width="0.2"></path>
+<circle cx="50" cy="50" fill="none" r="10" stroke="currentColor" stroke-width="1"></circle>
+<!-- Abstract petals -->
+<path d="M50 40 Q60 20 50 5 Q40 20 50 40Z" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M50 60 Q60 80 50 95 Q40 80 50 60Z" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M40 50 Q20 40 5 50 Q20 60 40 50Z" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M60 50 Q80 40 95 50 Q80 60 60 50Z" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+</svg>
+</div>
+</body></html>

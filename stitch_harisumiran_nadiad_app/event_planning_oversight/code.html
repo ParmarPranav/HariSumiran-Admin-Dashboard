@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HariSumiran - Event Planning Timeline</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#360f00",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "inverse-on-surface": "#f7efec",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#ffeee9",
+                        "inverse-surface": "#33302e",
+                        "on-secondary-fixed-variant": "#105137",
+                        "background": "#fff8f5",
+                        "surface-variant": "#e8e1dd",
+                        "surface-dim": "#e0d9d5",
+                        "error": "#ba1a1a",
+                        "primary-container": "#b84d17",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#dec0b5",
+                        "on-surface": "#1e1b19",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "on-background": "#1e1b19",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "inverse-primary": "#ffb597",
+                        "secondary-container": "#aeedca",
+                        "on-secondary-container": "#326e51",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fff8f5",
+                        "surface-tint": "#a33e05",
+                        "surface-container": "#f4ece9",
+                        "tertiary-container": "#3c72a1",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary-fixed": "#b1f0cd",
+                        "secondary": "#2d694d",
+                        "tertiary": "#1f5987",
+                        "surface-container-high": "#eee7e3",
+                        "on-surface-variant": "#57423a",
+                        "primary-fixed": "#ffdbcd",
+                        "surface": "#fff8f5",
+                        "primary-fixed-dim": "#ffb597",
+                        "surface-container-low": "#faf2ee",
+                        "primary": "#963700",
+                        "outline": "#8b7268"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "touch-target-min": "44px",
+                        "margin-main": "20px",
+                        "stack-gap": "12px",
+                        "unit": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-lg": ["Inter"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .liquid-card {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 12px rgba(36, 33, 31, 0.04);
+            border: 0.5px solid #E8E0D8;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased pb-24">
+<!-- Background Watermark -->
+<div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-[0.03]">
+<span class="material-symbols-outlined text-[400px]">filter_vintage</span>
+</div>
+<!-- TopAppBar -->
+<header class="bg-canvas/80 backdrop-blur-xl dark:bg-canvas/80 flex items-center justify-between px-margin-mobile h-touch-target w-full z-40 docked full-width top-0 sticky bg-canvas/80 backdrop-blur-md border-b-[0.5px] border-border-subtle flat no shadows px-4 h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity cursor-pointer">account_circle</span>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed">HariSumiran</h1>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity cursor-pointer">notifications</span>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 px-margin-main pt-stack-gap max-w-[720px] mx-auto w-full flex flex-col gap-8">
+<!-- Page Header -->
+<section class="flex flex-col gap-2 pt-4">
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface tracking-tight">Event Planning</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Diwali Utsav 2024</p>
+</section>
+<!-- Timeline Section (Gantt Style) -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-primary">Milestones</h3>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-80 transition-opacity">more_horiz</span>
+</div>
+<div class="liquid-card rounded-[16px] p-4 flex flex-col gap-6">
+<!-- Month Headers -->
+<div class="flex justify-between text-label-sm font-label-sm text-outline border-b-[0.5px] border-border-subtle pb-2">
+<span class="flex-1">Sep</span>
+<span class="flex-1 text-center">Oct</span>
+<span class="flex-1 text-right">Nov</span>
+</div>
+<!-- Timeline Items -->
+<div class="relative w-full h-[120px]">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex justify-between pointer-events-none border-l-[0.5px] border-r-[0.5px] border-border-subtle">
+<div class="w-[1px] h-full bg-surface-variant"></div>
+<div class="w-[1px] h-full bg-surface-variant"></div>
+<div class="w-[1px] h-full bg-surface-variant"></div>
+</div>
+<!-- Milestone Bars -->
+<!-- Planning Phase -->
+<div class="absolute top-2 left-[5%] w-[30%] h-8 bg-surface-container-high rounded-full flex items-center px-3 border border-outline-variant z-10 hover:scale-[0.98] transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2">description</span>
+<span class="font-label-sm text-label-sm text-on-surface truncate">Planning</span>
+</div>
+<!-- Execution Phase -->
+<div class="absolute top-12 left-[30%] w-[50%] h-8 bg-primary-fixed rounded-full flex items-center px-3 border border-primary-fixed-dim z-10 hover:scale-[0.98] transition-transform cursor-pointer shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-on-primary-fixed mr-2" style="font-variation-settings: 'FILL' 1;">build</span>
+<span class="font-label-sm text-label-sm text-on-primary-fixed truncate">Execution</span>
+</div>
+<!-- Final Event -->
+<div class="absolute top-24 left-[75%] w-[20%] h-8 bg-secondary-container rounded-full flex items-center px-3 border border-secondary-fixed-dim z-10 hover:scale-[0.98] transition-transform cursor-pointer shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-on-secondary-container mr-2" style="font-variation-settings: 'FILL' 1;">celebration</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container truncate">Utsav</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Readiness Rollup -->
+<section class="flex flex-col gap-4">
+<h3 class="font-headline-md text-headline-md text-primary">Readiness Rollup</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Decoration Committee -->
+<div class="liquid-card rounded-[16px] p-5 flex flex-col gap-3 hover:scale-[0.98] transition-transform cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">palette</span>
+<span class="font-label-sm text-label-sm text-on-surface">Decoration</span>
+</div>
+<span class="font-body-md text-body-md text-outline">65%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 65%;"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">12/18 Tasks Complete</p>
+</div>
+<!-- Food Committee -->
+<div class="liquid-card rounded-[16px] p-5 flex flex-col gap-3 hover:scale-[0.98] transition-transform cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="font-label-sm text-label-sm text-on-surface">Food</span>
+</div>
+<span class="font-body-md text-body-md text-outline">40%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 40%;"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">8/20 Tasks Complete</p>
+</div>
+<!-- Logistics Committee -->
+<div class="liquid-card rounded-[16px] p-5 flex flex-col gap-3 hover:scale-[0.98] transition-transform cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span class="font-label-sm text-label-sm text-on-surface">Logistics</span>
+</div>
+<span class="font-body-md text-body-md text-outline">90%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 90%;"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">9/10 Tasks Complete</p>
+</div>
+</div>
+</section>
+<!-- Primary Action -->
+<section class="mt-4 mb-8">
+<button class="w-full bg-primary hover:bg-surface-tint text-on-primary font-branding-header text-[17px] h-14 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[0.98] active:scale-95">
+<span class="material-symbols-outlined">group_add</span>
+                Assign Committee Leads
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-white/70 backdrop-blur-2xl dark:bg-surface-container/70 md:hidden flex justify-around items-center px-2 h-16 rounded-full fixed bottom-8 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md z-50 shadow-sm border-[0.5px] border-border-subtle liquid-glass">
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] hidden">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-[10px] hidden">Families</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-tr from-primary-container to-primary text-white rounded-full w-12 h-12 shadow-md Active: scale-90 duration-200 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-sm text-[10px] hidden">Sabha</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-[10px] hidden">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px] hidden">Profile</span>
+</a>
+</nav>
+</body></html>

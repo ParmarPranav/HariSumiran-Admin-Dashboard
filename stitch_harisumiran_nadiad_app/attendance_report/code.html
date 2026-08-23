@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Attendance &amp; Participation Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&amp;family=Noto+Sans:wght@400&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#57423a",
+                      "outline-variant": "#dec0b5",
+                      "surface-container-low": "#faf2ee",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#e8e1dd",
+                      "surface-container-high": "#eee7e3",
+                      "secondary-container": "#aeedca",
+                      "inverse-surface": "#33302e",
+                      "on-background": "#1e1b19",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed-variant": "#024a77",
+                      "on-primary-fixed": "#360f00",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#3c72a1",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#001d33",
+                      "primary-container": "#b84d17",
+                      "on-secondary-container": "#326e51",
+                      "error-container": "#ffdad6",
+                      "background": "#fff8f5",
+                      "surface-bright": "#fff8f5",
+                      "on-secondary-fixed-variant": "#105137",
+                      "tertiary-fixed-dim": "#98cbff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container": "#f4ece9",
+                      "secondary-fixed-dim": "#96d4b2",
+                      "on-surface": "#1e1b19",
+                      "primary-fixed": "#ffdbcd",
+                      "surface": "#fff8f5",
+                      "secondary-fixed": "#b1f0cd",
+                      "on-primary": "#ffffff",
+                      "primary": "#963700",
+                      "outline": "#8b7268",
+                      "inverse-on-surface": "#f7efec",
+                      "on-secondary-fixed": "#002113",
+                      "on-tertiary-container": "#eaf2ff",
+                      "secondary": "#2d694d",
+                      "on-primary-container": "#ffeee9",
+                      "surface-container-highest": "#e8e1dd",
+                      "tertiary-fixed": "#cfe5ff",
+                      "surface-dim": "#e0d9d5",
+                      "on-primary-fixed-variant": "#7e2c00",
+                      "primary-fixed-dim": "#ffb597",
+                      "surface-tint": "#a33e05",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#1f5987",
+                      "inverse-primary": "#ffb597"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-gap": "12px",
+                      "touch-target-min": "44px",
+                      "gutter": "16px",
+                      "margin-main": "20px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "branding-header": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "gujarati-body": [
+                              "Noto Sans"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "nav-large-title": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "branding-header": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "25px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "gujarati-body": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0.2pt",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "nav-large-title": [
+                              "34px",
+                              {
+                                      "lineHeight": "41px",
+                                      "letterSpacing": "-0.4pt",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF9F5;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .liquid-glass {
+            background: rgba(251, 249, 245, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 24px rgba(36, 33, 31, 0.04);
+        }
+        .haptic-active:active {
+            transform: scale(0.98);
+            transition: transform 0.1s;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 liquid-glass border-b border-outline-variant/30 dark:border-outline/20 flat no shadows flex justify-between items-center px-margin-main h-touch-target-min">
+<button aria-label="Go back" class="haptic-active flex items-center justify-center w-touch-target-min h-touch-target-min -ml-2 text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim absolute left-1/2 -translate-x-1/2">Report</h1>
+<button aria-label="Export" class="haptic-active flex items-center justify-center w-touch-target-min h-touch-target-min -mr-2 text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[80px] px-margin-main max-w-[720px] mx-auto">
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface mb-stack-gap tracking-tight">Attendance</h2>
+<!-- Filter Pills -->
+<div class="flex gap-unit mb-6 overflow-x-auto no-scrollbar py-1">
+<button class="haptic-active flex items-center gap-1 bg-surface-container-high text-on-surface px-4 py-2 rounded-full font-label-sm text-label-sm whitespace-nowrap border border-outline-variant/50 shadow-sm">
+                Last 90 Days <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<button class="haptic-active flex items-center gap-1 bg-surface-container-high text-on-surface px-4 py-2 rounded-full font-label-sm text-label-sm whitespace-nowrap border border-outline-variant/50 shadow-sm">
+                All Areas <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+<!-- Headline Stat Card -->
+<div class="bg-white rounded-2xl p-6 card-shadow border border-[#E8E0D8] mb-8 relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary-container/30 rounded-full blur-2xl"></div>
+<div class="flex items-start gap-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">Q3 Performance</p>
+<p class="font-headline-md text-headline-md text-on-surface">Attendance up <span class="text-secondary">6%</span> this quarter</p>
+</div>
+</div>
+</div>
+<!-- Chart Section -->
+<div class="mb-8">
+<h3 class="font-label-sm text-label-sm text-outline mb-unit uppercase tracking-wider pl-1">12-Week Trend</h3>
+<div class="bg-white rounded-2xl p-4 card-shadow border border-[#E8E0D8] h-64 flex flex-col justify-end relative">
+<!-- Y-axis labels -->
+<div class="absolute left-4 top-4 bottom-8 flex flex-col justify-between font-label-sm text-label-sm text-outline-variant">
+<span>100%</span>
+<span>50%</span>
+<span>0%</span>
+</div>
+<!-- Grid lines -->
+<div class="absolute left-12 right-4 top-6 border-t border-outline-variant/30"></div>
+<div class="absolute left-12 right-4 top-1/2 border-t border-outline-variant/30"></div>
+<div class="absolute left-12 right-4 bottom-8 border-t border-outline-variant/30"></div>
+<!-- Bars -->
+<div class="flex items-end justify-between ml-10 mr-2 h-[180px] gap-1 z-10">
+<div class="w-full bg-primary/20 rounded-t-sm h-[40%] hover:bg-primary/40 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">40%</div></div>
+<div class="w-full bg-primary/40 rounded-t-sm h-[55%] hover:bg-primary/60 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">55%</div></div>
+<div class="w-full bg-primary/30 rounded-t-sm h-[45%] hover:bg-primary/50 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">45%</div></div>
+<div class="w-full bg-primary/60 rounded-t-sm h-[70%] hover:bg-primary/80 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">70%</div></div>
+<div class="w-full bg-primary/50 rounded-t-sm h-[60%] hover:bg-primary/70 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">60%</div></div>
+<div class="w-full bg-primary/80 rounded-t-sm h-[85%] hover:bg-primary transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">85%</div></div>
+<div class="w-full bg-primary/70 rounded-t-sm h-[75%] hover:bg-primary/90 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">75%</div></div>
+<div class="w-full bg-primary/90 rounded-t-sm h-[92%] hover:bg-primary transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">92%</div></div>
+<div class="w-full bg-primary rounded-t-sm h-[98%] hover:opacity-80 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">98%</div></div>
+<div class="w-full bg-primary/80 rounded-t-sm h-[88%] hover:bg-primary transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">88%</div></div>
+<div class="w-full bg-primary rounded-t-sm h-[95%] hover:opacity-80 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">95%</div></div>
+<div class="w-full bg-primary rounded-t-sm h-[100%] hover:opacity-80 transition-colors relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded">100%</div></div>
+</div>
+<!-- X-axis labels -->
+<div class="flex justify-between ml-10 mr-2 mt-2 font-label-sm text-label-sm text-outline-variant">
+<span>W1</span>
+<span>W6</span>
+<span>W12</span>
+</div>
+</div>
+</div>
+<!-- Data Table -->
+<div>
+<h3 class="font-label-sm text-label-sm text-outline mb-unit uppercase tracking-wider pl-1">Session Data</h3>
+<div class="bg-white rounded-2xl card-shadow border border-[#E8E0D8] overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-surface-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-1/3">Date</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant w-1/3 text-center">Type</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant w-1/3 text-right">Count</span>
+</div>
+<div class="divide-y divide-surface-variant">
+<div class="flex items-center justify-between p-4 hover:bg-surface-container-lowest transition-colors">
+<span class="font-body-md text-body-md text-on-surface w-1/3">Oct 24, 2023</span>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-2 py-1 rounded w-fit mx-auto">Sabha</span>
+<span class="font-body-md text-body-md text-on-surface font-medium w-1/3 text-right">142</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-surface-container-lowest transition-colors">
+<span class="font-body-md text-body-md text-on-surface w-1/3">Oct 17, 2023</span>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-2 py-1 rounded w-fit mx-auto">Sabha</span>
+<span class="font-body-md text-body-md text-on-surface font-medium w-1/3 text-right">138</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-surface-container-lowest transition-colors">
+<span class="font-body-md text-body-md text-on-surface w-1/3">Oct 10, 2023</span>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-2 py-1 rounded w-fit mx-auto">Special</span>
+<span class="font-body-md text-body-md text-on-surface font-medium w-1/3 text-right">215</span>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-surface-container-lowest transition-colors">
+<span class="font-body-md text-body-md text-on-surface w-1/3">Oct 03, 2023</span>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-2 py-1 rounded w-fit mx-auto">Sabha</span>
+<span class="font-body-md text-body-md text-on-surface font-medium w-1/3 text-right">120</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Mandir Administrator Operations Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;family=Noto+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#b84d17",
+                    "on-tertiary-container": "#eaf2ff",
+                    "on-secondary-container": "#326e51",
+                    "secondary-fixed": "#b1f0cd",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#fff8f5",
+                    "outline-variant": "#dec0b5",
+                    "primary-fixed": "#ffdbcd",
+                    "on-surface": "#1e1b19",
+                    "tertiary-fixed-dim": "#98cbff",
+                    "surface-variant": "#e8e1dd",
+                    "on-tertiary-fixed": "#001d33",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "surface": "#fff8f5",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#ffeee9",
+                    "on-secondary-fixed": "#002113",
+                    "inverse-primary": "#ffb597",
+                    "tertiary": "#1f5987",
+                    "on-primary-fixed-variant": "#7e2c00",
+                    "primary-fixed-dim": "#ffb597",
+                    "on-tertiary-fixed-variant": "#024a77",
+                    "outline": "#8b7268",
+                    "surface-tint": "#a33e05",
+                    "surface-bright": "#fff8f5",
+                    "on-secondary-fixed-variant": "#105137",
+                    "inverse-on-surface": "#f7efec",
+                    "surface-container-low": "#faf2ee",
+                    "secondary-fixed-dim": "#96d4b2",
+                    "tertiary-fixed": "#cfe5ff",
+                    "surface-container-highest": "#e8e1dd",
+                    "primary": "#963700",
+                    "on-primary-fixed": "#360f00",
+                    "secondary": "#2d694d",
+                    "inverse-surface": "#33302e",
+                    "tertiary-container": "#3c72a1",
+                    "on-surface-variant": "#57423a",
+                    "surface-container-high": "#eee7e3",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#aeedca",
+                    "on-background": "#1e1b19",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#f4ece9",
+                    "surface-dim": "#e0d9d5",
+                    "alert-amber": "#f59e0b",
+                    "alert-amber-bg": "#fef3c7",
+                    "success-green": "#10b981",
+                    "success-green-bg": "#d1fae5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem"
+            },
+            "spacing": {
+                    "margin-main": "20px",
+                    "gutter": "16px",
+                    "stack-gap": "12px",
+                    "unit": "8px",
+                    "touch-target-min": "44px"
+            },
+            "fontFamily": {
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "branding-header": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "nav-large-title": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "gujarati-body": [
+                            "Noto Sans"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "label-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "letterSpacing": "0.2pt",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "25px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "branding-header": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "15px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "nav-large-title": [
+                            "34px",
+                            {
+                                    "lineHeight": "41px",
+                                    "letterSpacing": "-0.4pt",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "gujarati-body": [
+                            "17px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "17px",
+                            {
+                                    "lineHeight": "22px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
+        }
+
+        /* Abstract Mandala Watermark Background */
+        .mandala-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150vw;
+            height: 150vw;
+            max-width: 800px;
+            max-height: 800px;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" stroke="%23963700" stroke-width="0.5" fill="none" opacity="0.1"/><circle cx="50" cy="50" r="35" stroke="%23963700" stroke-width="0.5" fill="none" opacity="0.1"/><circle cx="50" cy="50" r="20" stroke="%23963700" stroke-width="0.5" fill="none" opacity="0.1"/><path d="M50 2 L50 98 M2 50 L98 50" stroke="%23963700" stroke-width="0.5" opacity="0.1"/><path d="M16 16 L84 84 M16 84 L84 16" stroke="%23963700" stroke-width="0.5" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* iOS 27 Liquid Glass Effects */
+        .glass-heavy {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+        }
+
+        .glass-medium {
+            background-color: rgba(255, 248, 245, 0.85); /* background color with opacity */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Subtle Card Shadows Level 1 */
+        .card-shadow {
+            box-shadow: 0px 4px 12px 0px rgba(36, 33, 31, 0.04);
+            border: 0.5px solid theme('colors.surface-variant');
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Interactive Scale */
+        .active-scale:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Scroll Progress Animation */
+        @keyframes scrollFade {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: scrollFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-32">
+<!-- Base Layer Watermark -->
+<div class="mandala-bg"></div>
+<!-- TopAppBar JSON Component -->
+<header class="glass-medium fixed top-0 w-full z-50 transition-all duration-300" id="top-nav">
+<!-- Status Bar Spacer (Safe Area) -->
+<div class="h-12 w-full"></div>
+<div class="flex justify-between items-center px-margin-main h-touch-target-min w-full relative">
+<!-- Leading: Avatar -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/30 active-scale">
+<img class="w-full h-full object-cover" data-alt="A close-up, softly lit portrait of a serene Indian individual in traditional attire, serving as a profile avatar. The background is a highly blurred, warm, sunlit temple courtyard. The lighting is soft and flattering, emphasizing a calm, spiritual mood. High-key light-mode aesthetic with warm Saffron and earth tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTLBLWo02r-l_C9-zdOVG4Lt4XrhYGOR6NVGiQg-hrkVApMPJl5WSD0eQGqe-wZSLHWFZt9BgZCEn01hzfF2FhghmkB70hW_d58isTu6kvO_enAUGBvLksGhj44xt8tU98lDkjbDUoXfl4O_ut1xyYJkUFYo8TeD2QPWormYvIJvbB8f3-45jr4H3k89Ls4L1tajSsqaN_LJz2Z7htrU94ZY2IRwhmGO0LM06BApd-pMPz0HrGjwe4"/>
+</div>
+</div>
+<!-- Center Headline (Hidden on top, shown on scroll in native iOS behavior - simulating with static for this layout) -->
+<div class="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
+<span class="font-branding-header text-branding-header text-primary">HariSumiran</span>
+</div>
+<!-- Trailing: Icon -->
+<div class="relative">
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-end text-primary hover:opacity-80 transition-opacity active-scale" onclick="document.getElementById('quick-action-menu').classList.toggle('hidden')">
+<span class="material-symbols-outlined text-3xl">add_circle</span>
+</button>
+<!-- Quick Action Menu -->
+<div class="hidden absolute right-0 top-12 mt-2 w-56 bg-surface-container-lowest rounded-2xl shadow-xl border border-outline-variant/20 py-2 z-50 card-shadow" id="quick-action-menu">
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-container-low transition-colors text-on-surface font-label-sm text-label-sm" href="{{DATA:SCREEN:SCREEN_14}}">
+<span class="material-symbols-outlined text-xl text-primary">campaign</span>
+        New Announcement
+    </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-container-low transition-colors text-on-surface font-label-sm text-label-sm" href="{{DATA:SCREEN:SCREEN_38}}">
+<span class="material-symbols-outlined text-xl text-secondary">temple_hindu</span>
+        New Sabha
+    </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-container-low transition-colors text-on-surface font-label-sm text-label-sm border-t border-surface-variant mt-1 pt-3" href="{{DATA:SCREEN:SCREEN_51}}">
+<span class="material-symbols-outlined text-xl text-tertiary">person_add</span>
+        Register Family
+    </a>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-28 px-margin-main max-w-[720px] mx-auto pb-24">
+<!-- Large Title Header (Scrolls away) -->
+<div class="mb-6 flex justify-between items-end animate-fade-in">
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface">Mandir Operations</h1>
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low card-shadow mb-2">
+<span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Synced</span>
+</div>
+</div>
+<!-- Alerts & Risks Band (Amber) -->
+<a class="block bg-alert-amber-bg border border-alert-amber/30 rounded-2xl p-4 mb-stack-gap flex items-start gap-3 active-scale animate-fade-in delay-100" href="{{DATA:SCREEN:SCREEN_37}}">
+<span class="material-symbols-outlined text-alert-amber mt-0.5 fill">warning</span>
+<div class="flex-1">
+<h3 class="font-headline-md text-body-md font-semibold text-alert-amber mix-blend-multiply">Alerts &amp; Risks</h3>
+<p class="font-body-md text-body-md text-alert-amber/80 mix-blend-multiply mt-0.5">3 follow-up cases overdue &gt; 7 days</p>
+</div>
+<div class="w-8 h-8 flex items-center justify-center rounded-full bg-alert-amber/20 text-alert-amber">
+<span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+</div>
+</a>
+<!-- Pending Approvals Queue (Bento Card) -->
+<section class="mb-8 animate-fade-in delay-200">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 ml-1">Action Required</h2>
+<div class="bg-surface-container-lowest rounded-3xl p-5 card-shadow">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Pending Approvals</h3>
+<span class="bg-error-container text-error font-label-sm text-label-sm px-2.5 py-0.5 rounded-full" id="pending-count">1 New</span>
+</div>
+<!-- Queue Item -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20 transition-all duration-300" id="approval-card">
+<div class="flex items-start gap-3" id="approval-content">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined">swap_horiz</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface">Thal Swap: Patel/Shah</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Requested 2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-2" id="approval-actions">
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-surface border border-outline-variant/30 text-on-surface font-label-sm text-label-sm active-scale" onclick="handleApproval('Rejected')">Reject</button>
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm active-scale shadow-md shadow-primary/20" onclick="handleApproval('Approved')">Approve</button>
+</div>
+<div class="hidden flex items-center justify-between w-full" id="approval-success">
+<div class="flex items-center gap-2 text-success-green">
+<span class="material-symbols-outlined fill">check_circle</span>
+<span class="font-label-sm text-label-sm font-medium" id="approval-status-text">Approved</span>
+</div>
+<button class="text-primary font-label-sm text-label-sm hover:underline" onclick="undoApproval()">Undo</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid: Today Across Mandir & KPIs -->
+<section class="mb-8 animate-fade-in delay-300">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 ml-1">Today's Pulse</h2>
+<div class="grid grid-cols-2 gap-stack-gap">
+<!-- Sabha Attendance Card -->
+<a class="block bg-surface-container-lowest rounded-3xl p-5 card-shadow flex flex-col justify-between aspect-square active-scale" href="{{DATA:SCREEN:SCREEN_10}}">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined fill">event_repeat</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Sabha Attendance</p>
+<div class="flex items-end gap-2">
+<h3 class="font-nav-large-title text-nav-large-title text-on-surface leading-none">92<span class="text-xl">%</span></h3>
+</div>
+<p class="font-label-sm text-[11px] text-success-green mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +4% from last week
+                        </p>
+</div>
+</a>
+<!-- Seva Duties Card -->
+<a class="block bg-surface-container-lowest rounded-3xl p-5 card-shadow flex flex-col justify-between aspect-square active-scale" href="{{DATA:SCREEN:SCREEN_31}}">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary mb-4">
+<span class="material-symbols-outlined fill">volunteer_activism</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Seva Duties</p>
+<h3 class="font-nav-large-title text-nav-large-title text-on-surface leading-none">14</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-2">Active Right Now</p>
+</div>
+</a>
+<!-- KPI: Volunteer Utilization (Spans 2 columns) -->
+<div class="col-span-2 bg-surface-container-lowest rounded-3xl p-5 card-shadow active-scale">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant">Volunteer Utilization</h3>
+<span class="font-body-md text-body-md font-medium text-on-surface">85%</span>
+</div>
+<!-- Flat Bar Chart representation -->
+<div class="w-full h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[85%]"></div>
+</div>
+</div>
+<!-- KPI: Member Growth (Spans 2 columns) -->
+<div class="col-span-2 bg-surface-container-lowest rounded-3xl p-5 card-shadow active-scale">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant">Member Growth (MTD)</h3>
+<span class="font-body-md text-body-md font-medium text-success-green">+12 Families</span>
+</div>
+<!-- Flat Bar Chart representation -->
+<div class="w-full h-3 bg-surface-variant rounded-full overflow-hidden flex gap-1">
+<div class="h-full bg-success-green/40 rounded-full w-[30%]"></div>
+<div class="h-full bg-success-green/60 rounded-full w-[40%]"></div>
+<div class="h-full bg-success-green rounded-full w-[15%]"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar JSON Component -->
+<nav class="glass-heavy fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 border border-white/20 shadow-xl shadow-on-surface/5">
+<div class="flex justify-around items-center py-2 px-4">
+<!-- Active Tab: Home -->
+<a class="flex flex-col items-center justify-center text-primary scale-110 transition-transform haptic-feedback active-scale group w-16" href="#">
+<span class="material-symbols-outlined fill text-2xl mb-1">home</span>
+<span class="font-label-sm text-[10px] leading-tight">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full transition-colors active-scale group w-16 py-1" href="{{DATA:SCREEN:SCREEN_49}}">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:text-primary transition-colors">group</span>
+<span class="font-label-sm text-[10px] leading-tight group-hover:text-primary transition-colors">Families</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full transition-colors active-scale group w-16 py-1" href="{{DATA:SCREEN:SCREEN_41}}">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:text-primary transition-colors">event_repeat</span>
+<span class="font-label-sm text-[10px] leading-tight group-hover:text-primary transition-colors">Sabha</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full transition-colors active-scale group w-16 py-1" href="{{DATA:SCREEN:SCREEN_37}}">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:text-primary transition-colors">assignment</span>
+<span class="font-label-sm text-[10px] leading-tight group-hover:text-primary transition-colors">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:bg-primary/5 rounded-full transition-colors active-scale group w-16 py-1" href="{{DATA:SCREEN:SCREEN_6}}">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:text-primary transition-colors">person</span>
+<span class="font-label-sm text-[10px] leading-tight group-hover:text-primary transition-colors">Profile</span>
+</a>
+</div>
+</nav>
+<script>
+        // Simple scroll effect for Top Nav to mimic iOS Large Title transition
+        window.addEventListener('scroll', () => {
+            const topNav = document.getElementById('top-nav');
+            if (window.scrollY > 40) {
+                topNav.classList.add('border-b', 'border-outline-variant/30', 'shadow-sm');
+                // Could reveal center title here in a more complex setup
+            } else {
+                topNav.classList.remove('border-b', 'border-outline-variant/30', 'shadow-sm');
+            }
+        });
+        
+        // Handle inline approval state
+        function handleApproval(status) {
+            document.getElementById('approval-content').classList.add('hidden');
+            document.getElementById('approval-actions').classList.add('hidden');
+            document.getElementById('approval-success').classList.remove('hidden');
+            document.getElementById('approval-success').classList.add('flex');
+            
+            const statusText = document.getElementById('approval-status-text');
+            statusText.textContent = status;
+            
+            if (status === 'Rejected') {
+                statusText.parentElement.classList.remove('text-success-green');
+                statusText.parentElement.classList.add('text-error');
+                statusText.previousElementSibling.textContent = 'cancel';
+            } else {
+                statusText.parentElement.classList.remove('text-error');
+                statusText.parentElement.classList.add('text-success-green');
+                statusText.previousElementSibling.textContent = 'check_circle';
+            }
+            
+            document.getElementById('pending-count').classList.add('hidden');
+        }
+        
+        function undoApproval() {
+            document.getElementById('approval-content').classList.remove('hidden');
+            document.getElementById('approval-actions').classList.remove('hidden');
+            document.getElementById('approval-success').classList.add('hidden');
+            document.getElementById('approval-success').classList.remove('flex');
+            document.getElementById('pending-count').classList.remove('hidden');
+        }
+
+        // Close quick actions menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('quick-action-menu');
+            const button = menu.previousElementSibling;
+            if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
+</body></html>

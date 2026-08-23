@@ -1,0 +1,310 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>HariSumiran - Karyakarta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600&amp;family=Poppins:wght@600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#b84d17",
+                        "on-tertiary-container": "#eaf2ff",
+                        "error": "#ba1a1a",
+                        "gradient-saffron-end": "#D6703B",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#e0d9d5",
+                        "on-surface-variant": "#57423a",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "outline": "#8b7268",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "secondary-text": "#6E655F",
+                        "inverse-on-surface": "#f7efec",
+                        "canvas": "#FBF9F5",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-primary": "#ffffff",
+                        "gradient-amber-end": "#CD9138",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f4ece9",
+                        "on-background": "#1e1b19",
+                        "gradient-red-end": "#D66B64",
+                        "on-primary-container": "#ffeee9",
+                        "inverse-primary": "#ffb597",
+                        "on-secondary-container": "#326e51",
+                        "background": "#fff8f5",
+                        "tertiary-fixed": "#cfe5ff",
+                        "gradient-red-start": "#B5473F",
+                        "surface-tint": "#a33e05",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "surface-container-high": "#eee7e3",
+                        "gradient-blue-end": "#5A8DBB",
+                        "on-surface": "#1e1b19",
+                        "outline-variant": "#dec0b5",
+                        "border-subtle": "#E8E0D8",
+                        "primary-fixed-dim": "#ffb597",
+                        "secondary-fixed": "#b1f0cd",
+                        "tertiary-container": "#3c72a1",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#105137",
+                        "primary": "#963700",
+                        "on-tertiary-fixed": "#001d33",
+                        "surface-bright": "#fff8f5",
+                        "secondary-container": "#aeedca",
+                        "on-tertiary": "#ffffff",
+                        "gradient-forest-end": "#4A8C6D",
+                        "primary-fixed": "#ffdbcd",
+                        "surface-container-low": "#faf2ee",
+                        "surface-variant": "#e8e1dd",
+                        "surface": "#FFFFFF",
+                        "on-error-container": "#93000a",
+                        "gradient-amber-start": "#A66A12",
+                        "on-primary-fixed": "#360f00",
+                        "secondary": "#2d694d",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary": "#1f5987",
+                        "inverse-surface": "#33302e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "touch-target": "44px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px",
+                        "half-unit": "4px"
+                    },
+                    "fontFamily": {
+                        "gujarati-body": ["Noto Sans Gujarati"],
+                        "gujarati-header": ["Noto Sans Gujarati"],
+                        "headline-sm": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+                        "headline-lg": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+                        "label-caps": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+                        "body-lg": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+                        "headline-md": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+                        "body-sm": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+                        "wordmark": ["Poppins"]
+                    },
+                    "fontSize": {
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "gujarati-header": ["22px", { "lineHeight": "30px", "fontWeight": "600" }],
+                        "headline-sm": ["22px", { "lineHeight": "28px", "letterSpacing": "0.35px", "fontWeight": "700" }],
+                        "headline-lg": ["34px", { "lineHeight": "41px", "letterSpacing": "0.37px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "0.36px", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "letterSpacing": "-0.41px", "fontWeight": "400" }],
+                        "headline-md": ["28px", { "lineHeight": "34px", "letterSpacing": "0.36px", "fontWeight": "700" }],
+                        "body-sm": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.24px", "fontWeight": "400" }],
+                        "wordmark": ["20px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .saffron-gradient {
+            background: linear-gradient(135deg, theme('colors.primary'), theme('colors.gradient-saffron-end'));
+        }
+        .forest-gradient {
+            background: linear-gradient(135deg, theme('colors.secondary'), theme('colors.gradient-forest-end'));
+        }
+        .amber-gradient {
+            background: linear-gradient(135deg, theme('colors.gradient-amber-start'), theme('colors.gradient-amber-end'));
+        }
+        .mandala-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="90" fill="none" stroke="currentColor" stroke-width="1"/><path d="M100 10 L100 190 M10 100 L190 100" stroke="currentColor" stroke-width="0.5"/></svg>');
+            background-size: 400px;
+            background-position: top center;
+            opacity: 0.03;
+        }
+        
+        /* Hide scrollbar for horizontal scroll areas */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Inner bevel for primary buttons */
+        .btn-bevel {
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-canvas text-on-surface antialiased overflow-x-hidden relative min-h-screen">
+<!-- Mandala Background Accent -->
+<div class="absolute inset-0 mandala-bg pointer-events-none z-0"></div>
+<!-- MAIN APP CONTAINER (Mobile Simulation) -->
+<main class="relative z-10 pb-[100px] max-w-md mx-auto w-full min-h-screen shadow-2xl bg-canvas" id="app-content">
+<!-- Screen 1: Karyakarta Home (Today View) -->
+<section class="w-full flex flex-col min-h-screen animate-fade-in block" id="screen-home">
+<!-- TopAppBar: Shared Component -->
+<header class="bg-canvas/80 backdrop-blur-xl dark:bg-canvas/80 docked full-width top-0 sticky border-b-[0.5px] border-border-subtle z-40">
+<div class="flex items-center justify-between px-margin-mobile h-[60px] w-full">
+<!-- Leading: Avatar -->
+<div class="flex items-center gap-2">
+<div class="w-[36px] h-[36px] rounded-full overflow-hidden bg-surface-variant border border-border-subtle">
+<img class="w-full h-full object-cover" data-alt="A small circular avatar portrait of an Indian man in his 30s, wearing traditional subtle modern attire, smiling warmly against a bright, flat white background. The lighting is soft and even, typical of a professional app profile photo in a light-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVmf1P0mEcpOP7hydkCnRYIIxsLts3PYiW7WLqkUNjKDXqLPFoc7hXGMFWatm25DkoJ4AlrtMs9EUL_r42KzMjE6QbgMfBl2MFAMJLFra9c0kfpDRdGzu9VdrWqZXbc5qQ8egY0JiT2nNDccc11vHzRlf7H7K1x0FoHZd3VyLNry7i9jChdYioYovWry8RVw6htZ3IkHOfW3OrfOXwFTIJ9UHRLtQ2elpgJZz2ysxHJ-I5C1tJNRIA">
+</div>
+</div>
+<!-- Headline -->
+<div class="flex-1 text-center">
+<span class="font-wordmark text-wordmark text-primary dark:text-primary-fixed">HariSumiran</span>
+</div>
+<!-- Trailing: Icon -->
+<button class="w-touch-target h-touch-target flex items-center justify-center text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</div>
+</header>
+<div class="px-margin-mobile pt-6 pb-24 flex flex-col gap-8">
+<!-- Header -->
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Today</h1>
+<p class="font-body-lg text-body-lg text-secondary-text mt-1">Thursday, Oct 12</p>
+</div>
+<!-- Hero: Sabha Card -->
+<div class="bg-surface rounded-2xl border-[0.5px] border-border-subtle p-5 shadow-sm relative overflow-hidden">
+<!-- Decorative subtle accent -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">Next Event</span>
+<h2 class="font-headline-sm text-headline-sm mt-1">Today's Sabha</h2>
+<div class="flex items-center text-secondary-text mt-2 gap-1 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 6:00 PM
+                                <span class="mx-2">•</span>
+<span class="material-symbols-outlined text-[16px]">location_on</span> Nadiad Mandir
+                            </div>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">temple_hindu</span>
+</div>
+</div>
+<button class="w-full h-touch-target saffron-gradient btn-bevel rounded-xl text-white font-headline-sm text-[16px] flex items-center justify-center gap-2 mt-2 transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">qr_code_scanner</span>
+                        Check-in
+                    </button>
+</div>
+<!-- Your Tasks -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-end">
+<h3 class="font-headline-sm text-[20px] text-on-surface">Your Tasks</h3>
+<button class="font-label-caps text-label-caps text-primary uppercase">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Task 1 -->
+<div class="bg-surface rounded-xl border-[0.5px] border-border-subtle p-4 flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full border border-outline flex-shrink-0 cursor-pointer hover:bg-surface-container-low transition-colors"></div>
+<div class="flex-1">
+<p class="font-body-lg text-body-lg font-medium text-on-surface">Follow-up: Patel Family</p>
+<p class="font-body-sm text-body-sm text-secondary-text mt-1">Check on health update</p>
+</div>
+<div class="bg-error/10 text-error px-2 py-1 rounded-full font-label-caps text-[10px] uppercase tracking-wider whitespace-nowrap">High</div>
+</div>
+<!-- Task 2 -->
+<div class="bg-surface rounded-xl border-[0.5px] border-border-subtle p-4 flex items-start gap-4">
+<div class="mt-1 w-6 h-6 rounded-full border border-outline flex-shrink-0 cursor-pointer hover:bg-surface-container-low transition-colors"></div>
+<div class="flex-1">
+<p class="font-body-lg text-body-lg font-medium text-on-surface">Prep Sabha Resources</p>
+<p class="font-body-sm text-body-sm text-secondary-text mt-1">Organize seating &amp; audio</p>
+</div>
+<div class="bg-secondary/10 text-secondary px-2 py-1 rounded-full font-label-caps text-[10px] uppercase tracking-wider whitespace-nowrap">Today</div>
+</div>
+</div>
+</div>
+<!-- Recent Families -->
+<div class="flex flex-col gap-4">
+<h3 class="font-headline-sm text-[20px] text-on-surface">Recent Families</h3>
+<div class="flex overflow-x-auto gap-4 hide-scrollbar -mx-margin-mobile px-margin-mobile pb-2">
+<!-- Fam 1 -->
+<div class="flex flex-col items-center gap-2 flex-shrink-0">
+<div class="w-16 h-16 rounded-full bg-surface border-[0.5px] border-border-subtle overflow-hidden p-[2px]">
+<div class="w-full h-full rounded-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Portrait of an elderly Indian couple smiling, softly lit, isolated against a bright flat white background. The image is clean, minimal, suitable for a mobile app profile picture in a light-mode layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJIJT8ztTiJcckfRNu7BHAc5j50eautB7kZCpU8V5wdnGnWnzNgpqLZbQiwnqUX-sSs1epn-VfSxUSjf_6HGSIr89Hax45CrEO98v1IddOZwG0hxF05yDejbIb4MgiOdVZEXwVzSkOwTWSaf4mjVhX5absikQfg8ZD6tWvS10yTzY16EWp1pgx6cncVMUWcv4NQwPoZOOh8y_wD2hweisTZLu7iNjbQIGTqwUKJ3v2DGlBuK0G1TDw">
+</div>
+</div>
+<span class="font-body-sm text-[13px] font-medium text-center">Patel</span>
+</div>
+<!-- Fam 2 -->
+<div class="flex flex-col items-center gap-2 flex-shrink-0">
+<div class="w-16 h-16 rounded-full bg-surface border-[0.5px] border-border-subtle overflow-hidden p-[2px]">
+<div class="w-full h-full rounded-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young Indian family, parents and one child, smiling warmly, softly lit against a flat white background. Minimalist, bright lighting for a modern spiritual app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7auZqmZ0fQB-gr5apQzv9v1udI6_C1crKKMQzdniQdsxKVAsEiK5NhCkKa4WpCsTGOWQkZZJwFI63yk7kLjfIPYoqikmLgtOmwhsucTqowGkzompuzL33zJb64N-jgbt4yd4vNPa5QzrsGJ1jMwgekN3ONLWVMr3W-sTxuv_G96lrFHQFu2kBEWJ7mKpb0Pzgvx9z7t_soCO9jFvFCeZa5cZD_ovZ4eWkmlqfw32ydJ5TPCg0g9Wp">
+</div>
+</div>
+<span class="font-body-sm text-[13px] font-medium text-center">Shah</span>
+</div>
+<!-- Fam 3 -->
+<div class="flex flex-col items-center gap-2 flex-shrink-0">
+<div class="w-16 h-16 rounded-full bg-surface border-[0.5px] border-border-subtle overflow-hidden flex items-center justify-center text-primary-container text-xl font-bold">
+                                M
+                            </div>
+<span class="font-body-sm text-[13px] font-medium text-center">Mistry</span>
+</div>
+<!-- Add New -->
+<div class="flex flex-col items-center gap-2 flex-shrink-0">
+<div class="w-16 h-16 rounded-full bg-surface-container-low border-[0.5px] border-dashed border-outline-variant overflow-hidden flex items-center justify-center text-secondary-text">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</div>
+<span class="font-body-sm text-[13px] font-medium text-center">Add New</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BottomNavBar: Shared Component (Liquid Glass) -->
+<nav class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md z-50 flex justify-around items-center px-2 liquid-glass border-[0.5px] border-border-subtle h-[64px] rounded-full shadow-sm">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center bg-gradient-to-tr from-primary-container to-gradient-saffron-end text-white rounded-full w-[48px] h-[48px] scale-90 duration-200 transition-transform">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">home</span>
+</button>
+<!-- Families -->
+<button class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant w-touch-target h-touch-target hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="font-label-caps text-[10px] mt-0.5">Families</span>
+</button>
+<!-- Sabha -->
+<button class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant w-touch-target h-touch-target hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+<span class="font-label-caps text-[10px] mt-0.5">Sabha</span>
+</button>
+<!-- Tasks -->
+<button class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant w-touch-target h-touch-target hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 0;">assignment</span>
+<span class="font-label-caps text-[10px] mt-0.5">Tasks</span>
+</button>
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-secondary-text dark:text-outline-variant w-touch-target h-touch-target hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-caps text-[10px] mt-0.5">Profile</span>
+</button>
+</nav>
+</main>
+</body></html>

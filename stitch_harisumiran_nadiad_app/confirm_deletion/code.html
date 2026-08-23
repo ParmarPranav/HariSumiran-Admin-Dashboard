@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Confirm Deletion - HariSumiran</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#aeedca",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-error": "#ffffff",
+                        "surface": "#fff8f5",
+                        "primary-container": "#b84d17",
+                        "surface-bright": "#fff8f5",
+                        "on-secondary-fixed-variant": "#105137",
+                        "secondary-fixed": "#b1f0cd",
+                        "surface-variant": "#e8e1dd",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-secondary-container": "#326e51",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#faf2ee",
+                        "inverse-surface": "#33302e",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#ffeee9",
+                        "on-background": "#1e1b19",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdbcd",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#eaf2ff",
+                        "outline-variant": "#dec0b5",
+                        "on-tertiary-fixed": "#001d33",
+                        "tertiary-container": "#3c72a1",
+                        "inverse-primary": "#ffb597",
+                        "tertiary": "#1f5987",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#e0d9d5",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-primary-fixed": "#360f00",
+                        "on-surface": "#1e1b19",
+                        "surface-container-high": "#eee7e3",
+                        "background": "#fff8f5",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "secondary": "#2d694d",
+                        "surface-container": "#f4ece9",
+                        "inverse-on-surface": "#f7efec",
+                        "on-surface-variant": "#57423a",
+                        "surface-tint": "#a33e05",
+                        "outline": "#8b7268",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "primary": "#963700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "margin-main": "20px",
+                        "touch-target-min": "44px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex items-center justify-center relative overflow-hidden">
+<!-- Background Content (Simulated) -->
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<div class="w-full h-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[300px] text-surface-variant">settings</span>
+</div>
+</div>
+<!-- Dialog Overlay -->
+<div class="fixed inset-0 z-40 bg-on-background/40 backdrop-blur-sm flex items-center justify-center p-margin-main transition-opacity duration-300">
+<!-- Dialog Container -->
+<div class="bg-surface-container-lowest w-full max-w-md rounded-[24px] shadow-[0_24px_60px_rgba(36,33,31,0.1)] border border-outline-variant/30 overflow-hidden transform transition-transform duration-300 scale-100 flex flex-col">
+<!-- Header -->
+<div class="px-6 pt-6 pb-4 flex items-start gap-4">
+<div class="bg-error-container text-on-error-container w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-1">Confirm Deletion</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Delete Role: Karyakarta</p>
+</div>
+</div>
+<!-- Content -->
+<div class="px-6 py-4 bg-error-container/30 border-y border-error-container/50 mx-6 rounded-lg mb-6">
+<p class="font-body-md text-body-md text-error font-medium">
+                    This will permanently remove access for 142 users and cannot be undone.
+                </p>
+</div>
+<div class="px-6 mb-8">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2" for="deleteConfirmation">
+                    To confirm, type <span class="font-bold text-on-background select-none">DELETE</span> below:
+                </label>
+<input autocomplete="off" class="w-full h-touch-target-min px-4 bg-surface-container border border-outline-variant/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-error/50 focus:border-error transition-all font-body-md text-body-md text-on-background placeholder-on-surface-variant/50 uppercase" id="deleteConfirmation" placeholder="Type DELETE" type="text"/>
+</div>
+<!-- Actions -->
+<div class="px-6 pb-6 pt-2 flex flex-col-reverse sm:flex-row gap-3 sm:justify-end">
+<button autofocus="" class="h-touch-target-min px-6 py-2 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-highest active:bg-surface-dim transition-colors flex-1 sm:flex-none flex items-center justify-center" id="cancelBtn" type="button">
+                    Cancel
+                </button>
+<button class="h-touch-target-min px-6 py-2 rounded-full font-label-sm text-label-sm bg-surface-variant text-on-surface-variant/50 cursor-not-allowed transition-all flex-1 sm:flex-none flex items-center justify-center gap-2" disabled="" id="deleteBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+                    Delete Role
+                </button>
+</div>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('deleteConfirmation');
+            const deleteBtn = document.getElementById('deleteBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+
+            // Force focus on cancel button initially
+            cancelBtn.focus();
+
+            input.addEventListener('input', (e) => {
+                const value = e.target.value.toUpperCase();
+                if (value === 'DELETE') {
+                    deleteBtn.disabled = false;
+                    deleteBtn.classList.remove('bg-surface-variant', 'text-on-surface-variant/50', 'cursor-not-allowed');
+                    deleteBtn.classList.add('bg-error', 'text-on-error', 'hover:bg-error/90', 'active:scale-[0.98]', 'shadow-sm');
+                } else {
+                    deleteBtn.disabled = true;
+                    deleteBtn.classList.add('bg-surface-variant', 'text-on-surface-variant/50', 'cursor-not-allowed');
+                    deleteBtn.classList.remove('bg-error', 'text-on-error', 'hover:bg-error/90', 'active:scale-[0.98]', 'shadow-sm');
+                }
+            });
+
+            // Prevent default form submission if wrapped in form
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (!deleteBtn.disabled) {
+                        deleteBtn.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

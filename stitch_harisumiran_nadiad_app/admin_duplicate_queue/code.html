@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Operations - Duplicate Queue</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Noto+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001d33",
+                        "surface": "#fff8f5",
+                        "on-surface": "#1e1b19",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#b1f0cd",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#e0d9d5",
+                        "inverse-surface": "#33302e",
+                        "primary-fixed": "#ffdbcd",
+                        "on-surface-variant": "#57423a",
+                        "on-secondary-container": "#326e51",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#8b7268",
+                        "secondary-container": "#aeedca",
+                        "surface-bright": "#fff8f5",
+                        "inverse-primary": "#ffb597",
+                        "outline-variant": "#dec0b5",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary": "#2d694d",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-tertiary-container": "#eaf2ff",
+                        "inverse-on-surface": "#f7efec",
+                        "surface-container-high": "#eee7e3",
+                        "primary-container": "#b84d17",
+                        "on-primary-container": "#ffeee9",
+                        "on-background": "#1e1b19",
+                        "surface-tint": "#a33e05",
+                        "primary": "#963700",
+                        "surface-variant": "#e8e1dd",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#105137",
+                        "surface-container-low": "#faf2ee",
+                        "surface-container": "#f4ece9",
+                        "tertiary": "#1f5987",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#3c72a1",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#360f00",
+                        "surface-container-highest": "#e8e1dd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "touch-target-min": "44px",
+                        "gutter": "16px",
+                        "stack-gap": "12px",
+                        "margin-main": "20px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["17px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "nav-large-title": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700"}],
+                        "branding-header": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "gujarati-body": ["17px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "25px", "fontWeight": "600"}],
+                        "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Subtle mandala background pattern for Level 0 Canvas */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at center, rgba(150, 55, 0, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        /* Custom scrollbar to match aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 114, 104, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased pb-[120px] pt-[80px]">
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20 flex justify-between items-center px-margin-main h-touch-target-min w-full">
+<!-- Leading Avatar -->
+<div class="flex items-center gap-unit cursor-pointer hover:opacity-80 transition-opacity">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shadow-sm border border-outline-variant/20 overflow-hidden">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+<span class="hidden md:inline font-label-sm text-label-sm text-on-surface-variant">Admin</span>
+</div>
+<!-- Headline -->
+<div class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim tracking-tight">
+            HariSumiran
+        </div>
+<!-- Desktop Navigation Cluster (Hidden on mobile) -->
+<div class="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Families</a>
+<a class="font-label-sm text-label-sm text-primary border-b-2 border-primary pb-1" href="#">Tasks</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Profile</a>
+</div>
+<!-- Trailing Icon -->
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out flex items-center justify-center w-[44px] h-[44px] -mr-2">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-[720px] mx-auto px-margin-main pt-stack-gap">
+<!-- Page Header -->
+<div class="mb-8">
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-wider mb-1 font-semibold">Admin Operations</p>
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface mb-2">Duplicate Queue</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Review and resolve potential duplicate family records flagged by the system.</p>
+</div>
+<!-- Analytics Bento Top Section -->
+<div class="grid grid-cols-2 gap-3 mb-8">
+<div class="bg-surface-container-lowest p-5 rounded-[20px] border border-outline-variant/40 shadow-[0_4px_12px_rgba(36,33,31,0.03)] relative overflow-hidden group hover:border-error/30 transition-colors">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-error-container/40 rounded-full blur-2xl group-hover:bg-error-container/60 transition-colors"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="font-nav-large-title text-[32px] leading-tight text-on-surface font-bold relative z-10 mb-1">12</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant relative z-10">Flagged Pairs</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-[20px] border border-outline-variant/40 shadow-[0_4px_12px_rgba(36,33,31,0.03)] relative overflow-hidden group hover:border-secondary/30 transition-colors">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-secondary-container/40 rounded-full blur-2xl group-hover:bg-secondary-container/60 transition-colors"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="font-nav-large-title text-[32px] leading-tight text-on-surface font-bold relative z-10 mb-1">24</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant relative z-10">Resolved Today</div>
+</div>
+</div>
+<!-- Filter / Sort Header -->
+<div class="flex justify-between items-center mb-4 border-b border-outline-variant/30 pb-3">
+<div class="font-headline-md text-[18px] text-on-surface">Queue List</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant bg-surface-container py-1.5 px-3 rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+                High % First
+            </button>
+</div>
+<!-- LIST OF FLAGGED PAIRS (Glassmorphism / Bento Cards) -->
+<div class="flex flex-col gap-6">
+<!-- Card 1: 98% Match (High Confidence) -->
+<div class="bg-surface-container-lowest rounded-[24px] p-1.5 border border-outline-variant/40 shadow-[0_8px_24px_rgba(36,33,31,0.04)] relative transition-transform hover:scale-[0.99] duration-300">
+<!-- Action Bar -->
+<div class="flex justify-between items-center px-4 py-3 bg-error-container/20 rounded-t-[20px] mb-1.5 border-b border-error-container/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-error text-on-error flex items-center justify-center shadow-sm">
+<span class="font-headline-md text-[14px]">98%</span>
+</div>
+<div>
+<div class="font-headline-md text-[16px] text-error font-bold tracking-tight leading-tight">Critical Match</div>
+<div class="font-label-sm text-[12px] text-on-surface-variant">Exact Phone &amp; Similar Name</div>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-sm text-[13px] px-5 py-2 rounded-full font-medium hover:bg-primary/90 active:scale-95 transition-all shadow-sm">
+                        Review
+                    </button>
+</div>
+<!-- Comparison Records -->
+<div class="flex flex-col sm:flex-row relative bg-surface-container/30 rounded-b-[20px] p-1.5 gap-1.5">
+<!-- Record A -->
+<div class="flex-1 bg-surface-container-lowest rounded-[16px] p-4 border border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex justify-between items-center mb-3">
+<span class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider bg-surface-variant/50 px-2 py-0.5 rounded-sm">Existing Record</span>
+<span class="font-label-sm text-[11px] text-outline">ID: #8821</span>
+</div>
+<div class="font-headline-md text-[18px] text-on-surface mb-2">Ramesh Patel</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-[14px]">
+<span class="material-symbols-outlined text-[16px] text-primary/70">call</span>
+                                +91 98765 43210
+                            </div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-md text-[14px]">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-primary/70">home_pin</span>
+<span class="line-clamp-2">12 B, Shanti Society, Near Station, Nadiad</span>
+</div>
+</div>
+</div>
+<!-- Visual VS Badge -->
+<div class="hidden sm:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-surface border border-outline-variant/40 rounded-full items-center justify-center z-10 shadow-sm text-outline">
+<span class="material-symbols-outlined text-[20px]">compare_arrows</span>
+</div>
+<!-- Record B -->
+<div class="flex-1 bg-surface-container-lowest rounded-[16px] p-4 border border-error/20 relative overflow-hidden bg-gradient-to-br from-error/5 to-transparent cursor-pointer">
+<div class="flex justify-between items-center mb-3 relative z-10">
+<span class="font-label-sm text-[11px] text-error font-medium uppercase tracking-wider bg-error-container/50 px-2 py-0.5 rounded-sm">New Entry</span>
+<span class="font-label-sm text-[11px] text-outline">ID: #9045</span>
+</div>
+<div class="font-headline-md text-[18px] text-on-surface mb-2 relative z-10 flex items-center gap-2">
+                            Rameshbhai Patel
+                            <span class="material-symbols-outlined text-[14px] text-error">error</span>
+</div>
+<div class="flex flex-col gap-2 relative z-10">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-[14px] bg-error/10 -mx-2 px-2 py-0.5 rounded border-l-2 border-error">
+<span class="material-symbols-outlined text-[16px] text-error">call</span>
+<span class="font-medium text-on-surface">+91 98765 43210</span>
+<span class="text-[10px] text-error font-semibold ml-auto uppercase tracking-wide">Match</span>
+</div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-md text-[14px]">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-primary/70">home_pin</span>
+<span class="line-clamp-2">Shanti Soc, Nadiad</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: 85% Match (Medium Confidence) -->
+<div class="bg-surface-container-lowest rounded-[24px] p-1.5 border border-outline-variant/40 shadow-[0_8px_24px_rgba(36,33,31,0.04)] relative transition-transform hover:scale-[0.99] duration-300 opacity-90">
+<!-- Action Bar -->
+<div class="flex justify-between items-center px-4 py-3 bg-surface-container/50 rounded-t-[20px] mb-1.5 border-b border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center border border-outline-variant/50">
+<span class="font-headline-md text-[14px]">85%</span>
+</div>
+<div>
+<div class="font-headline-md text-[16px] text-on-surface font-semibold tracking-tight leading-tight">Possible Match</div>
+<div class="font-label-sm text-[12px] text-on-surface-variant">Same Name, Different Address</div>
+</div>
+</div>
+<button class="bg-surface text-primary border border-primary/30 font-label-sm text-[13px] px-5 py-2 rounded-full font-medium hover:bg-primary/5 active:scale-95 transition-all shadow-sm">
+                        Review
+                    </button>
+</div>
+<!-- Comparison Records -->
+<div class="flex flex-col sm:flex-row relative bg-surface-container/20 rounded-b-[20px] p-1.5 gap-1.5">
+<!-- Record A -->
+<div class="flex-1 bg-surface-container-lowest rounded-[16px] p-4 border border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex justify-between items-center mb-3">
+<span class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider">Record A</span>
+<span class="font-label-sm text-[11px] text-outline">ID: #4412</span>
+</div>
+<div class="font-headline-md text-[18px] text-on-surface mb-2">Amit Shah</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-[14px] bg-secondary-container/30 -mx-2 px-2 py-0.5 rounded border-l-2 border-secondary/50">
+<span class="material-symbols-outlined text-[16px] text-secondary">call</span>
+                                +91 91234 56789
+                            </div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-md text-[14px]">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-primary/70">home_pin</span>
+<span class="line-clamp-2">Vrundavan Park, Anand</span>
+</div>
+</div>
+</div>
+<!-- Visual VS Badge -->
+<div class="hidden sm:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-surface border border-outline-variant/40 rounded-full items-center justify-center z-10 shadow-sm text-outline">
+<span class="material-symbols-outlined text-[20px]">compare_arrows</span>
+</div>
+<!-- Record B -->
+<div class="flex-1 bg-surface-container-lowest rounded-[16px] p-4 border border-outline-variant/20 relative cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-center mb-3 relative z-10">
+<span class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider">Record B</span>
+<span class="font-label-sm text-[11px] text-outline">ID: #9901</span>
+</div>
+<div class="font-headline-md text-[18px] text-on-surface mb-2 relative z-10 flex items-center gap-2">
+                            Amit Shah
+                        </div>
+<div class="flex flex-col gap-2 relative z-10">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-[14px] bg-secondary-container/30 -mx-2 px-2 py-0.5 rounded border-l-2 border-secondary/50">
+<span class="material-symbols-outlined text-[16px] text-secondary">call</span>
+                                +91 91234 56789
+                            </div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-md text-[14px]">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-primary/70">home_pin</span>
+<span class="line-clamp-2 text-error">New Vrundavan Soc, Nadiad</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- End of List Indicator -->
+<div class="text-center mt-8 mb-12">
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">Load More Pairs</p>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) - Mobile Only -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 dark:bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 dark:border-outline/10 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4 md:hidden">
+<!-- Home (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[44px] h-[44px] transition-colors">
+<span class="material-symbols-outlined text-[20px] mb-0.5">home</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</button>
+<!-- Families (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[44px] h-[44px] transition-colors">
+<span class="material-symbols-outlined text-[20px] mb-0.5">group</span>
+<span class="font-label-sm text-[10px]">Families</span>
+</button>
+<!-- Sabha (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[44px] h-[44px] transition-colors">
+<span class="material-symbols-outlined text-[20px] mb-0.5">event_repeat</span>
+<span class="font-label-sm text-[10px]">Sabha</span>
+</button>
+<!-- Tasks (ACTIVE - Represents Operations/Queue) -->
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 transition-transform haptic-feedback w-[44px] h-[44px]">
+<span class="material-symbols-outlined text-[22px] mb-0.5" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-sm text-[10px] font-semibold">Tasks</span>
+</button>
+<!-- Profile (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-[44px] h-[44px] transition-colors">
+<span class="material-symbols-outlined text-[20px] mb-0.5">person</span>
+<span class="font-label-sm text-[10px]">Profile</span>
+</button>
+</nav>
+</body></html>

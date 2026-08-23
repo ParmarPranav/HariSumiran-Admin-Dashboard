@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Seva Department Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "primary-container": "#b84d17",
+                  "on-tertiary-container": "#eaf2ff",
+                  "on-secondary-container": "#326e51",
+                  "secondary-fixed": "#b1f0cd",
+                  "error-container": "#ffdad6",
+                  "on-tertiary": "#ffffff",
+                  "surface-container-lowest": "#ffffff",
+                  "background": "#fff8f5",
+                  "outline-variant": "#dec0b5",
+                  "primary-fixed": "#ffdbcd",
+                  "on-surface": "#1e1b19",
+                  "tertiary-fixed-dim": "#98cbff",
+                  "surface-variant": "#e8e1dd",
+                  "on-tertiary-fixed": "#001d33",
+                  "error": "#ba1a1a",
+                  "on-primary": "#ffffff",
+                  "surface": "#fff8f5",
+                  "on-error": "#ffffff",
+                  "on-primary-container": "#ffeee9",
+                  "on-secondary-fixed": "#002113",
+                  "inverse-primary": "#ffb597",
+                  "tertiary": "#1f5987",
+                  "on-primary-fixed-variant": "#7e2c00",
+                  "primary-fixed-dim": "#ffb597",
+                  "on-tertiary-fixed-variant": "#024a77",
+                  "outline": "#8b7268",
+                  "surface-tint": "#a33e05",
+                  "surface-bright": "#fff8f5",
+                  "on-secondary-fixed-variant": "#105137",
+                  "inverse-on-surface": "#f7efec",
+                  "surface-container-low": "#faf2ee",
+                  "secondary-fixed-dim": "#96d4b2",
+                  "tertiary-fixed": "#cfe5ff",
+                  "surface-container-highest": "#e8e1dd",
+                  "primary": "#963700",
+                  "on-primary-fixed": "#360f00",
+                  "secondary": "#2d694d",
+                  "inverse-surface": "#33302e",
+                  "tertiary-container": "#3c72a1",
+                  "on-surface-variant": "#57423a",
+                  "surface-container-high": "#eee7e3",
+                  "on-error-container": "#93000a",
+                  "secondary-container": "#aeedca",
+                  "on-background": "#1e1b19",
+                  "on-secondary": "#ffffff",
+                  "surface-container": "#f4ece9",
+                  "surface-dim": "#e0d9d5"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "margin-main": "20px",
+                  "gutter": "16px",
+                  "stack-gap": "12px",
+                  "unit": "8px",
+                  "touch-target-min": "44px"
+          },
+          "fontFamily": {
+                  "label-sm": [
+                          "Inter"
+                  ],
+                  "headline-md": [
+                          "Plus Jakarta Sans"
+                  ],
+                  "branding-header": [
+                          "Plus Jakarta Sans"
+                  ],
+                  "body-md": [
+                          "Inter"
+                  ],
+                  "nav-large-title": [
+                          "Plus Jakarta Sans"
+                  ],
+                  "gujarati-body": [
+                          "Noto Sans"
+                  ],
+                  "body-lg": [
+                          "Inter"
+                  ]
+          },
+          "fontSize": {
+                  "label-sm": [
+                          "13px",
+                          {
+                                  "lineHeight": "18px",
+                                  "letterSpacing": "0.2pt",
+                                  "fontWeight": "500"
+                          }
+                  ],
+                  "headline-md": [
+                          "20px",
+                          {
+                                  "lineHeight": "25px",
+                                  "fontWeight": "600"
+                          }
+                  ],
+                  "branding-header": [
+                          "22px",
+                          {
+                                  "lineHeight": "28px",
+                                  "fontWeight": "600"
+                          }
+                  ],
+                  "body-md": [
+                          "15px",
+                          {
+                                  "lineHeight": "20px",
+                                  "fontWeight": "400"
+                          }
+                  ],
+                  "nav-large-title": [
+                          "34px",
+                          {
+                                  "lineHeight": "41px",
+                                  "letterSpacing": "-0.4pt",
+                                  "fontWeight": "700"
+                          }
+                  ],
+                  "gujarati-body": [
+                          "17px",
+                          {
+                                  "lineHeight": "26px",
+                                  "fontWeight": "400"
+                          }
+                  ],
+                  "body-lg": [
+                          "17px",
+                          {
+                                  "lineHeight": "22px",
+                                  "fontWeight": "400"
+                          }
+                  ]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Liquid Glass Effects */
+    .glass-ultra-thin {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px -4px rgba(36, 33, 31, 0.04);
+    }
+    
+    /* Device Frame for presentation */
+    .device-frame {
+      max-width: 430px; /* iPhone 15 Pro Max width */
+      margin: 0 auto;
+      height: 100dvh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      background-color: theme('colors.background');
+    }
+    
+    /* Hide scrollbar for seamless look */
+    .device-frame::-webkit-scrollbar {
+      display: none;
+    }
+    .device-frame {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    body {
+      background-color: #f0f0f0; /* Outer canvas */
+    }
+  </style>
+</head>
+<body class="antialiased text-on-surface">
+<div class="device-frame shadow-2xl relative">
+<!-- Mandala Watermark -->
+<div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-[0.03]">
+<span class="material-symbols-outlined !text-[300px]">language</span>
+</div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20 flat no shadows flex justify-between items-center px-margin-main h-touch-target-min" style="max-width: 430px;">
+<div class="flex items-center gap-unit">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden flex items-center justify-center border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="A close up, soft focus portrait of a young Indian man with a gentle smile, wearing a traditional white kurta, captured in bright, natural daylight in a serene setting. The color palette is warm and inviting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzB7ZdP2cy_XMGsQNSaV6SFo0pSB1eyG1gfFPCQWcvQlCGTLrMkHfXIBzTMLvQyeczLZRSrQzJae1-ZuPl_O0ofyfs77qvY2uOj2As80XyGahmCPKqdMDWRuYFMvk2azGNnSRDmMsep-wEVQl40cFhN3v-bhyF0vSeP9dSphjQc_tjz9lTWjE8SGqlK8ohB3Y_hcOigv8i8O6-BBSDB5kBZfC7zAfv7alhoDmWvbF5ed2gMyKfcI-9">
+</div>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim">HariSumiran</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-margin-main z-10 relative space-y-8">
+<!-- Page Title -->
+<div>
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface">Seva Department</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Today's Overview</p>
+</div>
+<!-- Alerts & Risks Bento -->
+<section class="glass-card rounded-xl border border-outline-variant/30 p-4">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[18px]">warning</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Alerts &amp; Risks</h3>
+</div>
+</div>
+<div class="mt-4 bg-surface-container-low rounded-lg p-3 border border-outline-variant/20 flex items-center gap-3 active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant">swap_horiz</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">2 Roster Swaps Pending</p>
+<p class="text-[12px] text-on-surface-variant">Requires attention</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant ml-auto">chevron_right</span>
+</div>
+</section>
+<!-- Today Summary Grid -->
+<section>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-2 pl-1 uppercase tracking-wider">Today</h3>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="glass-card rounded-xl border border-outline-variant/30 p-4 active:scale-[0.98] transition-transform flex flex-col justify-between h-[120px]">
+<span class="material-symbols-outlined text-primary mb-2">groups</span>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">12</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Volunteers Active</p>
+</div>
+</div>
+<div class="glass-card rounded-xl border border-outline-variant/30 p-4 active:scale-[0.98] transition-transform flex flex-col justify-between h-[120px] bg-secondary-container/20">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Ready</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Kitchen Seva</p>
+</div>
+</div>
+</div>
+</section>
+<!-- KPIs -->
+<section class="glass-card rounded-xl border border-outline-variant/30 p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">done_all</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Team Attendance</p>
+<p class="font-headline-md text-headline-md text-on-surface">98%</p>
+</div>
+</div>
+<div class="w-12 h-12">
+<!-- Simulated Progress Ring -->
+<svg class="w-full h-full text-secondary stroke-current" viewBox="0 0 36 36">
+<path class="text-surface-variant" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="98, 100" stroke-width="3"></path>
+</svg>
+</div>
+</section>
+<!-- Pending Approvals -->
+<section>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-2 pl-1 uppercase tracking-wider">Pending Approvals</h3>
+<div class="glass-card rounded-xl border border-outline-variant/30 p-4 space-y-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface font-medium">Seva Swap Request</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Rahul P. requesting cover for Kitchen Seva (Evening)</p>
+<div class="flex gap-2 mt-3">
+<button class="px-4 py-2 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm flex-1 active:scale-95 transition-transform">Decline</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-full font-label-sm text-label-sm flex-1 active:scale-95 transition-transform shadow-md">Approve</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- No Permission State (Mandir-wide Report) -->
+<section>
+<h3 class="font-label-sm text-label-sm text-on-surface-variant mb-2 pl-1 uppercase tracking-wider">Mandir-wide Report</h3>
+<div class="glass-card rounded-xl border border-outline-variant/30 p-6 flex flex-col items-center justify-center text-center opacity-80 relative overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 flex items-center justify-center opacity-5">
+<span class="material-symbols-outlined !text-[150px]">lock</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/60 text-[32px] mb-3 relative z-10">lock</span>
+<p class="font-body-md text-body-md text-on-surface-variant relative z-10">This report is managed by your Mandir Administrator</p>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 dark:bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 dark:border-outline/10 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 transition-transform h-[44px] hover:bg-primary/5 rounded-full px-2 haptic-feedback">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Home</span>
+</button>
+<!-- People (Families intent mapping) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 h-[44px] hover:bg-primary/5 rounded-full px-2 transition-colors">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">People</span>
+</button>
+<!-- Operations (Sabha intent mapping) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 h-[44px] hover:bg-primary/5 rounded-full px-2 transition-colors">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Operations</span>
+</button>
+<!-- Reports (Tasks intent mapping) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 h-[44px] hover:bg-primary/5 rounded-full px-2 transition-colors">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Reports</span>
+</button>
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 h-[44px] hover:bg-primary/5 rounded-full px-2 transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm text-[10px] mt-1">Profile</span>
+</button>
+</nav>
+</div>
+<script>
+    // Simple script to add active state class toggling on click for demo purposes
+    document.addEventListener('DOMContentLoaded', () => {
+      const hapticElements = document.querySelectorAll('.active\\:scale-95, .active\\:scale-\\[0\\.98\\]');
+      hapticElements.forEach(el => {
+        el.addEventListener('mousedown', () => {
+           // Simulate slight haptic feedback visual
+        });
+      });
+    });
+  </script>
+</body></html>

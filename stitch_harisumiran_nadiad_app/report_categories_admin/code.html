@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>HariSumiran - Report Categories</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&amp;family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#57423a",
+                        "outline-variant": "#dec0b5",
+                        "surface-container-low": "#faf2ee",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e8e1dd",
+                        "surface-container-high": "#eee7e3",
+                        "secondary-container": "#aeedca",
+                        "inverse-surface": "#33302e",
+                        "on-background": "#1e1b19",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-primary-fixed": "#360f00",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#3c72a1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#001d33",
+                        "primary-container": "#b84d17",
+                        "on-secondary-container": "#326e51",
+                        "error-container": "#ffdad6",
+                        "background": "#fff8f5",
+                        "surface-bright": "#fff8f5",
+                        "on-secondary-fixed-variant": "#105137",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f4ece9",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-surface": "#1e1b19",
+                        "primary-fixed": "#ffdbcd",
+                        "surface": "#fff8f5",
+                        "secondary-fixed": "#b1f0cd",
+                        "on-primary": "#ffffff",
+                        "primary": "#963700",
+                        "outline": "#8b7268",
+                        "inverse-on-surface": "#f7efec",
+                        "on-secondary-fixed": "#002113",
+                        "on-tertiary-container": "#eaf2ff",
+                        "secondary": "#2d694d",
+                        "on-primary-container": "#ffeee9",
+                        "surface-container-highest": "#e8e1dd",
+                        "tertiary-fixed": "#cfe5ff",
+                        "surface-dim": "#e0d9d5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "primary-fixed-dim": "#ffb597",
+                        "surface-tint": "#a33e05",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#1f5987",
+                        "inverse-primary": "#ffb597"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-gap": "12px",
+                        "touch-target-min": "44px",
+                        "gutter": "16px",
+                        "margin-main": "20px",
+                        "unit": "8px",
+                        "safe-top": "env(safe-area-inset-top)",
+                        "safe-bottom": "env(safe-area-inset-bottom)"
+                    },
+                    "fontFamily": {
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }]
+                    },
+                    "boxShadow": {
+                        "liquid-card": "0 4px 12px 0 rgba(36, 33, 31, 0.04)",
+                        "liquid-nav": "0 8px 32px 0 rgba(36, 33, 31, 0.08)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF9F5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(232, 224, 216, 0.5);
+        }
+
+        .glass-nav {
+            background: rgba(255, 248, 245, 0.85);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+        }
+
+        /* Sparkline simple animation */
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+        .sparkline-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: dash 1.5s ease-out forwards;
+        }
+
+        /* Hide scrollbar for clean aesthetic */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background relative min-h-screen pb-[120px]">
+<!-- Mandala Watermark Background -->
+<div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-[0.03]">
+<svg class="text-primary" fill="currentColor" height="400" viewbox="0 0 100 100" width="400">
+<circle cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="none" r="30" stroke="currentColor" stroke-width="0.5"></circle>
+<path d="M50 5 L50 95 M5 50 L95 50" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M18 18 L82 82 M18 82 L82 18" stroke="currentColor" stroke-width="0.5"></path>
+</svg>
+</div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20">
+<div class="pt-safe-top">
+<div class="flex justify-between items-center px-margin-main h-touch-target-min w-full">
+<!-- Leading: Avatar -->
+<button aria-label="Profile" class="w-[32px] h-[32px] rounded-full overflow-hidden hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="A small, professional portrait photo of a temple volunteer (Karyakarta) with a warm expression, wearing subtle traditional or neat casual attire, set against a soft, light-mode beige background. High quality, clear, serving as a UI avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXxF2lZ1ih_rCHvoY5tIEYeWLl66NXUR0xw_9xAkUXkn6Ib6z480cbSfGWj6fxnEF_xGhO0-rBKHOjHkd9fzojBOo1E1hWlst41m2rBrgFZPWzoqNkztv7sbz7IVg-FfDbdKfX8njcAOM4RbVyq8davMtjpnrtmbV70tt29i4ovAMGg0_g0PitBCcPV3W5IJWApACewIQaFz_nbbQlwAVlK4AdMx2sIo0zOYai2Wnk3NqSkdGYWTU1"/>
+</button>
+<!-- Headline -->
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim text-center absolute left-1/2 -translate-x-1/2">
+                    HariSumiran
+                </h1>
+<!-- Trailing: Icon -->
+<button aria-label="Add Report" class="w-touch-target-min h-touch-target-min flex items-center justify-end text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 pt-[calc(env(safe-area-inset-top)+60px)] px-margin-main max-w-[720px] mx-auto">
+<!-- Large Title Area -->
+<div class="py-stack-gap mb-4">
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface">Reports</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Select a category to view detailed analytics.</p>
+</div>
+<!-- Bento Grid Layout for Report Categories -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<!-- Category 1: Attendance & Participation (Featured) -->
+<button class="group w-full text-left bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/20 shadow-liquid-card active:scale-[0.98] transition-transform duration-200 relative overflow-hidden h-40 flex flex-col justify-between col-span-1 md:col-span-2">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start relative z-10">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Attendance &amp; Participation</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<div class="flex justify-between items-end relative z-10 w-full mt-auto">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Avg Attendance</p>
+<p class="font-nav-large-title text-[28px] leading-tight text-primary">84%</p>
+</div>
+<!-- Sparkline SVG -->
+<div class="w-24 h-12 text-secondary">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 40">
+<path class="sparkline-path" d="M0 30 Q 20 20, 40 25 T 80 15 T 100 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<circle cx="100" cy="5" fill="currentColor" r="4"></circle>
+</svg>
+</div>
+</div>
+</button>
+<!-- Category 2: Follow-up & Wellbeing -->
+<button class="group w-full text-left bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/20 shadow-liquid-card active:scale-[0.98] transition-transform duration-200 relative h-36 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined">favorite</span>
+<h3 class="font-headline-md text-headline-md text-on-surface line-clamp-1">Follow-up &amp; Wellbeing</h3>
+</div>
+<!-- Lock Icon indicating access logging -->
+<span class="material-symbols-outlined text-outline-variant text-[18px]">lock</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pending Calls</p>
+<p class="font-headline-md text-[24px] text-on-surface mt-1">12 Families</p>
+</div>
+</button>
+<!-- Category 3: Seva Workload & Fairness -->
+<button class="group w-full text-left bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/20 shadow-liquid-card active:scale-[0.98] transition-transform duration-200 relative h-36 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined">balance</span>
+<h3 class="font-headline-md text-headline-md text-on-surface line-clamp-1">Seva Workload</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Active Volunteers</p>
+<p class="font-headline-md text-[24px] text-on-surface mt-1">142</p>
+</div>
+</button>
+<!-- Category 4: Assets -->
+<button class="group w-full text-left bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/20 shadow-liquid-card active:scale-[0.98] transition-transform duration-200 relative h-36 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2 text-primary-container">
+<span class="material-symbols-outlined">inventory_2</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Assets</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Items Checked Out</p>
+<p class="font-headline-md text-[24px] text-on-surface mt-1">34</p>
+</div>
+<!-- Minimal Bar Chart -->
+<div class="flex items-end gap-1 h-8">
+<div class="w-1.5 bg-outline-variant rounded-full h-[40%]"></div>
+<div class="w-1.5 bg-outline-variant rounded-full h-[60%]"></div>
+<div class="w-1.5 bg-outline-variant rounded-full h-[80%]"></div>
+<div class="w-1.5 bg-primary-container rounded-full h-[100%]"></div>
+</div>
+</div>
+</button>
+<!-- Category 5: Events -->
+<button class="group w-full text-left bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/20 shadow-liquid-card active:scale-[0.98] transition-transform duration-200 relative h-36 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2 text-tertiary-container">
+<span class="material-symbols-outlined">event</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Events</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Upcoming this month</p>
+<p class="font-headline-md text-[24px] text-on-surface mt-1">3 Scheduled</p>
+</div>
+</button>
+<!-- Category 6: Engagement Trends -->
+<button class="group w-full text-left bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/20 shadow-liquid-card active:scale-[0.98] transition-transform duration-200 relative h-36 flex flex-col justify-between md:col-span-2">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined">trending_up</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Engagement Trends</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<div class="flex items-center justify-between w-full">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Overall Growth</p>
+<p class="font-headline-md text-[24px] text-secondary mt-1">+12.5%</p>
+</div>
+<!-- Trend Wave SVG -->
+<div class="w-32 h-10 text-secondary opacity-80">
+<svg class="w-full h-full preserve-3d" viewbox="0 0 100 30">
+<path class="opacity-20" d="M0 25 C 20 25, 30 5, 50 15 C 70 25, 80 5, 100 5 L 100 30 L 0 30 Z" fill="currentColor"></path>
+<path class="sparkline-path" d="M0 25 C 20 25, 30 5, 50 15 C 70 25, 80 5, 100 5" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<!-- Displayed on mobile/tablet strictly -->
+<nav class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 dark:bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 dark:border-outline/10 shadow-xl shadow-on-surface/5">
+<div class="flex justify-around items-center py-2 px-4">
+<!-- Item 1: Home (Active based on semantic intent for dashboard/reports) -->
+<button aria-label="Home" class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 transition-transform h-touch-target-min px-2 hover:bg-primary/5 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-[10px] leading-tight mt-0.5">Home</span>
+</button>
+<!-- Item 2: Families -->
+<button aria-label="Families" class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min px-2">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-[10px] leading-tight mt-0.5">Families</span>
+</button>
+<!-- Item 3: Sabha -->
+<button aria-label="Sabha" class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min px-2">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-sm text-[10px] leading-tight mt-0.5">Sabha</span>
+</button>
+<!-- Item 4: Tasks -->
+<button aria-label="Tasks" class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min px-2">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-[10px] leading-tight mt-0.5">Tasks</span>
+</button>
+<!-- Item 5: Profile -->
+<button aria-label="Profile" class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full h-touch-target-min px-2">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px] leading-tight mt-0.5">Profile</span>
+</button>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>HariSumiran - Member Directory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f4ece9",
+                        "on-secondary-container": "#326e51",
+                        "on-secondary-fixed-variant": "#105137",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "surface": "#fff8f5",
+                        "surface-tint": "#a33e05",
+                        "surface-bright": "#fff8f5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "on-surface-variant": "#57423a",
+                        "outline-variant": "#dec0b5",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-background": "#1e1b19",
+                        "secondary-fixed": "#b1f0cd",
+                        "tertiary-fixed": "#cfe5ff",
+                        "on-tertiary-fixed": "#001d33",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "surface-variant": "#e8e1dd",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "outline": "#8b7268",
+                        "primary-fixed": "#ffdbcd",
+                        "surface-container-high": "#eee7e3",
+                        "secondary": "#2d694d",
+                        "inverse-surface": "#33302e",
+                        "surface-dim": "#e0d9d5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1e1b19",
+                        "primary-container": "#b84d17",
+                        "inverse-on-surface": "#f7efec",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#1f5987",
+                        "on-primary-container": "#ffeee9",
+                        "primary": "#963700",
+                        "inverse-primary": "#ffb597",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#faf2ee",
+                        "tertiary-container": "#3c72a1",
+                        "secondary-container": "#aeedca",
+                        "primary-fixed-dim": "#ffb597",
+                        "surface-container-highest": "#e8e1dd",
+                        "background": "#fff8f5",
+                        "on-primary-fixed": "#360f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "touch-target-min": "44px",
+                        "margin-main": "20px",
+                        "stack-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "gujarati-body": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "gujarati-body": ["17px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "25px", "fontWeight": "600"}],
+                        "branding-header": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500"}],
+                        "body-lg": ["17px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "nav-large-title": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: rgba(255, 248, 245, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .liquid-card {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 24px -4px rgba(36, 33, 31, 0.04);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .mandala-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50m-40 0a40 40 0 1 0 80 0a40 40 0 1 0-80 0' fill='none' stroke='%23000' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 80%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20">
+<div class="flex justify-between items-center px-margin-main h-touch-target-min w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm">
+                    K
+                </div>
+</div>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim absolute left-1/2 -translate-x-1/2">
+                HariSumiran
+            </h1>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-end text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-[80px] px-margin-main max-w-[720px] mx-auto mandala-bg min-h-screen">
+<!-- Large Title Area -->
+<div class="py-stack-gap mb-4">
+<h2 class="font-nav-large-title text-nav-large-title text-on-background">Directory</h2>
+</div>
+<!-- Search Bar -->
+<div class="relative mb-stack-gap">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant/60">search</span>
+</div>
+<input class="w-full bg-surface-variant/30 border border-outline-variant/50 rounded-xl py-3 pl-10 pr-4 text-body-md text-on-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all placeholder:text-on-surface-variant/50" placeholder="Search members, families..." type="text"/>
+</div>
+<!-- Filters Scroll -->
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-2 mb-stack-gap">
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-primary bg-primary-container text-on-primary-container font-label-sm text-label-sm flex items-center gap-1">
+                All Members
+            </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant/50 bg-surface text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+                Youth (18-35)
+            </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant/50 bg-surface text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+                Elders (60+)
+            </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-outline-variant/50 bg-surface text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+                Seva: Kitchen
+            </button>
+</div>
+<!-- List Content -->
+<div class="space-y-3">
+<!-- Section Header -->
+<div class="font-label-sm text-label-sm text-on-surface-variant/70 mt-6 mb-2 pl-2">
+                A - F
+            </div>
+<!-- Card 1 -->
+<div class="liquid-card rounded-xl border border-outline-variant/40 p-4 flex items-center gap-4 transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait photo of Amit Shah, a middle-aged Indian man with a warm smile, wearing a simple traditional kurta. Soft natural lighting, serene mood, high quality, minimalist spiritual aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUrNNJErdlJBhmmNihdZXKco7IbMfjaEdp9HcMX8kqXp-ha1S6ENiZCSqnTn_yLJgiLIqWXNcaPH_hkNcKBUv7cfDGuIokGII2IkzzBYKYPc-J5eXXbrh_2H-3KR7cVZT74SFJz2PjGixyj7LvKVVcuQEKJJnOXYWMHFXzDnbJUq-pRAvdE4uIhGeDXzqULlIt0Jqxm04ujSmx4H5EbH8AC6oEdJIiAR_XIKT8EKmGz_A1kn8DW-03"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">Amit Shah</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-[11px]">
+                            Active
+                        </span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-body-md text-[13px] mb-0.5">
+<span class="material-symbols-outlined text-[14px]">group</span>
+<span class="truncate">Shah Family</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant/60 font-body-md text-[12px]">
+<span class="material-symbols-outlined text-[14px]">event</span>
+<span>Last Sabha: Oct 12</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="liquid-card rounded-xl border border-outline-variant/40 p-4 flex items-center gap-4 transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait photo of Meena Desai, an elderly Indian woman with a gentle expression, wearing a simple cotton sari. Warm light filtering through a window, calm and spiritual atmosphere, high resolution, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZA04zfldfFCnDBxlrTCu77odoJH0y2cYFvRoYUNQF9-UzvUVWkFV30Uc7sKabmF50Z7hJ9SZnleOBmACZhv8cYZD3jZyauGR_LgmlB59kef4WNSON-u8sl2wRT2ivp8ax0epEKE8BwjYQ9yWnfGJoMMNmm8naaUAMPNwBobwH6dKxkeg9H1cQC7N7wu_42cYfufvy3NAhE4n9bfJlr5HCVMYWy8jtAzebuwcUfWJqXzULpedo1Wbu"/>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">Meena Desai</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-[11px]">
+                            Occasional
+                        </span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-body-md text-[13px] mb-0.5">
+<span class="material-symbols-outlined text-[14px]">group</span>
+<span class="truncate">Desai Family</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant/60 font-body-md text-[12px]">
+<span class="material-symbols-outlined text-[14px]">event</span>
+<span>Last Sabha: Sep 28</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Hidden as per strict rules unless specifically asked, but prompt asks for "Floating action button for '+ Add Member'") -->
+<!-- Applying contextual rule: The screen intent is Directory, so adding a member is highly contextual here. -->
+<button class="fixed bottom-28 right-6 w-14 h-14 rounded-2xl bg-primary text-on-primary shadow-lg shadow-primary/20 flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[28px]">person_add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="hidden md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 dark:bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 dark:border-outline/10 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4 !flex">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-0.5">home</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 transition-transform hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-[10px]">Families</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-0.5">event_repeat</span>
+<span class="font-label-sm text-[10px]">Sabha</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-0.5">assignment</span>
+<span class="font-label-sm text-[10px]">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-0.5">person</span>
+<span class="font-label-sm text-[10px]">Profile</span>
+</a>
+</nav>
+</body></html>

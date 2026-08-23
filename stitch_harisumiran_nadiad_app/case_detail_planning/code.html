@@ -1,0 +1,429 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>Case Detail &amp; Visit Planning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#b1f0cd",
+                      "surface-container-low": "#faf2ee",
+                      "primary-fixed-dim": "#ffb597",
+                      "inverse-primary": "#ffb597",
+                      "surface-container-highest": "#e8e1dd",
+                      "on-tertiary-fixed-variant": "#024a77",
+                      "on-primary-fixed-variant": "#7e2c00",
+                      "secondary-container": "#aeedca",
+                      "surface-dim": "#e0d9d5",
+                      "primary": "#963700",
+                      "on-surface": "#1e1b19",
+                      "tertiary-fixed-dim": "#98cbff",
+                      "on-error": "#ffffff",
+                      "outline": "#8b7268",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#ffeee9",
+                      "tertiary": "#1f5987",
+                      "surface-container-high": "#eee7e3",
+                      "on-secondary-fixed-variant": "#105137",
+                      "on-tertiary-fixed": "#001d33",
+                      "surface-bright": "#fff8f5",
+                      "tertiary-container": "#3c72a1",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#1e1b19",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#360f00",
+                      "on-primary": "#ffffff",
+                      "background": "#fff8f5",
+                      "on-tertiary-container": "#eaf2ff",
+                      "secondary": "#2d694d",
+                      "surface": "#fff8f5",
+                      "on-surface-variant": "#57423a",
+                      "on-secondary-container": "#326e51",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#002113",
+                      "inverse-surface": "#33302e",
+                      "primary-fixed": "#ffdbcd",
+                      "tertiary-fixed": "#cfe5ff",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#a33e05",
+                      "secondary-fixed-dim": "#96d4b2",
+                      "inverse-on-surface": "#f7efec",
+                      "primary-container": "#b84d17",
+                      "surface-container": "#f4ece9",
+                      "surface-variant": "#e8e1dd",
+                      "outline-variant": "#dec0b5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-gap": "12px",
+                      "unit": "8px",
+                      "touch-target-min": "44px",
+                      "gutter": "16px",
+                      "margin-main": "20px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "branding-header": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "nav-large-title": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "gujarati-body": [
+                              "Noto Sans"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0.2pt",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "25px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "branding-header": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "nav-large-title": [
+                              "34px",
+                              {
+                                      "lineHeight": "41px",
+                                      "letterSpacing": "-0.4pt",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "gujarati-body": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF9F5;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 0.5px solid rgba(232, 224, 216, 0.5);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(36, 33, 31, 0.04);
+        }
+        
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            bottom: -24px;
+            left: 19px;
+            width: 2px;
+            background-color: #e8e1dd;
+            z-index: 0;
+        }
+        
+        .timeline-item:last-child .timeline-line::before {
+            display: none;
+        }
+
+        /* Sheet Animation */
+        #visitSheet {
+            transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+            transform: translateY(100%);
+        }
+        
+        #visitSheet.open {
+            transform: translateY(0);
+        }
+        
+        #sheetOverlay {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        #sheetOverlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  <style>.hide-scrollbar::-webkit-scrollbar { display: none; } .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }</style></head>
+<body class="text-on-surface pb-32">
+<!-- Top App Bar -->
+<header class="liquid-glass fixed top-0 w-full z-40 px-margin-main h-touch-target-min flex justify-between items-center transition-all duration-300" id="topAppBar">
+<div class="flex items-center gap-2">
+<button aria-label="Back" class="h-touch-target-min w-touch-target-min flex items-center justify-center -ml-2 rounded-full hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-branding-header text-branding-header text-primary opacity-0 transition-opacity duration-300" id="compactTitle">Patel Family</h1>
+</div>
+<button aria-label="More options" class="h-touch-target-min w-touch-target-min flex items-center justify-center -mr-2 rounded-full hover:bg-surface-variant/50 transition-colors" onclick="window.location.href='{{DATA:SCREEN:SCREEN_34}}'">
+<span class="material-symbols-outlined text-primary" data-icon="more_horiz">more_horiz</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-margin-main max-w-[720px] mx-auto">
+<!-- Large Header Section -->
+<div class="mb-8" id="largeHeader">
+<div class="flex items-center gap-3 mb-2">
+<div class="px-2.5 py-1 bg-secondary-container rounded-full flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-label-sm text-label-sm text-on-secondary-container">Active Case</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Zone 4 • Nadiad</span>
+</div>
+<h2 class="font-nav-large-title text-nav-large-title text-primary tracking-tight">Patel Family</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Primary Contact: Ramesh Patel</p>
+</div>
+<!-- Quick Stats Bento -->
+<div class="grid grid-cols-2 gap-3 mb-8">
+<div class="bg-surface-container-lowest rounded-xl p-4 card-shadow border border-outline-variant/30">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Last Visit</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface">14 Days Ago</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 card-shadow border border-outline-variant/30">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="volunteer_activism" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Engagement</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface">High</p>
+</div>
+</div>
+<!-- Section Header -->
+<h3 class="font-headline-md text-headline-md text-primary mb-4 ml-1">Relationship Timeline</h3>
+<!-- Unified Timeline -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 card-shadow border border-outline-variant/30">
+<!-- Timeline Item 1 -->
+<div class="relative pl-10 mb-6 timeline-item">
+<div class="absolute left-0 top-0 w-10 h-10 flex items-center justify-center z-10 timeline-line">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+</div>
+<div class="pt-2">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Weekly Sabha Attended</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Oct 12</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Both Ramesh and Sunita attended the Sunday Sabha at HariPrabodham temple.</p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-10 mb-6 timeline-item">
+<div class="absolute left-0 top-0 w-10 h-10 flex items-center justify-center z-10 timeline-line">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-on-primary-container text-sm" data-icon="restaurant" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+</div>
+<div class="pt-2">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Thal Offered</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Oct 05</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Offered evening Thal during the special Utsav. Coordinated by Karyakarta Amit.</p>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-10 timeline-item">
+<div class="absolute left-0 top-0 w-10 h-10 flex items-center justify-center z-10 timeline-line">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="home_work" style="font-variation-settings: 'FILL' 1;">home_work</span>
+</div>
+</div>
+<div class="pt-2">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Home Visit</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sep 28</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">General well-being visit. Discussed upcoming temple events and volunteering opportunities.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Primary Action FAB -->
+<div class="fixed bottom-6 right-margin-main z-40">
+<button class="bg-primary text-on-primary rounded-full h-14 px-6 flex items-center gap-2 shadow-lg shadow-primary/30 hover:scale-95 transition-transform active:bg-surface-tint" id="openPlanVisit" onclick="openSheet()">
+<span class="material-symbols-outlined" data-icon="add" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-body-lg text-body-lg font-medium">Plan Visit</span>
+</button>
+</div>
+<!-- Sheet Overlay -->
+<div class="fixed inset-0 bg-on-surface/20 backdrop-blur-sm z-50" id="sheetOverlay"></div>
+<!-- Native-style Sheet: Plan Visit -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface-container-lowest rounded-t-3xl shadow-2xl z-50 max-h-[795px] flex flex-col pt-2 pb-8 px-margin-main lg:max-w-[600px] lg:mx-auto lg:rounded-3xl lg:bottom-4" id="visitSheet">
+<!-- Sheet Handle -->
+<div class="w-12 h-1.5 bg-outline-variant/50 rounded-full mx-auto mb-6"></div>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Plan New Visit</h2>
+<button class="h-8 w-8 bg-surface-variant/50 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors" id="closePlanVisit">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+</button>
+</div>
+<div class="overflow-y-auto overflow-x-hidden flex-1 space-y-5 px-1">
+<!-- Date & Time Picker Concept -->
+<div class="bg-surface-container rounded-xl p-1 flex">
+<button class="flex-1 py-2 px-3 bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/20 flex flex-col items-center justify-center gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Date</span>
+<span class="font-body-md text-body-md text-primary font-medium">Today</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-lg flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="font-label-sm text-label-sm">Time</span>
+<span class="font-body-md text-body-md font-medium">Anytime</span>
+</button>
+</div>
+<!-- Location Input -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant pl-1">Location</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="location_on">location_on</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-xl leading-5 bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-colors" placeholder="Enter location" type="text" value="Patel Residence, Nadiad">
+</div>
+</div>
+<!-- Add Co-visitor Search -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant pl-1">Co-visitor (Optional)</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="person_add">person_add</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-xl leading-5 bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-colors" placeholder="Search Karyakartas..." type="text">
+</div>
+<!-- Suggested Co-visitors Pill -->
+<div class="flex gap-2 pt-2 overflow-x-auto pb-1 hide-scrollbar">
+<button class="flex-shrink-0 bg-surface-container py-1.5 px-3 rounded-full border border-outline-variant/30 flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<img class="w-5 h-5 rounded-full object-cover" data-alt="A small circular avatar placeholder image showing a generic user silhouette in soft warm colors, UI component style, 50-100 words." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeLI-gmmt3G87htMGWFGm9SuxhGRizXJmacBe1lOrAToKpXPwDn4xebfZQh42xadeaxdGafZNhv6_6jyDoHsdPSeGQa_7x0I3w42avuiulDdcfs__vAZ5K_7CBYPgjrzUXRnNJ3_7FH02N_04t8BfOxg28RO6v-HS_prHMwv2fCKprH48YzWs1ri72OBsQVIR3Updmv3vYzAOkmhzKP7OVVsgJK0F7YygenxZtsBnClBPDuYj96Blm">
+<span class="font-label-sm text-label-sm text-on-surface">Amit K.</span>
+</button>
+<button class="flex-shrink-0 bg-surface-container py-1.5 px-3 rounded-full border border-outline-variant/30 flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<img class="w-5 h-5 rounded-full object-cover" data-alt="A small circular avatar placeholder image showing a generic female user silhouette in soft warm colors, UI component style, 50-100 words." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb2hRVSUWNlOk6mvPN7Dy4hn_KEamGjw5VfLTdKBVGS4_QcHAUCCi8-SGY-w9lDrfglhQb5F_Yo_JZJE_uQa4s6shEHo72esd8-qrP5p2az5vvxi9j6L3oCaErECP4JOcoFplgWPorAbhfGDpYKpJoCzTRT8FpWnhT1VE56sMx822R7z0blcBFmXcbWsMqPuPKg42IlEDjHxkcSGdcVWPCHcJtVpZm22P3CllmHn_NM0x8LvjC0IKN">
+<span class="font-label-sm text-label-sm text-on-surface">Priya S.</span>
+</button>
+</div>
+</div>
+<!-- Notes -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant pl-1">Purpose / Notes</label>
+<textarea class="block w-full p-3 border border-outline-variant rounded-xl bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-colors resize-none" placeholder="Brief context for the visit..." rows="3"></textarea>
+</div>
+</div>
+<!-- Sheet Actions -->
+<div class="pt-4 mt-2">
+<button class="w-full bg-primary text-on-primary rounded-xl py-3.5 font-body-lg text-body-lg font-medium hover:bg-surface-tint transition-colors active:scale-95 duration-200" onclick="window.location.href='{{DATA:SCREEN:SCREEN_34}}'">Confirm Visit</button>
+</div>
+</div>
+<script>
+        // Scroll interaction for Top App Bar
+        const topAppBar = document.getElementById('topAppBar');
+        const compactTitle = document.getElementById('compactTitle');
+        const largeHeader = document.getElementById('largeHeader');
+
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const headerBottom = largeHeader.offsetTop + largeHeader.offsetHeight;
+            
+            if (scrollPos > headerBottom - 60) {
+                compactTitle.style.opacity = '1';
+                topAppBar.classList.add('shadow-sm');
+            } else {
+                compactTitle.style.opacity = '0';
+                topAppBar.classList.remove('shadow-sm');
+            }
+        });
+
+        // Sheet Logic
+        const btnOpen = document.getElementById('openPlanVisit');
+        const btnClose = document.getElementById('closePlanVisit');
+        const sheet = document.getElementById('visitSheet');
+        const overlay = document.getElementById('sheetOverlay');
+
+        function openSheet() {
+            sheet.classList.add('open');
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeSheet() {
+            sheet.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        btnOpen.addEventListener('click', openSheet);
+        btnClose.addEventListener('click', closeSheet);
+        overlay.addEventListener('click', closeSheet);
+        
+        // Hide scrollbar for pills container but keep functionality
+        document.head.insertAdjacentHTML("beforeend", `<style>.hide-scrollbar::-webkit-scrollbar { display: none; } .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }</style>`);
+    </script>
+
+
+</body></html>

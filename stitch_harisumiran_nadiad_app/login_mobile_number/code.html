@@ -1,0 +1,293 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>HariSumiran - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#105137",
+                      "inverse-surface": "#33302e",
+                      "on-secondary-fixed": "#002113",
+                      "surface-container": "#f4ece9",
+                      "outline-variant": "#dec0b5",
+                      "on-primary-fixed-variant": "#7e2c00",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#ffb597",
+                      "surface-container-highest": "#e8e1dd",
+                      "tertiary-container": "#3c72a1",
+                      "secondary-container": "#aeedca",
+                      "surface-container-low": "#faf2ee",
+                      "secondary": "#2d694d",
+                      "on-primary-fixed": "#360f00",
+                      "background": "#fff8f5",
+                      "secondary-fixed-dim": "#96d4b2",
+                      "surface": "#fff8f5",
+                      "surface-container-high": "#eee7e3",
+                      "tertiary-fixed": "#cfe5ff",
+                      "surface-tint": "#a33e05",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-background": "#1e1b19",
+                      "tertiary": "#1f5987",
+                      "surface-dim": "#e0d9d5",
+                      "on-tertiary-fixed": "#001d33",
+                      "inverse-primary": "#ffb597",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed": "#b1f0cd",
+                      "tertiary-fixed-dim": "#98cbff",
+                      "surface-variant": "#e8e1dd",
+                      "error-container": "#ffdad6",
+                      "on-surface-variant": "#57423a",
+                      "outline": "#8b7268",
+                      "primary-container": "#b84d17",
+                      "on-tertiary-container": "#eaf2ff",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#fff8f5",
+                      "primary-fixed": "#ffdbcd",
+                      "inverse-on-surface": "#f7efec",
+                      "primary": "#963700",
+                      "on-surface": "#1e1b19",
+                      "on-primary-container": "#ffeee9",
+                      "on-tertiary-fixed-variant": "#024a77",
+                      "on-secondary-container": "#326e51"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "stack-gap": "12px",
+                      "touch-target-min": "44px",
+                      "gutter": "16px",
+                      "margin-main": "20px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "gujarati-body": [
+                              "Noto Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "branding-header": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "nav-large-title": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0.2pt",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "gujarati-body": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "25px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "branding-header": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "nav-large-title": [
+                              "34px",
+                              {
+                                      "lineHeight": "41px",
+                                      "letterSpacing": "-0.4pt",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Subtle mandala background animation */
+        @keyframes subtleRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0.03; }
+            50% { opacity: 0.05; }
+            100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.03; }
+        }
+        .bg-mandala {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150vw;
+            height: 150vw;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" stroke="%23963700" stroke-width="0.5" fill="none"/><path d="M50 10 L50 90 M10 50 L90 50 M21.7 21.7 L78.3 78.3 M21.7 78.3 L78.3 21.7" stroke="%23963700" stroke-width="0.5" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            animation: subtleRotate 120s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Focus styles for input */
+        .input-focus-ring:focus-within {
+            box-shadow: 0 0 0 2px theme('colors.primary-container');
+            border-color: theme('colors.primary');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen relative overflow-hidden flex flex-col pt-safe pb-safe">
+<!-- Mandala Watermark -->
+<div class="bg-mandala"></div>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col justify-between px-margin-main relative z-10 w-full max-w-md mx-auto pt-12 pb-8 h-[884px]">
+<!-- Top Section: Header & Input -->
+<div class="flex flex-col space-y-8 mt-12">
+<!-- Branding / Welcome -->
+<div class="flex flex-col space-y-2">
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface">Welcome.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[280px]">
+                    Enter your mobile number to access HariSumiran.
+                </p>
+</div>
+<!-- Input Form Area -->
+<div class="pt-8 w-full flex flex-col space-y-6">
+<div class="flex flex-col space-y-1 relative">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-1" for="phone">Mobile Number</label>
+<!-- Input Container (Glass Card level 1) -->
+<div class="input-focus-ring flex items-center bg-surface-container-lowest rounded-xl border border-outline-variant/50 shadow-sm transition-all duration-200 h-[56px] px-4 overflow-hidden relative group">
+<!-- Country Code -->
+<div class="flex items-center space-x-2 pr-3 border-r border-outline-variant/30 h-full">
+<img alt="IN" class="w-6 h-4 rounded-[2px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.05)_inset]" data-alt="Small crisp high resolution image of the flag of India showing the saffron white and green horizontal stripes with the blue chakra wheel in the center on a solid clean background to be used as a tiny UI icon." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHvQm4ZQgJVf5peUVPY4w5cKfK-SvxWgB27m09oD5evQhBBFAOAUXlAswZ0PTZhPcH1-kjhYACLK2-62fZOIxqwTagb4K8QfQdXcWCR3xbStYqham_ny2sWgqQfH77Fwyx6uoyiv-3wFXSI_zPdmUxOffpBCWUM2YrBzAKwDIdThpHQh6W-VAxFLJZUswIXexBRUI8quM4n_93yX-un5YkudHR4PztZFgtcDSi-a3ccqQ-n0Ocg2gI">
+<span class="font-body-lg text-body-lg text-on-surface font-medium">+91</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+<!-- Phone Input -->
+<input autocomplete="tel-national" autofocus="" class="flex-1 h-full bg-transparent border-none focus:ring-0 font-body-lg text-body-lg text-on-surface px-4 placeholder:text-on-surface-variant/40" id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="00000 00000" type="tel">
+<!-- Inline Validation Icon (Hidden by default) -->
+<div class="absolute right-4 text-secondary opacity-0 transition-opacity duration-200" id="validation-icon">
+<span class="material-symbols-outlined filled-icon">check_circle</span>
+</div>
+</div>
+<!-- Helper Text -->
+<p class="font-label-sm text-label-sm text-on-surface-variant/60 ml-1 mt-2">
+                        We'll send you an OTP to verify your identity.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Action Button -->
+<div class="w-full flex flex-col space-y-4 pb-6">
+<button class="w-full h-touch-target-min bg-primary text-on-primary rounded-xl font-headline-md text-headline-md shadow-lg shadow-primary/20 flex items-center justify-center space-x-2 opacity-50 cursor-not-allowed transition-all duration-300 active:scale-95" disabled="" id="send-otp-btn">
+<span>Send OTP</span>
+<span class="material-symbols-outlined text-[20px] ml-2">arrow_forward</span>
+</button>
+</div>
+</main>
+<script>
+        // Simple client-side formatting and validation for demonstration
+        document.addEventListener('DOMContentLoaded', () => {
+            const phoneInput = document.getElementById('phone');
+            const sendBtn = document.getElementById('send-otp-btn');
+            const validationIcon = document.getElementById('validation-icon');
+
+            phoneInput.addEventListener('input', (e) => {
+                // Strip non-digits
+                let value = e.target.value.replace(/\D/g, '');
+                
+                // Format as 5 digits space 5 digits
+                if (value.length > 5) {
+                    value = value.substring(0, 5) + ' ' + value.substring(5, 10);
+                }
+                
+                e.target.value = value;
+
+                // Validate (exactly 10 digits total -> length 11 with space)
+                const isValid = value.replace(/\s/g, '').length === 10;
+                
+                if (isValid) {
+                    sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    sendBtn.removeAttribute('disabled');
+                    validationIcon.classList.remove('opacity-0');
+                    // Add subtle haptic simulation via visual scale
+                    phoneInput.parentElement.style.transform = 'scale(0.99)';
+                    setTimeout(() => phoneInput.parentElement.style.transform = 'scale(1)', 100);
+                } else {
+                    sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    sendBtn.setAttribute('disabled', 'true');
+                    validationIcon.classList.add('opacity-0');
+                }
+            });
+
+            // Handle button click
+            sendBtn.addEventListener('click', () => {
+                if(!sendBtn.hasAttribute('disabled')) {
+                    sendBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+                    // Simulate API call
+                    setTimeout(() => {
+                        sendBtn.innerHTML = '<span>Sent Successfully</span><span class="material-symbols-outlined ml-2">check</span>';
+                        sendBtn.classList.replace('bg-primary', 'bg-secondary');
+                    }, 1500);
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>HariSumiran - Secure Entry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#ffb597",
+                      "error": "#ba1a1a",
+                      "surface-container-low": "#faf2ee",
+                      "surface-variant": "#e8e1dd",
+                      "on-secondary-fixed": "#002113",
+                      "primary-fixed": "#ffdbcd",
+                      "on-tertiary-fixed-variant": "#024a77",
+                      "on-primary-fixed-variant": "#7e2c00",
+                      "surface-bright": "#fff8f5",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#ffeee9",
+                      "on-error": "#ffffff",
+                      "surface-container": "#f4ece9",
+                      "tertiary-fixed": "#cfe5ff",
+                      "primary": "#963700",
+                      "on-surface-variant": "#57423a",
+                      "on-tertiary-fixed": "#001d33",
+                      "on-secondary-container": "#326e51",
+                      "secondary": "#2d694d",
+                      "surface": "#fff8f5",
+                      "surface-container-highest": "#e8e1dd",
+                      "secondary-fixed": "#b1f0cd",
+                      "on-tertiary-container": "#eaf2ff",
+                      "background": "#fff8f5",
+                      "tertiary": "#1f5987",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "on-background": "#1e1b19",
+                      "surface-dim": "#e0d9d5",
+                      "on-primary-fixed": "#360f00",
+                      "outline": "#8b7268",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#33302e",
+                      "secondary-fixed-dim": "#96d4b2",
+                      "on-surface": "#1e1b19",
+                      "primary-container": "#b84d17",
+                      "surface-container-high": "#eee7e3",
+                      "secondary-container": "#aeedca",
+                      "tertiary-fixed-dim": "#98cbff",
+                      "outline-variant": "#dec0b5",
+                      "surface-tint": "#a33e05",
+                      "on-secondary-fixed-variant": "#105137",
+                      "tertiary-container": "#3c72a1",
+                      "inverse-on-surface": "#f7efec",
+                      "primary-fixed-dim": "#ffb597"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-main": "20px",
+                      "stack-gap": "12px",
+                      "gutter": "16px",
+                      "unit": "8px",
+                      "touch-target-min": "44px"
+              },
+              "fontFamily": {
+                      "nav-large-title": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "gujarati-body": [
+                              "Noto Sans"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "branding-header": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "nav-large-title": [
+                              "34px",
+                              {
+                                      "lineHeight": "41px",
+                                      "letterSpacing": "-0.4pt",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "gujarati-body": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "branding-header": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "25px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0.2pt",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .glass-sheet {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(36, 33, 31, 0.08);
+        }
+        
+        .face-id-scan {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+
+        .bg-pattern {
+            background-image: radial-gradient(var(--tw-colors-primary-fixed) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-full bg-background font-body-md text-on-background overflow-hidden relative">
+<!-- Blurred Background App Context (Simulated) -->
+<div class="absolute inset-0 z-0 select-none pointer-events-none filter blur-md opacity-40 transition-all duration-700 ease-in-out scale-105 transform origin-center">
+<!-- Abstract Top Bar Simulation -->
+<div class="h-24 w-full bg-surface-container-high border-b border-outline-variant/30 px-margin-main pt-12 flex justify-between items-center">
+<div class="w-32 h-6 bg-surface-variant rounded-full"></div>
+<div class="w-10 h-10 bg-surface-variant rounded-full"></div>
+</div>
+<!-- Abstract Content Simulation -->
+<div class="p-margin-main flex flex-col gap-stack-gap mt-unit">
+<div class="w-full h-40 bg-surface-container-highest rounded-2xl"></div>
+<div class="flex gap-gutter">
+<div class="flex-1 h-28 bg-surface-container-lowest border border-outline-variant/20 rounded-2xl shadow-sm"></div>
+<div class="flex-1 h-28 bg-surface-container-lowest border border-outline-variant/20 rounded-2xl shadow-sm"></div>
+</div>
+<div class="w-3/4 h-8 bg-surface-variant rounded mt-unit"></div>
+<div class="w-full h-20 bg-surface-container-lowest border border-outline-variant/20 rounded-xl"></div>
+<div class="w-full h-20 bg-surface-container-lowest border border-outline-variant/20 rounded-xl"></div>
+</div>
+<!-- Subtle Mandala/Pattern overlay to indicate brand -->
+<div class="absolute inset-0 bg-pattern z-0 pointer-events-none"></div>
+</div>
+<!-- Dark Overlay to separate context from modal -->
+<div class="absolute inset-0 z-10 bg-on-background/20 backdrop-blur-sm transition-opacity duration-300"></div>
+<!-- Main Content Area - Face ID Sheet -->
+<main class="absolute inset-0 z-20 flex flex-col items-center justify-end md:justify-center p-4">
+<!-- Sheet Container -->
+<div class="w-full max-w-[400px] glass-sheet rounded-[32px] p-8 flex flex-col items-center transform transition-transform duration-500 translate-y-0 ease-out" id="auth-sheet">
+<!-- Branding/App Identifier -->
+<div class="mb-8 flex flex-col items-center">
+<div class="w-16 h-16 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center mb-4 shadow-sm">
+<span class="material-symbols-outlined text-[32px]">spa</span>
+</div>
+<h1 class="font-branding-header text-branding-header text-on-surface text-center">HariSumiran</h1>
+</div>
+<!-- Face ID Icon & Animation -->
+<div class="relative w-24 h-24 mb-6 flex items-center justify-center">
+<div class="absolute inset-0 border-4 border-primary/20 rounded-2xl face-id-scan"></div>
+<span class="material-symbols-outlined text-[64px] text-primary" style="font-variation-settings: 'FILL' 0, 'wght' 200;">drafts</span>
+</div>
+<!-- Status Text -->
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2 text-center">Face ID</h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-center mb-10">Authenticating...</p>
+<!-- Fallback Action -->
+<button class="w-full min-h-[44px] flex items-center justify-center px-6 py-3 rounded-xl bg-surface hover:bg-surface-dim transition-colors border border-outline-variant/50 font-label-sm text-label-sm text-primary group active:scale-95 duration-200">
+<span class="material-symbols-outlined mr-2 text-[18px] group-hover:text-primary-container">dialpad</span>
+                Use Passcode
+            </button>
+<!-- Cancel / Dismiss (Subtle) -->
+<button class="mt-4 min-h-[44px] flex items-center justify-center px-4 font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors active:opacity-70">
+                Cancel
+            </button>
+</div>
+</main>
+<script>
+        // Simple entrance animation logic
+        document.addEventListener("DOMContentLoaded", () => {
+            const sheet = document.getElementById('auth-sheet');
+            // Initial state for animation (if needed for purely JS driven entrance)
+            // sheet.style.transform = 'translateY(20px)';
+            // sheet.style.opacity = '0';
+            
+            // setTimeout(() => {
+            //     sheet.style.transform = 'translateY(0)';
+            //     sheet.style.opacity = '1';
+            // }, 100);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Member Registration - HariSumiran</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f4ece9",
+                        "on-secondary-container": "#326e51",
+                        "on-secondary-fixed-variant": "#105137",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "surface": "#fff8f5",
+                        "surface-tint": "#a33e05",
+                        "surface-bright": "#fff8f5",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "on-surface-variant": "#57423a",
+                        "outline-variant": "#dec0b5",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-background": "#1e1b19",
+                        "secondary-fixed": "#b1f0cd",
+                        "tertiary-fixed": "#cfe5ff",
+                        "on-tertiary-fixed": "#001d33",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "surface-variant": "#e8e1dd",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "outline": "#8b7268",
+                        "primary-fixed": "#ffdbcd",
+                        "surface-container-high": "#eee7e3",
+                        "secondary": "#2d694d",
+                        "inverse-surface": "#33302e",
+                        "surface-dim": "#e0d9d5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1e1b19",
+                        "primary-container": "#b84d17",
+                        "inverse-on-surface": "#f7efec",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#1f5987",
+                        "on-primary-container": "#ffeee9",
+                        "primary": "#963700",
+                        "inverse-primary": "#ffb597",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#faf2ee",
+                        "tertiary-container": "#3c72a1",
+                        "secondary-container": "#aeedca",
+                        "primary-fixed-dim": "#ffb597",
+                        "surface-container-highest": "#e8e1dd",
+                        "background": "#fff8f5",
+                        "on-primary-fixed": "#360f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "touch-target-min": "44px",
+                        "margin-main": "20px",
+                        "stack-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "gujarati-body": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "gujarati-body": ["17px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "25px", "fontWeight": "600"}],
+                        "branding-header": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500"}],
+                        "body-lg": ["17px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "nav-large-title": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF9F5;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .ios-toggle {
+            position: relative;
+            width: 51px;
+            height: 31px;
+            background-color: #e5e5ea;
+            border-radius: 31px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .ios-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 27px;
+            height: 27px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 3px 1px rgba(0,0,0,0.06);
+            transition: transform 0.3s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+        }
+        
+        .ios-toggle.active {
+            background-color: #34c759;
+        }
+        
+        .ios-toggle.active::after {
+            transform: translateX(20px);
+        }
+        
+        /* Subtle glass effect for the top bar */
+        .glass-top {
+            background: rgba(255, 248, 245, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Standard input styling */
+        .form-input {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #dec0b5;
+            padding: 12px 0;
+            color: #1e1b19;
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: #963700;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(87, 66, 58, 0.5);
+        }
+
+        /* Floating label container */
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        /* Abstract subtle background pattern for empty areas */
+        .bg-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(139, 114, 104, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface bg-pattern min-h-screen pb-[100px]">
+<!-- Top AppBar (Linear/Transactional variant, no global nav icons) -->
+<header class="glass-top fixed top-0 w-full z-50 px-margin-main h-touch-target-min flex justify-between items-center border-b border-outline-variant/30">
+<div class="flex items-center gap-2 cursor-pointer text-primary" onclick="window.history.back()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back_ios</span>
+<span class="font-body-md text-body-md">Back</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface">New Member</h1>
+<div class="w-[60px]"></div> <!-- Spacer to balance header -->
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[80px] px-margin-main max-w-[720px] mx-auto">
+<div class="mb-8">
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface mb-2">Registration</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Enter details for the new family member.</p>
+</div>
+<form class="space-y-6">
+<!-- Personal Info Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(36,33,31,0.04)] p-6 mb-6">
+<h3 class="font-label-sm text-label-sm text-primary mb-6 uppercase tracking-widest">Personal Information</h3>
+<div class="input-group">
+<input class="form-input" id="fullName" placeholder="Full Name" required="" type="text"/>
+</div>
+<div class="input-group">
+<input class="form-input text-on-surface-variant" id="dob" placeholder="Date of Birth" required="" type="date"/>
+</div>
+<div class="input-group mb-0">
+<input class="form-input" id="phone" pattern="[0-9]{10}" placeholder="Phone Number" required="" type="tel"/>
+</div>
+</div>
+<!-- Family Connection Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(36,33,31,0.04)] p-6 mb-6">
+<h3 class="font-label-sm text-label-sm text-primary mb-6 uppercase tracking-widest">Family Connection</h3>
+<div class="relative cursor-pointer group">
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-3 group-hover:border-primary transition-colors">
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">Link to Family</p>
+<p class="font-body-lg text-body-lg text-on-surface">Select a family...</p>
+</div>
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+</div>
+</div>
+<!-- Consent Section -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(36,33,31,0.04)] p-6 mb-8">
+<h3 class="font-label-sm text-label-sm text-primary mb-4 uppercase tracking-widest">Preferences</h3>
+<div class="flex justify-between items-center">
+<div class="pr-4">
+<p class="font-body-lg text-body-lg text-on-surface mb-1">Communication Consent</p>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Allow updates via SMS and WhatsApp.</p>
+</div>
+<div aria-checked="true" class="ios-toggle active" id="consentToggle" role="switch" tabindex="0"></div>
+</div>
+</div>
+<!-- Fixed Bottom Actions -->
+<div class="fixed bottom-0 left-0 w-full glass-top border-t border-outline-variant/30 p-margin-main pb-8 flex justify-center z-40">
+<button class="w-full max-w-[400px] bg-primary text-on-primary h-touch-target-min rounded-full font-headline-md text-headline-md flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md" type="submit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+                    Save Member
+                </button>
+</div>
+</form>
+</main>
+<script>
+        // Simple toggle logic for iOS-style switch
+        document.getElementById('consentToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            const isChecked = this.classList.contains('active');
+            this.setAttribute('aria-checked', isChecked);
+        });
+
+        // Basic date picker placeholder styling fix
+        const dobInput = document.getElementById('dob');
+        dobInput.addEventListener('change', function() {
+            if(this.value) {
+                this.classList.remove('text-on-surface-variant');
+                this.classList.add('text-on-surface');
+            } else {
+                this.classList.add('text-on-surface-variant');
+                this.classList.remove('text-on-surface');
+            }
+        });
+    </script>
+</body></html>

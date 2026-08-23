@@ -1,0 +1,214 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>Locked Account - HariSumiran</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#ffb597",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#faf2ee",
+                        "surface-variant": "#e8e1dd",
+                        "on-secondary-fixed": "#002113",
+                        "primary-fixed": "#ffdbcd",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "surface-bright": "#fff8f5",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffeee9",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f4ece9",
+                        "tertiary-fixed": "#cfe5ff",
+                        "primary": "#963700",
+                        "on-surface-variant": "#57423a",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-secondary-container": "#326e51",
+                        "secondary": "#2d694d",
+                        "surface": "#fff8f5",
+                        "surface-container-highest": "#e8e1dd",
+                        "secondary-fixed": "#b1f0cd",
+                        "on-tertiary-container": "#eaf2ff",
+                        "background": "#fff8f5",
+                        "tertiary": "#1f5987",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1e1b19",
+                        "surface-dim": "#e0d9d5",
+                        "on-primary-fixed": "#360f00",
+                        "outline": "#8b7268",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#33302e",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "on-surface": "#1e1b19",
+                        "primary-container": "#b84d17",
+                        "surface-container-high": "#eee7e3",
+                        "secondary-container": "#aeedca",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "outline-variant": "#dec0b5",
+                        "surface-tint": "#a33e05",
+                        "on-secondary-fixed-variant": "#105137",
+                        "tertiary-container": "#3c72a1",
+                        "inverse-on-surface": "#f7efec",
+                        "primary-fixed-dim": "#ffb597"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-main": "20px",
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "touch-target-min": "44px"
+                    },
+                    "fontFamily": {
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-md": ["Inter"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "nav-large-title": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700" }],
+                        "body-lg": ["17px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "gujarati-body": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "branding-header": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "25px", "fontWeight": "600" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base Liquid Glass / Background */
+        body {
+            background-color: #FBF9F5; /* Canvas Level 0 */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Abstract Mandala Watermark (Empty State/Background) */
+        .mandala-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120vw;
+            height: 120vw;
+            max-width: 800px;
+            max-height: 800px;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0C50 27.6 27.6 50 0 50c27.6 0 50 22.4 50 50 0-27.6 22.4-50 50-50-27.6 0-50-22.4-50-50z' fill='%23000' fill-rule='nonzero'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 100px;
+        }
+
+        /* Card Level 1 */
+        .glass-card {
+            background-color: #FFFFFF;
+            border: 0.5px solid #E8E0D8;
+            box-shadow: 0px 4px 12px rgba(36, 33, 31, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Button Interaction */
+        .btn-interact {
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .btn-interact:active {
+            transform: scale(0.98);
+            box-shadow: 0px 2px 8px rgba(36, 33, 31, 0.08);
+        }
+
+        /* Pulse Animation for Lock Icon */
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+        .animate-subtle-pulse {
+            animation: subtle-pulse 3s infinite ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden text-on-surface pt-safe pb-safe">
+<!-- Ambient Background -->
+<div class="mandala-bg"></div>
+<!-- Main Content Canvas (Suppressed Navigation for Transactional/Dead-end state) -->
+<main class="w-full max-w-[440px] px-margin-main z-10 flex flex-col items-center text-center">
+<!-- Status Graphic Container -->
+<div class="relative mb-8 flex justify-center items-center">
+<!-- Decorative rings -->
+<div class="absolute w-32 h-32 rounded-full bg-error-container opacity-20 animate-subtle-pulse"></div>
+<div class="absolute w-24 h-24 rounded-full bg-error-container opacity-40 animate-subtle-pulse" style="animation-delay: 0.5s;"></div>
+<!-- Core Icon -->
+<div class="w-16 h-16 rounded-full bg-error flex items-center justify-center shadow-lg shadow-error/20 relative z-10">
+<span class="material-symbols-outlined text-on-error text-3xl" style="font-variation-settings: 'FILL' 1;">
+                    lock
+                </span>
+</div>
+</div>
+<!-- Typography -->
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface mb-stack-gap">
+            Account Locked
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-sm">
+            For your security, access to this account has been temporarily restricted due to multiple unsuccessful attempts.
+        </p>
+<!-- Information Card (Level 1) -->
+<div class="glass-card w-full rounded-xl p-6 mb-8 text-left">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Need access?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                Please reach out to your regional administrator to verify your identity and restore access to HariSumiran.
+            </p>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">
+                    support_agent
+                </span>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Administrator Support</div>
+<div class="font-body-md text-body-md text-on-surface font-medium">Available 8 AM - 8 PM</div>
+</div>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="btn-interact w-full bg-primary text-on-primary h-touch-target-min rounded-full flex items-center justify-center gap-2 font-label-sm text-label-sm shadow-md shadow-primary/10">
+<span class="material-symbols-outlined text-lg">
+                mail
+            </span>
+            Contact Administrator
+        </button>
+<!-- Secondary Action (Return) -->
+<button class="btn-interact w-full mt-4 h-touch-target-min rounded-full flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant bg-transparent border border-outline-variant/50 hover:bg-surface-variant/30">
+            Return to Login
+        </button>
+</main>
+<!-- Suppressed Shared Components: TopAppBar and BottomNavBar are omitted per logical mandate for linear/transactional/dead-end states -->
+</body></html>

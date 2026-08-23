@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>HariSumiran - Registration Wizard</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#001d33",
+                        "surface": "#fff8f5",
+                        "on-surface": "#1e1b19",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#b1f0cd",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#e0d9d5",
+                        "inverse-surface": "#33302e",
+                        "primary-fixed": "#ffdbcd",
+                        "on-surface-variant": "#57423a",
+                        "on-secondary-container": "#326e51",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#8b7268",
+                        "secondary-container": "#aeedca",
+                        "surface-bright": "#fff8f5",
+                        "inverse-primary": "#ffb597",
+                        "outline-variant": "#dec0b5",
+                        "tertiary-fixed": "#cfe5ff",
+                        "secondary": "#2d694d",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-tertiary-container": "#eaf2ff",
+                        "inverse-on-surface": "#f7efec",
+                        "surface-container-high": "#eee7e3",
+                        "primary-container": "#b84d17",
+                        "on-primary-container": "#ffeee9",
+                        "on-background": "#1e1b19",
+                        "surface-tint": "#a33e05",
+                        "primary": "#963700",
+                        "surface-variant": "#e8e1dd",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#105137",
+                        "surface-container-low": "#faf2ee",
+                        "surface-container": "#f4ece9",
+                        "tertiary": "#1f5987",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#3c72a1",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "primary-fixed-dim": "#ffb597",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#360f00",
+                        "surface-container-highest": "#e8e1dd"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        unit: "8px",
+                        "touch-target-min": "44px",
+                        "gutter": "16px",
+                        "stack-gap": "12px",
+                        "margin-main": "20px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-lg": ["17px", { lineHeight: "22px", fontWeight: "400" }],
+                        "nav-large-title": ["34px", { lineHeight: "41px", letterSpacing: "-0.4pt", fontWeight: "700" }],
+                        "branding-header": ["22px", { lineHeight: "28px", fontWeight: "600" }],
+                        "body-md": ["15px", { lineHeight: "20px", fontWeight: "400" }],
+                        "gujarati-body": ["17px", { lineHeight: "26px", fontWeight: "400" }],
+                        "headline-md": ["20px", { lineHeight: "25px", fontWeight: "600" }],
+                        "label-sm": ["13px", { lineHeight: "18px", letterSpacing: "0.2pt", fontWeight: "500" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+            background-color: theme('colors.surface');
+            color: theme('colors.on-surface');
+        }
+        
+        .liquid-glass {
+            background-color: rgba(255, 248, 245, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 12px 0 rgba(36, 33, 31, 0.04);
+        }
+
+        /* Abstract Mandala Watermark */
+        .mandala-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 0C44.77 0 0 44.77 0 100s44.77 100 100 100 100-44.77 100-100S155.23 0 100 0zm0 180c-44.11 0-80-35.89-80-80s35.89-80 80-80 80 35.89 80 80-35.89 80-80 80z' fill='%23963700' fill-opacity='0.03'/%3E%3C/svg%3E");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 150%;
+        }
+
+        /* Custom Input Styles */
+        .input-field {
+            width: 100%;
+            background-color: theme('colors.surface-container-lowest');
+            border: 1px solid theme('colors.outline-variant');
+            border-radius: theme('borderRadius.xl');
+            padding: theme('spacing.stack-gap') theme('spacing.gutter');
+            min-height: theme('spacing.touch-target-min');
+            transition: all 0.2s ease-in-out;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: theme('colors.primary');
+            box-shadow: 0 0 0 2px theme('colors.primary-fixed');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen flex flex-col items-center justify-start mandala-bg relative pb-[100px] sm:pb-0">
+<!-- Top Navigation (Transactional/Linear Intent: Hidden BottomNav, Simple Top Bar) -->
+<header class="fixed top-0 w-full z-50 liquid-glass border-b border-outline-variant/30 flex items-center justify-between px-margin-main h-touch-target-min min-h-[56px] md:hidden">
+<button aria-label="Close" class="text-on-surface-variant hover:opacity-80 transition-opacity p-2 -ml-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+<div class="font-headline-md text-headline-md text-on-surface">Registration</div>
+<div class="w-[44px]"></div> <!-- Spacer for centering -->
+</header>
+<!-- Desktop Header -->
+<header class="hidden md:flex fixed top-0 w-full z-50 liquid-glass border-b border-outline-variant/30 items-center justify-between px-8 h-[72px]">
+<div class="flex items-center gap-4">
+<button aria-label="Close" class="text-on-surface-variant hover:bg-surface-variant/50 rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+<div class="font-branding-header text-branding-header text-primary">HariSumiran</div>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface">New Family Registration</div>
+<div class="w-[100px]"></div>
+</header>
+<!-- Main Canvas -->
+<main class="w-full max-w-[720px] mx-auto px-margin-main pt-[80px] md:pt-[100px] flex-1 flex flex-col">
+<!-- Progress Indicator -->
+<div class="mb-8">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Step 1 of 3</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Household Basics</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full w-1/3 transition-all duration-500 ease-out"></div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="flex-1">
+<h1 class="font-nav-large-title text-nav-large-title text-on-surface mb-2">Welcome</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Let's start by adding the basic details for this new household.</p>
+<form class="space-y-6">
+<!-- Family Name -->
+<div class="space-y-2">
+<label class="block font-label-sm text-label-sm text-on-surface" for="familyName">Family Name (Surname)</label>
+<input class="input-field font-body-md text-body-md text-on-surface" id="familyName" name="familyName" placeholder="e.g. Patel" required="" type="text"/>
+</div>
+<!-- Primary Address -->
+<div class="space-y-2">
+<label class="block font-label-sm text-label-sm text-on-surface" for="primaryAddress">Primary Address</label>
+<textarea class="input-field font-body-md text-body-md text-on-surface resize-none" id="primaryAddress" name="primaryAddress" placeholder="Enter street address" required="" rows="3"></textarea>
+</div>
+<!-- Area/Sector Dropdown (Native iOS Picker style implementation) -->
+<div class="space-y-2">
+<label class="block font-label-sm text-label-sm text-on-surface" for="areaSector">Area / Sector</label>
+<div class="relative">
+<select class="input-field font-body-md text-body-md text-on-surface appearance-none bg-transparent relative z-10 w-full" id="areaSector" name="areaSector" required="">
+<option disabled="" selected="" value="">Select an area</option>
+<option value="nadiad_central">Nadiad Central</option>
+<option value="piplag">Piplag</option>
+<option value="uttam_nagar">Uttam Nagar</option>
+<option value="mission_road">Mission Road</option>
+<option value="other">Other</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-on-surface-variant z-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">expand_more</span>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Sticky Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest/90 backdrop-blur-md border-t border-outline-variant/20 p-margin-main pb-[calc(env(safe-area-inset-bottom)+20px)] md:static md:bg-transparent md:border-none md:p-0 md:mt-12 md:pb-12 z-40">
+<div class="max-w-[720px] mx-auto w-full flex gap-4">
+<button class="flex-1 md:flex-none md:w-32 py-3 px-6 rounded-xl border border-outline-variant text-on-surface font-headline-md text-headline-md hover:bg-surface-variant/50 transition-colors active:scale-[0.98] h-touch-target-min flex items-center justify-center" type="button">
+                    Cancel
+                </button>
+<button class="flex-[2] md:flex-1 py-3 px-6 rounded-xl bg-primary text-on-primary font-headline-md text-headline-md hover:opacity-90 shadow-lg shadow-primary/20 transition-all active:scale-[0.98] h-touch-target-min flex items-center justify-center gap-2" type="button">
+                    Next Step
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<script>
+        // Simple interaction script to demonstrate active states
+        document.querySelectorAll('input, textarea, select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused-field');
+            });
+            element.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused-field');
+            });
+        });
+    </script>
+</body></html>

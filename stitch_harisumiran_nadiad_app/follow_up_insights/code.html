@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>HariSumiran - Follow-up Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed": "#b1f0cd",
+                        "surface-container-low": "#faf2ee",
+                        "primary-fixed-dim": "#ffb597",
+                        "inverse-primary": "#ffb597",
+                        "surface-container-highest": "#e8e1dd",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "secondary-container": "#aeedca",
+                        "surface-dim": "#e0d9d5",
+                        "primary": "#963700",
+                        "on-surface": "#1e1b19",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "on-error": "#ffffff",
+                        "outline": "#8b7268",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#ffeee9",
+                        "tertiary": "#1f5987",
+                        "surface-container-high": "#eee7e3",
+                        "on-secondary-fixed-variant": "#105137",
+                        "on-tertiary-fixed": "#001d33",
+                        "surface-bright": "#fff8f5",
+                        "tertiary-container": "#3c72a1",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1e1b19",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#360f00",
+                        "on-primary": "#ffffff",
+                        "background": "#fff8f5",
+                        "on-tertiary-container": "#eaf2ff",
+                        "secondary": "#2d694d",
+                        "surface": "#fff8f5",
+                        "on-surface-variant": "#57423a",
+                        "on-secondary-container": "#326e51",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "inverse-surface": "#33302e",
+                        "primary-fixed": "#ffdbcd",
+                        "tertiary-fixed": "#cfe5ff",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#a33e05",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "inverse-on-surface": "#f7efec",
+                        "primary-container": "#b84d17",
+                        "surface-container": "#f4ece9",
+                        "surface-variant": "#e8e1dd",
+                        "outline-variant": "#dec0b5"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "stack-gap": "12px",
+                        "unit": "8px",
+                        "touch-target-min": "44px",
+                        "gutter": "16px",
+                        "margin-main": "20px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "gujarati-body": ["Noto Sans"]
+                    },
+                    fontSize: {
+                        "body-md": ["15px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-sm": ["13px", { lineHeight: "18px", letterSpacing: "0.2pt", fontWeight: "500" }],
+                        "headline-md": ["20px", { lineHeight: "25px", fontWeight: "600" }],
+                        "body-lg": ["17px", { lineHeight: "22px", fontWeight: "400" }],
+                        "branding-header": ["22px", { lineHeight: "28px", fontWeight: "600" }],
+                        "nav-large-title": ["34px", { lineHeight: "41px", letterSpacing: "-0.4pt", fontWeight: "700" }],
+                        "gujarati-body": ["17px", { lineHeight: "26px", fontWeight: "400" }]
+                    },
+                    boxShadow: {
+                        'liquid-card': '0 4px 12px 0 rgba(36, 33, 31, 0.04)',
+                        'liquid-nav': '0 8px 32px 0 rgba(36, 33, 31, 0.06)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FBF9F5;
+            -webkit-tap-highlight-color: transparent;
+            /* Safari safe area padding handled via Tailwind classes but setting default here */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        
+        .glass-material {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+        }
+        
+        .card-base {
+            background-color: #FFFFFF;
+            border: 0.5px solid #E8E0D8;
+            box-shadow: 0 4px 12px 0 rgba(36, 33, 31, 0.04);
+            border-radius: 16px;
+        }
+
+        .liquid-scroll-fade {
+            mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+        }
+
+        /* Abstract Mandala Watermark */
+        .mandala-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120vw;
+            height: 120vw;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" stroke="%23963700" stroke-width="0.5" fill="none" opacity="0.05"/><path d="M50 10 L50 90 M10 50 L90 50 M21.7 21.7 L78.3 78.3 M21.7 78.3 L78.3 21.7" stroke="%23963700" stroke-width="0.5" opacity="0.05"/></svg>');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Smooth reveal animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        /* Modal animation */
+        @keyframes modalEnter {
+            from { opacity: 0; transform: translate(-50%, -40%) scale(0.95); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        .modal-enter {
+            animation: modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes backdropEnter {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .backdrop-enter {
+            animation: backdropEnter 0.3s ease-out forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface font-body-md antialiased min-h-screen relative overflow-x-hidden">
+<!-- Mandala Watermark -->
+<div class="mandala-bg"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline/20">
+<div class="flex justify-between items-center px-margin-main h-touch-target-min w-full">
+<!-- Leading: Avatar -->
+<div class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+<div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden border border-outline-variant/50 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A close-up, soft-focus portrait of an Indian person in a serene setting, reflecting a warm, spiritual light-mode UI aesthetic with gentle earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZrXb62YtOTXKm5DpJcbFQBNl78ydAkn3iRDKd99KX4tVkHBdZItMI6vlcC1NoC2qGd7GmyIiiSPa8oQnZwP5A8_DZTCIyotuIAZ4fxvtrEyOth6svLf7cYzmx_8cVAasiBH-k9AM5SssmgXswHuGAEbsiXkmHluUCrcDj7Hm9VTTDAN1DlAkS8U8emebf9Esx-ucjmwbYAOjQAPYbUK8C7ygcTEkjD1l2CnvDRoA6geSkClv4LUwD"/>
+</div>
+</div>
+<!-- Headline -->
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed-dim tracking-tight">HariSumiran</h1>
+<!-- Trailing: Icon -->
+<button class="flex items-center justify-center w-touch-target-min h-touch-target-min text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 pb-32 px-margin-main max-w-3xl mx-auto flex flex-col gap-8">
+<!-- Screen Title -->
+<div class="animate-fade-up" style="animation-delay: 0.05s;">
+<h2 class="font-nav-large-title text-nav-large-title text-on-surface">Follow-up Insights</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Dashboard overview for administrative oversight.</p>
+</div>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-2 md:grid-cols-3 gap-unit animate-fade-up" style="animation-delay: 0.1s;">
+<!-- Case Volume -->
+<div class="card-base p-4 flex flex-col gap-2 justify-between active:scale-[0.98] transition-transform">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">folder_open</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">42</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Case Volume</p>
+</div>
+</div>
+<!-- Overdue % -->
+<div class="card-base p-4 flex flex-col gap-2 justify-between active:scale-[0.98] transition-transform">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-error-container/50 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<span class="font-label-sm text-label-sm text-error bg-error-container px-2 py-0.5 rounded-full">+2%</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">15%</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Overdue</p>
+</div>
+</div>
+<!-- Avg Resolution -->
+<div class="card-base p-4 flex flex-col gap-2 justify-between col-span-2 md:col-span-1 active:scale-[0.98] transition-transform">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded-full bg-secondary-container/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">8 <span class="font-body-md text-body-md text-on-surface-variant">days</span></h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Avg Resolution</p>
+</div>
+</div>
+</section>
+<!-- Escalation Trend Chart Card -->
+<section class="animate-fade-up" style="animation-delay: 0.15s;">
+<div class="flex justify-between items-end mb-unit px-1">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Escalation Trend</h3>
+<span class="font-label-sm text-label-sm text-primary">Last 30 Days</span>
+</div>
+<div class="card-base p-5 h-48 flex flex-col justify-end relative overflow-hidden group">
+<!-- Decorative background for chart area -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none opacity-50"></div>
+<!-- Pseudo-SVG Flat Line Chart -->
+<svg class="absolute inset-x-0 bottom-0 w-full h-32" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,80 L10,75 L20,78 L30,60 L40,65 L50,40 L60,55 L70,30 L80,35 L90,15 L100,20 L100,100 L0,100 Z" fill="rgba(150, 55, 0, 0.1)"></path>
+<path d="M0,80 L10,75 L20,78 L30,60 L40,65 L50,40 L60,55 L70,30 L80,35 L90,15 L100,20" fill="none" stroke="#963700" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<!-- Data points -->
+<circle cx="50" cy="40" fill="#ffffff" r="3" stroke="#963700" stroke-width="1.5"></circle>
+<circle cx="70" cy="30" fill="#ffffff" r="3" stroke="#963700" stroke-width="1.5"></circle>
+<circle cx="90" cy="15" fill="#ffffff" r="3" stroke="#963700" stroke-width="1.5"></circle>
+</svg>
+<div class="relative z-10 flex justify-between w-full font-label-sm text-label-sm text-on-surface-variant/70 border-t border-outline-variant/30 pt-2 mt-auto">
+<span>W1</span>
+<span>W2</span>
+<span>W3</span>
+<span>W4</span>
+</div>
+</div>
+</section>
+<!-- Recent Cases List -->
+<section class="animate-fade-up" style="animation-delay: 0.2s;">
+<div class="flex justify-between items-end mb-unit px-1">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Recent Cases</h3>
+<button class="font-label-sm text-label-sm text-primary hover:opacity-80 transition-opacity">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Case Item 1 -->
+<div class="card-base p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-md text-on-surface text-[16px] leading-[20px]">Patel Family Follow-up</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant mt-0.5">Assigned to: Ravi K.</p>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded-md bg-surface-container-high font-label-sm text-[11px] text-on-surface-variant uppercase tracking-widest">In Progress</span>
+</div>
+<!-- Confidential Note Mask -->
+<button class="flex items-center gap-2 p-3 rounded-xl bg-surface-container/50 border border-outline-variant/30 hover:bg-surface-container transition-colors active:scale-[0.98] w-full text-left" onclick="openReasonModal('Patel Family Follow-up')">
+<span class="material-symbols-outlined text-outline text-[18px]">lock</span>
+<span class="font-body-md text-label-sm text-on-surface-variant italic">•••• 1 confidential note - view requires reason</span>
+</button>
+</div>
+<!-- Case Item 2 -->
+<div class="card-base p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-md text-on-surface text-[16px] leading-[20px]">Youth Sabha Attendance</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant mt-0.5">Assigned to: Amit S.</p>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded-md bg-error-container/50 font-label-sm text-[11px] text-error uppercase tracking-widest">Escalated</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 text-sm">
+                        Standard follow-up notes indicate a recurring scheduling conflict for the Sunday sessions. Recommending a shift in timing.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] rounded-full z-50 bg-surface-container-lowest/70 dark:bg-surface-container-lowest/70 backdrop-blur-2xl border border-white/20 dark:border-outline/10 shadow-xl shadow-on-surface/5 flex justify-around items-center py-2 px-4 md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-[10px] leading-none">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="font-label-sm text-[10px] leading-none">Families</span>
+</button>
+<!-- Active state semantic logic implies oversight relates to Tasks/Management. Defaulting Tasks as closest active for Insights -->
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim scale-110 transition-transform w-touch-target-min h-touch-target-min active:scale-90 duration-150 relative">
+<div class="absolute inset-0 bg-primary/10 rounded-full blur-md -z-10"></div>
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-sm text-[10px] leading-none font-semibold">Tasks</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">event_repeat</span>
+<span class="font-label-sm text-[10px] leading-none">Sabha</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:bg-primary/5 rounded-full w-touch-target-min h-touch-target-min transition-colors">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-sm text-[10px] leading-none">Profile</span>
+</button>
+</nav>
+<!-- Confidential Access Modal Overlay -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity" id="accessModalBackdrop"></div>
+<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[360px] bg-surface rounded-3xl shadow-liquid-nav border border-outline-variant/30 z-[70] hidden opacity-0 flex flex-col overflow-hidden" id="accessModal">
+<div class="p-6 pb-4">
+<div class="w-12 h-12 rounded-full bg-error-container/30 text-error flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-[24px]">shield_lock</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Access Restricted Note</h3>
+<p class="font-body-md text-label-sm text-on-surface-variant mb-4">You are attempting to view a confidential note for <strong class="text-on-surface" id="modalEntityName">Case</strong>. Please state your administrative reason for access.</p>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl p-3 font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none resize-none h-24 placeholder:text-outline-variant" placeholder="e.g., Escalation review, safeguarding check..."></textarea>
+</div>
+<div class="p-4 pt-2 bg-surface-container-lowest/50 flex gap-3 border-t border-outline-variant/20">
+<button class="flex-1 py-3 px-4 rounded-xl font-label-sm text-label-sm text-on-surface-variant bg-surface hover:bg-surface-variant transition-colors border border-outline-variant/50 text-center active:scale-[0.98]" onclick="closeReasonModal()">
+                Cancel
+            </button>
+<button class="flex-1 py-3 px-4 rounded-xl font-label-sm text-label-sm text-on-primary bg-primary hover:bg-primary/90 transition-colors shadow-sm text-center active:scale-[0.98] flex justify-center items-center gap-2" onclick="submitReason()">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+                Access
+            </button>
+</div>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        const modalBackdrop = document.getElementById('accessModalBackdrop');
+        const modal = document.getElementById('accessModal');
+        const entityNameSpan = document.getElementById('modalEntityName');
+
+        function openReasonModal(entityName) {
+            entityNameSpan.textContent = entityName;
+            
+            modalBackdrop.classList.remove('hidden');
+            modal.classList.remove('hidden');
+            
+            // Trigger reflow
+            void modalBackdrop.offsetWidth;
+            
+            modalBackdrop.classList.add('backdrop-enter');
+            modal.classList.add('modal-enter');
+            
+            // Haptic feedback simulation if available
+            if (navigator.vibrate) navigator.vibrate(50);
+        }
+
+        function closeReasonModal() {
+            modalBackdrop.classList.remove('backdrop-enter');
+            modal.classList.remove('modal-enter');
+            
+            modalBackdrop.style.opacity = '0';
+            modal.style.opacity = '0';
+            modal.style.transform = 'translate(-50%, -40%) scale(0.95)';
+            
+            setTimeout(() => {
+                modalBackdrop.classList.add('hidden');
+                modal.classList.add('hidden');
+                
+                // Reset styles
+                modalBackdrop.style = '';
+                modal.style = '';
+            }, 300);
+        }
+
+        function submitReason() {
+            // Simulate processing
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span> Verifying';
+            btn.classList.add('opacity-80');
+            
+            setTimeout(() => {
+                closeReasonModal();
+                btn.innerHTML = originalText;
+                btn.classList.remove('opacity-80');
+                if (navigator.vibrate) navigator.vibrate([30, 50, 30]); // Success haptic
+            }, 800);
+        }
+
+        // Close on backdrop click
+        modalBackdrop.addEventListener('click', closeReasonModal);
+    </script>
+</body></html>

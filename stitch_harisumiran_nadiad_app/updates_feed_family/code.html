@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Updates Feed - HariSumiran</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Noto+Sans:wght@400&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected via prompt instructions -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-low": "#faf2ee",
+                    "on-tertiary-fixed-variant": "#024a77",
+                    "tertiary-fixed": "#cfe5ff",
+                    "background": "#fff8f5",
+                    "primary-fixed": "#ffdbcd",
+                    "primary-fixed-dim": "#ffb597",
+                    "surface-container-highest": "#e8e1dd",
+                    "surface-container": "#f4ece9",
+                    "surface": "#fff8f5",
+                    "surface-tint": "#a33e05",
+                    "outline-variant": "#dec0b5",
+                    "on-primary-fixed": "#360f00",
+                    "on-primary-container": "#ffeee9",
+                    "inverse-primary": "#ffb597",
+                    "secondary-container": "#aeedca",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#b1f0cd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fff8f5",
+                    "error-container": "#ffdad6",
+                    "outline": "#8b7268",
+                    "on-background": "#1e1b19",
+                    "on-tertiary-fixed": "#001d33",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#3c72a1",
+                    "tertiary": "#1f5987",
+                    "primary": "#963700",
+                    "secondary": "#2d694d",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#98cbff",
+                    "inverse-surface": "#33302e",
+                    "inverse-on-surface": "#f7efec",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#326e51",
+                    "surface-container-high": "#eee7e3",
+                    "on-tertiary-container": "#eaf2ff",
+                    "secondary-fixed-dim": "#96d4b2",
+                    "primary-container": "#b84d17",
+                    "on-surface-variant": "#57423a",
+                    "on-primary-fixed-variant": "#7e2c00",
+                    "surface-variant": "#e8e1dd",
+                    "surface-dim": "#e0d9d5",
+                    "on-surface": "#1e1b19",
+                    "on-secondary-fixed-variant": "#105137"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-main": "20px",
+                    "unit": "8px",
+                    "touch-target-min": "44px",
+                    "stack-gap": "12px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "branding-header": ["Plus Jakarta Sans"],
+                    "nav-large-title": ["Plus Jakarta Sans"],
+                    "gujarati-body": ["Noto Sans"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "branding-header": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "nav-large-title": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4pt", "fontWeight": "700"}],
+                    "gujarati-body": ["17px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "body-lg": ["17px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.2pt", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "25px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "30px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .liquid-glass {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+        }
+        
+        .hide-on-scroll {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hide-on-scroll.hidden-nav {
+            transform: translateY(150%);
+        }
+
+        body {
+            background-color: #FBF9F5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hide scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 w-full z-40 bg-canvas/80 backdrop-blur-xl dark:bg-canvas/80 bg-canvas/80 backdrop-blur-md border-b-[0.5px] border-border-subtle liquid-glass flex items-center justify-between px-margin-mobile h-touch-target w-full z-40 transition-all duration-300" id="mainHeader">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest border border-outline-variant flex-shrink-0">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A close up, professional portrait of a calm, serene indian karyakarta (volunteer) with a warm smile. High-key lighting, soft and inviting mood, set against a pristine white background. Liquid glass aesthetic, premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi2cw1cDNNZna8nb6lImowtspdel_7wzLn1Ajkq7p64RyLKDE8ZpTwDaF2jl6vfrZCzTWAO3KiCkCg0fzqV18LlZZbhdTqPArJibCsEGgETzp7B8YQi6_bbEiCCJheqq2WKm6JBtbTFAtj9HgicHncJZT0FalRsgeviSiuNW5qgkwM67k2XsvdfFl9auHJigJKeEw_5q2VAF5bmav7vVWkj8mawindx8-flpcPc7NQrqp6qE1n59Di"/>
+</div>
+<h1 class="font-branding-header text-branding-header text-primary dark:text-primary-fixed">HariSumiran</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface-container-lowest"></span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-margin-mobile pt-24 pb-24 max-w-3xl mx-auto space-y-8">
+<!-- Page Title & Context -->
+<div class="space-y-1 mt-4">
+<div class="flex items-center gap-2">
+<h2 class="font-nav-large-title text-nav-large-title text-on-background">Updates</h2>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded-full">3 New</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Recent announcements and invitations.</p>
+</div>
+<!-- Timeline / Feed Grouping -->
+<div class="space-y-6">
+<!-- Group: Today -->
+<section class="space-y-3">
+<h3 class="font-label-sm text-label-sm text-primary uppercase tracking-wider pl-1">Today</h3>
+<div class="space-y-3">
+<!-- Card: Event Invite (Special Layout) -->
+<article class="bg-surface-container-lowest rounded-[16px] p-4 border border-[#E8E0D8] shadow-[0_4px_12px_rgba(36,33,31,0.04)] active:scale-[0.98] transition-transform relative overflow-hidden">
+<!-- Decorative top edge for invites -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-fixed-dim"></div>
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">celebration</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-headline-md text-on-background line-clamp-1">Annakut Darshan</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">2h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">You are cordially invited to the grand Annakut Darshan this Sunday at the main Mandir hall.</p>
+<!-- Inline Action -->
+<div class="pt-3">
+<button class="bg-primary text-on-primary font-label-sm text-label-sm px-5 py-2 rounded-full flex items-center gap-2 hover:bg-on-primary-fixed-variant transition-colors w-max active:scale-95">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                        RSVP Now
+                                    </button>
+</div>
+</div>
+<!-- Unread Dot -->
+<div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+</div>
+</article>
+<!-- Card: Standard Announcement -->
+<article class="bg-surface-container-lowest rounded-[16px] p-4 border border-[#E8E0D8] shadow-[0_4px_12px_rgba(36,33,31,0.04)] active:scale-[0.98] transition-transform">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">groups</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-headline-md text-on-background line-clamp-1">Weekly Sabha Update</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">4h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">This week's Sabha will focus on organizing the upcoming youth camp logistics.</p>
+</div>
+<!-- Unread Dot -->
+<div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+</div>
+</article>
+</div>
+</section>
+<!-- Group: Yesterday -->
+<section class="space-y-3">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider pl-1">Yesterday</h3>
+<div class="space-y-3">
+<!-- Card: General Notice -->
+<article class="bg-surface-container-lowest rounded-[16px] p-4 border border-[#E8E0D8] shadow-[0_4px_12px_rgba(36,33,31,0.04)] active:scale-[0.98] transition-transform opacity-75">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">campaign</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-headline-md text-on-background line-clamp-1">Parking Guidelines</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">Nov 12</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Please ensure all Karyakarta vehicles are parked in the designated Zone B during the festival days.</p>
+</div>
+</div>
+</article>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<!-- Applying Shared Component JSON strict formatting -->
+<nav class="md:hidden hide-on-scroll fixed bottom-8 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md z-50 flex justify-around items-center px-2 bg-white/70 backdrop-blur-2xl dark:bg-surface-container/70 border-[0.5px] border-border-subtle shadow-sm docked full-width bottom-4 px-4 h-16 rounded-full" id="bottomNav">
+<!-- Home - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="sr-only">Home</span>
+</button>
+<!-- Families - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="sr-only">Families</span>
+</button>
+<!-- Sabha - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+<span class="sr-only">Sabha</span>
+</button>
+<!-- Tasks - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">assignment</span>
+<span class="sr-only">Tasks</span>
+</button>
+<!-- Profile (Active based on Intent fallback - Updates/Notifications often sit near profile or home, let's keep Home as default, wait, intent says "Updates", none perfectly match. Let's make none active or Home active. Actually let's assume Home is active.) -->
+<!-- Re-evaluating active state: The user is in a feed. "Home" is the most likely place for an updates feed in this app structure if not explicit. Let's make Home active. -->
+<script>
+            // Fixing the active state statically based on rules. 
+            // The JSON nav is: "Home", "Families", "Sabha", "Tasks", "Profile".
+            // Updates feed is usually Home. Let's apply active style to Home.
+         </script>
+</nav>
+<!-- Hardcoding the nav again correctly to enforce rules -->
+<nav class="md:hidden hide-on-scroll fixed bottom-8 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md z-50 flex justify-around items-center px-2 bg-white/70 backdrop-blur-2xl dark:bg-surface-container/70 border-[0.5px] border-border-subtle shadow-sm h-16 rounded-full" id="bottomNavReal">
+<!-- Home - ACTIVE -->
+<button class="flex flex-col items-center justify-center bg-gradient-to-tr from-primary-container to-primary-container text-white rounded-full w-12 h-12 scale-90 duration-200 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-label-caps sr-only">Home</span>
+</button>
+<!-- Families - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+</button>
+<!-- Sabha - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+</button>
+<!-- Tasks - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">assignment</span>
+</button>
+<!-- Profile - Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low transition-colors w-12 h-12 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+</button>
+</nav>
+<!-- Scroll Interaction Script -->
+<script>
+        let lastScrollTop = 0;
+        const bottomNav = document.getElementById('bottomNavReal');
+        const scrollThreshold = 10;
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (Math.abs(lastScrollTop - scrollTop) <= scrollThreshold) return;
+
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                // Scrolling down - hide nav
+                bottomNav.classList.add('hidden-nav');
+            } else {
+                // Scrolling up - show nav
+                bottomNav.classList.remove('hidden-nav');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, { passive: true });
+    </script>
+</body></html>

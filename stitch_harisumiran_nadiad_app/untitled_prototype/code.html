@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sabha Details - Attendance</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=Noto+Sans:wght@400&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-container": "#326e51",
+                        "primary-fixed-dim": "#ffb597",
+                        "secondary-fixed": "#b1f0cd",
+                        "on-surface": "#1e1b19",
+                        "primary": "#963700",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#eaf2ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-secondary-fixed-variant": "#105137",
+                        "secondary": "#2d694d",
+                        "outline": "#8b7268",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fff8f5",
+                        "on-primary-fixed-variant": "#7e2c00",
+                        "surface-container": "#f4ece9",
+                        "secondary-fixed-dim": "#96d4b2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#57423a",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#98cbff",
+                        "on-tertiary-fixed-variant": "#024a77",
+                        "secondary-container": "#aeedca",
+                        "surface-bright": "#fff8f5",
+                        "primary-container": "#b84d17",
+                        "surface-container-highest": "#e8e1dd",
+                        "surface-container-high": "#eee7e3",
+                        "surface-dim": "#e0d9d5",
+                        "surface-variant": "#e8e1dd",
+                        "background": "#fff8f5",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbcd",
+                        "tertiary-fixed": "#cfe5ff",
+                        "surface-container-low": "#faf2ee",
+                        "inverse-surface": "#33302e",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1e1b19",
+                        "tertiary": "#1f5987",
+                        "outline-variant": "#dec0b5",
+                        "tertiary-container": "#3c72a1",
+                        "surface-tint": "#a33e05",
+                        "inverse-primary": "#ffb597",
+                        "on-primary-container": "#ffeee9",
+                        "on-primary-fixed": "#360f00",
+                        "inverse-on-surface": "#f7efec"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        unit: "8px",
+                        "touch-target-min": "44px",
+                        "margin-main": "20px",
+                        "stack-gap": "12px",
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "branding-header": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "nav-large-title": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "gujarati-body": ["Noto Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "branding-header": ["22px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-md": ["20px", { lineHeight: "25px", fontWeight: "600" }],
+                        "body-lg": ["17px", { lineHeight: "22px", fontWeight: "400" }],
+                        "nav-large-title": ["34px", { lineHeight: "41px", letterSpacing: "-0.4pt", fontWeight: "700" }],
+                        "label-sm": ["13px", { lineHeight: "18px", letterSpacing: "0.2pt", fontWeight: "500" }],
+                        "gujarati-body": ["17px", { lineHeight: "26px", fontWeight: "400" }],
+                        "body-md": ["15px", { lineHeight: "20px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #dec0b5;
+            border-radius: 10px;
+        }
+        
+        /* Interactive scale utility */
+        .active-scale:active {
+            transform: scale(0.98);
+            transition: transform 0.1s;
+        }
+
+        /* Abstract subtle mandala watermark for empty spaces */
+        .bg-mandala-watermark {
+            background-image: radial-gradient(circle at center, rgba(150, 55, 0, 0.03) 0%, transparent 70%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- Contextual Header (Task-Focused: Replaces TopAppBar) -->
+<header class="sticky top-0 z-50 w-full bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 transition-all duration-300">
+<div class="flex justify-between items-center px-margin-main h-[60px]">
+<!-- Leading empty space to center title if needed, or back action. Using empty div to balance trailing close. -->
+<div class="w-touch-target-min flex items-center">
+<!-- Reserved for future back navigation if nested deeper -->
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface truncate text-center flex-1 px-4">
+                Sunday Evening Sabha
+            </h1>
+<button aria-label="Close" class="w-touch-target-min h-touch-target-min flex justify-end items-center text-on-surface-variant hover:text-primary transition-colors active-scale">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-margin-main py-4 flex flex-col gap-6 bg-mandala-watermark max-w-[720px] mx-auto w-full">
+<!-- Info Card (Level 1 Surface) -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm p-5 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div>
+<h2 class="font-label-sm text-label-sm text-primary mb-1 uppercase tracking-wider">Program Details</h2>
+<p class="font-body-lg text-body-lg text-on-surface font-medium">Bal Sabha - Nadiad</p>
+</div>
+<div class="bg-surface-container p-2 rounded-full">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_florist</span>
+</div>
+</div>
+<hr class="border-outline-variant/20">
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-body-md text-body-md">Sun, Oct 15</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-body-md text-body-md">5:00 PM - 7:00 PM</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-md text-body-md truncate">HariPrabodham Temple, Main Hall</span>
+</div>
+</div>
+</section>
+<!-- Action Area -->
+<section class="flex flex-col gap-4">
+<!-- Primary Action: Scan QR -->
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-headline-md text-body-md py-4 rounded-xl shadow-md shadow-primary/20 flex items-center justify-center gap-2 transition-all active-scale">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                Scan QR for Attendance
+            </button>
+<!-- Secondary Action: Search -->
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</div>
+<input class="w-full bg-surface-container border-none text-on-surface font-body-md text-body-md rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-primary/50 placeholder:text-on-surface-variant/60 transition-shadow" placeholder="Manual search by name or ID..." type="text">
+</div>
+</section>
+<!-- Attendance List Section -->
+<section class="flex flex-col gap-4 pb-12">
+<!-- Segmented Control (Tabs) -->
+<div class="bg-surface-variant p-1 rounded-xl flex items-center w-full">
+<button class="flex-1 py-2.5 bg-surface-container-lowest shadow-sm rounded-lg text-primary font-label-sm text-label-sm text-center transition-all">
+                    Expected (120)
+                </button>
+<button class="flex-1 py-2.5 text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm text-center transition-all">
+                    Attended (45)
+                </button>
+</div>
+<!-- List Container (Level 1 Surface) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm overflow-hidden">
+<!-- Unmarked Member Row -->
+<div class="flex items-center justify-between p-4 border-b border-outline-variant/20 hover:bg-surface-container/30 transition-colors">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant/30 bg-surface-container" data-alt="A portrait photograph of a young Indian man smiling gently, wearing a simple white kurta. Soft, warm natural lighting emphasizing a spiritual and serene mood, set against a clean, light beige background in a modern light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXDreSZhHrHIQ16Ec4h87iiP4MTjVNMe3ftA4lKa41DvMRSupr1GYMnxZMX-5vWXKZOgXK3UiiIVpBbSbSoTdOYNwcpn-oyUphfYPI7qFmamN3yJAkL4WS-OTvbCrxpfond9NubWWfuTp4KpI9TfKDEdxzv7LE-ZTXPPjI2rzuY3Mn_pYzTKsvRQjwh_Ubs268TQ-NlFKFyXJHjrRTOfJ1K9VcQqDxusbCWtKOZ22iiTABYE1OLgY4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Rahul Patel</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: HP-1042</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button aria-label="Mark Absent" class="w-10 h-10 rounded-full flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface hover:text-error transition-colors active-scale">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<button aria-label="Mark Present" class="w-10 h-10 rounded-full flex items-center justify-center bg-primary/10 text-primary hover:bg-primary hover:text-on-primary transition-colors active-scale">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+</div>
+</div>
+<!-- Present Member Row -->
+<div class="flex items-center justify-between p-4 border-b border-outline-variant/20 bg-secondary-container/10">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant/30 bg-surface-container" data-alt="A portrait photograph of a middle-aged Indian woman with a peaceful expression, wearing a modest pastel sari. Bright, diffused lighting highlights a modern, respectful atmosphere. The background is a minimalist, very light cream color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn9zHJRWZKZLWRfsS0a06tPwm3uN6DoK9bTmBtYqQPY7VwoeGI5we3ohAjsxu9vXKFsKcTe3exWb1t1iaqAAnR-LIwXpX31h30kOtlxDg_vyTwc1XvGiVnBzC23EJg0G32rngDZ_124KhYxwhLAS3oMuQO0h7wh0LztYPwDEaGXiQ4Z9LdnqAdEUX4Ebd4xaz6JRJPRauL5vVAZRtMT3JhPFTkDETugSZ2vLmGQ3WoiqwmkZwdUs7l">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Meena Desai</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: HP-0891</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-secondary-container px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Present</span>
+</div>
+</div>
+<!-- Absent Member Row -->
+<div class="flex items-center justify-between p-4 border-b border-outline-variant/20 opacity-75">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant/30 text-on-surface-variant">
+<span class="font-body-md font-medium">AP</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Amit Parmar</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: HP-1105</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-error-container px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-error text-[16px]">cancel</span>
+<span class="font-label-sm text-label-sm text-error font-semibold">Absent</span>
+</div>
+</div>
+<!-- Excused Member Row -->
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant/30 bg-surface-container filter grayscale opacity-80" data-alt="A portrait photograph of an elderly Indian man with glasses, looking calm and distinguished. Soft, even studio lighting with a clean white backdrop, fitting a premium, high-utility native iOS design language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIzx1KaDxAXV2T2Q7y4fTN3MAa27hKcBk633992oew72rf8SFpdrJBnyZbLxze6ewvco8xISd7jEkbJACvkgzcsLAUvWVsQpNvVSuIV6ZWt6-1wwmOFFaHTBhXUoiYa5eWitdhXrg4zLrBGLi4FwenguitxLD2b9utS351rEhaqIxGa8_7jFNFQeWBm4EP2xrmWwcMd4jUbfv5R9xG3HJJRyDe522NMdldSx23m5HCUx7hZHPYqt97">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Suresh Shah</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: HP-0322</span>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">info</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Excused</span>
+</div>
+</div>
+</div>
+<!-- Load More Indicator -->
+<div class="flex justify-center py-4">
+<button class="font-label-sm text-label-sm text-primary hover:text-primary-container transition-colors">
+                    Load More Karyakartas...
+                </button>
+</div>
+</section>
+</main>
+</body></html>
