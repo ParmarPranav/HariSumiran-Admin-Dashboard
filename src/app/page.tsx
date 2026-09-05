@@ -28,21 +28,19 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+import { useRouter } from "next/navigation";
+
 export default function HomePage() {
+  const router = useRouter();
   const { role, user, t, language } = useApp();
   const [qrModalOpen, setQrModalOpen] = useState(false);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/analytics")
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success) setData(json);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+    // Redirect to login page at start
+    router.replace("/auth");
+  }, [router]);
 
   // Today's greeting in Gujarati / English
   const todayFormatted = new Date().toLocaleDateString("en-IN", {

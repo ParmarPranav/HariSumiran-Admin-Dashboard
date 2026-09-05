@@ -38,13 +38,6 @@ export function Sidebar() {
 
   const navItems: NavItem[] = [
     {
-      label: "Home / Operations",
-      gujaratiLabel: "મુખ્ય / સંચાલન",
-      href: "/",
-      icon: <LayoutDashboard className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta", "family_captain", "family_member"],
-    },
-    {
       label: "Thal Rotation",
       gujaratiLabel: "થાળ પરિભ્રમણ",
       href: "/thal",
@@ -60,67 +53,11 @@ export function Sidebar() {
       roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta", "family_captain", "family_member"],
     },
     {
-      label: "Families Directory",
-      gujaratiLabel: "પરિવાર ડિરેક્ટરી",
-      href: "/families",
-      icon: <Users className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "Members Registry",
-      gujaratiLabel: "સભ્યો નોંધણી",
-      href: "/members",
-      icon: <UserCheck className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "Sabha & Attendance",
-      gujaratiLabel: "સભા અને હાજરી",
-      href: "/sabha",
-      icon: <CalendarDays className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "Follow-Up & Care",
-      gujaratiLabel: "સંપર્ક અને ફોલો-અપ",
-      href: "/follow-up",
-      icon: <HeartHandshake className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "Seva & Rosters",
-      gujaratiLabel: "સેવા અને રોસ્ટર",
-      href: "/seva",
-      icon: <Sparkles className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "Assets & Rooms",
-      gujaratiLabel: "મંદિર સાધન સામગ્રી",
-      href: "/assets",
-      icon: <Package className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "Events & Mahotsav",
-      gujaratiLabel: "ઉત્સવ અને પાસ",
-      href: "/events",
-      icon: <PartyPopper className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "Communication",
-      gujaratiLabel: "સૂચના અને સંદેશા",
-      href: "/announcements",
-      icon: <Megaphone className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta"],
-    },
-    {
-      label: "System Settings",
-      gujaratiLabel: "સિસ્ટમ સેટિંગ્સ",
-      href: "/admin",
+      label: "Login / Switch Account",
+      gujaratiLabel: "લોગિન / એકાઉન્ટ",
+      href: "/auth",
       icon: <Sliders className="h-5 w-5" />,
-      roles: ["super_admin", "mandir_admin"],
+      roles: ["super_admin", "mandir_admin", "dept_head", "karyakarta", "family_captain", "family_member"],
     },
   ];
 
