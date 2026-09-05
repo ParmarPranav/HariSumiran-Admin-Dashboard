@@ -19,10 +19,12 @@ export async function POST(req: Request) {
     const {
       thalScheduleId,
       originalDate,
+      mealType = "Breakfast (Morning Thal)",
       requestingFamilyId,
       requestingFamilyName,
-      suggestedFamilyId,
-      suggestedFamilyName,
+      swapType = "admin_open_swap",
+      targetFamilyId,
+      targetFamilyName,
       suggestedDate,
       reason,
     } = body;
@@ -37,20 +39,24 @@ export async function POST(req: Request) {
     const swap = await ThalSwapRequest.create({
       thalScheduleId,
       originalDate,
+      mealType,
       requestingFamilyId: requestingFamilyId || "unassigned",
       requestingFamilyName,
-      suggestedFamilyId,
-      suggestedFamilyName,
+      swapType,
+      targetFamilyId,
+      targetFamilyName,
       suggestedDate,
       reason,
       status: "Pending Coordinator",
     });
 
-    await ThalSchedule.findByIdAndUpdate(thalScheduleId, { swapRequested: true, status: "Declined", declineReason: reason });
+    await ThalSchedule.findByIdAndUpdate(thalScheduleId, { swapRequested: true, declineReason: reason });
 
     return NextResponse.json({
       success: true,
-      message: "Swap request submitted to Thal coordinator",
+      message: swapType === "family_to_family" 
+        ? `Swap request sent to ${targetFamilyName} & Coordinator` 
+        : "Swap request submitted to Mandir Admin",
       swap,
     });
   } catch (error: any) {
@@ -71,13 +77,14 @@ export async function PUT(req: Request) {
 
     if (action === "approve") {
       swap.status = "Approved";
-      swap.coordinatorNotes = coordinatorNotes || "Swap approved.";
+      swap.coordinatorNotes = coordinatorNotes || "Swap approved by Thal Coordinator.";
       await swap.save();
 
-      // Update schedule with replacement family if provided
-      if (replacementFamilyName) {
+      // If targetFamilyName or replacementFamilyName specified, reassign original schedule
+      const newFamily = replacementFamilyName || swap.targetFamilyName;
+      if (newFamily) {
         await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, {
-          assignedFamilyName: replacementFamilyName,
+          assignedFamilyName: newFamily,
           assignedPhone: replacementPhone || "9825000000",
           status: "Assigned",
           swapRequested: false,
@@ -86,8 +93,9 @@ export async function PUT(req: Request) {
       }
     } else {
       swap.status = "Rejected";
-      swap.coordinatorNotes = coordinatorNotes || "Swap could not be accommodated.";
+      swap.coordinatorNotes = coordinatorNotes || "Swap request declined.";
       await swap.save();
+      await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, { swapRequested: false });
     }
 
     return NextResponse.json({ success: true, message: `Swap request ${swap.status}`, swap });

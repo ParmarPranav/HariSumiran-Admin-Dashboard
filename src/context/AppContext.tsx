@@ -11,6 +11,15 @@ export type RoleType =
   | "family_captain"
   | "family_member";
 
+export interface AppNotification {
+  id: string;
+  title: string;
+  message: string;
+  date: string;
+  type?: "thal_reminder" | "swap_alert" | "system";
+  read?: boolean;
+}
+
 export interface CurrentUser {
   id?: string;
   name: string;
@@ -20,6 +29,11 @@ export interface CurrentUser {
   department?: string;
   mandir: string;
   avatar?: string;
+  authProvider?: "apple" | "phone" | "demo";
+  appleId?: string;
+  familyId?: string;
+  familyName?: string;
+  isCaptain?: boolean;
 }
 
 const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
@@ -29,6 +43,7 @@ const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
     email: "admin.super@harisumiran.org",
     role: "super_admin",
     mandir: "HariPrabodham, Nadiad",
+    authProvider: "phone",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
   },
   mandir_admin: {
@@ -38,6 +53,7 @@ const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
     role: "mandir_admin",
     department: "Operations & Administration",
     mandir: "HariPrabodham, Nadiad",
+    authProvider: "phone",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
   },
   dept_head: {
@@ -47,6 +63,7 @@ const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
     role: "dept_head",
     department: "Kitchen (Mahaprasad)",
     mandir: "HariPrabodham, Nadiad",
+    authProvider: "phone",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
   },
   karyakarta: {
@@ -56,6 +73,7 @@ const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
     role: "karyakarta",
     department: "Sabha & Follow-up",
     mandir: "HariPrabodham, Nadiad",
+    authProvider: "phone",
     avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
   },
   family_captain: {
@@ -64,6 +82,11 @@ const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
     email: "ramesh.patel@gmail.com",
     role: "family_captain",
     mandir: "HariPrabodham, Nadiad",
+    authProvider: "apple",
+    appleId: "001928.82390184.apple",
+    familyId: "FAM-101",
+    familyName: "Patel Household (Rameshbhai)",
+    isCaptain: true,
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
   },
   family_member: {
@@ -72,6 +95,11 @@ const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
     email: "devansh.patel@gmail.com",
     role: "family_member",
     mandir: "HariPrabodham, Nadiad",
+    authProvider: "apple",
+    appleId: "001928.99283741.apple",
+    familyId: "FAM-101",
+    familyName: "Patel Household (Rameshbhai)",
+    isCaptain: false,
     avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80",
   },
 };
@@ -82,10 +110,14 @@ interface AppContextType {
   language: "en" | "gu";
   syncStatus: "synced" | "syncing" | "offline";
   commandPaletteOpen: boolean;
+  notifications: AppNotification[];
   setRole: (role: RoleType) => void;
   setUser: (user: CurrentUser) => void;
   setLanguage: (lang: "en" | "gu") => void;
   setCommandPaletteOpen: (open: boolean) => void;
+  loginWithApple: (appleUser: { name: string; email: string; appleId: string }) => void;
+  addNotification: (notif: AppNotification) => void;
+  dismissNotification: (id: string) => void;
   triggerSync: () => void;
   t: (key: string, gujaratiFallback?: string) => string;
 }
@@ -98,6 +130,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<"en" | "gu">("en");
   const [syncStatus, setSyncStatus] = useState<"synced" | "syncing" | "offline">("synced");
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [notifications, setNotifications] = useState<AppNotification[]>([
+    {
+      id: "notif-1",
+      title: "Thal Seva Tomorrow Reminder",
+      message: "Patel Household (Rameshbhai) has Dinner Thal turn scheduled for tomorrow!",
+      date: "2026-09-06",
+      type: "thal_reminder",
+      read: false,
+    },
+  ]);
 
   const setRole = (newRole: RoleType) => {
     setRoleState(newRole);
@@ -111,6 +153,34 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const setUser = (newUser: CurrentUser) => {
     setUserState(newUser);
     setRoleState(newUser.role);
+  };
+
+  const loginWithApple = (appleUser: { name: string; email: string; appleId: string }) => {
+    const newUser: CurrentUser = {
+      name: appleUser.name || "Apple Devotee",
+      email: appleUser.email || "devotee@apple.com",
+      phone: "9825099999",
+      role: "family_captain",
+      mandir: "HariPrabodham, Nadiad",
+      authProvider: "apple",
+      appleId: appleUser.appleId,
+      familyId: "FAM-101",
+      familyName: "Patel Household (Rameshbhai)",
+      isCaptain: true,
+      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+    };
+    setUser(newUser);
+    toast.success("Signed in with Apple ID", {
+      description: `Welcome, ${newUser.name}! Authenticated via Apple ID.`,
+    });
+  };
+
+  const addNotification = (notif: AppNotification) => {
+    setNotifications((prev) => [notif, ...prev]);
+  };
+
+  const dismissNotification = (id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   const triggerSync = () => {
@@ -148,10 +218,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         language,
         syncStatus,
         commandPaletteOpen,
+        notifications,
         setRole,
         setUser,
         setLanguage,
         setCommandPaletteOpen,
+        loginWithApple,
+        addNotification,
+        dismissNotification,
         triggerSync,
         t,
       }}

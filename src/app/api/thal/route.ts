@@ -51,14 +51,71 @@ export async function POST(req: Request) {
     await connectDB();
     const body = await req.json();
     const {
+      action,
+      month = "2026-09",
       date,
-      mealType = "Morning Thal",
+      mealType = "Breakfast (Morning Thal)",
       assignedFamilyId,
       assignedFamilyName,
       assignedPhone,
-      headcount = 45,
+      headcount = 50,
       specialInstructions,
     } = body;
+
+    // Monthly Auto-Schedule Generator for September / selected month
+    if (action === "auto_generate") {
+      const families = await Family.find({ status: "Active" });
+      if (families.length === 0) {
+        return NextResponse.json({ success: false, error: "No active families found for rotation." }, { status: 400 });
+      }
+
+      // Generate dates for the month (e.g. 2026-09-01 to 2026-09-30)
+      const year = parseInt(month.split("-")[0]);
+      const m = parseInt(month.split("-")[1]);
+      const daysInMonth = new Date(year, m, 0).getDate();
+
+      let createdCount = 0;
+      let familyIdx = 0;
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dayStr = d < 10 ? `0${d}` : `${d}`;
+        const dateStr = `${year}-${m < 10 ? `0${m}` : m}-${dayStr}`;
+
+        const meals = ["Breakfast (Morning Thal)", "Dinner (Evening Thal)"];
+
+        for (const meal of meals) {
+          const existing = await ThalSchedule.findOne({ date: dateStr, mealType: meal });
+          if (!existing) {
+            const fam = families[familyIdx % families.length];
+            familyIdx++;
+
+            const scheduleCode = `THAL-${dateStr.replace(/-/g, "")}-${meal.includes("Breakfast") ? "B" : "D"}`;
+
+            await ThalSchedule.create({
+              scheduleCode,
+              date: dateStr,
+              monthPeriod: month,
+              mealType: meal,
+              assignedFamilyId: fam._id.toString(),
+              assignedFamilyName: fam.name,
+              assignedPhone: fam.phone || "9825000000",
+              captainId: fam.captainId,
+              captainName: fam.captainName,
+              headcount: 50,
+              status: "Assigned",
+              specialInstructions: "Standard Satvik Mahaprasad preparation.",
+            });
+            createdCount++;
+          }
+        }
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: `Successfully generated ${createdCount} Thal turns for ${month}`,
+        createdCount,
+      });
+    }
 
     if (!date || !assignedFamilyName) {
       return NextResponse.json({ success: false, error: "Date and Assigned Family are required." }, { status: 400 });
@@ -76,11 +133,13 @@ export async function POST(req: Request) {
       );
     }
 
-    const scheduleCode = `THAL-${date.replace(/-/g, "")}-${mealType.startsWith("Morning") ? "M" : "E"}`;
+    const monthPeriod = date.substring(0, 7);
+    const scheduleCode = `THAL-${date.replace(/-/g, "")}-${mealType.includes("Breakfast") ? "B" : "D"}`;
 
     const schedule = await ThalSchedule.create({
       scheduleCode,
       date,
+      monthPeriod,
       mealType,
       assignedFamilyId: assignedFamilyId || "unassigned",
       assignedFamilyName,

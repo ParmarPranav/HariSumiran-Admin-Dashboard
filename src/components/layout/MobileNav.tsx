@@ -7,23 +7,31 @@ import { useApp } from "@/context/AppContext";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
+  UtensilsCrossed,
+  UserCheck,
   Users,
-  CalendarDays,
-  Sparkles,
-  User,
+  Sliders,
 } from "lucide-react";
 
 export function MobileNav() {
   const pathname = usePathname();
   const { role } = useApp();
 
-  const mobileTabs = [
-    { label: "Home", href: "/", icon: <LayoutDashboard className="h-5 w-5" /> },
-    { label: "Families", href: "/families", icon: <Users className="h-5 w-5" /> },
-    { label: "Sabha", href: "/sabha", icon: <CalendarDays className="h-5 w-5" /> },
-    { label: "Seva", href: "/seva", icon: <Sparkles className="h-5 w-5" /> },
-    { label: "Settings", href: "/admin", icon: <User className="h-5 w-5" /> },
-  ];
+  const isUserRole = role === "family_captain" || role === "family_member";
+
+  const mobileTabs = isUserRole
+    ? [
+        { label: "Home", href: "/", icon: <LayoutDashboard className="h-5 w-5" /> },
+        { label: "Thal Rotation", href: "/thal", icon: <UtensilsCrossed className="h-5 w-5" /> },
+        { label: "My Profile", href: "/profile", icon: <UserCheck className="h-5 w-5" /> },
+      ]
+    : [
+        { label: "Home", href: "/", icon: <LayoutDashboard className="h-5 w-5" /> },
+        { label: "Thal", href: "/thal", icon: <UtensilsCrossed className="h-5 w-5" /> },
+        { label: "Profile", href: "/profile", icon: <UserCheck className="h-5 w-5" /> },
+        { label: "Families", href: "/families", icon: <Users className="h-5 w-5" /> },
+        { label: "Settings", href: "/admin", icon: <Sliders className="h-5 w-5" /> },
+      ];
 
   return (
     <nav className="md:hidden fixed bottom-3 inset-x-4 z-40">

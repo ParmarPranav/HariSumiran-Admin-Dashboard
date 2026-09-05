@@ -455,16 +455,20 @@ const EventRegistrationSchema = new Schema<IEventRegistration>({
 // 13. Thal Schedule Model
 export interface IThalSchedule extends Document {
   scheduleCode: string;
-  date: string;
-  mealType: "Morning Thal" | "Evening Thal" | "Special Thal";
+  date: string; // YYYY-MM-DD
+  monthPeriod: string; // YYYY-MM
+  mealType: "Breakfast (Morning Thal)" | "Dinner (Evening Thal)" | "Special Thal";
   assignedFamilyId: string;
   assignedFamilyName: string;
   assignedPhone: string;
+  captainId?: string;
+  captainName?: string;
   headcount: number;
   status: "Assigned" | "Confirmed" | "Declined" | "Completed";
   specialInstructions?: string;
   declineReason?: string;
   swapRequested?: boolean;
+  notificationSent?: boolean;
   completedAt?: Date;
   createdAt: Date;
 }
@@ -472,15 +476,23 @@ export interface IThalSchedule extends Document {
 const ThalScheduleSchema = new Schema<IThalSchedule>({
   scheduleCode: { type: String, required: true, unique: true },
   date: { type: String, required: true },
-  mealType: { type: String, enum: ["Morning Thal", "Evening Thal", "Special Thal"], default: "Morning Thal" },
+  monthPeriod: { type: String, required: true, default: "2026-09" },
+  mealType: {
+    type: String,
+    enum: ["Breakfast (Morning Thal)", "Dinner (Evening Thal)", "Special Thal"],
+    default: "Breakfast (Morning Thal)",
+  },
   assignedFamilyId: { type: String, required: true, ref: "Family" },
   assignedFamilyName: { type: String, required: true },
   assignedPhone: { type: String, required: true },
+  captainId: { type: String },
+  captainName: { type: String },
   headcount: { type: Number, default: 50 },
   status: { type: String, enum: ["Assigned", "Confirmed", "Declined", "Completed"], default: "Assigned" },
   specialInstructions: { type: String },
   declineReason: { type: String },
   swapRequested: { type: Boolean, default: false },
+  notificationSent: { type: Boolean, default: false },
   completedAt: { type: Date },
   createdAt: { type: Date, default: Date.now },
 });
@@ -489,10 +501,12 @@ const ThalScheduleSchema = new Schema<IThalSchedule>({
 export interface IThalSwapRequest extends Document {
   thalScheduleId: string;
   originalDate: string;
+  mealType: string;
   requestingFamilyId: string;
   requestingFamilyName: string;
-  suggestedFamilyId?: string;
-  suggestedFamilyName?: string;
+  swapType: "family_to_family" | "admin_open_swap";
+  targetFamilyId?: string;
+  targetFamilyName?: string;
   suggestedDate?: string;
   reason: string;
   status: "Pending Coordinator" | "Approved" | "Rejected";
@@ -503,10 +517,12 @@ export interface IThalSwapRequest extends Document {
 const ThalSwapRequestSchema = new Schema<IThalSwapRequest>({
   thalScheduleId: { type: String, required: true, ref: "ThalSchedule" },
   originalDate: { type: String, required: true },
+  mealType: { type: String, default: "Breakfast (Morning Thal)" },
   requestingFamilyId: { type: String, required: true },
   requestingFamilyName: { type: String, required: true },
-  suggestedFamilyId: { type: String },
-  suggestedFamilyName: { type: String },
+  swapType: { type: String, enum: ["family_to_family", "admin_open_swap"], default: "admin_open_swap" },
+  targetFamilyId: { type: String },
+  targetFamilyName: { type: String },
   suggestedDate: { type: String },
   reason: { type: String, required: true },
   status: { type: String, enum: ["Pending Coordinator", "Approved", "Rejected"], default: "Pending Coordinator" },

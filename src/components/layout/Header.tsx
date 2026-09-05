@@ -135,6 +135,47 @@ export function Header() {
           )}
         </div>
 
+        {/* Notifications Bell */}
+        <div className="relative">
+          <button
+            onClick={() => setNotificationsOpen(!notificationsOpen)}
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-hairline bg-white text-charcoal hover:bg-surface-container-low transition-colors shadow-subtle"
+            title="Notifications & Alerts"
+          >
+            <Bell className="h-3.5 w-3.5 text-charcoal-subtle" />
+            <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-saffron-500 text-[9px] font-bold text-white shadow-sm">
+              1
+            </span>
+          </button>
+
+          {notificationsOpen && (
+            <>
+              <div className="fixed inset-0 z-30" onClick={() => setNotificationsOpen(false)} />
+              <div className="absolute right-0 top-11 z-40 w-80 rounded-2xl border border-hairline bg-white p-3 shadow-float animate-in fade-in zoom-in-95 space-y-2">
+                <div className="flex items-center justify-between border-b border-hairline pb-2 px-1">
+                  <span className="text-xs font-bold text-charcoal">Notifications</span>
+                  <span className="text-[10px] text-primary-container font-semibold">1 Unread</span>
+                </div>
+                <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-1">
+                  <p className="font-bold text-amber-900 flex items-center gap-1">
+                    <Bell className="h-3.5 w-3.5 text-amber-600" /> 1-Day Prior Thal Seva Reminder
+                  </p>
+                  <p className="text-[11px] text-amber-800 leading-snug">
+                    Patel Household (Rameshbhai) has Dinner Thal turn scheduled for tomorrow!
+                  </p>
+                  <a
+                    href="/thal"
+                    onClick={() => setNotificationsOpen(false)}
+                    className="inline-block text-[11px] font-bold text-primary-container hover:underline pt-1"
+                  >
+                    View Turn Details &rarr;
+                  </a>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
         {/* Language Toggle (EN / GU) */}
         <button
           onClick={() => setLanguage(language === "en" ? "gu" : "en")}
@@ -160,8 +201,12 @@ export function Header() {
           />
         </button>
 
-        {/* User Profile Avatar */}
-        <div className="flex items-center gap-2 pl-1">
+        {/* User Profile Avatar Link */}
+        <a
+          href="/profile"
+          className="flex items-center gap-2 pl-1 hover:opacity-80 transition-opacity"
+          title="View Devotee Profile"
+        >
           <img
             src={user.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
             alt={user.name}
@@ -175,7 +220,7 @@ export function Header() {
               {user.mandir}
             </span>
           </div>
-        </div>
+        </a>
       </div>
     </header>
   );

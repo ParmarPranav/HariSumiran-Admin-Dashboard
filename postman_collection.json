@@ -400,25 +400,41 @@
       "name": "10. Thal Rotation & Swaps",
       "item": [
         {
-          "name": "Get Monthly Thal Calendar & AI Ranking",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{baseUrl}}/api/thal?month=2026-08",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal"],
-              "query": [{ "key": "month", "value": "2026-08" }]
-            }
-          }
-        },
-        {
-          "name": "Assign Household Thal Turn",
+          "name": "Sign in with Apple (Devotee Auth)",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"date\": \"2026-08-27\",\n  \"mealType\": \"Morning Thal\",\n  \"assignedFamilyName\": \"Shah Family (Mukeshbhai)\",\n  \"assignedPhone\": \"9825098765\",\n  \"headcount\": 45\n}"
+              "raw": "{\n  \"appleId\": \"001928.82390184.apple\",\n  \"name\": \"Rameshbhai Patel\",\n  \"email\": \"ramesh.patel@privaterelay.appleid.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/apple",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "apple"]
+            }
+          }
+        },
+        {
+          "name": "Get Monthly Thal Rotation & Fairness Ranking",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/thal?month=2026-09",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal"],
+              "query": [{ "key": "month", "value": "2026-09" }]
+            }
+          }
+        },
+        {
+          "name": "Auto-Generate Monthly Thal Schedule (September)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"auto_generate\",\n  \"month\": \"2026-09\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal",
@@ -428,13 +444,83 @@
           }
         },
         {
-          "name": "Submit Thal Swap Request",
+          "name": "Assign Single Thal Turn (Breakfast / Dinner)",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"thalScheduleId\": \"sample_thal_id\",\n  \"originalDate\": \"2026-08-26\",\n  \"requestingFamilyName\": \"Trivedi Parivar (Hareshbhai)\",\n  \"reason\": \"Medical recovery after surgery\"\n}"
+              "raw": "{\n  \"date\": \"2026-09-10\",\n  \"mealType\": \"Breakfast (Morning Thal)\",\n  \"assignedFamilyName\": \"Patel Household (Rameshbhai)\",\n  \"assignedPhone\": \"9825056789\",\n  \"headcount\": 50\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal"]
+            }
+          }
+        },
+        {
+          "name": "Confirm Thal Turn Status",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"SAMPLE_SCHEDULE_ID\",\n  \"status\": \"Confirmed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal"]
+            }
+          }
+        },
+        {
+          "name": "Check 1-Day Prior Thal Turn Notifications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/thal/notifications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal", "notifications"]
+            }
+          }
+        },
+        {
+          "name": "Submit Thal Swap Request (Family to Family / Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"thalScheduleId\": \"SAMPLE_SCHEDULE_ID\",\n  \"originalDate\": \"2026-09-12\",\n  \"mealType\": \"Dinner (Evening Thal)\",\n  \"requestingFamilyName\": \"Patel Household (Rameshbhai)\",\n  \"swapType\": \"admin_open_swap\",\n  \"reason\": \"Family out of town for medical checkup\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal/swap",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal", "swap"]
+            }
+          }
+        },
+        {
+          "name": "Get Pending Thal Swap Requests",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/thal/swap",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "thal", "swap"]
+            }
+          }
+        },
+        {
+          "name": "Approve / Reassign Thal Swap Request (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"swapId\": \"SAMPLE_SWAP_ID\",\n  \"action\": \"approve\",\n  \"coordinatorNotes\": \"Approved and reassigned to Shah Family\",\n  \"replacementFamilyName\": \"Shah Family (Mukeshbhai)\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal/swap",
