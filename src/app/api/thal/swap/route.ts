@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { ThalSwapRequest, ThalSchedule, AuditLog } from "@/models";
+import { sendPushNotificationPayload } from "@/lib/notifications";
 
 export async function GET() {
   try {
@@ -52,6 +53,17 @@ export async function POST(req: Request) {
 
     await ThalSchedule.findByIdAndUpdate(thalScheduleId, { swapRequested: true, declineReason: reason });
 
+    // 🔔 Dispatch Push Notification to Admin Mobile & Web Devices!
+    await sendPushNotificationPayload({
+      recipientRole: "mandir_admin",
+      title: `🔄 New Thal Seva Swap Request`,
+      body: `${requestingFamilyName} requested a swap for ${mealType} on ${originalDate}. Reason: ${reason}`,
+      data: {
+        type: "swap_request",
+        swapId: swap._id.toString(),
+      },
+    });
+
     return NextResponse.json({
       success: true,
       message: swapType === "family_to_family" 
@@ -97,6 +109,20 @@ export async function PUT(req: Request) {
       await swap.save();
       await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, { swapRequested: false });
     }
+
+    // 🔔 Dispatch Push Notification back to requesting Devotee's device!
+    await sendPushNotificationPayload({
+      recipientPhone: "9825056789",
+      title: action === "approve" ? "✅ Thal Swap Approved!" : "❌ Thal Swap Declined",
+      body: action === "approve"
+        ? `Your swap request for ${swap.originalDate} (${swap.mealType}) has been approved by Mandir Coordinator.`
+        : `Your swap request for ${swap.originalDate} could not be accommodated.`,
+      data: {
+        type: "swap_resolution",
+        swapId: swap._id.toString(),
+        status: swap.status,
+      },
+    });
 
     return NextResponse.json({ success: true, message: `Swap request ${swap.status}`, swap });
   } catch (error: any) {

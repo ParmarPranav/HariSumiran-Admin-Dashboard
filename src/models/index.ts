@@ -11,6 +11,11 @@ export interface IUser extends Document {
   avatar?: string;
   biometricEnabled: boolean;
   active: boolean;
+  deviceTokens?: {
+    token: string;
+    platform: "ios" | "android" | "web";
+    updatedAt: Date;
+  }[];
   createdAt: Date;
 }
 
@@ -28,6 +33,13 @@ const UserSchema = new Schema<IUser>({
   avatar: { type: String },
   biometricEnabled: { type: Boolean, default: true },
   active: { type: Boolean, default: true },
+  deviceTokens: [
+    {
+      token: { type: String },
+      platform: { type: String, enum: ["ios", "android", "web"] },
+      updatedAt: { type: Date, default: Date.now },
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
 });
 
