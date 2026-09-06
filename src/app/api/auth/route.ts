@@ -1,14 +1,53 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import { User } from "@/models";
+import { User, Family } from "@/models";
 import { initialUsers } from "@/lib/seedData";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { action, phone, email, password, otp, role } = body;
+    const { action, name, phone, email, password, familyName, role } = body;
 
     await connectDB();
+
+    if (action === "register") {
+      if (!email || !password || !name) {
+        return NextResponse.json({ success: false, error: "Name, email, and password are required." }, { status: 400 });
+      }
+
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return NextResponse.json({ success: false, error: "An account with this email already exists." }, { status: 400 });
+      }
+
+      const userPhone = phone || "98250" + Math.floor(10000 + Math.random() * 90000);
+      const newUser = await User.create({
+        name,
+        email,
+        phone: userPhone,
+        role: "family_captain",
+        mandir: "HariPrabodham, Nadiad",
+        active: true,
+      });
+
+      const userFamilyName = familyName || `${name} Household`;
+
+      return NextResponse.json({
+        success: true,
+        message: "Devotee account created successfully",
+        user: {
+          id: newUser._id,
+          name: newUser.name,
+          email: newUser.email,
+          phone: newUser.phone,
+          role: "family_captain",
+          mandir: newUser.mandir,
+          familyId: "FAM-" + Date.now().toString().slice(-4),
+          familyName: userFamilyName,
+        },
+        token: "user_jwt_token_" + Date.now(),
+      });
+    }
 
     if (action === "login") {
       if (email === "harisumiran369@gmail.com" && password === "Atmiyata@3690") {
@@ -51,14 +90,13 @@ export async function POST(req: Request) {
           token: "admin_jwt_token_" + Date.now(),
         });
       } else {
-        // Devotee / Family User login
-        const devoteeEmail = email || "devotee@harisumiran.org";
-        let devoteeUser = await User.findOne({
-          $or: [
-            { email: devoteeEmail },
-            { role: "family_captain" },
-          ],
-        });
+        // Devotee / Family User login (user369@gmail.com / User@3690 or any user)
+        const devoteeEmail = email || "user369@gmail.com";
+        let devoteeUser = await User.findOne({ email: devoteeEmail });
+
+        if (!devoteeUser) {
+          devoteeUser = await User.findOne({ role: "family_captain" });
+        }
 
         if (devoteeUser) {
           if (email) devoteeUser.email = email;
@@ -66,7 +104,7 @@ export async function POST(req: Request) {
         } else {
           const uniquePhone = "98250" + Math.floor(10000 + Math.random() * 90000);
           devoteeUser = await User.create({
-            name: email ? email.split("@")[0] : "Devotee User",
+            name: email ? email.split("@")[0] : "Rameshbhai Patel",
             email: devoteeEmail,
             phone: uniquePhone,
             role: "family_captain",
@@ -81,7 +119,7 @@ export async function POST(req: Request) {
           message: "Authenticated as Devotee User",
           user: {
             id: devoteeUser._id,
-            name: devoteeUser.name,
+            name: devoteeUser.name || "Rameshbhai Patel",
             email: devoteeUser.email,
             phone: devoteeUser.phone,
             role: "family_captain",
