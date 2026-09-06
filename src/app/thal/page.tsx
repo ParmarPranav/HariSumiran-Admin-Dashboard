@@ -257,28 +257,6 @@ export default function ThalPage() {
 
   return (
     <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
-      {/* Persona Mode Indicator */}
-      <div className="flex items-center justify-between p-3.5 rounded-2xl border border-saffron-300/80 bg-saffron-50/60 shadow-subtle">
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl bg-saffron-500 text-white flex items-center justify-center font-bold">
-            {isAdmin ? "👑" : "🏠"}
-          </div>
-          <div>
-            <span className="text-xs font-bold text-charcoal">
-              {isAdmin ? "Mandir Administrator Rotation Management" : "Devotee Family View Mode"}
-            </span>
-            <p className="text-[11px] text-charcoal-subtle">
-              {isAdmin
-                ? `Logged in as ${user.name} (${user.role}). Full authority over monthly plans & swap approvals.`
-                : `Logged in as ${user.name} for ${myFamilyName}. View assigned turns & request swaps.`}
-            </p>
-          </div>
-        </div>
-        <Badge variant={isAdmin ? "warning" : "info"} size="md">
-          {isAdmin ? "Admin Mode" : "User / Family Mode"}
-        </Badge>
-      </div>
-
       {/* 🌟 TODAY'S WHOSE TURN FEATURED BANNER */}
       <GlassCard className="p-6 space-y-4 border-l-4 border-l-saffron-500 bg-gradient-to-r from-saffron-50/80 via-amber-50/40 to-white">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-saffron-200/60 pb-3">
