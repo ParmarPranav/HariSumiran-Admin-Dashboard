@@ -13,9 +13,6 @@ import {
   User as UserIcon,
   Shield,
   UserPlus,
-  Building,
-  Phone,
-  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -28,9 +25,9 @@ export default function AuthPage() {
   // User Mode: "login" or "register"
   const [userMode, setUserMode] = useState<"login" | "register">("login");
 
-  // Form states
-  const [email, setEmail] = useState("harisumiran369@gmail.com");
-  const [password, setPassword] = useState("Atmiyata@3690");
+  // Form states - empty by default so credentials are never exposed on screen
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -43,13 +40,8 @@ export default function AuthPage() {
 
   const handleTabChange = (tab: "admin" | "user") => {
     setActiveTab(tab);
-    if (tab === "admin") {
-      setEmail("harisumiran369@gmail.com");
-      setPassword("Atmiyata@3690");
-    } else {
-      setEmail("user369@gmail.com");
-      setPassword("User@3690");
-    }
+    setEmail("");
+    setPassword("");
   };
 
   const handleLogin = async (e?: React.FormEvent) => {
@@ -191,22 +183,6 @@ export default function AuthPage() {
           <p className="text-sm md:text-base text-charcoal-subtle max-w-xl leading-relaxed">
             Select your login persona to enter the workspace, manage daily Thal rotation schedules, family captain profiles, and temple operations.
           </p>
-
-          <div className="flex items-center gap-4 pt-2">
-            <div className="p-3 rounded-2xl bg-white/80 border border-saffron-200/60 shadow-subtle text-xs space-y-1">
-              <span className="font-bold text-saffron-900 flex items-center gap-1.5">
-                <Shield className="h-4 w-4 text-saffron-600" /> Mandir Admin Persona
-              </span>
-              <p className="text-[11px] text-charcoal-subtle font-mono">harisumiran369@gmail.com &bull; Atmiyata@3690</p>
-            </div>
-
-            <div className="p-3 rounded-2xl bg-white/80 border border-amber-200/60 shadow-subtle text-xs space-y-1">
-              <span className="font-bold text-amber-900 flex items-center gap-1.5">
-                <UserIcon className="h-4 w-4 text-amber-600" /> Devotee User Persona
-              </span>
-              <p className="text-[11px] text-charcoal-subtle font-mono">user369@gmail.com &bull; User@3690</p>
-            </div>
-          </div>
         </div>
 
         {/* Right Side: Tabbed Login Card */}
@@ -244,26 +220,14 @@ export default function AuthPage() {
             {activeTab === "admin" && (
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="text-xs font-bold text-charcoal uppercase">ADMIN EMAIL</label>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEmail("harisumiran369@gmail.com");
-                        setPassword("Atmiyata@3690");
-                      }}
-                      className="text-[10px] font-bold text-primary-container hover:underline"
-                    >
-                      Fill Admin Creds
-                    </button>
-                  </div>
+                  <label className="text-xs font-bold text-charcoal block mb-1.5 uppercase">ADMIN EMAIL</label>
                   <div className="relative flex items-center rounded-xl bg-surface-container-low/40 border border-hairline focus-within:border-saffron-400 focus-within:bg-white transition-all shadow-subtle">
                     <Mail className="h-4 w-4 text-charcoal-subtle absolute left-3.5 pointer-events-none" />
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="harisumiran369@gmail.com"
+                      placeholder="Enter admin email address..."
                       className="w-full bg-transparent text-xs text-charcoal placeholder:text-charcoal-subtle/60 pl-10 pr-4 py-3 focus:outline-none"
                       required
                     />
@@ -344,26 +308,14 @@ export default function AuthPage() {
                 {userMode === "login" ? (
                   <form onSubmit={handleLogin} className="space-y-4">
                     <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="text-xs font-bold text-charcoal uppercase">USER EMAIL</label>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEmail("user369@gmail.com");
-                            setPassword("User@3690");
-                          }}
-                          className="text-[10px] font-bold text-primary-container hover:underline"
-                        >
-                          Fill User Creds
-                        </button>
-                      </div>
+                      <label className="text-xs font-bold text-charcoal block mb-1.5 uppercase">USER EMAIL</label>
                       <div className="relative flex items-center rounded-xl bg-surface-container-low/40 border border-hairline focus-within:border-saffron-400 focus-within:bg-white transition-all shadow-subtle">
                         <Mail className="h-4 w-4 text-charcoal-subtle absolute left-3.5 pointer-events-none" />
                         <input
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="user369@gmail.com"
+                          placeholder="Enter devotee email address..."
                           className="w-full bg-transparent text-xs text-charcoal placeholder:text-charcoal-subtle/60 pl-10 pr-4 py-3 focus:outline-none"
                           required
                         />
