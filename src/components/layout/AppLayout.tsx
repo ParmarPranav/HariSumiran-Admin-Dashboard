@@ -29,7 +29,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   // Before authenticating or when on /auth page, render ONLY the full-screen page content without sidebar or header
   if (!mounted || isAuthPage || !isAuthenticated) {
     return (
-      <div className="h-full w-full min-h-screen bg-[#08090d] text-white">
+      <div className="h-full w-full min-h-screen bg-[#FBF9F5] text-charcoal">
         {children}
       </div>
     );
