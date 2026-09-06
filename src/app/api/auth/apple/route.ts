@@ -16,9 +16,10 @@ export async function POST(req: Request) {
     let user = await User.findOne({ email });
 
     if (!user) {
+      const uniquePhone = "98250" + Math.floor(10000 + Math.random() * 90000);
       user = await User.create({
         name: name || "Apple Devotee",
-        phone: "9825099999",
+        phone: uniquePhone,
         email: email || `devotee.${Date.now()}@privaterelay.appleid.com`,
         role: "family_captain",
         mandir: "HariPrabodham, Nadiad",

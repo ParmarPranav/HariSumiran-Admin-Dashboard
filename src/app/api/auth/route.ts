@@ -12,8 +12,19 @@ export async function POST(req: Request) {
 
     if (action === "login") {
       if (email === "harisumiran369@gmail.com" && password === "Atmiyata@3690") {
-        let adminUser = await User.findOne({ email });
-        if (!adminUser) {
+        let adminUser = await User.findOne({
+          $or: [
+            { email: "harisumiran369@gmail.com" },
+            { phone: "9825023456" },
+            { role: "mandir_admin" },
+          ],
+        });
+
+        if (adminUser) {
+          adminUser.email = "harisumiran369@gmail.com";
+          adminUser.role = "mandir_admin";
+          await adminUser.save();
+        } else {
           adminUser = await User.create({
             name: "Mandir Administrator",
             email: "harisumiran369@gmail.com",
@@ -24,6 +35,7 @@ export async function POST(req: Request) {
             active: true,
           });
         }
+
         return NextResponse.json({
           success: true,
           isAdmin: true,
@@ -40,17 +52,29 @@ export async function POST(req: Request) {
         });
       } else {
         // Devotee / Family User login
-        let devoteeUser = await User.findOne({ email: email || "devotee@harisumiran.org" });
-        if (!devoteeUser) {
+        const devoteeEmail = email || "devotee@harisumiran.org";
+        let devoteeUser = await User.findOne({
+          $or: [
+            { email: devoteeEmail },
+            { role: "family_captain" },
+          ],
+        });
+
+        if (devoteeUser) {
+          if (email) devoteeUser.email = email;
+          await devoteeUser.save();
+        } else {
+          const uniquePhone = "98250" + Math.floor(10000 + Math.random() * 90000);
           devoteeUser = await User.create({
             name: email ? email.split("@")[0] : "Devotee User",
-            email: email || "devotee@harisumiran.org",
-            phone: "9825056789",
+            email: devoteeEmail,
+            phone: uniquePhone,
             role: "family_captain",
             mandir: "HariPrabodham, Nadiad",
             active: true,
           });
         }
+
         return NextResponse.json({
           success: true,
           isAdmin: false,
