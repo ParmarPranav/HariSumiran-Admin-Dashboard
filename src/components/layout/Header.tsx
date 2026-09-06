@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useApp, RoleType, getRoleLabel } from "@/context/AppContext";
+import { useRouter } from "next/navigation";
 import {
   Search,
   Languages,
@@ -12,10 +13,13 @@ import {
   ChevronDown,
   Sparkles,
   Check,
+  LogOut,
+  Sliders,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Header() {
+  const router = useRouter();
   const {
     role,
     user,
@@ -24,10 +28,12 @@ export function Header() {
     setLanguage,
     syncStatus,
     triggerSync,
+    logout,
     setCommandPaletteOpen,
   } = useApp();
 
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const rolesList: { role: RoleType; label: string; desc: string }[] = [
@@ -63,8 +69,14 @@ export function Header() {
     },
   ];
 
+  const handleLogout = () => {
+    logout();
+    setProfileMenuOpen(false);
+    router.push("/auth");
+  };
+
   return (
-    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-hairline bg-white/80 px-4 md:px-6 backdrop-blur-md">
+    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-saffron-100/80 bg-white/85 px-4 md:px-6 backdrop-blur-xl shadow-subtle">
       {/* Left Search Command Trigger */}
       <div className="flex items-center gap-3 flex-1 max-w-md">
         <button
@@ -84,8 +96,11 @@ export function Header() {
         {/* Role Switcher Pill */}
         <div className="relative">
           <button
-            onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-            className="flex items-center gap-2 rounded-2xl border border-saffron-300/60 bg-saffron-50/70 px-3 py-1.5 text-xs font-semibold text-primary-container hover:bg-saffron-100/70 transition-colors shadow-subtle"
+            onClick={() => {
+              setRoleMenuOpen(!roleMenuOpen);
+              setProfileMenuOpen(false);
+            }}
+            className="flex items-center gap-2 rounded-2xl border border-saffron-300/80 bg-saffron-50/80 px-3 py-1.5 text-xs font-semibold text-primary-container hover:bg-saffron-100/80 transition-colors shadow-subtle"
           >
             <Shield className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">{getRoleLabel(role)}</span>
@@ -99,10 +114,10 @@ export function Header() {
                 className="fixed inset-0 z-30"
                 onClick={() => setRoleMenuOpen(false)}
               />
-              <div className="absolute right-0 top-11 z-40 w-72 rounded-2xl border border-hairline bg-white p-2 shadow-float animate-in fade-in zoom-in-95">
+              <div className="absolute right-0 top-11 z-40 w-72 rounded-2xl border border-saffron-200 bg-white p-2 shadow-float animate-in fade-in zoom-in-95">
                 <div className="px-3 py-2 border-b border-hairline/60">
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-charcoal-subtle">
-                    Switch Active Persona & Rights
+                    Switch Active Persona &amp; Rights
                   </p>
                 </div>
                 <div className="py-1 space-y-0.5">
@@ -201,26 +216,68 @@ export function Header() {
           />
         </button>
 
-        {/* User Profile Avatar Link */}
-        <a
-          href="/profile"
-          className="flex items-center gap-2 pl-1 hover:opacity-80 transition-opacity"
-          title="View Devotee Profile"
-        >
-          <img
-            src={user.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
-            alt={user.name}
-            className="h-8 w-8 rounded-full border border-hairline object-cover"
-          />
-          <div className="hidden lg:flex flex-col text-left">
-            <span className="text-xs font-semibold text-charcoal leading-none truncate max-w-[120px]">
-              {user.name}
-            </span>
-            <span className="text-[10px] text-charcoal-subtle leading-tight truncate max-w-[120px]">
-              {user.mandir}
-            </span>
-          </div>
-        </a>
+        {/* Interactive User Profile Dropdown Menu */}
+        <div className="relative">
+          <button
+            onClick={() => {
+              setProfileMenuOpen(!profileMenuOpen);
+              setRoleMenuOpen(false);
+            }}
+            className="flex items-center gap-2 pl-1 hover:opacity-90 transition-opacity focus:outline-none"
+            title="User Profile Menu"
+          >
+            <img
+              src={user.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"}
+              alt={user.name}
+              className="h-8 w-8 rounded-full border-2 border-saffron-300 object-cover shadow-subtle"
+            />
+            <div className="hidden lg:flex flex-col text-left">
+              <span className="text-xs font-bold text-charcoal leading-none truncate max-w-[120px]">
+                {user.name}
+              </span>
+              <span className="text-[10px] text-charcoal-subtle leading-tight truncate max-w-[120px]">
+                {user.mandir}
+              </span>
+            </div>
+            <ChevronDown className="h-3 w-3 text-charcoal-subtle hidden lg:inline opacity-70" />
+          </button>
+
+          {profileMenuOpen && (
+            <>
+              <div className="fixed inset-0 z-30" onClick={() => setProfileMenuOpen(false)} />
+              <div className="absolute right-0 top-11 z-40 w-64 rounded-2xl border border-saffron-200 bg-white p-3 shadow-float animate-in fade-in zoom-in-95 space-y-2">
+                <div className="p-3 rounded-xl bg-saffron-50/60 border border-saffron-200/60 text-xs">
+                  <p className="font-bold text-charcoal">{user.name}</p>
+                  <p className="text-[11px] text-charcoal-subtle font-medium mt-0.5">{user.email}</p>
+                  <span className="inline-block mt-1.5 px-2 py-0.5 rounded-full bg-saffron-500 text-white text-[9px] font-bold tracking-wider uppercase">
+                    {getRoleLabel(role)}
+                  </span>
+                </div>
+
+                <div className="space-y-0.5 pt-1">
+                  <button
+                    onClick={() => {
+                      setProfileMenuOpen(false);
+                      router.push("/auth");
+                    }}
+                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-charcoal hover:bg-surface-container-low transition-colors"
+                  >
+                    <Sliders className="h-4 w-4 text-primary-container" />
+                    <span>Switch Account / Auth</span>
+                  </button>
+
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors"
+                  >
+                    <LogOut className="h-4 w-4 text-rose-600" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
