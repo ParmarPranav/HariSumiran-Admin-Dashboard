@@ -21,8 +21,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const isAuthPage = pathname === "/auth";
 
   useEffect(() => {
-    if (mounted && !isAuthenticated && !isAuthPage) {
-      router.replace("/auth");
+    if (mounted) {
+      if (!isAuthenticated && !isAuthPage) {
+        router.replace("/auth");
+      } else if (isAuthenticated && isAuthPage) {
+        router.replace("/thal");
+      }
     }
   }, [mounted, isAuthenticated, isAuthPage, router]);
 

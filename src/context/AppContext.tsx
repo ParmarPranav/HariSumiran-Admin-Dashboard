@@ -227,8 +227,35 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
+  // Restore session from localStorage on mount so refresh stays logged in
+  useEffect(() => {
+    try {
+      const savedSession = localStorage.getItem("hs_session");
+      if (savedSession) {
+        const parsed = JSON.parse(savedSession);
+        if (parsed && parsed.isAuthenticated && parsed.user) {
+          setUserState(parsed.user);
+          setRoleState(parsed.role || parsed.user.role || "mandir_admin");
+          setIsAuthenticated(true);
+        }
+      }
+    } catch (e) {}
+  }, []);
+
+  // Save session state to localStorage whenever authenticated state or user updates
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      try {
+        localStorage.setItem("hs_session", JSON.stringify({ user, role, isAuthenticated: true }));
+      } catch (e) {}
+    }
+  }, [isAuthenticated, user, role]);
+
   const logout = () => {
     setIsAuthenticated(false);
+    try {
+      localStorage.removeItem("hs_session");
+    } catch (e) {}
     toast.info("Logged Out", { description: "Session cleared. Returned to Login." });
   };
 
