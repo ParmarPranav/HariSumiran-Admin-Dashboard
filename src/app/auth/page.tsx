@@ -110,8 +110,8 @@ export default function AuthPage() {
       <div className="w-full max-w-md z-10">
         {step === "welcome" && (
           <GlassCard className="text-center p-8 space-y-6">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-saffron-50 text-primary-container font-heading font-extrabold text-3xl shadow-soft border border-saffron-200">
-              હ
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-white/80 p-2 shadow-soft border border-saffron-200">
+              <img src="/logo.png" alt="HariSumiran Logo" className="h-full w-full object-contain" />
             </div>
             <div>
               <h2 className="font-heading text-2xl font-bold text-charcoal">HariSumiran</h2>

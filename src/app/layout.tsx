@@ -10,6 +10,9 @@ import { Toaster } from "sonner";
 export const metadata: Metadata = {
   title: "HariSumiran — Mandir Operations Platform",
   description: "Authenticated temple operations and seva management for HariPrabodham, Nadiad.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

@@ -73,9 +73,7 @@ export function Sidebar() {
       {/* Brand Header */}
       <div className="flex h-16 items-center justify-between px-4 border-b border-hairline/80">
         <Link href="/" className="flex items-center gap-2.5 overflow-hidden">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary-container text-white shadow-sm font-bold font-heading text-lg">
-            હ
-          </div>
+          <img src="/logo.png" alt="HariSumiran Logo" className="h-9 w-9 shrink-0 object-contain" />
           {!collapsed && (
             <div className="flex flex-col">
               <span className="font-heading text-base font-bold tracking-tight text-charcoal">
