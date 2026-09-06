@@ -9,6 +9,12 @@ import { Modal } from "@/components/ui/Modal";
 import {
   UtensilsCrossed,
   Calendar as CalendarIcon,
+  CalendarDays,
+  Home,
+  ArrowLeftRight,
+  Award,
+  ChefHat,
+  ShieldCheck,
   Sparkles,
   Users,
   CheckCircle2,
@@ -96,6 +102,12 @@ export default function ThalPage() {
     fetchData();
   }, [selectedMonth]);
 
+  useEffect(() => {
+    if (isAdmin && activeTab === "my_turns") {
+      setActiveTab("monthly_plan");
+    }
+  }, [isAdmin, activeTab]);
+
   // Auto Generate September / Monthly Plan
   const handleAutoGenerateMonthlyPlan = async () => {
     setLoading(true);
@@ -148,19 +160,29 @@ export default function ThalPage() {
     }
   };
 
-  // Confirm Turn
+  const [confirmingId, setConfirmingId] = useState<string | null>(null);
+
+  // Confirm Turn & Persist to Database
   const handleConfirmTurn = async (id: string) => {
+    setConfirmingId(id);
     try {
       const res = await fetch("/api/thal", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, status: "Confirmed" }),
       });
-      if (res.ok) {
-        toast.success("Thal turn confirmed with Mandir kitchen");
+      const data = await res.json();
+      setConfirmingId(null);
+      if (res.ok && data.success) {
+        toast.success("Thal turn confirmed & saved!", {
+          description: "Persisted to MongoDB Atlas. Kitchen team notified.",
+        });
         fetchData();
+      } else {
+        toast.error(data.error || "Failed to confirm turn");
       }
     } catch (e: any) {
+      setConfirmingId(null);
       toast.error("Action failed: " + e.message);
     }
   };
@@ -389,54 +411,60 @@ export default function ThalPage() {
         )}
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="flex flex-wrap gap-2 border-b border-hairline pb-2">
+      {/* Navigation Tabs (iOS SF-Segmented Pill Bar) */}
+      <div className="inline-flex flex-wrap gap-1.5 p-1.5 rounded-2xl bg-surface-container-low/90 border border-hairline/80 shadow-inner">
         {isAdmin && (
           <button
             onClick={() => setActiveTab("monthly_plan")}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
               activeTab === "monthly_plan"
-                ? "bg-primary-container text-white shadow-sm"
-                : "text-charcoal-subtle hover:bg-surface-container"
+                ? "bg-white text-primary-container shadow-subtle border border-saffron-200/80 font-bold"
+                : "text-charcoal-subtle hover:text-charcoal hover:bg-white/50"
             }`}
           >
-            📅 September Calendar ({schedules.length} Slots)
+            <CalendarDays className="h-4 w-4 text-primary-container stroke-[2]" />
+            <span>September Calendar ({schedules.length} Slots)</span>
           </button>
         )}
 
-        <button
-          onClick={() => setActiveTab("my_turns")}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
-            activeTab === "my_turns"
-              ? "bg-primary-container text-white shadow-sm"
-              : "text-charcoal-subtle hover:bg-surface-container"
-          }`}
-        >
-          🏠 My Family Turns ({myFamilyTurns.length})
-        </button>
+        {!isAdmin && (
+          <button
+            onClick={() => setActiveTab("my_turns")}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
+              activeTab === "my_turns"
+                ? "bg-white text-primary-container shadow-subtle border border-saffron-200/80 font-bold"
+                : "text-charcoal-subtle hover:text-charcoal hover:bg-white/50"
+            }`}
+          >
+            <Home className="h-4 w-4 text-primary-container stroke-[2]" />
+            <span>My Family Turns ({myFamilyTurns.length})</span>
+          </button>
+        )}
 
         {isAdmin && (
           <button
             onClick={() => setActiveTab("swap_requests")}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
               activeTab === "swap_requests"
-                ? "bg-primary-container text-white shadow-sm"
-                : "text-charcoal-subtle hover:bg-surface-container"
+                ? "bg-white text-primary-container shadow-subtle border border-saffron-200/80 font-bold"
+                : "text-charcoal-subtle hover:text-charcoal hover:bg-white/50"
             }`}
           >
-            🔄 Swap Requests ({swapRequests.filter((s) => s.status === "Pending Coordinator").length} Pending)
+            <ArrowLeftRight className="h-4 w-4 text-primary-container stroke-[2]" />
+            <span>Swap Requests ({swapRequests.filter((s) => s.status === "Pending Coordinator").length} Pending)</span>
           </button>
         )}
 
         <button
           onClick={() => setActiveTab("fairness")}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
             activeTab === "fairness"
-              ? "bg-primary-container text-white shadow-sm"
-              : "text-charcoal-subtle hover:bg-surface-container"
+              ? "bg-white text-primary-container shadow-subtle border border-saffron-200/80 font-bold"
+              : "text-charcoal-subtle hover:text-charcoal hover:bg-white/50"
           }`}
         >
-          ✨ Family Rotation Fairness (30 Parivars)
+          <Award className="h-4 w-4 text-primary-container stroke-[2]" />
+          <span>Family Rotation Fairness (30 Parivars)</span>
         </button>
       </div>
 
@@ -709,8 +737,8 @@ export default function ThalPage() {
         </div>
       )}
 
-      {/* TAB 2: My Family Turns (User View) */}
-      {activeTab === "my_turns" && (
+      {/* TAB 2: My Family Turns (User View - Non-Admin Only) */}
+      {!isAdmin && activeTab === "my_turns" && (
         <div className="space-y-4">
           <GlassCard className="p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-hairline pb-3">
@@ -922,7 +950,12 @@ export default function ThalPage() {
 
                     <div className="flex items-center gap-2 pt-1">
                       {turn.status !== "Confirmed" && (
-                        <Button size="sm" variant="secondary" onClick={() => handleConfirmTurn(turn._id)}>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          isLoading={confirmingId === turn._id}
+                          onClick={() => handleConfirmTurn(turn._id)}
+                        >
                           Confirm Turn
                         </Button>
                       )}
@@ -980,7 +1013,12 @@ export default function ThalPage() {
 
                     <div className="flex items-center gap-2 pt-1">
                       {turn.status !== "Confirmed" && (
-                        <Button size="sm" variant="secondary" onClick={() => handleConfirmTurn(turn._id)}>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          isLoading={confirmingId === turn._id}
+                          onClick={() => handleConfirmTurn(turn._id)}
+                        >
                           Confirm Turn
                         </Button>
                       )}
