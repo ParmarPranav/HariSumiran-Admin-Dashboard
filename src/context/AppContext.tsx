@@ -117,6 +117,7 @@ interface AppContextType {
   setLanguage: (lang: "en" | "gu") => void;
   setCommandPaletteOpen: (open: boolean) => void;
   loginWithCredentials: (email: string, password?: string) => { isAdmin: boolean };
+  loginWithGoogle: (googleUser?: { name?: string; email?: string }) => void;
   loginWithApple: (appleUser: { name: string; email: string; appleId: string }) => void;
   logout: () => void;
   addNotification: (notif: AppNotification) => void;
@@ -181,6 +182,27 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       });
       return { isAdmin: false };
     }
+  };
+
+  const loginWithGoogle = (googleUser?: { name?: string; email?: string }) => {
+    const newUser: CurrentUser = {
+      name: googleUser?.name || "Rameshbhai Patel",
+      email: googleUser?.email || "ramesh.patel@gmail.com",
+      phone: "9825056789",
+      role: "family_captain",
+      mandir: "HariPrabodham, Nadiad",
+      authProvider: "demo",
+      familyId: "FAM-101",
+      familyName: "Patel Household (Rameshbhai)",
+      isCaptain: true,
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
+    };
+    setUserState(newUser);
+    setRoleState("family_captain");
+    setIsAuthenticated(true);
+    toast.success("Authenticated via Google", {
+      description: `Welcome, ${newUser.name}! Signed in via Google Account.`,
+    });
   };
 
   const loginWithApple = (appleUser: { name: string; email: string; appleId: string }) => {
@@ -260,6 +282,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setLanguage,
         setCommandPaletteOpen,
         loginWithCredentials,
+        loginWithGoogle,
         loginWithApple,
         logout,
         addNotification,
