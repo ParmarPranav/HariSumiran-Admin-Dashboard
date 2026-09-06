@@ -6,58 +6,68 @@ import { initialUsers } from "@/lib/seedData";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { action, phone, email, otp, role } = body;
+    const { action, phone, email, password, otp, role } = body;
 
     await connectDB();
 
-    if (action === "send_otp") {
-      if (!phone && !email) {
-        return NextResponse.json({ success: false, error: "Phone or email is required" }, { status: 400 });
+    if (action === "login") {
+      if (email === "harisumiran369@gmail.com" && password === "Atmiyata@3690") {
+        let adminUser = await User.findOne({ email });
+        if (!adminUser) {
+          adminUser = await User.create({
+            name: "Mandir Administrator",
+            email: "harisumiran369@gmail.com",
+            phone: "9825023456",
+            role: "mandir_admin",
+            department: "Operations & Administration",
+            mandir: "HariPrabodham, Nadiad",
+            active: true,
+          });
+        }
+        return NextResponse.json({
+          success: true,
+          isAdmin: true,
+          message: "Authenticated as Mandir Administrator",
+          user: {
+            id: adminUser._id,
+            name: adminUser.name,
+            email: adminUser.email,
+            phone: adminUser.phone,
+            role: "mandir_admin",
+            mandir: adminUser.mandir,
+          },
+          token: "admin_jwt_token_" + Date.now(),
+        });
+      } else {
+        // Devotee / Family User login
+        let devoteeUser = await User.findOne({ email: email || "devotee@harisumiran.org" });
+        if (!devoteeUser) {
+          devoteeUser = await User.create({
+            name: email ? email.split("@")[0] : "Devotee User",
+            email: email || "devotee@harisumiran.org",
+            phone: "9825056789",
+            role: "family_captain",
+            mandir: "HariPrabodham, Nadiad",
+            active: true,
+          });
+        }
+        return NextResponse.json({
+          success: true,
+          isAdmin: false,
+          message: "Authenticated as Devotee User",
+          user: {
+            id: devoteeUser._id,
+            name: devoteeUser.name,
+            email: devoteeUser.email,
+            phone: devoteeUser.phone,
+            role: "family_captain",
+            mandir: devoteeUser.mandir,
+            familyId: "FAM-101",
+            familyName: "Patel Household (Rameshbhai)",
+          },
+          token: "user_jwt_token_" + Date.now(),
+        });
       }
-
-      // Look up user or match default
-      const user = await User.findOne(phone ? { phone: phone.replace(/\D/g, "") } : { email });
-      return NextResponse.json({
-        success: true,
-        message: "OTP sent successfully to " + (phone || email),
-        mockOtp: "123456", // Demo OTP
-        registeredUser: !!user,
-        role: user?.role || "karyakarta",
-      });
-    }
-
-    if (action === "verify_otp") {
-      if (otp !== "123456" && otp !== "111111") {
-        return NextResponse.json({ success: false, error: "Invalid verification code. Please enter 123456." }, { status: 400 });
-      }
-
-      let user = await User.findOne(phone ? { phone: phone.replace(/\D/g, "") } : { email });
-      if (!user) {
-        // Fallback demo user
-        user = (await User.findOne({ role: role || "karyakarta" })) || (await User.create({
-          name: "Volunteer User",
-          phone: phone || "9825000000",
-          email: email || "user@harisumiran.org",
-          role: role || "karyakarta",
-          mandir: "HariPrabodham, Nadiad",
-        }));
-      }
-
-      return NextResponse.json({
-        success: true,
-        message: "Authentication successful",
-        user: {
-          id: user._id,
-          name: user.name,
-          phone: user.phone,
-          email: user.email,
-          role: user.role,
-          department: user.department,
-          mandir: user.mandir,
-          avatar: user.avatar,
-        },
-        token: "demo_jwt_token_" + Date.now(),
-      });
     }
 
     if (action === "switch_role") {

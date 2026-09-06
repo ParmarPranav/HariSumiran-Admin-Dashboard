@@ -111,11 +111,14 @@ interface AppContextType {
   syncStatus: "synced" | "syncing" | "offline";
   commandPaletteOpen: boolean;
   notifications: AppNotification[];
+  isAuthenticated: boolean;
   setRole: (role: RoleType) => void;
   setUser: (user: CurrentUser) => void;
   setLanguage: (lang: "en" | "gu") => void;
   setCommandPaletteOpen: (open: boolean) => void;
+  loginWithCredentials: (email: string, password?: string) => { isAdmin: boolean };
   loginWithApple: (appleUser: { name: string; email: string; appleId: string }) => void;
+  logout: () => void;
   addNotification: (notif: AppNotification) => void;
   dismissNotification: (id: string) => void;
   triggerSync: () => void;
@@ -130,6 +133,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<"en" | "gu">("en");
   const [syncStatus, setSyncStatus] = useState<"synced" | "syncing" | "offline">("synced");
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<AppNotification[]>([
     {
       id: "notif-1",
@@ -153,6 +157,30 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const setUser = (newUser: CurrentUser) => {
     setUserState(newUser);
     setRoleState(newUser.role);
+    setIsAuthenticated(true);
+  };
+
+  const loginWithCredentials = (email: string, password?: string) => {
+    const isAdminCredentials = email === "harisumiran369@gmail.com" && password === "Atmiyata@3690";
+    if (isAdminCredentials) {
+      const adminUser = DEFAULT_USERS["mandir_admin"];
+      setUserState({ ...adminUser, email });
+      setRoleState("mandir_admin");
+      setIsAuthenticated(true);
+      toast.success("Authenticated as Mandir Administrator", {
+        description: "Welcome Nitinbhai Patel! Admin rotation control enabled.",
+      });
+      return { isAdmin: true };
+    } else {
+      const devoteeUser = DEFAULT_USERS["family_captain"];
+      setUserState({ ...devoteeUser, email: email || "devotee@harisumiran.org" });
+      setRoleState("family_captain");
+      setIsAuthenticated(true);
+      toast.success("Authenticated as Devotee User", {
+        description: `Welcome! Family Thal schedule & profile loaded.`,
+      });
+      return { isAdmin: false };
+    }
   };
 
   const loginWithApple = (appleUser: { name: string; email: string; appleId: string }) => {
@@ -169,10 +197,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       isCaptain: true,
       avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
     };
-    setUser(newUser);
+    setUserState(newUser);
+    setRoleState("family_captain");
+    setIsAuthenticated(true);
     toast.success("Signed in with Apple ID", {
       description: `Welcome, ${newUser.name}! Authenticated via Apple ID.`,
     });
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    toast.info("Logged Out", { description: "Session cleared. Returned to Login." });
   };
 
   const addNotification = (notif: AppNotification) => {
@@ -219,11 +254,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         syncStatus,
         commandPaletteOpen,
         notifications,
+        isAuthenticated,
         setRole,
         setUser,
         setLanguage,
         setCommandPaletteOpen,
+        loginWithCredentials,
         loginWithApple,
+        logout,
         addNotification,
         dismissNotification,
         triggerSync,
