@@ -170,46 +170,46 @@ export default function FollowUpPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         <GlassCard
           onClick={() => setSelectedUrgency("All")}
-          className={`cursor-pointer text-center p-3.5 border-2 ${
-            selectedUrgency === "All" ? "border-primary-container bg-saffron-50/40" : "border-hairline"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+            selectedUrgency === "All" ? "border-amber-500/50 bg-amber-500/10 shadow-glow-sm" : "border-white/10 hover:border-white/20"
           }`}
         >
-          <p className="text-xs font-semibold text-charcoal-subtle">All Open Cases</p>
-          <p className="font-heading text-xl font-bold text-charcoal">{cases.length}</p>
+          <p className="text-xs font-semibold text-gray-400">All Open Cases</p>
+          <p className="font-heading text-xl font-bold text-white">{cases.length}</p>
         </GlassCard>
 
         <GlassCard
           onClick={() => setSelectedUrgency("Overdue")}
-          className={`cursor-pointer text-center p-3.5 border-2 ${
-            selectedUrgency === "Overdue" ? "border-rose-500 bg-rose-50/40" : "border-hairline"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+            selectedUrgency === "Overdue" ? "border-rose-500/60 bg-rose-500/15 shadow-[0_0_12px_rgba(244,63,94,0.2)]" : "border-white/10 hover:border-white/20"
           }`}
         >
-          <p className="text-xs font-semibold text-rose-700">Overdue (&gt; 7 Days)</p>
-          <p className="font-heading text-xl font-bold text-rose-700">
+          <p className="text-xs font-semibold text-rose-400">Overdue (&gt; 7 Days)</p>
+          <p className="font-heading text-xl font-bold text-rose-300">
             {cases.filter((c) => c.urgency === "Overdue").length}
           </p>
         </GlassCard>
 
         <GlassCard
           onClick={() => setSelectedUrgency("Due Today")}
-          className={`cursor-pointer text-center p-3.5 border-2 ${
-            selectedUrgency === "Due Today" ? "border-amber-500 bg-amber-50/40" : "border-hairline"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+            selectedUrgency === "Due Today" ? "border-amber-500/60 bg-amber-500/15 shadow-glow-sm" : "border-white/10 hover:border-white/20"
           }`}
         >
-          <p className="text-xs font-semibold text-amber-800">Due Today</p>
-          <p className="font-heading text-xl font-bold text-amber-800">
+          <p className="text-xs font-semibold text-amber-300">Due Today</p>
+          <p className="font-heading text-xl font-bold text-amber-300">
             {cases.filter((c) => c.urgency === "Due Today").length}
           </p>
         </GlassCard>
 
         <GlassCard
           onClick={() => setSelectedUrgency("Upcoming")}
-          className={`cursor-pointer text-center p-3.5 border-2 ${
-            selectedUrgency === "Upcoming" ? "border-sky-500 bg-sky-50/40" : "border-hairline"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+            selectedUrgency === "Upcoming" ? "border-sky-500/60 bg-sky-500/15 shadow-[0_0_12px_rgba(14,165,233,0.2)]" : "border-white/10 hover:border-white/20"
           }`}
         >
-          <p className="text-xs font-semibold text-sky-800">Upcoming</p>
-          <p className="font-heading text-xl font-bold text-sky-800">
+          <p className="text-xs font-semibold text-sky-300">Upcoming</p>
+          <p className="font-heading text-xl font-bold text-sky-300">
             {cases.filter((c) => c.urgency === "Upcoming").length}
           </p>
         </GlassCard>
@@ -217,13 +217,13 @@ export default function FollowUpPage() {
 
       {/* Cases Stream */}
       {loading ? (
-        <div className="py-12 text-center text-xs text-charcoal-subtle">
+        <div className="py-12 text-center text-xs text-gray-400">
           Loading pastoral care cases...
         </div>
       ) : cases.length === 0 ? (
-        <GlassCard className="py-12 text-center text-xs text-charcoal-subtle space-y-2">
-          <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto" />
-          <p className="font-bold text-charcoal text-sm">No Pending Follow-Up Cases</p>
+        <GlassCard className="py-12 text-center text-xs text-gray-400 space-y-2">
+          <CheckCircle2 className="h-8 w-8 text-emerald-400 mx-auto" />
+          <p className="font-bold text-white text-sm">No Pending Follow-Up Cases</p>
           <p>All devotee care touchpoints are up to date.</p>
         </GlassCard>
       ) : (
@@ -242,19 +242,19 @@ export default function FollowUpPage() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-charcoal-subtle">{c.caseCode}</span>
+                      <span className="font-mono text-xs font-bold text-gray-400">{c.caseCode}</span>
                       <Badge variant={isOverdue ? "danger" : isDueToday ? "warning" : "info"} size="sm">
                         {c.urgency}
                       </Badge>
-                      <span className="text-xs font-semibold text-charcoal bg-surface-container px-2 py-0.5 rounded-md">
+                      <span className="text-xs font-semibold text-gray-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md">
                         {c.category}
                       </span>
                     </div>
-                    <h3 className="font-heading text-lg font-bold text-charcoal mt-1">
+                    <h3 className="font-heading text-lg font-bold text-white mt-1">
                       {c.familyName}
                     </h3>
-                    <p className="text-xs text-charcoal-subtle">
-                      Assigned to: <strong className="text-charcoal">{c.assignedKaryakartaName}</strong> &bull; Target Due Date: <strong>{c.dueDate}</strong>
+                    <p className="text-xs text-gray-400">
+                      Assigned to: <strong className="text-white">{c.assignedKaryakartaName}</strong> &bull; Target Due Date: <strong className="text-gray-200">{c.dueDate}</strong>
                     </p>
                   </div>
 
@@ -262,7 +262,7 @@ export default function FollowUpPage() {
                     <Button
                       size="sm"
                       variant="outline"
-                      leftIcon={<Lock className="h-3.5 w-3.5 text-amber-700" />}
+                      leftIcon={<Lock className="h-3.5 w-3.5 text-amber-400" />}
                       onClick={() => {
                         setActiveCase(c);
                         setNoteModalOpen(true);
@@ -308,31 +308,31 @@ export default function FollowUpPage() {
 
                 {/* Visit Plan Pill if Scheduled */}
                 {c.visitPlan && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl border border-hairline bg-surface-container-low/60 text-xs">
-                    <Calendar className="h-4 w-4 text-primary-container" />
+                  <div className="flex items-center gap-3 p-3 rounded-xl border border-white/10 bg-[#161B28]/60 text-xs">
+                    <Calendar className="h-4 w-4 text-amber-400" />
                     <div>
-                      <span className="font-bold text-charcoal">Home Visit Scheduled:</span>{" "}
-                      <span>{c.visitPlan.date} at {c.visitPlan.time}</span>
-                      {c.visitPlan.coVisitor && <span> (Co-visitor: {c.visitPlan.coVisitor})</span>}
+                      <span className="font-bold text-white">Home Visit Scheduled:</span>{" "}
+                      <span className="text-gray-300">{c.visitPlan.date} at {c.visitPlan.time}</span>
+                      {c.visitPlan.coVisitor && <span className="text-gray-400"> (Co-visitor: {c.visitPlan.coVisitor})</span>}
                     </div>
                   </div>
                 )}
 
                 {/* Confidential Notes Stream */}
                 {c.confidentialNotes && c.confidentialNotes.length > 0 && (
-                  <div className="space-y-2 border-t border-hairline pt-3">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-charcoal-subtle">
-                      <Lock className="h-3.5 w-3.5 text-amber-700" />
+                  <div className="space-y-2 border-t border-white/10 pt-3">
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                      <Lock className="h-3.5 w-3.5 text-amber-400" />
                       <span>Confidential Supervisor Notes ({c.confidentialNotes.length})</span>
                     </div>
                     <div className="space-y-1.5">
                       {c.confidentialNotes.map((note: any, idx: number) => (
                         <div
                           key={idx}
-                          className="rounded-xl border border-hairline bg-surface-container-low/40 p-3 text-xs text-charcoal leading-relaxed"
+                          className="rounded-xl border border-white/10 bg-[#161B28]/60 p-3 text-xs text-gray-200 leading-relaxed"
                         >
-                          <div className="flex justify-between items-center text-[10px] text-charcoal-subtle mb-1">
-                            <span className="font-semibold">{note.authorName}</span>
+                          <div className="flex justify-between items-center text-[10px] text-gray-400 mb-1">
+                            <span className="font-semibold text-amber-300">{note.authorName}</span>
                             <span>{new Date(note.createdAt).toLocaleString("en-IN")}</span>
                           </div>
                           <p>{note.note}</p>
@@ -356,8 +356,8 @@ export default function FollowUpPage() {
         maxWidth="md"
       >
         <div className="space-y-3">
-          <div className="flex items-center gap-2 p-2.5 rounded-xl border border-amber-200 bg-amber-50 text-xs text-amber-900">
-            <Lock className="h-4 w-4 shrink-0 text-amber-700" />
+          <div className="flex items-center gap-2 p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-xs text-amber-300">
+            <Lock className="h-4 w-4 shrink-0 text-amber-400" />
             <span>Confidentiality active. This note will never appear on general family profile exports.</span>
           </div>
 
@@ -366,7 +366,7 @@ export default function FollowUpPage() {
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
             placeholder="Record medical updates, pastoral care discussions, elder health status..."
-            className="w-full rounded-xl border border-hairline p-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+            className="w-full rounded-xl border border-white/10 bg-[#161B28] p-3 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
           />
 
           <div className="flex justify-end gap-2 pt-2">
@@ -391,33 +391,33 @@ export default function FollowUpPage() {
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Visit Date</label>
+              <label className="text-xs font-semibold text-gray-300">Visit Date</label>
               <input
                 type="date"
                 value={visitPlan.date}
                 onChange={(e) => setVisitPlan({ ...visitPlan, date: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">Visit Time</label>
+              <label className="text-xs font-semibold text-gray-300">Visit Time</label>
               <input
                 type="time"
                 value={visitPlan.time}
                 onChange={(e) => setVisitPlan({ ...visitPlan, time: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Accompanying Co-Visitor</label>
+            <label className="text-xs font-semibold text-gray-300">Accompanying Co-Visitor</label>
             <input
               type="text"
               value={visitPlan.coVisitor}
               onChange={(e) => setVisitPlan({ ...visitPlan, coVisitor: e.target.value })}
               placeholder="e.g. Nitinbhai Patel / Dipakbhai Shah"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
             />
           </div>
 
@@ -442,13 +442,13 @@ export default function FollowUpPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Resolution Summary *</label>
+            <label className="text-xs font-semibold text-gray-300">Resolution Summary *</label>
             <textarea
               rows={3}
               value={closureReason}
               onChange={(e) => setClosureReason(e.target.value)}
               placeholder="Family visited, health recovered, returned to Sunday Sabha..."
-              className="mt-1 w-full rounded-xl border border-hairline p-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-white/10 bg-[#161B28] p-3 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
             />
           </div>
 

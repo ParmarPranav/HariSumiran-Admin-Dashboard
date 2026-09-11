@@ -7,20 +7,23 @@ export function MandalaBackground({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "pointer-events-none fixed inset-0 overflow-hidden select-none z-0",
+        "pointer-events-none fixed inset-0 overflow-hidden select-none z-0 bg-[#090A0F]",
         className
       )}
       aria-hidden="true"
     >
-      {/* Ambient Saffron & Gold Glow Orbs */}
-      <div className="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full bg-gradient-to-br from-saffron-200/25 via-amber-100/20 to-transparent blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full bg-gradient-to-bl from-amber-200/20 via-orange-100/15 to-transparent blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-saffron-100/20 via-rose-50/10 to-transparent blur-[130px] pointer-events-none" />
+      {/* Deep Obsidian Background Mesh */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(245,158,11,0.12),rgba(255,255,255,0))]" />
+
+      {/* Luminous Amber & Saffron Aura Orbs */}
+      <div className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-amber-500/15 via-orange-600/10 to-transparent blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 -right-32 w-[650px] h-[650px] rounded-full bg-gradient-to-bl from-amber-600/12 via-saffron-500/8 to-transparent blur-[160px] pointer-events-none" />
+      <div className="absolute -bottom-32 left-1/3 w-[550px] h-[550px] rounded-full bg-gradient-to-tr from-orange-500/10 via-amber-700/5 to-transparent blur-[150px] pointer-events-none" />
 
       {/* Subtle Sacred Mandala Center Motifs */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.035]">
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.04]">
         <svg
-          className="w-[800px] h-[800px] text-primary-container animate-[spin_180s_linear_infinite]"
+          className="w-[900px] h-[900px] text-amber-400 animate-[spin_240s_linear_infinite]"
           viewBox="0 0 200 200"
           fill="currentColor"
         >
@@ -34,4 +37,5 @@ export function MandalaBackground({ className }: { className?: string }) {
     </div>
   );
 }
+
 

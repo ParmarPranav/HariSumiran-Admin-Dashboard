@@ -27,10 +27,10 @@ export function StatCard({
   onClick,
 }: StatCardProps) {
   const iconBgStyles = {
-    saffron: "bg-saffron-50 text-primary-container border-saffron-200/50",
-    green: "bg-emerald-50 text-secondary border-emerald-200/50",
-    blue: "bg-sky-50 text-tertiary border-sky-200/50",
-    neutral: "bg-surface-container text-charcoal border-hairline",
+    saffron: "bg-amber-500/15 text-amber-300 border-amber-500/20 shadow-[0_0_12px_rgba(245,158,11,0.15)]",
+    green: "bg-emerald-500/15 text-emerald-300 border-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.15)]",
+    blue: "bg-sky-500/15 text-sky-300 border-sky-500/20 shadow-[0_0_12px_rgba(14,165,233,0.15)]",
+    neutral: "bg-white/5 text-gray-300 border-white/10",
   };
 
   return (

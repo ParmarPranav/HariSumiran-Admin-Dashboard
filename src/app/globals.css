@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #FBF9F5;
-  --foreground: #24211F;
+  --background: #090A0F;
+  --foreground: #EDEDED;
 }
 
 body {
@@ -17,23 +17,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar for crisp native feel */
+/* Custom Scrollbar for crisp dark native feel */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(9, 10, 15, 0.6);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E8E0D8;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #dec0b5;
+  background: rgba(245, 158, 11, 0.4);
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.3);
+  color: #FFFFFF;
 }
 
 /* Gujarati script styling overrides */

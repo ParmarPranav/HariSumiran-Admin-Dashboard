@@ -189,44 +189,44 @@ export default function AnnouncementsPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Important Janmashtami Sabha Update"
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5 placeholder:text-slate-500"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-charcoal">Title (Gujarati Optional)</label>
+              <label className="text-xs font-semibold text-slate-300">Title (Gujarati Optional)</label>
               <input
                 type="text"
                 value={gujaratiTitle}
                 onChange={(e) => setGujaratiTitle(e.target.value)}
                 placeholder="e.g. મહત્વપૂર્ણ સત્સંગ સભા સૂચના"
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs font-gujarati text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs font-gujarati text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-charcoal">Message Body *</label>
+              <label className="text-xs font-semibold text-slate-300">Message Body *</label>
               <textarea
                 rows={3}
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
                 placeholder="Enter details of announcement..."
-                className="mt-1 w-full rounded-xl border border-hairline p-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 w-full rounded-xl border border-white/10 p-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5 placeholder:text-slate-500"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-charcoal">Target Audience Filter</label>
+              <label className="text-xs font-semibold text-slate-300">Target Audience Filter</label>
               <select
                 value={targetAudience}
                 onChange={(e) => setTargetAudience(e.target.value)}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               >
-                <option value="Everyone">Everyone in Mandir Directory (380)</option>
-                <option value="All Families">All Registered Family Captains (65)</option>
-                <option value="Karyakartas Only">Karyakartas &amp; Field Volunteers (24)</option>
-                <option value="Kitchen Seva Volunteers">Kitchen Seva Volunteers (18)</option>
-                <option value="Area: Station Road">Area: Station Road (42)</option>
+                <option value="Everyone" className="bg-[#161B28] text-white">Everyone in Mandir Directory (380)</option>
+                <option value="All Families" className="bg-[#161B28] text-white">All Registered Family Captains (65)</option>
+                <option value="Karyakartas Only" className="bg-[#161B28] text-white">Karyakartas &amp; Field Volunteers (24)</option>
+                <option value="Kitchen Seva Volunteers" className="bg-[#161B28] text-white">Kitchen Seva Volunteers (18)</option>
+                <option value="Area: Station Road" className="bg-[#161B28] text-white">Area: Station Road (42)</option>
               </select>
             </div>
 
@@ -241,24 +241,24 @@ export default function AnnouncementsPage() {
           </div>
 
           {/* Live Mobile Notification Preview Simulator */}
-          <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-surface-container-low border border-hairline space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-charcoal-subtle">
+          <div className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
               <Smartphone className="h-4 w-4" />
               <span>Mobile Notification Preview</span>
             </div>
 
-            <div className="w-full rounded-2xl bg-white p-3.5 shadow-float border border-hairline space-y-2">
-              <div className="flex items-center justify-between text-[10px] text-charcoal-subtle">
-                <div className="flex items-center gap-1.5 font-bold text-primary-container">
-                  <span className="h-3.5 w-3.5 rounded-full bg-primary-container text-white flex items-center justify-center text-[8px]">હ</span>
+            <div className="w-full rounded-2xl bg-[#161B28] p-3.5 shadow-2xl border border-white/10 space-y-2">
+              <div className="flex items-center justify-between text-[10px] text-slate-400">
+                <div className="flex items-center gap-1.5 font-bold text-amber-400">
+                  <span className="h-3.5 w-3.5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-[8px] font-bold">હ</span>
                   <span>HariSumiran</span>
                 </div>
                 <span>Now</span>
               </div>
-              <p className="font-bold text-xs text-charcoal leading-snug">
+              <p className="font-bold text-xs text-white leading-snug">
                 {title || "Announcement Headline"}
               </p>
-              <p className="text-[11px] text-charcoal-subtle line-clamp-3">
+              <p className="text-[11px] text-slate-400 line-clamp-3">
                 {body || "Your message preview will appear here in real-time as you compose."}
               </p>
             </div>

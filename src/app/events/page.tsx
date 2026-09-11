@@ -153,14 +153,14 @@ export default function EventsPage() {
               {/* Progress Capacity Bar */}
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="font-semibold text-charcoal">Registration Capacity:</span>
-                  <span className="font-bold text-primary-container">
+                  <span className="font-semibold text-gray-300">Registration Capacity:</span>
+                  <span className="font-mono font-bold text-amber-400">
                     {evt.registeredCount} / {evt.capacity} Devotees ({progress}%)
                   </span>
                 </div>
-                <div className="h-2 w-full rounded-full bg-surface-container-high overflow-hidden">
+                <div className="h-2 w-full rounded-full bg-[#161B28] border border-white/5 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-primary-container transition-all duration-300"
+                    className="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300 shadow-[0_0_8px_rgba(245,158,11,0.6)]"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -168,15 +168,15 @@ export default function EventsPage() {
 
               {/* Committee Leads */}
               {evt.committeeLeads && evt.committeeLeads.length > 0 && (
-                <div className="space-y-2 border-t border-hairline pt-3">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-charcoal-subtle">
+                <div className="space-y-2 border-t border-white/10 pt-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
                     Organizing Committee Leads
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {evt.committeeLeads.map((lead: any, i: number) => (
-                      <div key={i} className="p-2 rounded-xl bg-surface-container-low/50 border border-hairline">
-                        <p className="font-semibold text-charcoal">{lead.leadName}</p>
-                        <p className="text-[10px] text-charcoal-subtle">{lead.department}</p>
+                      <div key={i} className="p-2.5 rounded-xl bg-[#161B28]/60 border border-white/10">
+                        <p className="font-semibold text-white">{lead.leadName}</p>
+                        <p className="text-[10px] text-gray-400">{lead.department}</p>
                       </div>
                     ))}
                   </div>
@@ -185,28 +185,28 @@ export default function EventsPage() {
 
               {/* Tasks Checklist */}
               {evt.tasks && evt.tasks.length > 0 && (
-                <div className="space-y-1.5 border-t border-hairline pt-3">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-charcoal-subtle">
+                <div className="space-y-1.5 border-t border-white/10 pt-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
                     Readiness Checklist ({evt.tasks.filter((t: any) => t.completed).length} / {evt.tasks.length})
                   </p>
                   <div className="space-y-1">
                     {evt.tasks.map((task: any) => (
-                      <div key={task.id} className="flex items-center gap-2 text-xs text-charcoal">
+                      <div key={task.id} className="flex items-center gap-2 text-xs text-gray-200">
                         <CheckCircle2
                           className={`h-3.5 w-3.5 shrink-0 ${
-                            task.completed ? "text-emerald-600" : "text-charcoal-subtle opacity-40"
+                            task.completed ? "text-emerald-400" : "text-gray-500 opacity-40"
                           }`}
                         />
-                        <span className={task.completed ? "line-through opacity-70" : ""}>{task.title}</span>
+                        <span className={task.completed ? "line-through text-gray-500" : ""}>{task.title}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              <div className="pt-3 border-t border-hairline flex items-center justify-between">
-                <div className="text-xs text-charcoal-subtle flex items-center gap-1.5">
-                  <Calendar className="h-3.5 w-3.5" />
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+                <div className="text-xs text-gray-400 flex items-center gap-1.5">
+                  <Calendar className="h-3.5 w-3.5 text-amber-400" />
                   <span>{evt.date}</span>
                 </div>
                 <Button
@@ -234,22 +234,22 @@ export default function EventsPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Attendee Devotee Name *</label>
+            <label className="text-xs font-semibold text-gray-300">Attendee Devotee Name *</label>
             <input
               type="text"
               value={attendeeName}
               onChange={(e) => setAttendeeName(e.target.value)}
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Household Name</label>
+            <label className="text-xs font-semibold text-gray-300">Household Name</label>
             <input
               type="text"
               value={attendeeFamily}
               onChange={(e) => setAttendeeFamily(e.target.value)}
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
             />
           </div>
 
@@ -273,25 +273,25 @@ export default function EventsPage() {
           maxWidth="sm"
         >
           <div className="space-y-4 text-center">
-            <div className="rounded-3xl border border-saffron-300 bg-gradient-to-b from-saffron-50 to-white p-6 shadow-float space-y-4">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-container text-white font-heading font-bold text-xl shadow-soft">
+            <div className="rounded-3xl border border-amber-500/30 bg-gradient-to-b from-[#1C2236] to-[#0F121C] p-6 shadow-2xl shadow-black/80 space-y-4">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white font-heading font-bold text-xl shadow-glow-sm">
                 હ
               </div>
 
               <div>
-                <h4 className="font-heading text-base font-bold text-charcoal">{generatedPass.eventTitle}</h4>
-                <p className="text-xs text-charcoal-subtle">HariPrabodham Mandir, Nadiad</p>
+                <h4 className="font-heading text-base font-bold text-white">{generatedPass.eventTitle}</h4>
+                <p className="text-xs text-gray-400">HariPrabodham Mandir, Nadiad</p>
               </div>
 
               {/* Simulated QR Code */}
-              <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-2xl bg-white p-2 border border-hairline shadow-subtle">
+              <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-2xl bg-white p-2.5 border border-amber-500/30 shadow-glow-sm">
                 <QrCode className="h-28 w-28 text-charcoal" />
               </div>
 
-              <div className="border-t border-dashed border-hairline pt-3 text-xs space-y-1">
-                <p className="font-bold text-charcoal">{generatedPass.memberName}</p>
-                <p className="font-mono text-[11px] font-bold text-primary-container">{generatedPass.passCode}</p>
-                <p className="text-[10px] text-charcoal-subtle">Date: {generatedPass.date} &bull; Gate Pass</p>
+              <div className="border-t border-dashed border-white/15 pt-3 text-xs space-y-1">
+                <p className="font-bold text-white">{generatedPass.memberName}</p>
+                <p className="font-mono text-[11px] font-bold text-amber-400">{generatedPass.passCode}</p>
+                <p className="text-[10px] text-gray-400">Date: {generatedPass.date} &bull; Gate Pass</p>
               </div>
             </div>
 

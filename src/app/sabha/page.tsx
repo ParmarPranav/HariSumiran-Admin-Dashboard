@@ -198,27 +198,27 @@ export default function SabhaPage() {
             {/* Live Count Stat Strip */}
             <div className="flex items-center gap-4 bg-surface-container-low/60 p-3.5 rounded-2xl border border-hairline">
               <div className="text-right">
-                <p className="text-[10px] uppercase font-bold text-charcoal-subtle">Present / Expected</p>
-                <p className="font-heading text-2xl font-extrabold text-charcoal">
-                  <span className="text-primary-container">{presentCount}</span> / {activeSession.expectedCount}
+                <p className="text-[10px] uppercase font-bold text-slate-400">Present / Expected</p>
+                <p className="font-heading text-2xl font-extrabold text-white">
+                  <span className="text-amber-300">{presentCount}</span> / {activeSession.expectedCount}
                 </p>
               </div>
-              <div className="h-10 w-10 rounded-2xl bg-emerald-50 text-secondary flex items-center justify-center border border-emerald-200 font-heading font-bold text-sm">
+              <div className="h-10 w-10 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-heading font-bold text-sm">
                 {Math.round((presentCount / (activeSession.expectedCount || 1)) * 100)}%
               </div>
             </div>
           </div>
 
           {/* 3 Entry Modes Bar */}
-          <div className="border-t border-hairline pt-4 space-y-4">
+          <div className="border-t border-white/10 pt-4 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex gap-1.5 bg-surface-container-low p-1 rounded-2xl border border-hairline inline-flex">
+              <div className="flex gap-1.5 bg-white/[0.04] p-1 rounded-2xl border border-white/10 inline-flex">
                 <button
                   onClick={() => setLiveMode("search")}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                     liveMode === "search"
-                      ? "bg-white text-charcoal shadow-subtle"
-                      : "text-charcoal-subtle hover:text-charcoal"
+                      ? "bg-amber-500/20 text-amber-300 shadow-sm border border-amber-400/30"
+                      : "text-slate-400 hover:text-slate-200"
                   }`}
                 >
                   <Search className="h-3.5 w-3.5" />
@@ -228,8 +228,8 @@ export default function SabhaPage() {
                   onClick={() => setLiveMode("list")}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                     liveMode === "list"
-                      ? "bg-white text-charcoal shadow-subtle"
-                      : "text-charcoal-subtle hover:text-charcoal"
+                      ? "bg-amber-500/20 text-amber-300 shadow-sm border border-amber-400/30"
+                      : "text-slate-400 hover:text-slate-200"
                   }`}
                 >
                   <Users className="h-3.5 w-3.5" />
@@ -237,7 +237,7 @@ export default function SabhaPage() {
                 </button>
                 <button
                   onClick={() => setQrModalOpen(true)}
-                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 text-primary-container hover:bg-saffron-50 transition-colors"
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 text-amber-400 hover:bg-amber-500/15 transition-colors"
                 >
                   <QrCode className="h-3.5 w-3.5" />
                   <span>Camera QR Scanner</span>
@@ -245,41 +245,41 @@ export default function SabhaPage() {
               </div>
 
               <div className="relative flex-1 max-w-xs">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-charcoal-subtle" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Type name or phone to mark..."
-                  className="h-9 w-full rounded-xl border border-hairline bg-white pl-8 pr-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                  className="h-9 w-full rounded-xl border border-white/10 bg-white/5 pl-8 pr-3 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-slate-500"
                 />
               </div>
             </div>
 
             {/* Roster / Search Results Stream */}
-            <div className="max-h-72 overflow-y-auto divide-y divide-hairline rounded-2xl border border-hairline bg-white">
+            <div className="max-h-72 overflow-y-auto divide-y divide-white/10 rounded-2xl border border-white/10 bg-[#161B28]/60">
               {filteredRoster.length === 0 ? (
-                <div className="p-6 text-center text-xs text-charcoal-subtle">
+                <div className="p-6 text-center text-xs text-slate-400">
                   No devotees found matching &ldquo;{searchQuery}&rdquo;
                 </div>
               ) : (
                 filteredRoster.map((member) => (
                   <div
                     key={member.memberId}
-                    className="flex items-center justify-between p-3 text-xs hover:bg-surface-container-low/40 transition-colors"
+                    className="flex items-center justify-between p-3 text-xs hover:bg-white/[0.04] transition-colors"
                   >
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-charcoal">{member.memberName}</span>
-                        <span className="text-[11px] text-charcoal-subtle">({member.familyName})</span>
+                        <span className="font-bold text-white">{member.memberName}</span>
+                        <span className="text-[11px] text-slate-400">({member.familyName})</span>
                       </div>
-                      <p className="text-[11px] text-charcoal-subtle">+91 {member.phone} &bull; Streak: {member.attendanceStreak}w</p>
+                      <p className="text-[11px] text-slate-400">+91 {member.phone} &bull; Streak: {member.attendanceStreak}w</p>
                     </div>
 
                     <div>
                       {member.isPresent ? (
-                        <div className="flex items-center gap-1 text-emerald-700 font-bold text-xs bg-emerald-50 px-2.5 py-1 rounded-xl border border-emerald-200">
-                          <CheckCircle2 className="h-4 w-4" /> Present
+                        <div className="flex items-center gap-1 text-emerald-300 font-bold text-xs bg-emerald-500/15 px-2.5 py-1 rounded-xl border border-emerald-500/30">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Present
                         </div>
                       ) : (
                         <Button
@@ -301,7 +301,7 @@ export default function SabhaPage() {
 
       {/* Scheduled Sabhas History & Upcoming List */}
       <div className="space-y-4">
-        <h3 className="font-heading text-lg font-bold text-charcoal">All Scheduled Satsang Sessions</h3>
+        <h3 className="font-heading text-lg font-bold text-white">All Scheduled Satsang Sessions</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {sabhas.map((sabha) => (
@@ -311,33 +311,33 @@ export default function SabhaPage() {
                   <Badge variant={sabha.status === "Live" ? "danger" : sabha.status === "Completed" ? "success" : "primary"}>
                     {sabha.status}
                   </Badge>
-                  <span className="text-[10px] font-mono font-semibold text-charcoal-subtle">{sabha.sabhaCode}</span>
+                  <span className="text-[10px] font-mono font-semibold text-slate-400">{sabha.sabhaCode}</span>
                 </div>
 
-                <h4 className="font-heading text-base font-bold text-charcoal leading-tight">
+                <h4 className="font-heading text-base font-bold text-white leading-tight">
                   {sabha.title}
                 </h4>
                 {sabha.gujaratiTitle && (
-                  <p className="text-xs text-charcoal-subtle font-gujarati">{sabha.gujaratiTitle}</p>
+                  <p className="text-xs text-slate-400 font-gujarati">{sabha.gujaratiTitle}</p>
                 )}
 
-                <div className="space-y-1 text-xs text-charcoal-subtle pt-1">
+                <div className="space-y-1 text-xs text-slate-400 pt-1">
                   <div className="flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-charcoal-subtle" />
+                    <Clock className="h-3.5 w-3.5 text-slate-400" />
                     <span>{sabha.date} ({sabha.startTime} - {sabha.endTime})</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 text-charcoal-subtle" />
+                    <MapPin className="h-3.5 w-3.5 text-slate-400" />
                     <span>{sabha.location}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Users className="h-3.5 w-3.5 text-charcoal-subtle" />
+                    <Users className="h-3.5 w-3.5 text-slate-400" />
                     <span>{sabha.presentCount} / {sabha.expectedCount} Attendees</span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-hairline flex justify-end">
+              <div className="pt-3 border-t border-white/10 flex justify-end">
                 <Button
                   size="sm"
                   variant="outline"
@@ -373,70 +373,70 @@ export default function SabhaPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Sabha Title *</label>
+            <label className="text-xs font-semibold text-slate-300">Sabha Title *</label>
             <input
               type="text"
               value={newSabha.title}
               onChange={(e) => setNewSabha({ ...newSabha, title: e.target.value })}
               placeholder="e.g. Sunday Evening Satsang Sabha"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Sabha Type</label>
+              <label className="text-xs font-semibold text-slate-300">Sabha Type</label>
               <select
                 value={newSabha.type}
                 onChange={(e) => setNewSabha({ ...newSabha, type: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               >
-                <option value="Evening Sabha">Evening Sabha</option>
-                <option value="Morning Sabha">Morning Sabha</option>
-                <option value="Youth Sabha">Youth Sabha</option>
-                <option value="Special Mahotsav">Special Mahotsav</option>
-                <option value="Bal Sabha">Bal Sabha</option>
+                <option value="Evening Sabha" className="bg-[#161B28] text-white">Evening Sabha</option>
+                <option value="Morning Sabha" className="bg-[#161B28] text-white">Morning Sabha</option>
+                <option value="Youth Sabha" className="bg-[#161B28] text-white">Youth Sabha</option>
+                <option value="Special Mahotsav" className="bg-[#161B28] text-white">Special Mahotsav</option>
+                <option value="Bal Sabha" className="bg-[#161B28] text-white">Bal Sabha</option>
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">Date *</label>
+              <label className="text-xs font-semibold text-slate-300">Date *</label>
               <input
                 type="date"
                 value={newSabha.date}
                 onChange={(e) => setNewSabha({ ...newSabha, date: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Start Time</label>
+              <label className="text-xs font-semibold text-slate-300">Start Time</label>
               <input
                 type="time"
                 value={newSabha.startTime}
                 onChange={(e) => setNewSabha({ ...newSabha, startTime: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">End Time</label>
+              <label className="text-xs font-semibold text-slate-300">End Time</label>
               <input
                 type="time"
                 value={newSabha.endTime}
                 onChange={(e) => setNewSabha({ ...newSabha, endTime: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Hall / Location</label>
+            <label className="text-xs font-semibold text-slate-300">Hall / Location</label>
             <input
               type="text"
               value={newSabha.location}
               onChange={(e) => setNewSabha({ ...newSabha, location: e.target.value })}
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             />
           </div>
 

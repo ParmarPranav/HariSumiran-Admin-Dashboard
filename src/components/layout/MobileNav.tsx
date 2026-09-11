@@ -27,7 +27,7 @@ export function MobileNav() {
 
   return (
     <nav className="md:hidden fixed bottom-3 inset-x-4 z-40">
-      <div className="flex items-center justify-around rounded-3xl border border-hairline/80 bg-white/95 p-1.5 shadow-float backdrop-blur-xl">
+      <div className="flex items-center justify-around rounded-3xl border border-white/10 bg-[#0C0F17]/90 p-1.5 shadow-2xl backdrop-blur-2xl">
         {mobileTabs.map((tab) => {
           const isActive = pathname === tab.href || (tab.href !== "/" && pathname.startsWith(tab.href));
           return (
@@ -35,10 +35,10 @@ export function MobileNav() {
               key={tab.href}
               href={tab.href}
               className={cn(
-                "flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl text-[10px] font-semibold transition-all duration-150 active:scale-95",
+                "flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl text-[10px] font-medium transition-all duration-200 active:scale-95",
                 isActive
-                  ? "text-primary-container bg-saffron-50/90 font-bold"
-                  : "text-charcoal-subtle hover:text-charcoal"
+                  ? "text-amber-300 bg-amber-500/15 border border-amber-400/30 font-semibold shadow-[0_0_12px_rgba(245,158,11,0.25)]"
+                  : "text-slate-400 hover:text-slate-200"
               )}
             >
               {tab.icon}

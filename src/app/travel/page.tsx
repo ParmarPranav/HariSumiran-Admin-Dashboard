@@ -166,12 +166,12 @@ export default function TravelPage() {
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Car className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-charcoal">
+            <Car className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-white">
               {t("Transportation & Car Pooling", "વાહન વ્યવસ્થા અને કારપૂલિંગ")}
             </h1>
           </div>
-          <p className="text-xs md:text-sm text-charcoal-subtle mt-0.5">
+          <p className="text-xs md:text-sm text-slate-400 mt-0.5">
             {t("Coordinate rides for Sabhas, Mahotsavs, and Mandir travel without needing a special role", "સભા અને ઉત્સવ માટે વાહન સેવા અને સીટ વ્યવસ્થા")}
           </p>
         </div>
@@ -195,58 +195,58 @@ export default function TravelPage() {
           const approvedRequests = (ride.requests || []).filter((r: any) => r.status === "Approved");
 
           return (
-            <GlassCard key={ride._id || ride.rideCode} className="p-6 space-y-4 border-l-4 border-l-primary-container">
+            <GlassCard key={ride._id || ride.rideCode} className="p-6 space-y-4 border-l-4 border-l-amber-500">
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <Badge variant="primary" size="sm" className="mb-1.5">
                     {ride.status || "Scheduled"}
                   </Badge>
-                  <h3 className="font-heading text-base font-bold text-charcoal">
+                  <h3 className="font-heading text-base font-bold text-white">
                     {language === "gu" && ride.gujaratiTitle ? ride.gujaratiTitle : ride.title}
                   </h3>
                 </div>
                 <div className="text-right">
-                  <span className="text-xl font-mono font-extrabold text-primary-container">
+                  <span className="text-xl font-mono font-extrabold text-amber-300">
                     {ride.availableSeats}
                   </span>
-                  <span className="block text-[10px] text-charcoal-subtle uppercase font-bold">
+                  <span className="block text-[10px] text-slate-400 uppercase font-bold">
                     {t("Seats Open", "સીટો ખાલી")}
                   </span>
                 </div>
               </div>
 
               {/* Vehicle & Timing Details */}
-              <div className="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-surface-container-low/60 border border-hairline text-xs">
+              <div className="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-white/[0.04] border border-white/10 text-xs">
                 <div>
-                  <p className="text-charcoal-subtle text-[10px] uppercase font-semibold">{t("Driver", "ચાલક")}</p>
-                  <p className="font-bold text-charcoal flex items-center gap-1 mt-0.5">
+                  <p className="text-slate-400 text-[10px] uppercase font-semibold">{t("Driver", "ચાલક")}</p>
+                  <p className="font-bold text-white flex items-center gap-1 mt-0.5">
                     {ride.driverName}
-                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
                   </p>
-                  <p className="text-[11px] text-charcoal-subtle">{ride.vehicleModel} ({ride.vehicleNumber})</p>
+                  <p className="text-[11px] text-slate-400">{ride.vehicleModel} ({ride.vehicleNumber})</p>
                 </div>
                 <div>
-                  <p className="text-charcoal-subtle text-[10px] uppercase font-semibold">{t("Departure", "પ્રસ્થાન")}</p>
-                  <p className="font-bold text-charcoal flex items-center gap-1 mt-0.5">
-                    <Clock className="h-3 w-3 text-primary-container" /> {ride.departureTime}
+                  <p className="text-slate-400 text-[10px] uppercase font-semibold">{t("Departure", "પ્રસ્થાન")}</p>
+                  <p className="font-bold text-white flex items-center gap-1 mt-0.5">
+                    <Clock className="h-3 w-3 text-amber-400" /> {ride.departureTime}
                   </p>
-                  <p className="text-[11px] text-charcoal-subtle truncate">📍 {ride.departureLocation}</p>
+                  <p className="text-[11px] text-slate-400 truncate">📍 {ride.departureLocation}</p>
                 </div>
               </div>
 
               {/* Confirmed Passengers Manifest */}
               {approvedRequests.length > 0 && (
                 <div className="space-y-1.5 pt-1">
-                  <p className="text-[11px] font-bold text-charcoal uppercase tracking-wider">
+                  <p className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
                     {t("Confirmed Passengers", "પુષ્ટિ થયેલ મુસાફરો")}:
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {approvedRequests.map((p: any, pIdx: number) => (
                       <span
                         key={pIdx}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-semibold"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold"
                       >
-                        <Check className="h-3 w-3 text-emerald-600" />
+                        <Check className="h-3 w-3 text-emerald-400" />
                         {p.passengerName} ({p.pickupPoint})
                       </span>
                     ))}
@@ -256,10 +256,10 @@ export default function TravelPage() {
 
               {/* Driver Approval Box (Visible if Car Owner/Driver) */}
               {isDriver && pendingRequests.length > 0 && (
-                <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 space-y-2.5">
+                <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/25 space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
-                      <Users className="h-3.5 w-3.5 text-amber-700" />
+                    <span className="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                      <Users className="h-3.5 w-3.5 text-amber-400" />
                       {t("Pending Passenger Requests", "પેન્ડિંગ મુસાફર વિનંતીઓ")} ({pendingRequests.length})
                     </span>
                   </div>
@@ -268,24 +268,24 @@ export default function TravelPage() {
                     {pendingRequests.map((req: any) => (
                       <div
                         key={req.requestId}
-                        className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-amber-200/80 text-xs"
+                        className="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-amber-500/20 text-xs"
                       >
                         <div>
-                          <p className="font-bold text-charcoal">{req.passengerName}</p>
-                          <p className="text-[10px] text-charcoal-subtle">
+                          <p className="font-bold text-white">{req.passengerName}</p>
+                          <p className="text-[10px] text-slate-400">
                             Pickup: {req.pickupPoint} &bull; {req.seatsRequested} seat(s)
                           </p>
                         </div>
                         <div className="flex items-center gap-1.5">
                           <button
                             onClick={() => handleDecision(ride._id || "ride-01", req.requestId, "reject")}
-                            className="p-1 rounded-lg border border-hairline hover:bg-surface-container-low text-charcoal-subtle"
+                            className="p-1 rounded-lg border border-white/10 hover:bg-white/10 text-slate-400"
                           >
-                            <XCircle className="h-4 w-4 text-red-600" />
+                            <XCircle className="h-4 w-4 text-red-400" />
                           </button>
                           <button
                             onClick={() => handleDecision(ride._id || "ride-01", req.requestId, "approve")}
-                            className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] flex items-center gap-1"
+                            className="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-[10px] flex items-center gap-1"
                           >
                             <Check className="h-3 w-3" /> {t("Approve", "મંજૂર")}
                           </button>
@@ -297,8 +297,8 @@ export default function TravelPage() {
               )}
 
               {/* Action Buttons */}
-              <div className="pt-2 border-t border-hairline flex items-center justify-between">
-                <span className="text-xs text-charcoal-subtle font-medium">
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                <span className="text-xs text-slate-400 font-medium">
                   {ride.routeNotes || "Route: Station Rd &bull; College Rd"}
                 </span>
 
@@ -311,7 +311,7 @@ export default function TravelPage() {
                     {t("Request a Seat", "સીટ મેળવો")}
                   </Button>
                 ) : (
-                  <span className="text-xs font-bold text-charcoal-subtle bg-surface-container px-3 py-1.5 rounded-xl">
+                  <span className="text-xs font-bold text-slate-400 bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
                     {t("Car Full", "વાહન ભરાઈ ગયું")}
                   </span>
                 )}
@@ -331,7 +331,7 @@ export default function TravelPage() {
       >
         <form onSubmit={handleSendRequest} className="space-y-4 text-xs">
           <div>
-            <label className="font-bold text-charcoal block mb-1 uppercase">
+            <label className="font-bold text-slate-300 block mb-1 uppercase">
               {t("YOUR PICKUP POINT *", "તમારું પિકઅપ સ્થળ *")}
             </label>
             <input
@@ -340,22 +340,22 @@ export default function TravelPage() {
               value={pickupPoint}
               onChange={(e) => setPickupPoint(e.target.value)}
               placeholder={t("e.g. Gayatri Kunj, Santram Road Gate", "દા.ત. ગાયત્રી કુંજ, સંતરામ રોડ")}
-              className="w-full rounded-xl border border-hairline px-3.5 py-2.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none bg-surface-container-low/40"
+              className="w-full rounded-xl border border-white/10 px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5 placeholder:text-slate-500"
             />
           </div>
 
           <div>
-            <label className="font-bold text-charcoal block mb-1 uppercase">
+            <label className="font-bold text-slate-300 block mb-1 uppercase">
               {t("SEATS REQUIRED", "જરૂરી સીટો")}
             </label>
             <select
               value={seatsRequested}
               onChange={(e) => setSeatsRequested(Number(e.target.value))}
-              className="w-full rounded-xl border border-hairline px-3.5 py-2.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none bg-surface-container-low/40"
+              className="w-full rounded-xl border border-white/10 px-3.5 py-2.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             >
-              <option value={1}>1 {t("Seat", "સીટ")}</option>
-              <option value={2}>2 {t("Seats", "સીટો")}</option>
-              <option value={3}>3 {t("Seats", "સીટો")}</option>
+              <option value={1} className="bg-[#161B28] text-white">1 {t("Seat", "સીટ")}</option>
+              <option value={2} className="bg-[#161B28] text-white">2 {t("Seats", "સીટો")}</option>
+              <option value={3} className="bg-[#161B28] text-white">3 {t("Seats", "સીટો")}</option>
             </select>
           </div>
 
@@ -375,7 +375,7 @@ export default function TravelPage() {
       >
         <form onSubmit={handleCreateRide} className="space-y-3.5 text-xs">
           <div>
-            <label className="font-bold text-charcoal block mb-1 uppercase">
+            <label className="font-bold text-slate-300 block mb-1 uppercase">
               {t("TRIP / SABHA TITLE *", "સફર / સભા નામ *")}
             </label>
             <input
@@ -383,51 +383,51 @@ export default function TravelPage() {
               required
               value={tripTitle}
               onChange={(e) => setTripTitle(e.target.value)}
-              className="w-full rounded-xl border border-hairline px-3.5 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="w-full rounded-xl border border-white/10 px-3.5 py-2 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="font-bold text-charcoal block mb-1 uppercase">{t("CAR MODEL *", "વાહન મોડેલ *")}</label>
+              <label className="font-bold text-slate-300 block mb-1 uppercase">{t("CAR MODEL *", "વાહન મોડેલ *")}</label>
               <input
                 type="text"
                 required
                 value={vehicleModel}
                 onChange={(e) => setVehicleModel(e.target.value)}
-                className="w-full rounded-xl border border-hairline px-3.5 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="w-full rounded-xl border border-white/10 px-3.5 py-2 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
             <div>
-              <label className="font-bold text-charcoal block mb-1 uppercase">{t("AVAILABLE SEATS *", "ઉપલબ્ધ સીટો *")}</label>
+              <label className="font-bold text-slate-300 block mb-1 uppercase">{t("AVAILABLE SEATS *", "ઉપલબ્ધ સીટો *")}</label>
               <input
                 type="number"
                 min={1}
                 max={10}
                 value={totalSeats}
                 onChange={(e) => setTotalSeats(Number(e.target.value))}
-                className="w-full rounded-xl border border-hairline px-3.5 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="w-full rounded-xl border border-white/10 px-3.5 py-2 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="font-bold text-charcoal block mb-1 uppercase">{t("DEPARTURE TIME *", "પ્રસ્થાન સમય *")}</label>
+              <label className="font-bold text-slate-300 block mb-1 uppercase">{t("DEPARTURE TIME *", "પ્રસ્થાન સમય *")}</label>
               <input
                 type="text"
                 value={departureTime}
                 onChange={(e) => setDepartureTime(e.target.value)}
-                className="w-full rounded-xl border border-hairline px-3.5 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="w-full rounded-xl border border-white/10 px-3.5 py-2 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
             <div>
-              <label className="font-bold text-charcoal block mb-1 uppercase">{t("STARTING LOCATION *", "પ્રસ્થાન સ્થળ *")}</label>
+              <label className="font-bold text-slate-300 block mb-1 uppercase">{t("STARTING LOCATION *", "પ્રસ્થાન સ્થળ *")}</label>
               <input
                 type="text"
                 value={departureLocation}
                 onChange={(e) => setDepartureLocation(e.target.value)}
-                className="w-full rounded-xl border border-hairline px-3.5 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="w-full rounded-xl border border-white/10 px-3.5 py-2 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
           </div>

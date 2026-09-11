@@ -175,20 +175,20 @@ export default function MembersPage() {
           <GlassCard className="p-4 space-y-3">
             <div className="flex flex-col md:flex-row gap-3">
               <div className="relative flex-1">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-charcoal-subtle" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by member name, phone, code, or household..."
-                  className="h-10 w-full rounded-xl border border-hairline bg-white pl-10 pr-4 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                  className="h-10 w-full rounded-xl border border-white/10 bg-white/5 pl-10 pr-4 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-slate-500"
                 />
               </div>
 
               <select
                 value={selectedSkill}
                 onChange={(e) => setSelectedSkill(e.target.value)}
-                className="h-10 rounded-xl border border-hairline bg-white px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="h-10 rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-slate-200 focus:border-amber-400 focus:outline-none"
               >
                 <option value="All">All Seva Skills</option>
                 <option value="Kitchen">Kitchen / Mahaprasad</option>
@@ -201,7 +201,7 @@ export default function MembersPage() {
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="h-10 rounded-xl border border-hairline bg-white px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="h-10 rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-slate-200 focus:border-amber-400 focus:outline-none"
               >
                 <option value="All">All Verification Status</option>
                 <option value="Verified">Verified</option>
@@ -212,11 +212,11 @@ export default function MembersPage() {
 
           {/* Members Grid */}
           {loading ? (
-            <div className="py-12 text-center text-xs text-charcoal-subtle">
+            <div className="py-12 text-center text-xs text-slate-400">
               Loading members registry...
             </div>
           ) : members.length === 0 ? (
-            <GlassCard className="py-12 text-center text-xs text-charcoal-subtle">
+            <GlassCard className="py-12 text-center text-xs text-slate-400">
               No members found matching your search.
             </GlassCard>
           ) : (
@@ -229,16 +229,16 @@ export default function MembersPage() {
                         <img
                           src={member.photoUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
                           alt={member.name}
-                          className="h-12 w-12 rounded-2xl object-cover border border-hairline shadow-subtle"
+                          className="h-12 w-12 rounded-2xl object-cover border border-white/10 shadow-sm"
                         />
                         <div>
-                          <span className="font-mono text-[10px] font-bold text-primary-container">
+                          <span className="font-mono text-[10px] font-bold text-amber-400">
                             {member.memberCode}
                           </span>
-                          <h3 className="font-heading text-sm font-bold text-charcoal leading-tight">
+                          <h3 className="font-heading text-sm font-bold text-white leading-tight">
                             {member.name}
                           </h3>
-                          <p className="text-xs text-charcoal-subtle truncate max-w-[160px]">
+                          <p className="text-xs text-slate-400 truncate max-w-[160px]">
                             {member.familyName}
                           </p>
                         </div>
@@ -251,18 +251,18 @@ export default function MembersPage() {
                       </Badge>
                     </div>
 
-                    <div className="space-y-1 text-xs text-charcoal-subtle">
+                    <div className="space-y-1 text-xs text-slate-400">
                       <div className="flex items-center gap-2">
-                        <Phone className="h-3.5 w-3.5 text-charcoal-subtle" />
+                        <Phone className="h-3.5 w-3.5 text-slate-400" />
                         <span>+91 {member.phone}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-3.5 w-3.5 text-charcoal-subtle" />
+                        <Calendar className="h-3.5 w-3.5 text-slate-400" />
                         <span>DOB: {member.dob} ({member.relationship})</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                        <span className="font-semibold text-charcoal">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                        <span className="font-semibold text-slate-200">
                           {member.attendanceStreak} Consecutive Sabhas
                         </span>
                       </div>
@@ -273,7 +273,7 @@ export default function MembersPage() {
                         {member.sevaSkills.map((skill: string, i: number) => (
                           <span
                             key={i}
-                            className="rounded-lg bg-surface-container-low px-2 py-0.5 text-[10px] font-semibold text-charcoal"
+                            className="rounded-lg bg-white/[0.04] border border-white/10 px-2 py-0.5 text-[10px] font-semibold text-slate-300"
                           >
                             {skill}
                           </span>
@@ -282,7 +282,7 @@ export default function MembersPage() {
                     )}
                   </div>
 
-                  <div className="pt-3 border-t border-hairline flex justify-end">
+                  <div className="pt-3 border-t border-white/10 flex justify-end">
                     <Link href={`/members/${member._id}`}>
                       <Button size="sm" variant="ghost" rightIcon={<ArrowRight className="h-3.5 w-3.5" />}>
                         360° Profile
@@ -298,9 +298,9 @@ export default function MembersPage() {
         /* Verification Queue Tab for Mandir Admin */
         <div className="space-y-4">
           {pendingVerificationList.length === 0 ? (
-            <GlassCard className="py-12 text-center text-xs text-charcoal-subtle space-y-2">
-              <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto" />
-              <p className="font-bold text-charcoal text-sm">Verification Queue Cleared</p>
+            <GlassCard className="py-12 text-center text-xs text-slate-400 space-y-2">
+              <CheckCircle2 className="h-8 w-8 text-emerald-400 mx-auto" />
+              <p className="font-bold text-white text-sm">Verification Queue Cleared</p>
               <p>All devotee ID documents and registration requests have been approved.</p>
             </GlassCard>
           ) : (
@@ -311,15 +311,15 @@ export default function MembersPage() {
                     <img
                       src={member.photoUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"}
                       alt={member.name}
-                      className="h-12 w-12 rounded-2xl object-cover border border-hairline"
+                      className="h-12 w-12 rounded-2xl object-cover border border-white/10"
                     />
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="font-heading text-sm font-bold text-charcoal">{member.name}</h4>
-                        <span className="font-mono text-[10px] text-charcoal-subtle">{member.memberCode}</span>
+                        <h4 className="font-heading text-sm font-bold text-white">{member.name}</h4>
+                        <span className="font-mono text-[10px] text-slate-400">{member.memberCode}</span>
                       </div>
-                      <p className="text-xs text-charcoal-subtle">{member.familyName} &bull; +91 {member.phone}</p>
-                      <p className="text-[11px] text-charcoal-subtle">Relationship: {member.relationship} &bull; DOB: {member.dob}</p>
+                      <p className="text-xs text-slate-400">{member.familyName} &bull; +91 {member.phone}</p>
+                      <p className="text-[11px] text-slate-400">Relationship: {member.relationship} &bull; DOB: {member.dob}</p>
                     </div>
                   </div>
 
@@ -327,7 +327,7 @@ export default function MembersPage() {
                     <Button
                       size="sm"
                       variant="outline"
-                      leftIcon={<XCircle className="h-4 w-4 text-rose-600" />}
+                      leftIcon={<XCircle className="h-4 w-4 text-rose-400" />}
                       onClick={() => handleVerify(member._id, "Rejected")}
                     >
                       Reject
@@ -357,80 +357,80 @@ export default function MembersPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Member Full Name *</label>
+            <label className="text-xs font-semibold text-slate-300">Member Full Name *</label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="e.g. Devansh Patel"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Household Link</label>
+            <label className="text-xs font-semibold text-slate-300">Household Link</label>
             <input
               type="text"
               value={formData.familyName}
               onChange={(e) => setFormData({ ...formData, familyName: e.target.value })}
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Date of Birth</label>
+              <label className="text-xs font-semibold text-slate-300">Date of Birth</label>
               <input
                 type="date"
                 value={formData.dob}
                 onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">Gender</label>
+              <label className="text-xs font-semibold text-slate-300">Gender</label>
               <select
                 value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value as any })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
               >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
+                <option value="Male" className="bg-[#161B28] text-white">Male</option>
+                <option value="Female" className="bg-[#161B28] text-white">Female</option>
+                <option value="Other" className="bg-[#161B28] text-white">Other</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Mobile Number (+91) *</label>
+            <label className="text-xs font-semibold text-slate-300">Mobile Number (+91) *</label>
             <input
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               placeholder="98250 12345"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Seva Skills &amp; Talents</label>
+            <label className="text-xs font-semibold text-slate-300">Seva Skills &amp; Talents</label>
             <input
               type="text"
               value={formData.sevaSkills}
               onChange={(e) => setFormData({ ...formData, sevaSkills: e.target.value })}
               placeholder="e.g. Sound, Kitchen, First Aid"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
             />
           </div>
 
-          <label className="flex items-center gap-2.5 p-3 rounded-xl border border-hairline bg-surface-container-low/40 cursor-pointer">
+          <label className="flex items-center gap-2.5 p-3 rounded-xl border border-white/10 bg-white/[0.03] cursor-pointer">
             <input
               type="checkbox"
               checked={formData.communicationConsent}
               onChange={(e) => setFormData({ ...formData, communicationConsent: e.target.checked })}
-              className="h-4 w-4 rounded text-primary-container focus:ring-saffron-400"
+              className="h-4 w-4 rounded text-amber-500 focus:ring-amber-400"
             />
-            <span className="text-xs text-charcoal-subtle">
+            <span className="text-xs text-slate-400">
               Devotee has consented to receive WhatsApp / SMS announcements from HariPrabodham Mandir.
             </span>
           </label>

@@ -172,23 +172,23 @@ export default function AssetsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-hairline pb-2">
+      <div className="inline-flex gap-1.5 p-1 rounded-2xl bg-[#121622]/80 backdrop-blur-md border border-white/10">
         <button
           onClick={() => setActiveTab("assets")}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "assets"
-              ? "bg-primary-container text-white shadow-sm"
-              : "text-charcoal-subtle hover:bg-surface-container"
+              ? "bg-gradient-to-r from-amber-500/25 to-orange-500/25 text-amber-300 border border-amber-500/40 shadow-glow-sm font-bold"
+              : "text-gray-400 hover:text-white"
           }`}
         >
           Asset Registry ({assets.length})
         </button>
         <button
           onClick={() => setActiveTab("rooms")}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "rooms"
-              ? "bg-primary-container text-white shadow-sm"
-              : "text-charcoal-subtle hover:bg-surface-container"
+              ? "bg-gradient-to-r from-amber-500/25 to-orange-500/25 text-amber-300 border border-amber-500/40 shadow-glow-sm font-bold"
+              : "text-gray-400 hover:text-white"
           }`}
         >
           Hall &amp; Room Bookings ({roomBookings.length})
@@ -203,7 +203,7 @@ export default function AssetsPage() {
               <GlassCard key={asset._id} hoverEffect className="p-5 space-y-3 flex flex-col justify-between">
                 <div className="space-y-2">
                   <div className="flex items-start justify-between">
-                    <span className="font-mono text-xs font-bold text-primary-container bg-saffron-50 px-2 py-0.5 rounded-md border border-saffron-200">
+                    <span className="font-mono text-xs font-bold text-amber-300 bg-amber-500/15 px-2.5 py-0.5 rounded-md border border-amber-500/30">
                       {asset.assetCode}
                     </span>
                     <Badge variant={isAvailable ? "success" : "warning"} size="sm">
@@ -211,31 +211,31 @@ export default function AssetsPage() {
                     </Badge>
                   </div>
 
-                  <h3 className="font-heading text-base font-bold text-charcoal leading-tight">
+                  <h3 className="font-heading text-base font-bold text-white leading-tight">
                     {asset.name}
                   </h3>
-                  <p className="text-xs text-charcoal-subtle">
-                    Category: <strong className="text-charcoal">{asset.category}</strong>
+                  <p className="text-xs text-gray-400">
+                    Category: <strong className="text-gray-200">{asset.category}</strong>
                   </p>
 
-                  <div className="space-y-1 text-xs text-charcoal-subtle pt-1">
+                  <div className="space-y-1 text-xs text-gray-400 pt-1">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="h-3.5 w-3.5 text-charcoal-subtle" />
+                      <MapPin className="h-3.5 w-3.5 text-amber-400" />
                       <span>{asset.location}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Sparkles className="h-3.5 w-3.5 text-charcoal-subtle" />
+                      <Sparkles className="h-3.5 w-3.5 text-amber-400" />
                       <span>Condition: {asset.condition}</span>
                     </div>
                     {!isAvailable && (
-                      <div className="p-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px]">
+                      <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px]">
                         Issued to: <strong>{asset.currentHolder}</strong> (Due: {asset.expectedReturnDate})
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-hairline flex justify-end">
+                <div className="pt-3 border-t border-white/10 flex justify-end">
                   {isAvailable ? (
                     <Button
                       size="sm"
@@ -270,15 +270,15 @@ export default function AssetsPage() {
                   <Badge variant={booking.status === "Confirmed" ? "success" : "warning"} size="sm">
                     {booking.status}
                   </Badge>
-                  <span className="text-xs font-semibold text-charcoal-subtle">{booking.attendees} Devotees</span>
+                  <span className="text-xs font-semibold text-gray-400">{booking.attendees} Devotees</span>
                 </div>
 
-                <h3 className="font-heading text-base font-bold text-charcoal leading-tight">
+                <h3 className="font-heading text-base font-bold text-white leading-tight">
                   {booking.roomName}
                 </h3>
-                <p className="text-xs text-primary-container font-semibold">{booking.purpose}</p>
+                <p className="text-xs text-amber-400 font-semibold">{booking.purpose}</p>
 
-                <div className="space-y-1 text-xs text-charcoal-subtle pt-1">
+                <div className="space-y-1 text-xs text-gray-400 pt-1">
                   <p><strong>Booked By:</strong> {booking.bookedBy}</p>
                   <p><strong>Date &amp; Time:</strong> {booking.date} ({booking.startTime} - {booking.endTime})</p>
                 </div>
@@ -298,22 +298,22 @@ export default function AssetsPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Issued To (Karyakarta / Member) *</label>
+            <label className="text-xs font-semibold text-gray-300">Issued To (Karyakarta / Member) *</label>
             <input
               type="text"
               value={holderName}
               onChange={(e) => setHolderName(e.target.value)}
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Expected Return Date *</label>
+            <label className="text-xs font-semibold text-gray-300">Expected Return Date *</label>
             <input
               type="date"
               value={returnDate}
               onChange={(e) => setReturnDate(e.target.value)}
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
             />
           </div>
 
@@ -338,68 +338,68 @@ export default function AssetsPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Hall / Room</label>
+            <label className="text-xs font-semibold text-gray-300">Hall / Room</label>
             <select
               value={newBooking.roomName}
               onChange={(e) => setNewBooking({ ...newBooking, roomName: e.target.value })}
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
             >
-              <option value="Main Satsang Sabhagruh">Main Satsang Sabhagruh</option>
-              <option value="Conference Hall B">Conference Hall B</option>
-              <option value="Dining Hall (Bhojanshala)">Dining Hall (Bhojanshala)</option>
-              <option value="Prarthana Hall">Prarthana Hall</option>
+              <option className="bg-[#161B28] text-white" value="Main Satsang Sabhagruh">Main Satsang Sabhagruh</option>
+              <option className="bg-[#161B28] text-white" value="Conference Hall B">Conference Hall B</option>
+              <option className="bg-[#161B28] text-white" value="Dining Hall (Bhojanshala)">Dining Hall (Bhojanshala)</option>
+              <option className="bg-[#161B28] text-white" value="Prarthana Hall">Prarthana Hall</option>
             </select>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Purpose of Booking *</label>
+            <label className="text-xs font-semibold text-gray-300">Purpose of Booking *</label>
             <input
               type="text"
               value={newBooking.purpose}
               onChange={(e) => setNewBooking({ ...newBooking, purpose: e.target.value })}
               placeholder="e.g. Youth Shibir Planning / Family Thal"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Reservation Date</label>
+              <label className="text-xs font-semibold text-gray-300">Reservation Date</label>
               <input
                 type="date"
                 value={newBooking.date}
                 onChange={(e) => setNewBooking({ ...newBooking, date: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">Expected Devotees</label>
+              <label className="text-xs font-semibold text-gray-300">Expected Devotees</label>
               <input
                 type="number"
                 value={newBooking.attendees}
                 onChange={(e) => setNewBooking({ ...newBooking, attendees: parseInt(e.target.value) || 20 })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Start Time</label>
+              <label className="text-xs font-semibold text-gray-300">Start Time</label>
               <input
                 type="time"
                 value={newBooking.startTime}
                 onChange={(e) => setNewBooking({ ...newBooking, startTime: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">End Time</label>
+              <label className="text-xs font-semibold text-gray-300">End Time</label>
               <input
                 type="time"
                 value={newBooking.endTime}
                 onChange={(e) => setNewBooking({ ...newBooking, endTime: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
               />
             </div>
           </div>

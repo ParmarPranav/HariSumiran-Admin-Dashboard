@@ -207,13 +207,13 @@ export default function ProfilePage() {
               </div>
 
               {/* Family Captain Section */}
-              <div className="p-4 rounded-2xl border border-hairline bg-white shadow-subtle space-y-3">
+              <div className="p-4 rounded-2xl border border-white/10 bg-[#161B28]/80 shadow-md space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Crown className="h-5 w-5 text-amber-500" />
+                    <Crown className="h-5 w-5 text-amber-400" />
                     <div>
-                      <h4 className="font-heading text-sm font-bold text-charcoal">Designated Family Captain</h4>
-                      <p className="text-[11px] text-charcoal-subtle">Responsible for Thal rotation RSVPs &amp; swap requests</p>
+                      <h4 className="font-heading text-sm font-bold text-white">Designated Family Captain</h4>
+                      <p className="text-[11px] text-slate-400">Responsible for Thal rotation RSVPs &amp; swap requests</p>
                     </div>
                   </div>
                   <Button size="sm" variant="outline" onClick={() => setCaptainModalOpen(true)}>
@@ -221,46 +221,46 @@ export default function ProfilePage() {
                   </Button>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-50/50 border border-amber-200/60">
-                  <div className="h-10 w-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm">
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                  <div className="h-10 w-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-sm shadow-sm">
                     👑
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-charcoal">{family.captainName}</p>
-                    <p className="text-[11px] text-charcoal-subtle">Contact: +91 {family.phone}</p>
+                    <p className="text-xs font-bold text-white">{family.captainName}</p>
+                    <p className="text-[11px] text-slate-400">Contact: +91 {family.phone}</p>
                   </div>
                 </div>
               </div>
 
               {/* Members List */}
               <div className="space-y-3">
-                <h4 className="font-heading text-xs font-bold text-charcoal uppercase tracking-wider">
+                <h4 className="font-heading text-xs font-bold text-slate-300 uppercase tracking-wider">
                   Family Members ({members.length})
                 </h4>
-                <div className="divide-y divide-hairline rounded-2xl border border-hairline overflow-hidden">
+                <div className="divide-y divide-white/10 rounded-2xl border border-white/10 overflow-hidden">
                   {members.map((m) => (
-                    <div key={m.id} className="p-3.5 flex items-center justify-between bg-white text-xs">
+                    <div key={m.id} className="p-3.5 flex items-center justify-between bg-[#161B28]/60 text-xs">
                       <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 rounded-full bg-surface-container flex items-center justify-center font-bold text-charcoal-subtle">
+                        <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-slate-300">
                           {m.name.charAt(0)}
                         </div>
                         <div>
-                          <p className="font-bold text-charcoal flex items-center gap-1.5">
+                          <p className="font-bold text-white flex items-center gap-1.5">
                             {m.name}
                             {m.isCaptain && (
-                              <span className="px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-semibold">
+                              <span className="px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-400/30 text-amber-300 text-[10px] font-semibold">
                                 Captain
                               </span>
                             )}
                           </p>
-                          <p className="text-charcoal-subtle">{m.relationship} &bull; +91 {m.phone}</p>
+                          <p className="text-slate-400">{m.relationship} &bull; +91 {m.phone}</p>
                         </div>
                       </div>
 
                       {!m.isCaptain && (
                         <button
                           onClick={() => handleSelectCaptain(m.name)}
-                          className="text-xs font-semibold text-primary-container hover:underline"
+                          className="text-[11px] font-semibold text-amber-400 hover:text-amber-300 transition-colors"
                         >
                           Make Captain
                         </button>

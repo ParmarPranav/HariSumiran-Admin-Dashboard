@@ -32,15 +32,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        "bg-primary-container text-white shadow-sm hover:bg-primary border border-transparent shadow-[0_2px_8px_rgba(184,77,23,0.25)]",
+        "bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-bold shadow-[0_0_20px_rgba(245,158,11,0.3),inset_0_1px_0_rgba(255,255,255,0.25)] border border-amber-400/40 hover:brightness-110",
       secondary:
-        "bg-secondary text-white shadow-sm hover:bg-emerald-800 border border-transparent shadow-[0_2px_8px_rgba(47,107,79,0.2)]",
+        "bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:brightness-110 border border-emerald-400/30",
       outline:
-        "border border-hairline bg-white text-charcoal hover:bg-surface-container-low hover:border-outline-variant",
+        "border border-white/10 bg-[#161B28]/80 text-zinc-100 hover:bg-[#1E2538] hover:border-amber-400/30 backdrop-blur-md shadow-sm",
       ghost:
-        "text-charcoal hover:bg-surface-container hover:text-primary-container",
+        "text-zinc-300 hover:bg-white/[0.08] hover:text-amber-300",
       destructive:
-        "bg-rose-600 text-white hover:bg-rose-700 shadow-sm",
+        "bg-rose-600/90 text-white hover:bg-rose-600 border border-rose-400/40 shadow-[0_0_16px_rgba(244,63,94,0.3)]",
     };
 
     const sizeStyles = {

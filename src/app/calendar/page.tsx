@@ -149,7 +149,7 @@ export default function UnifiedCalendarPage() {
         {/* Left Column: Date Days Strip */}
         <div className="lg:col-span-4 space-y-3">
           <GlassCard className="p-4 space-y-3">
-            <h3 className="font-heading text-xs font-bold uppercase tracking-wider text-charcoal-subtle">
+            <h3 className="font-heading text-xs font-bold uppercase tracking-wider text-slate-400">
               {t("September 2026 Schedule", "સપ્ટેમ્બર ૨૦૨૬ સમયપત્રક")}
             </h3>
 
@@ -168,20 +168,20 @@ export default function UnifiedCalendarPage() {
                     onClick={() => setSelectedDate(d.date)}
                     className={`w-full flex items-center justify-between p-3 rounded-2xl border transition-all text-xs font-semibold ${
                       isSelected
-                        ? "bg-saffron-500 text-white border-saffron-600 shadow-md font-bold"
-                        : "bg-surface-container-low/50 border-hairline hover:bg-surface-container-low text-charcoal"
+                        ? "bg-amber-500/20 text-white border-amber-400/50 shadow-md ring-1 ring-amber-400/30 font-bold"
+                        : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] text-slate-300"
                     }`}
                   >
                     <div>
                       <p className="text-xs">{d.date}</p>
-                      <p className={`text-[11px] ${isSelected ? "text-white/80" : "text-charcoal-subtle"}`}>
+                      <p className={`text-[11px] ${isSelected ? "text-amber-300" : "text-slate-400"}`}>
                         {language === "gu" ? d.guDay : d.day}
                       </p>
                     </div>
                     {d.count > 0 && (
                       <span
                         className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          isSelected ? "bg-white text-saffron-700" : "bg-saffron-100 text-saffron-900"
+                          isSelected ? "bg-amber-500 text-slate-950" : "bg-white/10 text-amber-300 border border-white/10"
                         }`}
                       >
                         {d.count} {t("events", "કાર્યક્રમ")}
@@ -197,17 +197,17 @@ export default function UnifiedCalendarPage() {
         {/* Right Column: Events Timeline */}
         <div className="lg:col-span-8 space-y-4">
           <GlassCard className="p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-hairline pb-3">
-              <h3 className="font-heading text-sm font-bold text-charcoal">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <h3 className="font-heading text-sm font-bold text-white">
                 {t("Activities for", "તારીખનું સમયપત્રક:")} {selectedDate}
               </h3>
-              <span className="text-xs font-mono font-bold text-primary-container">
+              <span className="text-xs font-mono font-bold text-amber-400">
                 {selectedDateEvents.length} {t("Items", "કાર્યક્રમો")}
               </span>
             </div>
 
             {selectedDateEvents.length === 0 ? (
-              <div className="py-12 text-center text-xs text-charcoal-subtle">
+              <div className="py-12 text-center text-xs text-slate-400">
                 <p>{t("No activities scheduled for this date.", "આ તારીખે કોઈ કાર્યક્રમ નિર્ધારિત નથી.")}</p>
               </div>
             ) : (
@@ -215,12 +215,12 @@ export default function UnifiedCalendarPage() {
                 {selectedDateEvents.map((ev) => (
                   <div
                     key={ev.id}
-                    className="p-4 rounded-2xl border border-hairline bg-surface-container-low/40 hover:bg-surface-container-low transition-all space-y-2"
+                    className="p-4 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-all space-y-2"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-2">
                         {getCategoryIcon(ev.category)}
-                        <span className="font-heading text-sm font-bold text-charcoal">
+                        <span className="font-heading text-sm font-bold text-white">
                           {language === "gu" && ev.gujaratiTitle ? ev.gujaratiTitle : ev.title}
                         </span>
                       </div>
@@ -229,15 +229,14 @@ export default function UnifiedCalendarPage() {
                       </Badge>
                     </div>
 
-                    <p className="text-xs text-charcoal-subtle leading-relaxed">{ev.description}</p>
+                    <p className="text-xs text-slate-400 leading-relaxed">{ev.description}</p>
 
-                    <div className="flex flex-wrap items-center gap-4 text-[11px] text-charcoal-subtle pt-1 border-t border-hairline">
-                      <span className="flex items-center gap-1 font-semibold text-charcoal">
-                        <Clock className="h-3 w-3 text-primary-container" /> {ev.time}
+                    <div className="flex items-center gap-4 text-xs text-slate-400 pt-1">
+                      <span className="flex items-center gap-1 font-mono">
+                        <Clock className="h-3.5 w-3.5 text-amber-400" /> {ev.time}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="h-3 w-3 text-charcoal-subtle" /> {ev.location}
-                      </span>
+                      <span>&bull;</span>
+                      <span>📍 {ev.location}</span>
                     </div>
                   </div>
                 ))}
