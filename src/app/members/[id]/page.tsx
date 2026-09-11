@@ -7,6 +7,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Tabs } from "@/components/ui/Tabs";
+import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import Link from "next/link";
 import {
   User,
@@ -51,7 +52,7 @@ export default function MemberProfilePage() {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-xs text-charcoal-subtle">
+      <div className="p-8 text-center text-xs text-stone-500 font-medium">
         Loading Member 360° Profile...
       </div>
     );
@@ -60,7 +61,7 @@ export default function MemberProfilePage() {
   if (!member) {
     return (
       <div className="p-8 text-center space-y-3">
-        <p className="text-sm font-semibold text-charcoal">Member not found</p>
+        <p className="text-sm font-semibold text-stone-900">Member not found</p>
         <Link href="/members">
           <Button size="sm" variant="outline">&larr; Return to Registry</Button>
         </Link>
@@ -75,38 +76,42 @@ export default function MemberProfilePage() {
   }));
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-5xl mx-auto">
+    <div className="relative min-h-full p-4 md:p-8 space-y-6 max-w-5xl mx-auto">
+      <MandalaBackground />
+
       {/* Back Link */}
-      <button
-        onClick={() => router.back()}
-        className="inline-flex items-center gap-1.5 text-xs font-semibold text-charcoal-subtle hover:text-charcoal transition-colors"
-      >
-        <ArrowLeft className="h-4 w-4" /> Back to Members
-      </button>
+      <div className="relative z-10">
+        <button
+          onClick={() => router.back()}
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-stone-600 hover:text-stone-900 transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to Members
+        </button>
+      </div>
 
       {/* Member 360 Header */}
-      <GlassCard className="p-6 space-y-4">
+      <GlassCard className="relative z-10 p-6 space-y-4 bg-white border-stone-200/90 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <img
               src={member.photoUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
               alt={member.name}
-              className="h-16 w-16 rounded-3xl object-cover border-2 border-hairline shadow-soft"
+              className="h-16 w-16 rounded-3xl object-cover border-2 border-amber-400 shadow-xs"
             />
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold text-amber-300 bg-amber-500/15 px-2.5 py-0.5 rounded-lg border border-amber-400/30 shadow-sm">
+                <span className="font-mono text-xs font-bold text-amber-900 bg-amber-100 px-2.5 py-0.5 rounded-lg border border-amber-300 shadow-xs">
                   {member.memberCode}
                 </span>
                 <Badge variant={member.verificationStatus === "Verified" ? "success" : "warning"}>
                   {member.verificationStatus}
                 </Badge>
               </div>
-              <h1 className="font-heading text-2xl font-bold text-charcoal leading-tight mt-1">
+              <h1 className="font-heading text-2xl font-bold text-stone-900 leading-tight mt-1">
                 {member.name}
               </h1>
-              <p className="text-xs text-charcoal-subtle">
-                Household: <strong className="text-charcoal">{member.familyName}</strong> &bull; {member.relationship}
+              <p className="text-xs text-stone-500 font-medium">
+                Household: <strong className="text-stone-900">{member.familyName}</strong> &bull; {member.relationship}
               </p>
             </div>
           </div>
@@ -115,7 +120,7 @@ export default function MemberProfilePage() {
             <Button
               size="sm"
               variant="outline"
-              leftIcon={<QrCode className="h-4 w-4" />}
+              leftIcon={<QrCode className="h-4 w-4 text-amber-600" />}
               onClick={() => toast.info(`Digital Pass Code: ${member.memberCode}`)}
             >
               Digital Pass
@@ -124,10 +129,10 @@ export default function MemberProfilePage() {
         </div>
 
         {/* Attendance Heat-Strip */}
-        <div className="border-t border-hairline pt-4 space-y-2">
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-bold text-charcoal">Sabha Attendance Consistency (Past 16 Weeks)</span>
-            <span className="font-semibold text-emerald-700">{member.attendanceStreak} Consecutive Weeks</span>
+        <div className="border-t border-stone-200 pt-4 space-y-2">
+          <div className="flex items-center justify-between text-xs font-semibold">
+            <span className="text-stone-700">Sabha Attendance Consistency (Past 16 Weeks)</span>
+            <span className="text-emerald-700 font-bold">{member.attendanceStreak} Consecutive Weeks</span>
           </div>
           <div className="flex gap-1.5 overflow-x-auto py-1">
             {heatmapWeeks.map((item) => (
@@ -136,7 +141,7 @@ export default function MemberProfilePage() {
                 className={`h-7 w-7 rounded-lg flex items-center justify-center text-[10px] font-bold ${
                   item.present
                     ? "bg-emerald-600 text-white shadow-xs"
-                    : "bg-surface-container text-charcoal-subtle"
+                    : "bg-stone-100 text-stone-400 border border-stone-200"
                 }`}
                 title={`Week ${item.week}: ${item.present ? "Present" : "Absent"}`}
               >
@@ -148,43 +153,45 @@ export default function MemberProfilePage() {
       </GlassCard>
 
       {/* Profile Tabs */}
-      <Tabs
-        tabs={[
-          { id: "overview", label: "Profile & Seva Skills", icon: <User className="h-4 w-4" /> },
-          { id: "attendance", label: "Attendance Log", count: attendanceHistory.length, icon: <Calendar className="h-4 w-4" /> },
-          { id: "seva", label: "Seva Shifts", count: sevaHistory.length, icon: <Sparkles className="h-4 w-4" /> },
-        ]}
-        activeTab={activeTab}
-        onChange={setActiveTab}
-      />
+      <div className="relative z-10">
+        <Tabs
+          tabs={[
+            { id: "overview", label: "Profile & Seva Skills", icon: <User className="h-4 w-4" /> },
+            { id: "attendance", label: "Attendance Log", count: attendanceHistory.length, icon: <Calendar className="h-4 w-4" /> },
+            { id: "seva", label: "Seva Shifts", count: sevaHistory.length, icon: <Sparkles className="h-4 w-4" /> },
+          ]}
+          activeTab={activeTab}
+          onChange={setActiveTab}
+        />
+      </div>
 
       {/* Tab 1: Overview */}
       {activeTab === "overview" && (
-        <GlassCard className="p-6 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <GlassCard className="relative z-10 p-6 space-y-4 bg-white border-stone-200/90 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-medium">
             <div>
-              <span className="text-charcoal-subtle block">Date of Birth:</span>
-              <span className="font-bold text-charcoal">{member.dob} (Gender: {member.gender})</span>
+              <span className="text-stone-500 block">Date of Birth:</span>
+              <span className="font-bold text-stone-900">{member.dob} (Gender: {member.gender})</span>
             </div>
             <div>
-              <span className="text-charcoal-subtle block">Mobile Number:</span>
-              <span className="font-bold text-charcoal">+91 {member.phone}</span>
+              <span className="text-stone-500 block">Mobile Number:</span>
+              <span className="font-bold text-stone-900 font-mono">+91 {member.phone}</span>
             </div>
             <div>
-              <span className="text-charcoal-subtle block">WhatsApp Broadcast Consent:</span>
-              <span className="font-bold text-emerald-600">Active / Consented</span>
+              <span className="text-stone-500 block">WhatsApp Broadcast Consent:</span>
+              <span className="font-bold text-emerald-700">Active / Consented</span>
             </div>
             <div>
-              <span className="text-charcoal-subtle block">Photo Usage Consent:</span>
-              <span className="font-bold text-charcoal">{member.photoConsent ? "Granted" : "Restricted"}</span>
+              <span className="text-stone-500 block">Photo Usage Consent:</span>
+              <span className="font-bold text-stone-900">{member.photoConsent ? "Granted" : "Restricted"}</span>
             </div>
           </div>
 
-          <div className="border-t border-hairline pt-4 space-y-2">
-            <h4 className="font-heading text-sm font-bold text-charcoal">Assigned Seva Skills &amp; Departments</h4>
+          <div className="border-t border-stone-200 pt-4 space-y-2">
+            <h4 className="font-heading text-sm font-bold text-stone-900">Assigned Seva Skills &amp; Departments</h4>
             <div className="flex flex-wrap gap-1.5">
               {member.sevaSkills?.map((skill: string, i: number) => (
-                <span key={i} className="rounded-xl bg-amber-500/15 border border-amber-400/30 px-3 py-1 text-xs font-semibold text-amber-300">
+                <span key={i} className="rounded-xl bg-amber-100 border border-amber-300 px-3 py-1 text-xs font-bold text-amber-900 shadow-xs">
                   {skill}
                 </span>
               ))}
@@ -195,20 +202,20 @@ export default function MemberProfilePage() {
 
       {/* Tab 2: Attendance */}
       {activeTab === "attendance" && (
-        <GlassCard className="p-6 space-y-3">
-          <h4 className="font-heading text-sm font-bold text-charcoal">Recent Sabha Check-Ins</h4>
-          <div className="divide-y divide-hairline">
+        <GlassCard className="relative z-10 p-6 space-y-3 bg-white border-stone-200/90 shadow-sm">
+          <h4 className="font-heading text-sm font-bold text-stone-900">Recent Sabha Check-Ins</h4>
+          <div className="divide-y divide-stone-100">
             <div className="py-2.5 flex items-center justify-between text-xs">
               <div>
-                <p className="font-bold text-charcoal">Sunday Evening Satsang Sabha</p>
-                <p className="text-charcoal-subtle">23-Aug-2026 &bull; Entry Mode: QR Scanner</p>
+                <p className="font-bold text-stone-900">Sunday Evening Satsang Sabha</p>
+                <p className="text-stone-500">23-Aug-2026 &bull; Entry Mode: QR Scanner</p>
               </div>
               <Badge variant="success">Present</Badge>
             </div>
             <div className="py-2.5 flex items-center justify-between text-xs">
               <div>
-                <p className="font-bold text-charcoal">Saturday Morning Dhyan Sabha</p>
-                <p className="text-charcoal-subtle">22-Aug-2026 &bull; Entry Mode: Search</p>
+                <p className="font-bold text-stone-900">Saturday Morning Dhyan Sabha</p>
+                <p className="text-stone-500">22-Aug-2026 &bull; Entry Mode: Search</p>
               </div>
               <Badge variant="success">Present</Badge>
             </div>
@@ -218,13 +225,13 @@ export default function MemberProfilePage() {
 
       {/* Tab 3: Seva */}
       {activeTab === "seva" && (
-        <GlassCard className="p-6 space-y-3">
-          <h4 className="font-heading text-sm font-bold text-charcoal">Seva Duties &amp; Shifts</h4>
-          <div className="divide-y divide-hairline">
+        <GlassCard className="relative z-10 p-6 space-y-3 bg-white border-stone-200/90 shadow-sm">
+          <h4 className="font-heading text-sm font-bold text-stone-900">Seva Duties &amp; Shifts</h4>
+          <div className="divide-y divide-stone-100">
             <div className="py-2.5 flex items-center justify-between text-xs">
               <div>
-                <p className="font-bold text-charcoal">Sunday Mahaprasad Kitchen Duty</p>
-                <p className="text-charcoal-subtle">23-Aug-2026 &bull; 16:00 - 19:00</p>
+                <p className="font-bold text-stone-900">Sunday Mahaprasad Kitchen Duty</p>
+                <p className="text-stone-500">23-Aug-2026 &bull; 16:00 - 19:00</p>
               </div>
               <Badge variant="success">Checked In</Badge>
             </div>

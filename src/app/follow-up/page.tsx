@@ -7,6 +7,7 @@ import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
+import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import {
   HeartHandshake,
   AlertTriangle,
@@ -151,44 +152,46 @@ export default function FollowUpPage() {
   };
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="relative min-h-full p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+      <MandalaBackground />
+
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <HeartHandshake className="h-5 w-5 text-amber-400" />
-            <h1 className="font-display text-2xl font-bold text-white">
+            <HeartHandshake className="h-5 w-5 text-amber-600" />
+            <h1 className="font-heading text-2xl font-bold text-stone-900">
               {language === "gu" ? "સંપર્ક અને ફોલો-અપ" : "Prioritized Follow-Up & Pastoral Care"}
             </h1>
           </div>
-          <p className="text-xs text-charcoal-subtle mt-0.5">
+          <p className="text-xs text-stone-600 mt-0.5">
             Empathetic pastoral care with strictly role-masked confidential notes
           </p>
         </div>
       </div>
 
       {/* Urgency Filter Strip */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-3">
         <SpotlightCard
           onClick={() => setSelectedUrgency("All")}
           spotlightColor="rgba(245, 158, 11, 0.12)"
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
-            selectedUrgency === "All" ? "border-amber-500/50 bg-amber-500/10 shadow-glow-sm" : "border-white/10 hover:border-white/20"
+          className={`cursor-pointer text-center p-4 border-2 transition-all bg-white ${
+            selectedUrgency === "All" ? "border-amber-400 bg-amber-50/70 shadow-xs" : "border-stone-200 hover:border-stone-300"
           }`}
         >
-          <p className="text-xs font-semibold text-gray-400">All Open Cases</p>
-          <p className="font-display text-xl font-bold text-white font-mono">{cases.length}</p>
+          <p className="text-xs font-semibold text-stone-500">All Open Cases</p>
+          <p className="font-heading text-xl font-bold text-stone-900 font-mono mt-0.5">{cases.length}</p>
         </SpotlightCard>
 
         <SpotlightCard
           onClick={() => setSelectedUrgency("Overdue")}
           spotlightColor="rgba(244, 63, 94, 0.15)"
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
-            selectedUrgency === "Overdue" ? "border-rose-500/60 bg-rose-500/15 shadow-[0_0_12px_rgba(244,63,94,0.2)]" : "border-white/10 hover:border-white/20"
+          className={`cursor-pointer text-center p-4 border-2 transition-all bg-white ${
+            selectedUrgency === "Overdue" ? "border-rose-400 bg-rose-50/80 shadow-xs" : "border-stone-200 hover:border-stone-300"
           }`}
         >
-          <p className="text-xs font-semibold text-rose-400">Overdue (&gt; 7 Days)</p>
-          <p className="font-display text-xl font-bold text-rose-300 font-mono">
+          <p className="text-xs font-semibold text-rose-700">Overdue (&gt; 7 Days)</p>
+          <p className="font-heading text-xl font-bold text-rose-700 font-mono mt-0.5">
             {cases.filter((c) => c.urgency === "Overdue").length}
           </p>
         </SpotlightCard>
@@ -196,12 +199,12 @@ export default function FollowUpPage() {
         <SpotlightCard
           onClick={() => setSelectedUrgency("Due Today")}
           spotlightColor="rgba(245, 158, 11, 0.15)"
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
-            selectedUrgency === "Due Today" ? "border-amber-500/60 bg-amber-500/15 shadow-glow-sm" : "border-white/10 hover:border-white/20"
+          className={`cursor-pointer text-center p-4 border-2 transition-all bg-white ${
+            selectedUrgency === "Due Today" ? "border-amber-400 bg-amber-50/80 shadow-xs" : "border-stone-200 hover:border-stone-300"
           }`}
         >
-          <p className="text-xs font-semibold text-amber-300">Due Today</p>
-          <p className="font-display text-xl font-bold text-amber-300 font-mono">
+          <p className="text-xs font-semibold text-amber-800">Due Today</p>
+          <p className="font-heading text-xl font-bold text-amber-800 font-mono mt-0.5">
             {cases.filter((c) => c.urgency === "Due Today").length}
           </p>
         </SpotlightCard>
@@ -209,12 +212,12 @@ export default function FollowUpPage() {
         <SpotlightCard
           onClick={() => setSelectedUrgency("Upcoming")}
           spotlightColor="rgba(14, 165, 233, 0.15)"
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
-            selectedUrgency === "Upcoming" ? "border-sky-500/60 bg-sky-500/15 shadow-[0_0_12px_rgba(14,165,233,0.2)]" : "border-white/10 hover:border-white/20"
+          className={`cursor-pointer text-center p-4 border-2 transition-all bg-white ${
+            selectedUrgency === "Upcoming" ? "border-sky-400 bg-sky-50/80 shadow-xs" : "border-stone-200 hover:border-stone-300"
           }`}
         >
-          <p className="text-xs font-semibold text-sky-300">Upcoming</p>
-          <p className="font-display text-xl font-bold text-sky-300 font-mono">
+          <p className="text-xs font-semibold text-sky-800">Upcoming</p>
+          <p className="font-heading text-xl font-bold text-sky-800 font-mono mt-0.5">
             {cases.filter((c) => c.urgency === "Upcoming").length}
           </p>
         </SpotlightCard>
@@ -222,17 +225,17 @@ export default function FollowUpPage() {
 
       {/* Cases Stream */}
       {loading ? (
-        <div className="py-12 text-center text-xs text-gray-400">
+        <div className="relative z-10 py-12 text-center text-xs text-stone-500 font-medium">
           Loading pastoral care cases...
         </div>
       ) : cases.length === 0 ? (
-        <SpotlightCard className="py-12 text-center text-xs text-gray-400 space-y-2 bg-[#121624]/90">
-          <CheckCircle2 className="h-8 w-8 text-emerald-400 mx-auto" />
-          <p className="font-bold text-white text-sm">No Pending Follow-Up Cases</p>
+        <SpotlightCard className="relative z-10 py-12 text-center text-xs text-stone-500 space-y-2 bg-white border-stone-200 shadow-sm">
+          <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto" />
+          <p className="font-bold text-stone-900 text-sm">No Pending Follow-Up Cases</p>
           <p>All devotee care touchpoints are up to date.</p>
         </SpotlightCard>
       ) : (
-        <div className="space-y-4">
+        <div className="relative z-10 space-y-4">
           {cases.map((c) => {
             const isOverdue = c.urgency === "Overdue";
             const isDueToday = c.urgency === "Due Today";
@@ -241,26 +244,26 @@ export default function FollowUpPage() {
               <SpotlightCard
                 key={c._id}
                 spotlightColor={isOverdue ? "rgba(244, 63, 94, 0.12)" : isDueToday ? "rgba(245, 158, 11, 0.12)" : "rgba(14, 165, 233, 0.12)"}
-                className={`p-5 space-y-4 border-l-4 bg-[#121624]/90 backdrop-blur-xl ${
+                className={`p-5 space-y-4 border-l-4 bg-white border-stone-200/90 shadow-sm ${
                   isOverdue ? "border-l-rose-500" : isDueToday ? "border-l-amber-500" : "border-l-sky-500"
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-gray-400">{c.caseCode}</span>
+                      <span className="font-mono text-xs font-bold text-stone-500">{c.caseCode}</span>
                       <Badge variant={isOverdue ? "danger" : isDueToday ? "warning" : "info"} size="sm">
                         {c.urgency}
                       </Badge>
-                      <span className="text-xs font-semibold text-gray-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md">
+                      <span className="text-xs font-semibold text-stone-700 bg-stone-100 border border-stone-200 px-2 py-0.5 rounded-md">
                         {c.category}
                       </span>
                     </div>
-                    <h3 className="font-display text-lg font-bold text-white mt-1">
+                    <h3 className="font-heading text-lg font-bold text-stone-900 mt-1">
                       {c.familyName}
                     </h3>
-                    <p className="text-xs text-gray-400">
-                      Assigned to: <strong className="text-white">{c.assignedKaryakartaName}</strong> &bull; Target Due Date: <strong className="text-gray-200">{c.dueDate}</strong>
+                    <p className="text-xs text-stone-600">
+                      Assigned to: <strong className="text-stone-900">{c.assignedKaryakartaName}</strong> &bull; Target Due Date: <strong className="text-stone-800">{c.dueDate}</strong>
                     </p>
                   </div>
 
@@ -268,7 +271,7 @@ export default function FollowUpPage() {
                     <Button
                       size="sm"
                       variant="outline"
-                      leftIcon={<Lock className="h-3.5 w-3.5 text-amber-400" />}
+                      leftIcon={<Lock className="h-3.5 w-3.5 text-amber-600" />}
                       onClick={() => {
                         setActiveCase(c);
                         setNoteModalOpen(true);
@@ -314,31 +317,31 @@ export default function FollowUpPage() {
 
                 {/* Visit Plan Pill if Scheduled */}
                 {c.visitPlan && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl border border-white/10 bg-[#161B28]/60 text-xs">
-                    <Calendar className="h-4 w-4 text-amber-400" />
+                  <div className="flex items-center gap-3 p-3.5 rounded-xl border border-stone-200 bg-stone-50 text-xs">
+                    <Calendar className="h-4 w-4 text-amber-600" />
                     <div>
-                      <span className="font-bold text-white">Home Visit Scheduled:</span>{" "}
-                      <span className="text-gray-300">{c.visitPlan.date} at {c.visitPlan.time}</span>
-                      {c.visitPlan.coVisitor && <span className="text-gray-400"> (Co-visitor: {c.visitPlan.coVisitor})</span>}
+                      <span className="font-bold text-stone-900">Home Visit Scheduled:</span>{" "}
+                      <span className="text-stone-700">{c.visitPlan.date} at {c.visitPlan.time}</span>
+                      {c.visitPlan.coVisitor && <span className="text-stone-500"> (Co-visitor: {c.visitPlan.coVisitor})</span>}
                     </div>
                   </div>
                 )}
 
                 {/* Confidential Notes Stream */}
                 {c.confidentialNotes && c.confidentialNotes.length > 0 && (
-                  <div className="space-y-2 border-t border-white/10 pt-3">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-gray-400">
-                      <Lock className="h-3.5 w-3.5 text-amber-400" />
+                  <div className="space-y-2 border-t border-stone-200 pt-3">
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-stone-600">
+                      <Lock className="h-3.5 w-3.5 text-amber-600" />
                       <span>Confidential Supervisor Notes ({c.confidentialNotes.length})</span>
                     </div>
                     <div className="space-y-1.5">
                       {c.confidentialNotes.map((note: any, idx: number) => (
                         <div
                           key={idx}
-                          className="rounded-xl border border-white/10 bg-[#161B28]/60 p-3 text-xs text-gray-200 leading-relaxed"
+                          className="rounded-xl border border-amber-200 bg-amber-50/40 p-3 text-xs text-stone-800 leading-relaxed shadow-xs"
                         >
-                          <div className="flex justify-between items-center text-[10px] text-gray-400 mb-1">
-                            <span className="font-semibold text-amber-300">{note.authorName}</span>
+                          <div className="flex justify-between items-center text-[10px] text-stone-500 mb-1">
+                            <span className="font-bold text-amber-900">{note.authorName}</span>
                             <span>{new Date(note.createdAt).toLocaleString("en-IN")}</span>
                           </div>
                           <p>{note.note}</p>
@@ -362,8 +365,8 @@ export default function FollowUpPage() {
         maxWidth="md"
       >
         <div className="space-y-3">
-          <div className="flex items-center gap-2 p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-xs text-amber-300">
-            <Lock className="h-4 w-4 shrink-0 text-amber-400" />
+          <div className="flex items-center gap-2 p-3 rounded-xl border border-amber-300 bg-amber-50 text-xs text-amber-900">
+            <Lock className="h-4 w-4 shrink-0 text-amber-600" />
             <span>Confidentiality active. This note will never appear on general family profile exports.</span>
           </div>
 
@@ -372,7 +375,7 @@ export default function FollowUpPage() {
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
             placeholder="Record medical updates, pastoral care discussions, elder health status..."
-            className="w-full rounded-xl border border-white/10 bg-[#161B28] p-3 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
+            className="w-full rounded-xl border border-stone-200 bg-white p-3 text-xs text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
           />
 
           <div className="flex justify-end gap-2 pt-2">
@@ -397,33 +400,33 @@ export default function FollowUpPage() {
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-gray-300">Visit Date</label>
+              <label className="text-xs font-semibold text-stone-700">Visit Date</label>
               <input
                 type="date"
                 value={visitPlan.date}
                 onChange={(e) => setVisitPlan({ ...visitPlan, date: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 bg-white px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-300">Visit Time</label>
+              <label className="text-xs font-semibold text-stone-700">Visit Time</label>
               <input
                 type="time"
                 value={visitPlan.time}
                 onChange={(e) => setVisitPlan({ ...visitPlan, time: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-500/60 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 bg-white px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-gray-300">Accompanying Co-Visitor</label>
+            <label className="text-xs font-semibold text-stone-700">Accompanying Co-Visitor</label>
             <input
               type="text"
               value={visitPlan.coVisitor}
               onChange={(e) => setVisitPlan({ ...visitPlan, coVisitor: e.target.value })}
               placeholder="e.g. Nitinbhai Patel / Dipakbhai Shah"
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 bg-white px-3.5 text-xs text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
             />
           </div>
 
@@ -448,13 +451,13 @@ export default function FollowUpPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-gray-300">Resolution Summary *</label>
+            <label className="text-xs font-semibold text-stone-700">Resolution Summary *</label>
             <textarea
               rows={3}
               value={closureReason}
               onChange={(e) => setClosureReason(e.target.value)}
               placeholder="Family visited, health recovered, returned to Sunday Sabha..."
-              className="mt-1 w-full rounded-xl border border-white/10 bg-[#161B28] p-3 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-stone-200 bg-white p-3 text-xs text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
             />
           </div>
 

@@ -38,24 +38,24 @@ export function TypeToConfirmDialog({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="md">
       <div className="space-y-4">
-        <div className="flex items-start gap-3 rounded-2xl border border-rose-500/30 bg-rose-950/40 p-4">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-rose-400" />
-          <div className="text-xs text-rose-200 leading-relaxed">
-            <p className="font-bold text-rose-100">Explicit Confirmation Required</p>
-            <p className="mt-1 text-rose-300/80">{consequenceText}</p>
+        <div className="flex items-start gap-3 rounded-2xl border border-rose-200 bg-rose-50/90 p-4">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-rose-600" />
+          <div className="text-xs text-rose-900 leading-relaxed">
+            <p className="font-bold text-rose-950">Explicit Confirmation Required</p>
+            <p className="mt-1 text-rose-800">{consequenceText}</p>
           </div>
         </div>
 
         <div>
-          <label className="text-xs font-medium text-gray-400">
-            Type <strong className="text-rose-400 font-mono font-bold underline">{confirmWord}</strong> to proceed:
+          <label className="text-xs font-semibold text-stone-700">
+            Type <strong className="text-rose-600 font-mono font-bold underline">{confirmWord}</strong> to proceed:
           </label>
           <input
             type="text"
             value={typedInput}
             onChange={(e) => setTypedInput(e.target.value)}
             placeholder={`Type "${confirmWord}" here`}
-            className="mt-1.5 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-sm font-mono font-semibold tracking-wider text-white placeholder:text-gray-500 focus:border-rose-500/60 focus:outline-none"
+            className="mt-1.5 h-10 w-full rounded-xl border border-stone-200 bg-white px-3.5 text-sm font-mono font-semibold tracking-wider text-stone-900 placeholder:text-stone-400 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 shadow-xs"
           />
         </div>
 

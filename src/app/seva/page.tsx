@@ -142,12 +142,12 @@ export default function SevaPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-amber-400" />
-            <h1 className="font-heading text-2xl font-bold text-white">
+            <Sparkles className="h-6 w-6 text-amber-600" />
+            <h1 className="font-heading text-2xl md:text-3xl font-black text-stone-900">
               {language === "gu" ? "સેવા અને રોસ્ટર" : "Seva Opportunities & Volunteer Rosters"}
             </h1>
           </div>
-          <p className="text-xs text-charcoal-subtle mt-0.5">
+          <p className="text-xs md:text-sm text-stone-600 mt-0.5">
             Skill-matched volunteering, shift coordination &amp; QR duty check-in
           </p>
         </div>
@@ -156,7 +156,7 @@ export default function SevaPage() {
           <Button
             size="md"
             variant="outline"
-            leftIcon={<QrCode className="h-4 w-4 text-amber-400" />}
+            leftIcon={<QrCode className="h-4 w-4 text-amber-600" />}
             onClick={() => setQrModalOpen(true)}
           >
             Duty QR Check-In
@@ -174,13 +174,13 @@ export default function SevaPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-hairline pb-2">
+      <div className="flex gap-2 border-b border-stone-200 pb-2">
         <button
           onClick={() => setActiveTab("catalog")}
           className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "catalog"
-              ? "bg-amber-500/15 text-amber-300 font-bold border border-amber-400/30 shadow-sm"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white font-black shadow-sm"
+              : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
           }`}
         >
           Opportunity Catalog ({opportunities.length})
@@ -189,8 +189,8 @@ export default function SevaPage() {
           onClick={() => setActiveTab("roster")}
           className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "roster"
-              ? "bg-amber-500/15 text-amber-300 font-bold border border-amber-400/30 shadow-sm"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white font-black shadow-sm"
+              : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
           }`}
         >
           Today&apos;s Active Rosters ({rosters.length})
@@ -201,10 +201,10 @@ export default function SevaPage() {
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredOpps.map((opp) => (
-              <GlassCard key={opp._id} hoverEffect className="p-5 space-y-4 flex flex-col justify-between">
+              <GlassCard key={opp._id} hoverEffect className="p-5 space-y-4 flex flex-col justify-between bg-white border-stone-200/90 shadow-sm">
                 <div className="space-y-2.5">
                   <div className="flex items-start justify-between">
-                    <span className="text-[11px] font-semibold text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded-md border border-amber-400/30">
+                    <span className="text-[11px] font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-300">
                       {opp.department}
                     </span>
                     <Badge variant={opp.status === "Open" ? "success" : "warning"} size="sm">
@@ -212,36 +212,36 @@ export default function SevaPage() {
                     </Badge>
                   </div>
 
-                  <h3 className="font-heading text-base font-bold text-white leading-tight">
+                  <h3 className="font-heading text-base font-black text-stone-900 leading-tight">
                     {opp.title}
                   </h3>
                   {opp.gujaratiTitle && (
-                    <p className="text-xs text-slate-400 font-gujarati">{opp.gujaratiTitle}</p>
+                    <p className="text-xs text-stone-600 font-gujarati">{opp.gujaratiTitle}</p>
                   )}
 
-                  <p className="text-xs text-slate-400 leading-relaxed">{opp.description}</p>
+                  <p className="text-xs text-stone-600 leading-relaxed">{opp.description}</p>
 
-                  <div className="space-y-1 text-xs text-slate-400 pt-1">
+                  <div className="space-y-1 text-xs text-stone-600 pt-1">
                     <div className="flex items-center gap-1.5">
-                      <Clock className="h-3.5 w-3.5 text-slate-400" />
+                      <Clock className="h-3.5 w-3.5 text-amber-600" />
                       <span>{opp.timeCommitment}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Users className="h-3.5 w-3.5 text-slate-400" />
+                      <Users className="h-3.5 w-3.5 text-amber-600" />
                       <span>Coordinator: {opp.leadName}</span>
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-1 pt-1">
                     {opp.skillsRequired?.map((skill: string, idx: number) => (
-                      <span key={idx} className="rounded-md bg-white/[0.04] border border-white/10 px-2 py-0.5 text-[10px] font-medium text-slate-300">
+                      <span key={idx} className="rounded-md bg-stone-100 border border-stone-200 px-2 py-0.5 text-[10px] font-medium text-stone-700">
                         {skill}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-white/10 flex justify-end">
+                <div className="pt-3 border-t border-stone-100 flex justify-end">
                   <Button
                     size="sm"
                     onClick={() => {
@@ -259,12 +259,12 @@ export default function SevaPage() {
       ) : (
         /* Rosters List */
         <div className="space-y-4">
-          <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-[#161B28]/60 p-4">
+          <div className="divide-y divide-stone-100 rounded-2xl border border-stone-200 bg-white shadow-sm p-4">
             {rosters.map((roster) => (
               <div key={roster._id} className="py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-white text-sm">{roster.volunteerName}</span>
+                    <span className="font-bold text-stone-900 text-sm">{roster.volunteerName}</span>
                     <Badge
                       variant={
                         roster.status === "Checked In"
@@ -278,10 +278,10 @@ export default function SevaPage() {
                       {roster.status}
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-stone-600 mt-0.5">
                     {roster.opportunityTitle} &bull; {roster.department}
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-stone-500 font-mono">
                     Shift: {roster.shiftStartTime} - {roster.shiftEndTime} &bull; Mobile: +91 {roster.volunteerPhone}
                   </p>
                 </div>
@@ -336,24 +336,24 @@ export default function SevaPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-slate-300">Volunteer Name *</label>
+            <label className="text-xs font-bold text-stone-800">Volunteer Name *</label>
             <input
               type="text"
               value={volunteerName}
               onChange={(e) => setVolunteerName(e.target.value)}
               placeholder="e.g. Rameshbhai Patel"
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-300">Contact Number (+91) *</label>
+            <label className="text-xs font-bold text-stone-800">Contact Number (+91) *</label>
             <input
               type="tel"
               value={volunteerPhone}
               onChange={(e) => setVolunteerPhone(e.target.value)}
               placeholder="98250 56789"
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
             />
           </div>
 
@@ -377,39 +377,39 @@ export default function SevaPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-slate-300">Role Title *</label>
+            <label className="text-xs font-bold text-stone-800">Role Title *</label>
             <input
               type="text"
               value={newOpp.title}
               onChange={(e) => setNewOpp({ ...newOpp, title: e.target.value })}
               placeholder="e.g. Mahaprasad Kitchen Service"
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-300">Department</label>
+            <label className="text-xs font-bold text-stone-800">Department</label>
             <select
               value={newOpp.department}
               onChange={(e) => setNewOpp({ ...newOpp, department: e.target.value })}
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
             >
-              <option value="Kitchen (Mahaprasad)" className="bg-[#161B28] text-white">Kitchen (Mahaprasad)</option>
-              <option value="Sound & Broadcast" className="bg-[#161B28] text-white">Sound &amp; Broadcast</option>
-              <option value="Security & Parking" className="bg-[#161B28] text-white">Security &amp; Parking</option>
-              <option value="Bal Mandal & Youth" className="bg-[#161B28] text-white">Bal Mandal &amp; Youth</option>
-              <option value="Decoration & Rangoli" className="bg-[#161B28] text-white">Decoration &amp; Rangoli</option>
+              <option value="Kitchen (Mahaprasad)" className="bg-white text-stone-900">Kitchen (Mahaprasad)</option>
+              <option value="Sound & Broadcast" className="bg-white text-stone-900">Sound &amp; Broadcast</option>
+              <option value="Security & Parking" className="bg-white text-stone-900">Security &amp; Parking</option>
+              <option value="Bal Mandal & Youth" className="bg-white text-stone-900">Bal Mandal &amp; Youth</option>
+              <option value="Decoration & Rangoli" className="bg-white text-stone-900">Decoration &amp; Rangoli</option>
             </select>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-300">Description *</label>
+            <label className="text-xs font-bold text-stone-800">Description *</label>
             <textarea
               rows={2}
               value={newOpp.description}
               onChange={(e) => setNewOpp({ ...newOpp, description: e.target.value })}
               placeholder="Detailed responsibility description..."
-              className="mt-1 w-full rounded-xl border border-white/10 p-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5 placeholder:text-slate-500"
+              className="mt-1 w-full rounded-xl border border-stone-200 p-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50 placeholder:text-stone-400"
             />
           </div>
 

@@ -48,9 +48,9 @@ export function QRScannerModal({
     <Modal isOpen={isOpen} onClose={onClose} title={title} subtitle={subtitle} maxWidth="md">
       <div className="space-y-5">
         {/* Scanner Viewfinder Box */}
-        <div className="relative flex aspect-square w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-amber-500/40 bg-[#0F121C] p-6 text-center shadow-inner">
+        <div className="relative flex aspect-square w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-amber-500/50 bg-stone-900 p-6 text-center shadow-inner">
           {/* Laser scanning line animation */}
-          <div className="pointer-events-none absolute inset-x-8 top-1/4 h-0.5 animate-bounce bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.9)]" />
+          <div className="pointer-events-none absolute inset-x-8 top-1/4 h-0.5 animate-bounce bg-gradient-to-r from-transparent via-[#FF7A00] to-transparent shadow-[0_0_12px_rgba(245,158,11,0.9)]" />
 
           {/* Corner brackets */}
           <div className="absolute left-6 top-6 h-6 w-6 border-l-2 border-t-2 border-amber-400" />
@@ -59,7 +59,7 @@ export function QRScannerModal({
           <div className="absolute bottom-6 right-6 h-6 w-6 border-b-2 border-r-2 border-amber-400" />
 
           <div className="z-10 flex flex-col items-center gap-2">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1A1F2E] border border-white/10 shadow-glow-sm">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 border border-white/20 shadow-sm">
               {isScanning ? (
                 <CheckCircle2 className="h-7 w-7 text-emerald-400 animate-pulse" />
               ) : (
@@ -69,7 +69,7 @@ export function QRScannerModal({
             <p className="text-sm font-semibold text-white">
               {isScanning ? "Processing Scan..." : "Camera Viewfinder Active"}
             </p>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-stone-300">
               Live native scanner with automatic haptic feedback
             </p>
           </div>
@@ -77,8 +77,8 @@ export function QRScannerModal({
 
         {/* Quick Demo Test Bar */}
         <div className="space-y-2">
-          <div className="flex items-center gap-1 text-xs font-semibold text-gray-400">
-            <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+          <div className="flex items-center gap-1 text-xs font-semibold text-stone-600">
+            <Sparkles className="h-3.5 w-3.5 text-amber-600" />
             <span>Simulate Scanning Sample Member QR Codes:</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -86,7 +86,7 @@ export function QRScannerModal({
               <button
                 key={item.code}
                 onClick={() => handleSimulateScan(item.code)}
-                className="rounded-lg border border-white/10 bg-[#161B28] px-2.5 py-1 text-xs font-medium text-gray-300 hover:border-amber-500/40 hover:bg-amber-500/10 hover:text-amber-300 transition-colors"
+                className="rounded-xl border border-stone-200 bg-stone-50 px-2.5 py-1 text-xs font-medium text-stone-700 hover:border-amber-400 hover:bg-amber-50 hover:text-amber-800 transition-colors shadow-xs"
               >
                 {item.label}
               </button>
@@ -95,15 +95,15 @@ export function QRScannerModal({
         </div>
 
         {/* Manual Code Input Fallback */}
-        <div className="border-t border-white/10 pt-4">
-          <label className="text-xs font-medium text-gray-400">Or Enter Member Code / Phone Manually:</label>
+        <div className="border-t border-stone-200 pt-4">
+          <label className="text-xs font-semibold text-stone-700">Or Enter Member Code / Phone Manually:</label>
           <div className="mt-1.5 flex gap-2">
             <input
               type="text"
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
               placeholder="e.g. MEM-NAD-001 or 98250..."
-              className="h-10 flex-1 rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-sm text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
+              className="h-10 flex-1 rounded-xl border border-stone-200 bg-white px-3.5 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
             />
             <Button
               size="md"

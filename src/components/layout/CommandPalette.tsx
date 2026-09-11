@@ -81,25 +81,25 @@ export function CommandPalette() {
       maxWidth="lg"
       className="p-0 overflow-hidden"
     >
-      <div className="flex items-center gap-3 border-b border-white/10 px-4 py-3.5 bg-[#161B28]/60">
-        <Search className="h-5 w-5 text-gray-400" />
+      <div className="flex items-center gap-3 border-b border-stone-200 px-4 py-3.5 bg-stone-50">
+        <Search className="h-5 w-5 text-stone-400" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search screens, actions, or switch personas..."
-          className="flex-1 bg-transparent text-sm text-white placeholder:text-gray-500 focus:outline-none"
+          className="flex-1 bg-transparent text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none"
           autoFocus
         />
-        <kbd className="rounded border border-white/10 bg-[#1A1F2E] px-2 py-0.5 font-mono text-[10px] text-gray-400">
+        <kbd className="rounded border border-stone-200 bg-white px-2 py-0.5 font-mono text-[10px] text-stone-600 font-bold shadow-xs">
           ESC
         </kbd>
       </div>
 
-      <div className="max-h-80 overflow-y-auto p-2 space-y-3">
+      <div className="max-h-80 overflow-y-auto p-2 space-y-3 bg-white">
         {filteredNav.length > 0 && (
           <div>
-            <p className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+            <p className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-stone-500">
               Navigation Destinations
             </p>
             <div className="space-y-0.5">
@@ -107,13 +107,13 @@ export function CommandPalette() {
                 <button
                   key={item.href}
                   onClick={() => handleSelect(item.href)}
-                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs font-medium text-gray-200 hover:bg-amber-500/10 hover:text-amber-300 transition-colors"
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs font-medium text-stone-800 hover:bg-amber-50 hover:text-amber-900 transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="text-gray-400">{item.icon}</span>
+                    <span className="text-amber-600">{item.icon}</span>
                     <span>{item.label}</span>
                   </div>
-                  <ArrowRight className="h-3.5 w-3.5 text-gray-500 opacity-60" />
+                  <ArrowRight className="h-3.5 w-3.5 text-stone-400 opacity-60" />
                 </button>
               ))}
             </div>
@@ -121,8 +121,8 @@ export function CommandPalette() {
         )}
 
         {filteredActions.length > 0 && (
-          <div className="border-t border-white/10 pt-2">
-            <p className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+          <div className="border-t border-stone-200 pt-2">
+            <p className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-stone-500">
               Quick Role Switches
             </p>
             <div className="space-y-0.5">
@@ -130,10 +130,10 @@ export function CommandPalette() {
                 <button
                   key={item.label}
                   onClick={() => handleSelect(undefined, item.action)}
-                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs font-medium text-gray-200 hover:bg-white/5 transition-colors"
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs font-medium text-stone-800 hover:bg-amber-50 hover:text-amber-900 transition-colors"
                 >
                   <span>{item.label}</span>
-                  <span className="rounded-md bg-amber-500/15 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300">
+                  <span className="rounded-md bg-amber-100 border border-amber-300 px-1.5 py-0.5 text-[10px] font-bold text-amber-900">
                     {item.badge}
                   </span>
                 </button>
@@ -143,7 +143,7 @@ export function CommandPalette() {
         )}
 
         {filteredNav.length === 0 && filteredActions.length === 0 && (
-          <div className="py-8 text-center text-xs text-gray-400">
+          <div className="py-8 text-center text-xs text-stone-500">
             No matching destinations or commands found for &ldquo;{query}&rdquo;
           </div>
         )}

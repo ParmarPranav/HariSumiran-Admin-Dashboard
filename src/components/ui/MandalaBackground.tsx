@@ -7,23 +7,23 @@ export function MandalaBackground({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "pointer-events-none fixed inset-0 overflow-hidden select-none z-0 bg-[#090A0F]",
+        "pointer-events-none fixed inset-0 overflow-hidden select-none z-0 bg-[#FAF8F5]",
         className
       )}
       aria-hidden="true"
     >
-      {/* Deep Obsidian Background Mesh */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(234,179,8,0.08),rgba(0,0,0,0))]" />
+      {/* Luminous Warm Saffron & Ivory Background Radial Mesh */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(245,158,11,0.08),rgba(250,248,245,0))]" />
 
-      {/* Luminous Royal Gold & Celestial Midnight Aura Orbs */}
-      <div className="absolute -top-32 -left-32 w-[650px] h-[650px] rounded-full bg-gradient-to-br from-amber-300/10 via-yellow-500/5 to-transparent blur-[160px] pointer-events-none" />
-      <div className="absolute top-1/4 -right-32 w-[650px] h-[650px] rounded-full bg-gradient-to-bl from-indigo-500/10 via-purple-600/5 to-transparent blur-[180px] pointer-events-none" />
-      <div className="absolute -bottom-32 left-1/3 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-emerald-500/8 via-teal-600/5 to-transparent blur-[160px] pointer-events-none" />
+      {/* Luminous Sacred Saffron & Warm Amber Ambient Aura Orbs */}
+      <div className="absolute -top-32 -left-32 w-[650px] h-[650px] rounded-full bg-gradient-to-br from-amber-300/20 via-orange-200/10 to-transparent blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/3 -right-32 w-[650px] h-[650px] rounded-full bg-gradient-to-bl from-orange-300/15 via-amber-200/10 to-transparent blur-[160px] pointer-events-none" />
+      <div className="absolute -bottom-32 left-1/3 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-yellow-300/15 via-amber-100/10 to-transparent blur-[150px] pointer-events-none" />
 
       {/* Subtle Sacred Mandala Center Motifs */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.04]">
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.035]">
         <svg
-          className="w-[900px] h-[900px] text-amber-400 animate-[spin_240s_linear_infinite]"
+          className="w-[900px] h-[900px] text-amber-600 animate-[spin_240s_linear_infinite]"
           viewBox="0 0 200 200"
           fill="currentColor"
         >

@@ -32,15 +32,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        "bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] text-stone-950 font-extrabold shadow-[0_0_24px_rgba(232,176,56,0.35),inset_0_1px_1px_rgba(255,255,255,0.6)] border border-yellow-200/60 hover:brightness-110 active:scale-[0.98]",
+        "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white font-extrabold shadow-[0_4px_16px_rgba(245,158,11,0.32),inset_0_1px_1px_rgba(255,255,255,0.4)] border border-amber-300/50 hover:brightness-105 active:scale-[0.98]",
       secondary:
-        "bg-gradient-to-r from-emerald-500 to-teal-600 text-stone-950 font-extrabold shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:brightness-110 border border-emerald-300/40",
+        "bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-extrabold shadow-md hover:brightness-105 border border-emerald-400/40",
       outline:
-        "border border-white/10 bg-[#161B28]/80 text-zinc-100 hover:bg-[#1E2538] hover:border-amber-400/40 backdrop-blur-md shadow-sm",
+        "border border-stone-200/90 bg-white text-stone-800 hover:bg-amber-50/80 hover:border-amber-300 hover:text-amber-900 shadow-sm transition-all",
       ghost:
-        "text-zinc-300 hover:bg-white/[0.08] hover:text-amber-300",
+        "text-stone-700 hover:bg-amber-50/80 hover:text-amber-900 transition-colors",
       destructive:
-        "bg-gradient-to-r from-rose-600 to-red-700 text-white font-bold hover:brightness-110 border border-rose-400/40 shadow-[0_0_16px_rgba(244,63,94,0.3)]",
+        "bg-gradient-to-r from-rose-600 to-red-600 text-white font-bold hover:brightness-105 shadow-md border border-rose-400/40",
     };
 
     const sizeStyles = {

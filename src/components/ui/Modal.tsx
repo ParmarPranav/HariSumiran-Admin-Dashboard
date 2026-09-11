@@ -52,7 +52,7 @@ export function Modal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity"
+            className="fixed inset-0 bg-stone-950/45 backdrop-blur-sm transition-opacity"
           />
 
           {/* Modal Card */}
@@ -62,28 +62,28 @@ export function Modal({
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className={cn(
-              "relative z-10 w-full overflow-hidden rounded-3xl border border-white/10 bg-[#121622] p-6 text-zinc-100 shadow-[0_24px_64px_rgba(0,0,0,0.85)] backdrop-blur-2xl",
+              "relative z-10 w-full overflow-hidden rounded-3xl border border-stone-200/90 bg-white p-6 text-stone-900 shadow-[0_24px_64px_rgba(0,0,0,0.14)] backdrop-blur-2xl",
               maxWidthStyles[maxWidth],
               className
             )}
           >
-            {/* Top ambient highlight */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            {/* Top ambient saffron highlight */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500" />
 
             {/* Header */}
             {(title || subtitle) && (
-              <div className="mb-5 flex items-start justify-between border-b border-white/[0.08] pb-4">
+              <div className="mb-5 flex items-start justify-between border-b border-stone-100 pb-4">
                 <div>
                   {title && (
-                    <h3 className="font-heading text-lg font-extrabold text-white">{title}</h3>
+                    <h3 className="font-display text-lg font-extrabold text-stone-900">{title}</h3>
                   )}
                   {subtitle && (
-                    <p className="mt-0.5 text-xs text-zinc-400">{subtitle}</p>
+                    <p className="mt-0.5 text-xs text-stone-500">{subtitle}</p>
                   )}
                 </div>
                 <button
                   onClick={onClose}
-                  className="rounded-xl p-1.5 text-zinc-400 hover:bg-white/[0.08] hover:text-white transition-colors"
+                  className="rounded-xl p-1.5 text-stone-400 hover:bg-stone-100 hover:text-stone-800 transition-colors"
                 >
                   <X className="h-4 w-4" />
                 </button>

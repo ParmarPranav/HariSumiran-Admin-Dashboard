@@ -27,42 +27,42 @@ export function StatCard({
   onClick,
 }: StatCardProps) {
   const iconBgStyles = {
-    gold: "bg-gradient-to-br from-amber-400/20 to-yellow-600/10 text-amber-300 border-amber-400/30 shadow-[0_0_15px_rgba(232,176,56,0.2)]",
-    saffron: "bg-gradient-to-br from-amber-400/20 to-yellow-600/10 text-amber-300 border-amber-400/30 shadow-[0_0_15px_rgba(232,176,56,0.2)]",
-    green: "bg-gradient-to-br from-emerald-400/20 to-teal-600/10 text-emerald-300 border-emerald-400/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]",
-    blue: "bg-gradient-to-br from-sky-400/20 to-indigo-600/10 text-sky-300 border-sky-400/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]",
-    neutral: "bg-white/5 text-zinc-300 border-white/10",
+    gold: "bg-amber-100 text-amber-800 border-amber-300 shadow-xs",
+    saffron: "bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-white shadow-xs",
+    green: "bg-emerald-100 text-emerald-800 border-emerald-300 shadow-xs",
+    blue: "bg-sky-100 text-sky-800 border-sky-300 shadow-xs",
+    neutral: "bg-stone-100 text-stone-700 border-stone-200 shadow-xs",
   };
 
   return (
     <GlassCard
       onClick={onClick}
       hoverEffect={!!onClick}
-      className={cn("relative overflow-hidden p-5", onClick && "cursor-pointer", className)}
+      className={cn("relative overflow-hidden p-5 bg-white border-stone-200/90 shadow-sm", onClick && "cursor-pointer", className)}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wider text-charcoal-subtle">{title}</p>
-          <h4 className="mt-1 font-heading text-2xl font-bold tracking-tight text-charcoal">{value}</h4>
-          {subtitle && <p className="mt-1 text-xs text-charcoal-subtle">{subtitle}</p>}
+          <p className="text-xs font-semibold uppercase tracking-wider text-stone-500">{title}</p>
+          <h4 className="mt-1 font-heading text-2xl font-bold tracking-tight text-stone-900">{value}</h4>
+          {subtitle && <p className="mt-1 text-xs text-stone-600 font-medium">{subtitle}</p>}
           {trend && (
-            <div className="mt-2 flex items-center gap-1 text-xs">
+            <div className="mt-2 flex items-center gap-1 text-xs font-medium">
               <span
                 className={cn(
-                  "font-medium",
-                  trend.isPositive ? "text-emerald-600" : "text-amber-600"
+                  "font-bold",
+                  trend.isPositive ? "text-emerald-700" : "text-amber-700"
                 )}
               >
                 {trend.value}
               </span>
-              <span className="text-charcoal-subtle">vs last period</span>
+              <span className="text-stone-500">vs last period</span>
             </div>
           )}
         </div>
         {icon && (
           <div
             className={cn(
-              "flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border shadow-sm",
+              "flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border",
               iconBgStyles[iconBg]
             )}
           >

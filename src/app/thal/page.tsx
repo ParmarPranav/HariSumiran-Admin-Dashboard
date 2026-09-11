@@ -282,14 +282,14 @@ export default function ThalPage() {
     <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
       {/* 🌟 TODAY'S WHOSE TURN FEATURED BANNER */}
       <SpotlightCard
-        spotlightColor="rgba(245, 158, 11, 0.12)"
-        className="p-6 space-y-4 border-l-4 border-l-amber-400 bg-gradient-to-r from-[#111420]/95 via-[#161B2E]/90 to-[#0B0D15]/95 border-white/10 shadow-2xl backdrop-blur-xl"
+        spotlightColor="rgba(245, 158, 11, 0.08)"
+        className="p-6 space-y-4 border-l-4 border-l-amber-500 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-white border-amber-300/80 shadow-md backdrop-blur-xl"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200/80 pb-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <h2 className="font-display text-lg font-bold text-white flex items-center gap-2">
-              <CalendarIcon className="h-5 w-5 text-amber-400" />
+            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping" />
+            <h2 className="font-display text-lg font-black text-stone-900 flex items-center gap-2">
+              <CalendarIcon className="h-5 w-5 text-amber-600" />
               Today's Thal Seva Turn &mdash; Sunday, September 6, 2026
             </h2>
           </div>
@@ -301,91 +301,91 @@ export default function ThalPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Today's Morning Thal Card */}
           <SpotlightCard
-            spotlightColor="rgba(245, 158, 11, 0.15)"
-            className="p-4 rounded-2xl border border-amber-400/25 bg-[#121624]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md"
+            spotlightColor="rgba(245, 158, 11, 0.1)"
+            className="p-4 rounded-2xl border border-amber-300/80 bg-white/95 shadow-sm space-y-3 relative overflow-hidden backdrop-blur-md"
           >
-            <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-[#FCE082] to-[#C98B1C] text-stone-950 text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-md">
+            <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-white text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-sm">
               Morning Thal
             </div>
-            <div className="flex items-center gap-2 text-amber-400 font-bold text-xs">
-              <Sun className="h-4 w-4 text-amber-400" /> Breakfast (Morning Thal) &bull; 07:30 AM
+            <div className="flex items-center gap-2 text-amber-700 font-extrabold text-xs">
+              <Sun className="h-4 w-4 text-amber-600" /> Breakfast (Morning Thal) &bull; 07:30 AM
             </div>
             {todayMorningTurn ? (
               <div className="space-y-2">
                 <div>
-                  <h3 className="font-display text-lg font-bold text-white">
+                  <h3 className="font-display text-lg font-black text-stone-900">
                     {todayMorningTurn.assignedFamilyName}
                   </h3>
-                  <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
-                    <Users className="h-3.5 w-3.5 text-amber-400" />
-                    Captain: <strong className="text-slate-200">{todayMorningTurn.captainName || "Rameshbhai Patel"}</strong>
-                    &bull; <Phone className="h-3 w-3 text-amber-400" /> +91 {todayMorningTurn.assignedPhone}
+                  <p className="text-xs text-stone-600 flex items-center gap-1.5 mt-0.5">
+                    <Users className="h-3.5 w-3.5 text-amber-600" />
+                    Captain: <strong className="text-stone-900">{todayMorningTurn.captainName || "Rameshbhai Patel"}</strong>
+                    &bull; <Phone className="h-3 w-3 text-amber-600" /> +91 {todayMorningTurn.assignedPhone}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between pt-1">
-                  <span className="text-xs text-slate-400 font-medium">
-                    Headcount: <strong className="text-slate-200 font-mono font-bold">{todayMorningTurn.headcount || 45} Devotees</strong>
+                  <span className="text-xs text-stone-600 font-medium">
+                    Headcount: <strong className="text-stone-900 font-mono font-bold">{todayMorningTurn.headcount || 45} Devotees</strong>
                   </span>
                   <Badge variant={todayMorningTurn.status === "Confirmed" ? "success" : "warning"} size="sm">
                     {todayMorningTurn.status}
                   </Badge>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-slate-200 leading-snug flex items-start gap-2">
-                  <UtensilsCrossed className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-stone-800 leading-snug flex items-start gap-2">
+                  <UtensilsCrossed className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-amber-300">Menu:</strong> {todayMorningTurn.specialInstructions || "Puri, Shrikhand, Bataka nu Shaak, Dal Bhat"}
+                    <strong className="text-amber-900">Menu:</strong> {todayMorningTurn.specialInstructions || "Puri, Shrikhand, Bataka nu Shaak, Dal Bhat"}
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-slate-400">No Morning Thal turn scheduled for today.</p>
+              <p className="text-xs text-stone-500">No Morning Thal turn scheduled for today.</p>
             )}
           </SpotlightCard>
 
           {/* Today's Evening Thal Card */}
           <SpotlightCard
-            spotlightColor="rgba(99, 102, 241, 0.15)"
-            className="p-4 rounded-2xl border border-indigo-500/25 bg-[#121624]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md"
+            spotlightColor="rgba(249, 115, 22, 0.1)"
+            className="p-4 rounded-2xl border border-orange-200 bg-white/95 shadow-sm space-y-3 relative overflow-hidden backdrop-blur-md"
           >
-            <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-sky-400 to-indigo-500 text-stone-950 text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-md">
+            <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-sm">
               Evening Thal
             </div>
-            <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs">
-              <Moon className="h-4 w-4 text-indigo-400" /> Dinner (Evening Thal) &bull; 07:30 PM
+            <div className="flex items-center gap-2 text-orange-700 font-extrabold text-xs">
+              <Moon className="h-4 w-4 text-orange-600" /> Dinner (Evening Thal) &bull; 07:30 PM
             </div>
             {todayEveningTurn ? (
               <div className="space-y-2">
                 <div>
-                  <h3 className="font-display text-lg font-bold text-white">
+                  <h3 className="font-display text-lg font-black text-stone-900">
                     {todayEveningTurn.assignedFamilyName}
                   </h3>
-                  <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
-                    <Users className="h-3.5 w-3.5 text-indigo-400" />
-                    Captain: <strong className="text-slate-200">{todayEveningTurn.captainName || "Mukeshbhai Shah"}</strong>
-                    &bull; <Phone className="h-3 w-3 text-indigo-400" /> +91 {todayEveningTurn.assignedPhone}
+                  <p className="text-xs text-stone-600 flex items-center gap-1.5 mt-0.5">
+                    <Users className="h-3.5 w-3.5 text-orange-600" />
+                    Captain: <strong className="text-stone-900">{todayEveningTurn.captainName || "Mukeshbhai Shah"}</strong>
+                    &bull; <Phone className="h-3 w-3 text-orange-600" /> +91 {todayEveningTurn.assignedPhone}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between pt-1">
-                  <span className="text-xs text-slate-400 font-medium">
-                    Headcount: <strong className="text-slate-200 font-mono font-bold">{todayEveningTurn.headcount || 50} Devotees</strong>
+                  <span className="text-xs text-stone-600 font-medium">
+                    Headcount: <strong className="text-stone-900 font-mono font-bold">{todayEveningTurn.headcount || 50} Devotees</strong>
                   </span>
                   <Badge variant={todayEveningTurn.status === "Confirmed" ? "success" : "warning"} size="sm">
                     {todayEveningTurn.status}
                   </Badge>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[11px] text-slate-200 leading-snug flex items-start gap-2">
-                  <UtensilsCrossed className="h-4 w-4 text-indigo-400 shrink-0 mt-0.5" />
+                <div className="p-2.5 rounded-xl bg-orange-50 border border-orange-200 text-[11px] text-stone-800 leading-snug flex items-start gap-2">
+                  <UtensilsCrossed className="h-4 w-4 text-orange-600 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-indigo-300">Menu:</strong> {todayEveningTurn.specialInstructions || "Khichdi, Kadhi, Ringan Bharta, Sukhdi"}
+                    <strong className="text-orange-900">Menu:</strong> {todayEveningTurn.specialInstructions || "Khichdi, Kadhi, Ringan Bharta, Sukhdi"}
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-slate-400">No Evening Thal turn scheduled for today.</p>
+              <p className="text-xs text-stone-500">No Evening Thal turn scheduled for today.</p>
             )}
           </SpotlightCard>
         </div>
@@ -395,12 +395,12 @@ export default function ThalPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <UtensilsCrossed className="h-6 w-6 text-amber-400" />
-            <h1 className="font-heading text-2xl font-bold text-white">
+            <UtensilsCrossed className="h-6 w-6 text-amber-600" />
+            <h1 className="font-heading text-2xl font-black text-stone-900">
               {language === "gu" ? "થાળ પરિભ્રમણ અને સેવા (સવાર અને સાંજ)" : "Thal Rotation - September 2026"}
             </h1>
           </div>
-          <p className="text-xs text-charcoal-subtle mt-0.5">
+          <p className="text-xs text-stone-600 mt-0.5">
             Interactive monthly calendar plan across 30 Nadiad families, RSVPs, 1-day alerts &amp; swap queue
           </p>
         </div>
@@ -428,17 +428,17 @@ export default function ThalPage() {
       </div>
 
       {/* Navigation Tabs (iOS SF-Segmented Pill Bar) */}
-      <div className="inline-flex flex-wrap gap-1.5 p-1.5 rounded-2xl bg-[#111420]/80 border border-white/10 shadow-inner">
+      <div className="inline-flex flex-wrap gap-1.5 p-1.5 rounded-2xl bg-stone-100 border border-stone-200 shadow-inner">
         {isAdmin && (
           <button
             onClick={() => setActiveTab("monthly_plan")}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
               activeTab === "monthly_plan"
-                ? "bg-amber-500/15 text-amber-300 shadow-sm border border-amber-400/30 font-bold"
-                : "text-slate-400 hover:text-white hover:bg-white/5"
+                ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white shadow-md font-bold"
+                : "text-stone-600 hover:text-stone-900 hover:bg-white/60"
             }`}
           >
-            <CalendarDays className="h-4 w-4 text-amber-400 stroke-[2]" />
+            <CalendarDays className="h-4 w-4 stroke-[2]" />
             <span>September Calendar ({schedules.length} Slots)</span>
           </button>
         )}
@@ -448,11 +448,11 @@ export default function ThalPage() {
             onClick={() => setActiveTab("my_turns")}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
               activeTab === "my_turns"
-                ? "bg-amber-500/15 text-amber-300 shadow-sm border border-amber-400/30 font-bold"
-                : "text-slate-400 hover:text-white hover:bg-white/5"
+                ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white shadow-md font-bold"
+                : "text-stone-600 hover:text-stone-900 hover:bg-white/60"
             }`}
           >
-            <Home className="h-4 w-4 text-amber-400 stroke-[2]" />
+            <Home className="h-4 w-4 stroke-[2]" />
             <span>My Family Turns ({myFamilyTurns.length})</span>
           </button>
         )}
@@ -462,11 +462,11 @@ export default function ThalPage() {
             onClick={() => setActiveTab("swap_requests")}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
               activeTab === "swap_requests"
-                ? "bg-amber-500/15 text-amber-300 shadow-sm border border-amber-400/30 font-bold"
-                : "text-slate-400 hover:text-white hover:bg-white/5"
+                ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white shadow-md font-bold"
+                : "text-stone-600 hover:text-stone-900 hover:bg-white/60"
             }`}
           >
-            <ArrowLeftRight className="h-4 w-4 text-amber-400 stroke-[2]" />
+            <ArrowLeftRight className="h-4 w-4 stroke-[2]" />
             <span>Swap Requests ({swapRequests.filter((s) => s.status === "Pending Coordinator").length} Pending)</span>
           </button>
         )}
@@ -475,11 +475,11 @@ export default function ThalPage() {
           onClick={() => setActiveTab("fairness")}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
             activeTab === "fairness"
-              ? "bg-amber-500/15 text-amber-300 shadow-sm border border-amber-400/30 font-bold"
-              : "text-slate-400 hover:text-white hover:bg-white/5"
+              ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white shadow-md font-bold"
+              : "text-stone-600 hover:text-stone-900 hover:bg-white/60"
           }`}
         >
-          <Award className="h-4 w-4 text-amber-400 stroke-[2]" />
+          <Award className="h-4 w-4 stroke-[2]" />
           <span>Family Rotation Fairness (30 Parivars)</span>
         </button>
       </div>
@@ -488,21 +488,21 @@ export default function ThalPage() {
       {activeTab === "monthly_plan" && (
         <div className="space-y-4">
           {/* Controls & Filter Bar */}
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 p-4 rounded-2xl bg-[#111420]/80 border border-white/10 shadow-lg">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 p-4 rounded-2xl bg-white border border-stone-200/90 shadow-sm">
             {/* Search Box */}
             <div className="relative flex-1 max-w-md">
-              <Search className="h-4 w-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="h-4 w-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search family name (e.g. Patel, Shah, Trivedi)..."
-                className="w-full h-9 rounded-xl border border-white/10 pl-9 pr-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5 placeholder:text-slate-500"
+                className="w-full h-9 rounded-xl border border-stone-200 pl-9 pr-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50 placeholder:text-stone-400"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-900"
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
@@ -514,20 +514,20 @@ export default function ThalPage() {
               <select
                 value={mealFilter}
                 onChange={(e: any) => setMealFilter(e.target.value)}
-                className="h-9 rounded-xl border border-white/10 px-3 text-xs font-semibold text-slate-200 bg-[#161B28] focus:outline-none focus:border-amber-400"
+                className="h-9 rounded-xl border border-stone-200 px-3 text-xs font-semibold text-stone-800 bg-stone-50 focus:outline-none focus:border-amber-500"
               >
                 <option value="all">All Meals (Morning &amp; Evening)</option>
                 <option value="morning">Morning Thal Only</option>
                 <option value="evening">Evening Thal Only</option>
               </select>
 
-              <div className="flex items-center rounded-xl border border-white/10 p-0.5 bg-white/[0.04]">
+              <div className="flex items-center rounded-xl border border-stone-200 p-0.5 bg-stone-100">
                 <button
                   onClick={() => setViewMode("calendar")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                     viewMode === "calendar"
-                      ? "bg-amber-500/20 text-amber-300 shadow-sm border border-amber-400/30"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-white text-stone-900 shadow-sm font-bold"
+                      : "text-stone-600 hover:text-stone-900"
                   }`}
                 >
                   <Grid className="h-3.5 w-3.5" /> Calendar View
@@ -536,8 +536,8 @@ export default function ThalPage() {
                   onClick={() => setViewMode("list")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                     viewMode === "list"
-                      ? "bg-amber-500/20 text-amber-300 shadow-sm border border-amber-400/30"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-white text-stone-900 shadow-sm font-bold"
+                      : "text-stone-600 hover:text-stone-900"
                   }`}
                 >
                   <ListIcon className="h-3.5 w-3.5" /> List View
@@ -548,29 +548,29 @@ export default function ThalPage() {
 
           {/* INTERACTIVE CALENDAR MONTH GRID VIEW */}
           {viewMode === "calendar" ? (
-            <div className="bg-[#111420]/90 rounded-3xl border border-white/10 shadow-2xl p-4 md:p-6 space-y-4 overflow-x-auto backdrop-blur-xl">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="bg-white rounded-3xl border border-stone-200/90 shadow-md p-4 md:p-6 space-y-4 overflow-x-auto">
+              <div className="flex items-center justify-between border-b border-stone-100 pb-4">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-heading text-xl font-bold text-white">September 2026</h3>
+                  <h3 className="font-heading text-xl font-black text-stone-900">September 2026</h3>
                   <Badge variant="primary" size="sm">
                     30 Days &bull; 60 Thal Turns
                   </Badge>
                 </div>
-                <div className="flex items-center gap-4 text-xs font-semibold text-slate-400">
+                <div className="flex items-center gap-4 text-xs font-semibold text-stone-600">
                   <span className="flex items-center gap-1">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)]" /> Confirmed
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-sm" /> Confirmed
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="h-2.5 w-2.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.6)]" /> Assigned
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-500 shadow-sm" /> Assigned
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500 shadow-[0_0_6px_rgba(244,63,94,0.6)]" /> Declined / Swap
+                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500 shadow-sm" /> Declined / Swap
                   </span>
                 </div>
               </div>
 
               {/* Days of Week Header */}
-              <div className="grid grid-cols-7 gap-2 text-center text-xs font-bold text-slate-400 tracking-wider uppercase border-b border-white/10 pb-2 min-w-[700px]">
+              <div className="grid grid-cols-7 gap-2 text-center text-xs font-bold text-stone-500 tracking-wider uppercase border-b border-stone-100 pb-2 min-w-[700px]">
                 <span>Sun</span>
                 <span>Mon</span>
                 <span>Tue</span>
@@ -582,9 +582,9 @@ export default function ThalPage() {
 
               {/* 30-Day Grid */}
               <div className="grid grid-cols-7 gap-2 min-w-[700px]">
-                {/* Blank cells before Sept 1 (Tuesday = 2 offset blank cells for Sun, Mon) */}
+                {/* Blank cells before Sept 1 */}
                 {Array.from({ length: startDayOffset }).map((_, idx) => (
-                  <div key={`blank-${idx}`} className="h-28 rounded-2xl bg-white/[0.02] border border-dashed border-white/5 opacity-40" />
+                  <div key={`blank-${idx}`} className="h-28 rounded-2xl bg-stone-50/50 border border-dashed border-stone-200 opacity-60" />
                 ))}
 
                 {/* September 1 to 30 Cells */}
@@ -608,19 +608,19 @@ export default function ThalPage() {
                         setSelectedCalendarDate(dateStr);
                         setDateDetailModalOpen(true);
                       }}
-                      className={`group relative min-h-[115px] p-2.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between hover:shadow-xl hover:scale-[1.02] ${
+                      className={`group relative min-h-[115px] p-2.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between hover:shadow-md hover:scale-[1.02] ${
                         isToday
-                          ? "border-amber-400/80 bg-amber-500/10 ring-2 ring-amber-400/40 shadow-[0_0_20px_rgba(245,158,11,0.15)]"
-                          : "border-white/10 bg-[#161B28]/60 hover:bg-[#161B28] hover:border-amber-400/40"
+                          ? "border-amber-400 bg-amber-50/80 ring-2 ring-amber-400/40 shadow-sm"
+                          : "border-stone-200/90 bg-white hover:bg-amber-50/30 hover:border-amber-300"
                       }`}
                     >
                       {/* Top Day Bar */}
                       <div className="flex items-center justify-between">
-                        <span className={`font-mono text-xs font-extrabold ${isToday ? "text-amber-400" : "text-slate-200"}`}>
+                        <span className={`font-mono text-xs font-black ${isToday ? "text-amber-800" : "text-stone-800"}`}>
                           {dayStr}
                         </span>
                         {isToday && (
-                          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-amber-500 text-slate-950 shadow-sm">
+                          <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-white shadow-sm">
                             Today
                           </span>
                         )}
@@ -630,15 +630,15 @@ export default function ThalPage() {
                       <div className="space-y-1.5 my-1">
                         {/* Morning Slot */}
                         {mealFilter !== "evening" && (
-                          <div className="p-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] leading-tight font-semibold flex items-center justify-between text-amber-300 group-hover:bg-amber-500/20 transition-colors">
+                          <div className="p-1.5 rounded-xl bg-amber-50 border border-amber-200/90 text-[10px] leading-tight font-semibold flex items-center justify-between text-amber-900 group-hover:bg-amber-100/70 transition-colors">
                             <div className="truncate flex items-center gap-1">
-                              <Sun className="h-3 w-3 text-amber-400 shrink-0" />
+                              <Sun className="h-3 w-3 text-amber-600 shrink-0" />
                               <span className="truncate">{morningTurn ? morningTurn.assignedFamilyName.split(" ")[0] : "Unassigned"}</span>
                             </div>
                             <span
                               className={`h-1.5 w-1.5 rounded-full shrink-0 ${
                                 morningTurn?.status === "Confirmed"
-                                  ? "bg-emerald-500 shadow-[0_0_4px_rgba(16,185,129,0.8)]"
+                                  ? "bg-emerald-500 shadow-sm"
                                   : morningTurn?.status === "Declined"
                                   ? "bg-rose-500"
                                   : "bg-amber-500"
@@ -649,15 +649,15 @@ export default function ThalPage() {
 
                         {/* Evening Slot */}
                         {mealFilter !== "morning" && (
-                          <div className="p-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] leading-tight font-semibold flex items-center justify-between text-indigo-300 group-hover:bg-indigo-500/20 transition-colors">
+                          <div className="p-1.5 rounded-xl bg-orange-50 border border-orange-200/90 text-[10px] leading-tight font-semibold flex items-center justify-between text-orange-900 group-hover:bg-orange-100/70 transition-colors">
                             <div className="truncate flex items-center gap-1">
-                              <Moon className="h-3 w-3 text-indigo-400 shrink-0" />
+                              <Moon className="h-3 w-3 text-orange-600 shrink-0" />
                               <span className="truncate">{eveningTurn ? eveningTurn.assignedFamilyName.split(" ")[0] : "Unassigned"}</span>
                             </div>
                             <span
                               className={`h-1.5 w-1.5 rounded-full shrink-0 ${
                                 eveningTurn?.status === "Confirmed"
-                                  ? "bg-emerald-500 shadow-[0_0_4px_rgba(16,185,129,0.8)]"
+                                  ? "bg-emerald-500 shadow-sm"
                                   : eveningTurn?.status === "Declined"
                                   ? "bg-rose-500"
                                   : "bg-amber-500"
@@ -667,7 +667,7 @@ export default function ThalPage() {
                         )}
                       </div>
 
-                      <div className="text-[9px] text-slate-400 font-mono text-right opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="text-[9px] text-stone-500 font-mono text-right opacity-0 group-hover:opacity-100 transition-opacity">
                         View Details &rarr;
                       </div>
                     </div>
@@ -684,10 +684,10 @@ export default function ThalPage() {
                 const isDeclined = item.status === "Declined";
 
                 return (
-                  <GlassCard key={item._id} hoverEffect className="p-5 space-y-3 flex flex-col justify-between">
+                  <GlassCard key={item._id} hoverEffect className="p-5 space-y-3 flex flex-col justify-between bg-white border-stone-200/90 shadow-sm">
                     <div className="space-y-2">
                       <div className="flex items-start justify-between">
-                        <span className="font-mono text-xs font-bold text-charcoal-subtle">{item.scheduleCode}</span>
+                        <span className="font-mono text-xs font-bold text-stone-500">{item.scheduleCode}</span>
                         <Badge
                           variant={
                             isConfirmed ? "success" : isDeclined ? "danger" : "warning"
@@ -700,35 +700,35 @@ export default function ThalPage() {
 
                       <div className="flex items-center gap-2">
                         {isBreakfast ? (
-                          <Sun className="h-4 w-4 text-amber-400" />
+                          <Sun className="h-4 w-4 text-amber-600" />
                         ) : (
-                          <Moon className="h-4 w-4 text-indigo-400" />
+                          <Moon className="h-4 w-4 text-orange-600" />
                         )}
-                        <span className="text-xs font-bold text-amber-300">
+                        <span className="text-xs font-bold text-amber-800">
                           {item.mealType}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-base font-bold text-white leading-tight">
+                      <h3 className="font-heading text-base font-black text-stone-900 leading-tight">
                         {item.assignedFamilyName}
                       </h3>
 
-                      <p className="text-xs text-zinc-400 flex items-center gap-1 font-medium">
-                        <CalendarIcon className="h-3.5 w-3.5 text-amber-400" /> Date: {item.date}
+                      <p className="text-xs text-stone-600 flex items-center gap-1 font-medium">
+                        <CalendarIcon className="h-3.5 w-3.5 text-amber-600" /> Date: {item.date}
                       </p>
 
-                      <div className="space-y-1 text-xs text-charcoal-subtle pt-1">
+                      <div className="space-y-1 text-xs text-stone-600 pt-1">
                         <p><strong>Captain Phone:</strong> +91 {item.assignedPhone}</p>
                         <p><strong>Headcount:</strong> {item.headcount} Devotees</p>
                         {item.specialInstructions && (
-                          <p className="text-[11px] bg-surface-container-low/60 p-2 rounded-xl border border-hairline mt-1">
+                          <p className="text-[11px] bg-stone-50 p-2 rounded-xl border border-stone-200 mt-1 text-stone-700">
                             {item.specialInstructions}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-hairline flex items-center justify-between gap-2">
+                    <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
                       {!isConfirmed && (
                         <Button size="sm" variant="secondary" onClick={() => handleConfirmTurn(item._id)}>
                           Confirm
@@ -756,11 +756,11 @@ export default function ThalPage() {
       {/* TAB 2: My Family Turns (User View - Non-Admin Only) */}
       {!isAdmin && activeTab === "my_turns" && (
         <div className="space-y-4">
-          <GlassCard className="p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-hairline pb-3">
+          <GlassCard className="p-6 space-y-4 bg-white border-stone-200/90 shadow-sm">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div>
-                <h3 className="font-heading text-lg font-bold text-charcoal">{myFamilyName} - Thal Seva Turns</h3>
-                <p className="text-xs text-charcoal-subtle">
+                <h3 className="font-heading text-lg font-black text-stone-900">{myFamilyName} - Thal Seva Turns</h3>
+                <p className="text-xs text-stone-600">
                   Assigned Breakfast &amp; Dinner rotation dates for your household
                 </p>
               </div>
@@ -770,26 +770,26 @@ export default function ThalPage() {
             </div>
 
             {myFamilyTurns.length === 0 ? (
-              <div className="text-center py-8 text-xs text-charcoal-subtle">
+              <div className="text-center py-8 text-xs text-stone-500">
                 No turns currently assigned to {myFamilyName} for {selectedMonth}.
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {myFamilyTurns.map((turn) => (
-                  <div key={turn._id} className="p-4 rounded-2xl border border-white/10 bg-[#161B28]/80 shadow-md space-y-3">
+                  <div key={turn._id} className="p-4 rounded-2xl border border-stone-200 bg-stone-50/60 shadow-sm space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-amber-400">{turn.mealType}</span>
+                      <span className="text-xs font-bold text-amber-700">{turn.mealType}</span>
                       <Badge variant={turn.status === "Confirmed" ? "success" : "warning"} size="sm">
                         {turn.status}
                       </Badge>
                     </div>
 
                     <div>
-                      <h4 className="font-heading text-base font-bold text-white">{turn.date}</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">Mandir Kitchen Mahaprasad Seva</p>
+                      <h4 className="font-heading text-base font-black text-stone-900">{turn.date}</h4>
+                      <p className="text-xs text-stone-600 mt-0.5">Mandir Kitchen Mahaprasad Seva</p>
                     </div>
 
-                    <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+                    <div className="flex items-center gap-2 pt-2 border-t border-stone-200">
                       {turn.status !== "Confirmed" && (
                         <Button size="sm" variant="secondary" onClick={() => handleConfirmTurn(turn._id)}>
                           Confirm Turn
@@ -817,23 +817,23 @@ export default function ThalPage() {
       {/* TAB 3: Swap Requests Queue (Admin View) */}
       {activeTab === "swap_requests" && (
         <div className="space-y-4">
-          <GlassCard className="p-6 space-y-4">
-            <div className="border-b border-white/10 pb-3">
-              <h3 className="font-heading text-lg font-bold text-white">Pending Thal Swap Requests</h3>
-              <p className="text-xs text-slate-400">Review family swap requests and reassign dates</p>
+          <GlassCard className="p-6 space-y-4 bg-white border-stone-200/90 shadow-sm">
+            <div className="border-b border-stone-100 pb-3">
+              <h3 className="font-heading text-lg font-black text-stone-900">Pending Thal Swap Requests</h3>
+              <p className="text-xs text-stone-600">Review family swap requests and reassign dates</p>
             </div>
 
             {swapRequests.length === 0 ? (
-              <div className="text-center py-8 text-xs text-slate-400">No pending swap requests.</div>
+              <div className="text-center py-8 text-xs text-stone-500">No pending swap requests.</div>
             ) : (
               <div className="space-y-3">
                 {swapRequests.map((req) => (
-                  <div key={req._id} className="p-4 rounded-2xl border border-white/10 bg-[#161B28]/80 shadow-md space-y-3">
+                  <div key={req._id} className="p-4 rounded-2xl border border-stone-200 bg-stone-50/60 shadow-sm space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-xs font-bold text-white">{req.requestingFamilyName}</span>
-                        <p className="text-[11px] text-slate-400">
-                          Original Date: <strong className="text-slate-200">{req.originalDate}</strong> ({req.mealType})
+                        <span className="text-xs font-black text-stone-900">{req.requestingFamilyName}</span>
+                        <p className="text-[11px] text-stone-600">
+                          Original Date: <strong className="text-stone-900">{req.originalDate}</strong> ({req.mealType})
                         </p>
                       </div>
                       <Badge variant={req.status === "Approved" ? "success" : req.status === "Rejected" ? "danger" : "warning"} size="sm">
@@ -841,10 +841,10 @@ export default function ThalPage() {
                       </Badge>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-slate-300">
+                    <div className="p-3 rounded-xl bg-white border border-stone-200 text-xs text-stone-700">
                       <p><strong>Reason:</strong> {req.reason}</p>
                       {req.targetFamilyName && (
-                        <p className="mt-1 text-amber-400">
+                        <p className="mt-1 text-amber-700 font-semibold">
                           <strong>Proposed Target Swap Family:</strong> {req.targetFamilyName}
                         </p>
                       )}
@@ -870,36 +870,36 @@ export default function ThalPage() {
 
       {/* TAB 4: Fairness Ranking (30 Families) */}
       {activeTab === "fairness" && (
-        <GlassCard className="p-6 space-y-4">
-          <div className="flex items-center gap-2 border-b border-white/10 pb-3">
-            <Sparkles className="h-5 w-5 text-amber-400" />
+        <GlassCard className="p-6 space-y-4 bg-white border-stone-200/90 shadow-sm">
+          <div className="flex items-center gap-2 border-b border-stone-100 pb-3">
+            <Sparkles className="h-5 w-5 text-amber-600" />
             <div>
-              <h3 className="font-heading text-base font-bold text-white">
+              <h3 className="font-heading text-base font-black text-stone-900">
                 Fairness-Ranked Household Rotation (30 Nadiad Parivars)
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-stone-600">
                 Families ranked by total turns to ensure equitable Thal seva opportunities
               </p>
             </div>
           </div>
 
-          <div className="divide-y divide-white/10">
+          <div className="divide-y divide-stone-100">
             {fairnessRanking.map((fam, index) => (
               <div key={fam.familyId || fam.familyName} className="py-3 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/15 text-xs font-bold text-amber-400 border border-amber-400/30">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-100 text-xs font-black text-amber-800 border border-amber-300">
                     #{index + 1}
                   </span>
                   <div>
-                    <p className="font-bold text-white">{fam.familyName}</p>
-                    <p className="text-slate-400">Captain: {fam.captainName} &bull; {fam.area || "Nadiad"}</p>
+                    <p className="font-black text-stone-900">{fam.familyName}</p>
+                    <p className="text-stone-600">Captain: {fam.captainName} &bull; {fam.area || "Nadiad"}</p>
                   </div>
                 </div>
 
                 <div className="text-right flex items-center gap-4">
                   <div>
-                    <span className="font-bold text-white">{fam.turnsThisYear} Turns</span>
-                    <p className="text-[10px] text-slate-400">This Month</p>
+                    <span className="font-black text-stone-900">{fam.turnsThisYear} Turns</span>
+                    <p className="text-[10px] text-stone-500">This Month</p>
                   </div>
                   {isAdmin && (
                     <Button
@@ -930,10 +930,10 @@ export default function ThalPage() {
         {selectedCalendarDate && (
           <div className="space-y-5">
             {/* Morning Thal Breakdown */}
-            <div className="p-4 rounded-2xl border border-amber-500/20 bg-amber-500/10 space-y-3">
-              <div className="flex items-center justify-between border-b border-amber-500/20 pb-2">
-                <div className="flex items-center gap-2 text-amber-300 font-bold text-xs">
-                  <Sun className="h-4 w-4 text-amber-400" /> Morning Thal (Breakfast)
+            <div className="p-4 rounded-2xl border border-amber-200 bg-amber-50/60 space-y-3">
+              <div className="flex items-center justify-between border-b border-amber-200/80 pb-2">
+                <div className="flex items-center gap-2 text-amber-800 font-extrabold text-xs">
+                  <Sun className="h-4 w-4 text-amber-600" /> Morning Thal (Breakfast)
                 </div>
                 {schedules.find((s) => s.date === selectedCalendarDate && (s.mealType?.includes("Breakfast") || s.mealType?.includes("Morning"))) && (
                   <Badge
@@ -951,19 +951,19 @@ export default function ThalPage() {
 
               {(() => {
                 const turn = schedules.find((s) => s.date === selectedCalendarDate && (s.mealType?.includes("Breakfast") || s.mealType?.includes("Morning")));
-                if (!turn) return <p className="text-xs text-slate-400">No Morning Thal turn assigned for this date.</p>;
+                if (!turn) return <p className="text-xs text-stone-500">No Morning Thal turn assigned for this date.</p>;
 
                 return (
                   <div className="space-y-2 text-xs">
-                    <h4 className="font-heading text-base font-bold text-white">{turn.assignedFamilyName}</h4>
-                    <p className="text-slate-400">
-                      Captain: <strong className="text-slate-200">{turn.captainName || "Rameshbhai Patel"}</strong> &bull; Phone: +91 {turn.assignedPhone}
+                    <h4 className="font-heading text-base font-black text-stone-900">{turn.assignedFamilyName}</h4>
+                    <p className="text-stone-600">
+                      Captain: <strong className="text-stone-900">{turn.captainName || "Rameshbhai Patel"}</strong> &bull; Phone: +91 {turn.assignedPhone}
                     </p>
-                    <p className="text-slate-400">Headcount: <strong className="text-slate-200">{turn.headcount} Devotees</strong></p>
-                    <div className="p-2.5 rounded-xl bg-black/30 border border-amber-500/20 text-[11px] text-slate-200 flex items-start gap-2">
-                      <UtensilsCrossed className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                    <p className="text-stone-600">Headcount: <strong className="text-stone-900">{turn.headcount} Devotees</strong></p>
+                    <div className="p-2.5 rounded-xl bg-white border border-amber-200 text-[11px] text-stone-800 flex items-start gap-2">
+                      <UtensilsCrossed className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-amber-300">Menu:</strong> {turn.specialInstructions}
+                        <strong className="text-amber-800">Menu:</strong> {turn.specialInstructions}
                       </div>
                     </div>
 
@@ -996,10 +996,10 @@ export default function ThalPage() {
             </div>
 
             {/* Evening Thal Breakdown */}
-            <div className="p-4 rounded-2xl border border-indigo-500/20 bg-indigo-500/10 space-y-3">
-              <div className="flex items-center justify-between border-b border-indigo-500/20 pb-2">
-                <div className="flex items-center gap-2 text-indigo-300 font-bold text-xs">
-                  <Moon className="h-4 w-4 text-indigo-400" /> Evening Thal (Dinner)
+            <div className="p-4 rounded-2xl border border-orange-200 bg-orange-50/60 space-y-3">
+              <div className="flex items-center justify-between border-b border-orange-200/80 pb-2">
+                <div className="flex items-center gap-2 text-orange-800 font-extrabold text-xs">
+                  <Moon className="h-4 w-4 text-orange-600" /> Evening Thal (Dinner)
                 </div>
                 {schedules.find((s) => s.date === selectedCalendarDate && (s.mealType?.includes("Dinner") || s.mealType?.includes("Evening"))) && (
                   <Badge
@@ -1017,19 +1017,19 @@ export default function ThalPage() {
 
               {(() => {
                 const turn = schedules.find((s) => s.date === selectedCalendarDate && (s.mealType?.includes("Dinner") || s.mealType?.includes("Evening")));
-                if (!turn) return <p className="text-xs text-slate-400">No Evening Thal turn assigned for this date.</p>;
+                if (!turn) return <p className="text-xs text-stone-500">No Evening Thal turn assigned for this date.</p>;
 
                 return (
                   <div className="space-y-2 text-xs">
-                    <h4 className="font-heading text-base font-bold text-white">{turn.assignedFamilyName}</h4>
-                    <p className="text-slate-400">
-                      Captain: <strong className="text-slate-200">{turn.captainName || "Mukeshbhai Shah"}</strong> &bull; Phone: +91 {turn.assignedPhone}
+                    <h4 className="font-heading text-base font-black text-stone-900">{turn.assignedFamilyName}</h4>
+                    <p className="text-stone-600">
+                      Captain: <strong className="text-stone-900">{turn.captainName || "Mukeshbhai Shah"}</strong> &bull; Phone: +91 {turn.assignedPhone}
                     </p>
-                    <p className="text-slate-400">Headcount: <strong className="text-slate-200">{turn.headcount} Devotees</strong></p>
-                    <div className="p-2.5 rounded-xl bg-black/30 border border-indigo-500/20 text-[11px] text-slate-200 flex items-start gap-2">
-                      <UtensilsCrossed className="h-4 w-4 text-indigo-400 shrink-0 mt-0.5" />
+                    <p className="text-stone-600">Headcount: <strong className="text-stone-900">{turn.headcount} Devotees</strong></p>
+                    <div className="p-2.5 rounded-xl bg-white border border-orange-200 text-[11px] text-stone-800 flex items-start gap-2">
+                      <UtensilsCrossed className="h-4 w-4 text-orange-600 shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-indigo-300">Menu:</strong> {turn.specialInstructions}
+                        <strong className="text-orange-800">Menu:</strong> {turn.specialInstructions}
                       </div>
                     </div>
 
@@ -1073,14 +1073,14 @@ export default function ThalPage() {
       >
         <div className="space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-300">Select Household *</label>
+            <label className="text-xs font-bold text-stone-800">Select Household *</label>
             <select
               value={assignedFamilyName}
               onChange={(e) => setAssignedFamilyName(e.target.value)}
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
             >
               {fairnessRanking.map((f) => (
-                <option key={f.familyId || f.familyName} value={f.familyName} className="bg-[#161B28] text-white">
+                <option key={f.familyId || f.familyName} value={f.familyName} className="bg-white text-stone-900">
                   {f.familyName} ({f.turnsThisYear} turns assigned)
                 </option>
               ))}
@@ -1089,24 +1089,24 @@ export default function ThalPage() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300">Thal Date *</label>
+              <label className="text-xs font-bold text-stone-800">Thal Date *</label>
               <input
                 type="date"
                 value={assignDate}
                 onChange={(e) => setAssignDate(e.target.value)}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-300">Meal Type *</label>
+              <label className="text-xs font-bold text-stone-800">Meal Type *</label>
               <select
                 value={assignMeal}
                 onChange={(e) => setAssignMeal(e.target.value)}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
               >
-                <option value="Breakfast (Morning Thal)" className="bg-[#161B28] text-white">Breakfast (Morning Thal)</option>
-                <option value="Dinner (Evening Thal)" className="bg-[#161B28] text-white">Dinner (Evening Thal)</option>
-                <option value="Special Thal" className="bg-[#161B28] text-white">Special Thal</option>
+                <option value="Breakfast (Morning Thal)" className="bg-white text-stone-900">Breakfast (Morning Thal)</option>
+                <option value="Dinner (Evening Thal)" className="bg-white text-stone-900">Dinner (Evening Thal)</option>
+                <option value="Special Thal" className="bg-white text-stone-900">Special Thal</option>
               </select>
             </div>
           </div>
@@ -1132,15 +1132,15 @@ export default function ThalPage() {
       >
         <div className="space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-300">Swap Destination</label>
+            <label className="text-xs font-bold text-stone-800">Swap Destination</label>
             <div className="grid grid-cols-2 gap-2 mt-1.5">
               <button
                 type="button"
                 onClick={() => setSwapType("admin_open_swap")}
                 className={`p-3 rounded-xl border text-xs font-semibold text-left transition-colors ${
                   swapType === "admin_open_swap"
-                    ? "border-amber-400/60 bg-amber-500/20 text-amber-300"
-                    : "border-white/10 hover:bg-white/5 text-slate-400"
+                    ? "border-amber-400 bg-amber-50 text-amber-900 font-bold"
+                    : "border-stone-200 hover:bg-stone-50 text-stone-600"
                 }`}
               >
                 Request Admin / Coordinator to Swap
@@ -1150,8 +1150,8 @@ export default function ThalPage() {
                 onClick={() => setSwapType("family_to_family")}
                 className={`p-3 rounded-xl border text-xs font-semibold text-left transition-colors ${
                   swapType === "family_to_family"
-                    ? "border-amber-400/60 bg-amber-500/20 text-amber-300"
-                    : "border-white/10 hover:bg-white/5 text-slate-400"
+                    ? "border-amber-400 bg-amber-50 text-amber-900 font-bold"
+                    : "border-stone-200 hover:bg-stone-50 text-stone-600"
                 }`}
               >
                 Swap with Specific Family
@@ -1161,15 +1161,15 @@ export default function ThalPage() {
 
           {swapType === "family_to_family" && (
             <div>
-              <label className="text-xs font-semibold text-slate-300">Select Target Family *</label>
+              <label className="text-xs font-bold text-stone-800">Select Target Family *</label>
               <select
                 value={targetFamilyName}
                 onChange={(e) => setTargetFamilyName(e.target.value)}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
               >
-                <option value="" className="bg-[#161B28] text-white">-- Choose Family to Swap With --</option>
+                <option value="" className="bg-white text-stone-900">-- Choose Family to Swap With --</option>
                 {fairnessRanking.map((f) => (
-                  <option key={f.familyId || f.familyName} value={f.familyName} className="bg-[#161B28] text-white">
+                  <option key={f.familyId || f.familyName} value={f.familyName} className="bg-white text-stone-900">
                     {f.familyName} ({f.captainName})
                   </option>
                 ))}
@@ -1178,13 +1178,13 @@ export default function ThalPage() {
           )}
 
           <div>
-            <label className="text-xs font-semibold text-slate-300">Reason for Swap Request *</label>
+            <label className="text-xs font-bold text-stone-800">Reason for Swap Request *</label>
             <textarea
               rows={3}
               value={swapReason}
               onChange={(e) => setSwapReason(e.target.value)}
               placeholder="e.g. Out of town travel / family commitment on scheduled date..."
-              className="mt-1 w-full rounded-xl border border-white/10 p-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5 placeholder:text-slate-500"
+              className="mt-1 w-full rounded-xl border border-stone-200 p-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50 placeholder:text-stone-400"
             />
           </div>
 

@@ -28,7 +28,7 @@ export function Tabs({
 }: TabsProps) {
   if (variant === "line") {
     return (
-      <div className={cn("flex space-x-6 border-b border-hairline", className)}>
+      <div className={cn("flex space-x-6 border-b border-stone-200", className)}>
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -37,7 +37,7 @@ export function Tabs({
               onClick={() => onChange(tab.id)}
               className={cn(
                 "relative flex items-center gap-2 pb-3 text-sm font-medium transition-colors",
-                isActive ? "text-amber-400 font-semibold" : "text-charcoal-subtle hover:text-charcoal"
+                isActive ? "text-amber-700 font-bold" : "text-stone-600 hover:text-stone-900"
               )}
             >
               {tab.icon}
@@ -46,7 +46,7 @@ export function Tabs({
                 <span
                   className={cn(
                     "rounded-full px-2 py-0.5 text-xs font-mono font-bold",
-                    isActive ? "bg-amber-500/20 text-amber-300 border border-amber-500/30" : "bg-[#161B28] text-charcoal-subtle border border-white/10"
+                    isActive ? "bg-amber-100 text-amber-800 border border-amber-300/80" : "bg-stone-100 text-stone-600 border border-stone-200"
                   )}
                 >
                   {tab.count}
@@ -55,7 +55,7 @@ export function Tabs({
               {isActive && (
                 <motion.div
                   layoutId="activeTabUnderline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FDE047] via-[#EAB308] to-[#CA8A04] shadow-[0_0_12px_rgba(234,179,8,0.8)]"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] shadow-sm"
                   transition={{ type: "spring" as const, stiffness: 350, damping: 30 }}
                 />
               )}
@@ -67,7 +67,7 @@ export function Tabs({
   }
 
   return (
-    <div className={cn("inline-flex rounded-2xl border border-white/10 bg-[#121622]/80 backdrop-blur-md p-1", className)}>
+    <div className={cn("inline-flex rounded-2xl border border-stone-200/90 bg-stone-100/90 backdrop-blur-md p-1", className)}>
       {tabs.map((tab) => {
         const isActive = activeTab === tab.id;
         return (
@@ -76,13 +76,13 @@ export function Tabs({
             onClick={() => onChange(tab.id)}
             className={cn(
               "relative flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-medium transition-colors",
-              isActive ? "text-amber-300 font-bold" : "text-charcoal-subtle hover:text-white"
+              isActive ? "text-amber-800 font-bold" : "text-stone-600 hover:text-stone-900"
             )}
           >
             {isActive && (
               <motion.div
                 layoutId="activeTabPill"
-                className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400/25 via-yellow-400/15 to-amber-500/25 border border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.2)]"
+                className="absolute inset-0 rounded-xl bg-white border border-amber-300 shadow-sm"
                 transition={{ type: "spring" as const, stiffness: 350, damping: 30 }}
               />
             )}
@@ -93,7 +93,7 @@ export function Tabs({
                 <span
                   className={cn(
                     "rounded-full px-1.5 py-0.2 text-[10px] font-mono font-bold",
-                    isActive ? "bg-amber-500/30 text-amber-200 border border-amber-500/40" : "bg-[#161B28] text-charcoal-subtle border border-white/10"
+                    isActive ? "bg-amber-100 text-amber-800 border border-amber-300" : "bg-stone-200/80 text-stone-600 border border-stone-300/60"
                   )}
                 >
                   {tab.count}

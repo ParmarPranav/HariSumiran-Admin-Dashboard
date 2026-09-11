@@ -131,22 +131,22 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "hidden md:flex flex-col border-r border-white/[0.07] bg-[#0C0F17]/95 backdrop-blur-2xl transition-all duration-300 relative z-30 shadow-[4px_0_24px_rgba(0,0,0,0.5)]",
+        "hidden md:flex flex-col border-r border-stone-200/80 bg-white/95 backdrop-blur-2xl transition-all duration-300 relative z-30 shadow-[4px_0_24px_rgba(0,0,0,0.03)]",
         collapsed ? "w-20" : "w-64"
       )}
     >
       {/* Brand Header */}
-      <div className="flex h-16 items-center justify-between px-4 border-b border-white/[0.07]">
+      <div className="flex h-16 items-center justify-between px-4 border-b border-stone-200/80">
         <Link href="/" className="flex items-center gap-3 overflow-hidden">
-          <div className="h-9 w-9 rounded-xl bg-amber-500/10 p-1 border border-amber-400/30 shrink-0 flex items-center justify-center shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+          <div className="h-9 w-9 rounded-xl bg-amber-50 p-1 border border-amber-300 shrink-0 flex items-center justify-center shadow-sm">
             <img src="/logo.png" alt="HariSumiran Logo" className="h-full w-full object-contain" />
           </div>
           {!collapsed && (
             <div className="flex flex-col min-w-0">
-              <span className="font-heading text-sm font-extrabold tracking-tight text-white truncate drop-shadow-sm">
+              <span className="font-display text-sm font-extrabold tracking-tight text-stone-900 truncate">
                 HariSumiran
               </span>
-              <span className="text-[9px] font-mono tracking-wider font-semibold text-amber-400 uppercase truncate">
+              <span className="text-[9px] font-mono tracking-wider font-semibold text-amber-700 uppercase truncate">
                 HariPrabodham, Nadiad
               </span>
             </div>
@@ -154,7 +154,7 @@ export function Sidebar() {
         </Link>
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="rounded-lg p-1 text-zinc-400 hover:bg-white/[0.08] hover:text-white transition-colors"
+          className="rounded-lg p-1 text-stone-400 hover:bg-stone-100 hover:text-stone-800 transition-colors"
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
@@ -172,11 +172,11 @@ export function Sidebar() {
               className={cn(
                 "group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 relative",
                 isActive
-                  ? "bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] text-stone-950 shadow-lg shadow-yellow-500/20 font-extrabold border border-yellow-200/60"
-                  : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100"
+                  ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white shadow-md shadow-orange-500/20 font-extrabold border border-amber-300/40"
+                  : "text-stone-600 hover:bg-amber-50/80 hover:text-amber-800"
               )}
             >
-              <span className={cn("shrink-0", isActive ? "text-stone-950" : "text-zinc-400 group-hover:text-amber-300 transition-colors")}>
+              <span className={cn("shrink-0", isActive ? "text-white" : "text-stone-500 group-hover:text-amber-600 transition-colors")}>
                 {item.icon}
               </span>
               {!collapsed && (
@@ -188,7 +188,7 @@ export function Sidebar() {
                 <span
                   className={cn(
                     "rounded-full px-1.5 py-0.5 text-[8px] font-extrabold uppercase",
-                    isActive ? "bg-stone-950/20 text-stone-950 font-black" : "bg-amber-500/15 text-amber-300 border border-amber-400/30"
+                    isActive ? "bg-white/25 text-white font-black" : "bg-amber-50 text-amber-800 border border-amber-300"
                   )}
                 >
                   {item.badge}
@@ -201,41 +201,41 @@ export function Sidebar() {
 
       {/* Active User Strip & Lock */}
       {!collapsed ? (
-        <div className="p-3 border border-white/[0.08] bg-[#141824]/90 m-2.5 rounded-2xl space-y-2 shadow-sm">
+        <div className="p-3 border border-amber-200/80 bg-amber-50/60 m-2.5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center gap-2.5">
-            <img src={user?.avatar} alt={user?.name} className="h-8 w-8 rounded-full object-cover border border-amber-400/40 shadow-sm" />
+            <img src={user?.avatar} alt={user?.name} className="h-8 w-8 rounded-full object-cover border border-amber-300 shadow-sm" />
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-white truncate">{user?.name}</p>
-              <p className="text-[10px] text-amber-300/80 font-medium truncate">
+              <p className="text-xs font-bold text-stone-900 truncate font-display">{user?.name}</p>
+              <p className="text-[10px] text-amber-800 font-medium truncate">
                 {user?.responsibilities?.[0]?.title || "Mandir Member"}
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-between pt-2 border-t border-white/[0.06] text-[11px]">
+          <div className="flex items-center justify-between pt-2 border-t border-amber-200/60 text-[11px]">
             <button
               type="button"
               onClick={lockApp}
-              className="text-zinc-400 hover:text-amber-300 flex items-center gap-1 font-semibold transition-colors"
+              className="text-stone-600 hover:text-amber-800 flex items-center gap-1 font-semibold transition-colors"
             >
-              <KeyRound className="h-3 w-3 text-amber-400" />
+              <KeyRound className="h-3 w-3 text-amber-600" />
               <span>{t("Lock", "લૉક")}</span>
             </button>
             <button
               type="button"
               onClick={logout}
-              className="text-zinc-400 hover:text-rose-400 flex items-center gap-1 font-semibold transition-colors"
+              className="text-stone-600 hover:text-rose-600 flex items-center gap-1 font-semibold transition-colors"
             >
-              <LogOut className="h-3 w-3 text-rose-400" />
+              <LogOut className="h-3 w-3 text-rose-600" />
               <span>{t("Sign Out", "બહાર નીકળો")}</span>
             </button>
           </div>
         </div>
       ) : (
-        <div className="p-2 border-t border-white/[0.07] flex flex-col items-center gap-2">
+        <div className="p-2 border-t border-stone-200/80 flex flex-col items-center gap-2">
           <button
             type="button"
             onClick={lockApp}
-            className="p-2 text-zinc-400 hover:text-amber-300 rounded-xl hover:bg-white/[0.08]"
+            className="p-2 text-stone-500 hover:text-amber-700 rounded-xl hover:bg-amber-50"
             title={t("Lock App", "ઍપ લૉક કરો")}
           >
             <KeyRound className="h-4 w-4" />

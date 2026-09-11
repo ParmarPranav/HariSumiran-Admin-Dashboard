@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 
 export type BadgeVariant =
   | "default"
+  | "neutral"
   | "primary"
   | "secondary"
   | "success"
@@ -27,25 +28,27 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variantStyles: Record<BadgeVariant, string> = {
-    default: "bg-white/[0.06] text-zinc-200 border-white/10 shadow-sm",
-    primary: "bg-amber-500/15 text-amber-300 border-amber-400/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]",
-    secondary: "bg-emerald-500/15 text-emerald-300 border-emerald-400/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]",
-    success: "bg-emerald-500/15 text-emerald-300 border-emerald-400/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]",
-    warning: "bg-amber-500/15 text-amber-300 border-amber-400/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]",
-    danger: "bg-rose-500/15 text-rose-300 border-rose-400/30 shadow-[0_0_12px_rgba(244,63,94,0.15)]",
-    info: "bg-sky-500/15 text-sky-300 border-sky-400/30 shadow-[0_0_12px_rgba(56,189,248,0.15)]",
-    outline: "border-white/10 text-zinc-400 bg-transparent",
+    default: "bg-stone-100 text-stone-700 border-stone-200 shadow-sm",
+    neutral: "bg-stone-100 text-stone-700 border-stone-200 shadow-sm",
+    primary: "bg-amber-50 text-amber-800 border-amber-300 shadow-sm font-semibold",
+    secondary: "bg-emerald-50 text-emerald-800 border-emerald-300 shadow-sm font-semibold",
+    success: "bg-emerald-50 text-emerald-800 border-emerald-300 shadow-sm font-semibold",
+    warning: "bg-orange-50 text-orange-800 border-orange-300 shadow-sm font-semibold",
+    danger: "bg-rose-50 text-rose-800 border-rose-300 shadow-sm font-semibold",
+    info: "bg-sky-50 text-sky-800 border-sky-300 shadow-sm font-semibold",
+    outline: "border-stone-300 text-stone-600 bg-white shadow-sm",
   };
 
   const dotColors: Record<BadgeVariant, string> = {
-    default: "bg-zinc-400",
-    primary: "bg-amber-400 animate-pulse",
-    secondary: "bg-emerald-400 animate-pulse",
-    success: "bg-emerald-400 animate-pulse",
-    warning: "bg-amber-400 animate-pulse",
-    danger: "bg-rose-400 animate-pulse",
-    info: "bg-sky-400 animate-pulse",
-    outline: "bg-zinc-500",
+    default: "bg-stone-400",
+    neutral: "bg-stone-400",
+    primary: "bg-amber-500 animate-pulse",
+    secondary: "bg-emerald-500 animate-pulse",
+    success: "bg-emerald-500 animate-pulse",
+    warning: "bg-amber-500 animate-pulse",
+    danger: "bg-rose-500 animate-pulse",
+    info: "bg-sky-500 animate-pulse",
+    outline: "bg-stone-500",
   };
 
   return (

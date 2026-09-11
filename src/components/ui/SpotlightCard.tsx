@@ -15,7 +15,7 @@ interface SpotlightCardProps extends HTMLMotionProps<"div"> {
 export function SpotlightCard({
   children,
   className,
-  spotlightColor = "rgba(232, 176, 56, 0.12)",
+  spotlightColor = "rgba(245, 158, 11, 0.08)",
   hoverEffect = true,
   variant = "default",
   ...props
@@ -31,15 +31,15 @@ export function SpotlightCard({
 
   const variantStyles = {
     default:
-      "bg-[#0D101A]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.1)]",
+      "bg-white/95 backdrop-blur-2xl border border-stone-200/90 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.05),0_1px_2px_rgba(0,0,0,0.04)] text-stone-900",
     gold:
-      "bg-gradient-to-br from-amber-500/[0.08] via-[#111524]/90 to-[#0C0F1A]/95 backdrop-blur-2xl border border-amber-400/25 shadow-[0_20px_50px_rgba(0,0,0,0.7),0_0_24px_rgba(232,176,56,0.08),inset_0_1px_0_rgba(255,255,255,0.15)]",
+      "bg-gradient-to-br from-amber-50/80 via-white to-orange-50/50 backdrop-blur-2xl border border-amber-300/60 shadow-[0_12px_35px_-5px_rgba(245,158,11,0.1),0_1px_2px_rgba(0,0,0,0.04)] text-stone-900",
     elevated:
-      "bg-[#131726]/90 backdrop-blur-2xl border border-white/[0.12] shadow-[0_24px_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.15)]",
+      "bg-white backdrop-blur-2xl border border-stone-200 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.08),0_2px_4px_rgba(0,0,0,0.04)] text-stone-900",
     subtle:
-      "bg-[#090B12]/60 backdrop-blur-xl border border-white/[0.05] shadow-sm",
+      "bg-stone-50/80 backdrop-blur-xl border border-stone-200/60 shadow-sm text-stone-900",
     active:
-      "bg-gradient-to-br from-amber-500/15 via-[#161B2E] to-[#0E1220] backdrop-blur-2xl border border-amber-400/40 shadow-[0_20px_50px_rgba(232,176,56,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]",
+      "bg-gradient-to-br from-amber-50 via-white to-amber-100/60 backdrop-blur-2xl border border-amber-400 shadow-[0_12px_35px_-5px_rgba(245,158,11,0.15)] text-stone-900",
   };
 
   return (
@@ -55,7 +55,7 @@ export function SpotlightCard({
       }
       whileTap={hoverEffect ? { scale: 0.99 } : undefined}
       className={cn(
-        "group relative rounded-3xl p-6 overflow-hidden text-zinc-100 transition-colors duration-200",
+        "group relative rounded-3xl p-6 overflow-hidden text-stone-900 transition-colors duration-200",
         variantStyles[variant],
         className
       )}

@@ -54,27 +54,27 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-white/[0.08] bg-[#0A0D15]/85 px-4 md:px-6 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-stone-200/80 bg-white/90 px-4 md:px-6 backdrop-blur-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
       {/* Left Search Command Trigger & Mandir Live Status */}
       <div className="flex items-center gap-3 flex-1 max-w-lg">
         <button
           onClick={() => setCommandPaletteOpen(true)}
-          className="group flex h-10 w-full max-w-sm items-center gap-2.5 rounded-2xl border border-white/[0.08] bg-[#121624]/70 px-3.5 text-xs text-zinc-400 hover:border-amber-400/40 hover:bg-[#181D2E] hover:text-zinc-200 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+          className="group flex h-10 w-full max-w-sm items-center gap-2.5 rounded-2xl border border-stone-200/90 bg-stone-50/80 px-3.5 text-xs text-stone-600 hover:border-amber-400/80 hover:bg-white hover:text-stone-900 transition-all shadow-sm"
         >
-          <Search className="h-3.5 w-3.5 text-zinc-400 group-hover:text-amber-300 transition-colors" />
+          <Search className="h-3.5 w-3.5 text-stone-400 group-hover:text-amber-600 transition-colors" />
           <span className="flex-1 text-left truncate font-normal">
             {t("Search (Members, Thal, Sabha, Seva)...", "શોધો (સભ્યો, થાળ, સભા, સેવા)...")}
           </span>
-          <kbd className="hidden sm:inline-flex h-5 items-center rounded-lg border border-white/10 bg-white/[0.06] px-1.5 font-mono text-[10px] text-zinc-400">
+          <kbd className="hidden sm:inline-flex h-5 items-center rounded-lg border border-stone-200 bg-white px-1.5 font-mono text-[10px] text-stone-500">
             ⌘K
           </kbd>
         </button>
 
         {/* Live Mandir Prayer Ticker */}
-        <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[11px] text-zinc-300">
-          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-          <span className="font-mono text-zinc-400">Nadiad:</span>
-          <span className="font-semibold text-amber-300 font-mono">07:00 PM Sandhya Aarti</span>
+        <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-50 border border-amber-200/80 text-[11px] text-stone-800">
+          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+          <span className="font-mono text-stone-500">Nadiad:</span>
+          <span className="font-semibold text-amber-800 font-mono">07:00 PM Sandhya Aarti</span>
         </div>
       </div>
 
@@ -83,10 +83,10 @@ export function Header() {
         {/* Persona Switcher Pill (One Account, Multi-Responsibilities) */}
         <button
           onClick={() => setPersonaModalOpen(true)}
-          className="group flex items-center gap-1.5 rounded-2xl border border-amber-400/30 bg-gradient-to-r from-amber-500/10 to-yellow-600/10 px-3 py-1.5 text-xs font-bold text-amber-300 hover:border-amber-400/50 hover:bg-amber-500/20 transition-all shadow-sm"
+          className="group flex items-center gap-1.5 rounded-2xl border border-amber-300 bg-amber-50/90 px-3 py-1.5 text-xs font-bold text-amber-900 hover:border-amber-400 hover:bg-amber-100 transition-all shadow-sm"
           title={t("Switch Persona for testing", "પરીક્ષણ માટે વ્યક્તિ બદલો")}
         >
-          <Users className="h-3.5 w-3.5 text-amber-400" />
+          <Users className="h-3.5 w-3.5 text-amber-600" />
           <span className="hidden sm:inline truncate max-w-[130px] font-semibold">{user?.name}</span>
           <ChevronDown className="h-3 w-3 opacity-70 group-hover:translate-y-0.5 transition-transform" />
         </button>
@@ -95,12 +95,12 @@ export function Header() {
         <div className="relative">
           <button
             onClick={() => setNotificationsOpen(!notificationsOpen)}
-            className="relative flex h-9 w-9 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#121624] text-zinc-300 hover:bg-[#181D2E] hover:border-amber-400/30 hover:text-white transition-all shadow-sm"
+            className="relative flex h-9 w-9 items-center justify-center rounded-2xl border border-stone-200 bg-white text-stone-700 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-800 transition-all shadow-sm"
             title={t("Actionable Notifications", "કાર્યવાહી સૂચનાઓ")}
           >
-            <Bell className="h-4 w-4 text-zinc-400" />
+            <Bell className="h-4 w-4 text-stone-600" />
             {unreadNotifications.length > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-[#FCE082] to-[#E8B038] text-[9px] font-black text-stone-950 shadow-md animate-pulse">
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-[9px] font-black text-white shadow-md animate-pulse">
                 {unreadNotifications.length}
               </span>
             )}
@@ -109,12 +109,12 @@ export function Header() {
           {notificationsOpen && (
             <>
               <div className="fixed inset-0 z-30" onClick={() => setNotificationsOpen(false)} />
-              <div className="absolute right-0 top-11 z-40 w-84 sm:w-96 rounded-3xl border border-white/10 bg-[#121622] p-4 shadow-[0_16px_48px_rgba(0,0,0,0.8)] backdrop-blur-2xl animate-in fade-in zoom-in-95 space-y-3">
-                <div className="flex items-center justify-between border-b border-white/[0.08] pb-2 px-1">
-                  <span className="text-xs font-bold text-white">
+              <div className="absolute right-0 top-11 z-40 w-84 sm:w-96 rounded-3xl border border-stone-200 bg-white p-4 shadow-[0_16px_48px_rgba(0,0,0,0.12)] backdrop-blur-2xl animate-in fade-in zoom-in-95 space-y-3">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-2 px-1">
+                  <span className="text-xs font-bold text-stone-900 font-display">
                     {t("Actionable Notifications", "સૂચનાઓ અને કાર્યો")}
                   </span>
-                  <span className="text-[10px] text-amber-400 font-bold bg-amber-500/15 border border-amber-400/30 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] text-amber-800 font-bold bg-amber-50 border border-amber-300 px-2 py-0.5 rounded-full">
                     {unreadNotifications.length} {t("Pending", "બાકી")}
                   </span>
                 </div>
@@ -126,23 +126,23 @@ export function Header() {
                       className={cn(
                         "p-3 rounded-2xl border text-xs space-y-2 transition-all",
                         notif.actionTaken
-                          ? "bg-emerald-500/10 border-emerald-500/20 text-zinc-200"
-                          : "bg-amber-500/10 border-amber-500/25 text-zinc-100"
+                          ? "bg-emerald-50 border-emerald-200 text-stone-700"
+                          : "bg-amber-50 border-amber-200 text-stone-900"
                       )}
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <p className="font-bold text-white text-xs">
+                        <p className="font-bold text-stone-900 text-xs">
                           {language === "gu" && notif.gujaratiTitle ? notif.gujaratiTitle : notif.title}
                         </p>
                         <button
                           onClick={() => dismissNotification(notif.id)}
-                          className="text-zinc-500 hover:text-zinc-300 text-[10px]"
+                          className="text-stone-400 hover:text-stone-600 text-[10px]"
                         >
                           ✕
                         </button>
                       </div>
 
-                      <p className="text-[11px] text-zinc-300 leading-snug">
+                      <p className="text-[11px] text-stone-600 leading-snug">
                         {language === "gu" && notif.gujaratiMessage ? notif.gujaratiMessage : notif.message}
                       </p>
 
@@ -158,7 +158,7 @@ export function Header() {
                           </button>
                           <button
                             onClick={() => handleNotificationAction(notif.id, "Declined Thal Swap")}
-                            className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 hover:bg-white/20 font-semibold text-[10px] text-zinc-200 transition-colors"
+                            className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:bg-stone-50 font-semibold text-[10px] text-stone-700 transition-colors"
                           >
                             <span>{t("Decline", "ના પાડો")}</span>
                           </button>
@@ -169,7 +169,7 @@ export function Header() {
                         <div className="pt-1">
                           <button
                             onClick={() => handleNotificationAction(notif.id, "Claimed Seva Slot")}
-                            className="px-3 py-1 rounded-lg bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] hover:brightness-110 text-stone-950 font-extrabold text-[10px] shadow-sm border border-yellow-200/50 flex items-center gap-1"
+                            className="px-3 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:brightness-105 text-white font-extrabold text-[10px] shadow-sm flex items-center gap-1"
                           >
                             <Sparkles className="h-3 w-3" />
                             <span>{t("I Can Help", "હું સેવા કરીશ")}</span>
@@ -178,7 +178,7 @@ export function Header() {
                       )}
 
                       {notif.actionTaken && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-400/30 px-2 py-0.5 rounded-md">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded-md">
                           <Check className="h-3 w-3" /> {notif.actionTakenLabel || "Completed"}
                         </span>
                       )}
@@ -191,14 +191,14 @@ export function Header() {
         </div>
 
         {/* Language Toggle Capsule (EN / GU) */}
-        <div className="flex items-center p-0.5 rounded-2xl bg-[#121624] border border-white/[0.08] shadow-inner">
+        <div className="flex items-center p-0.5 rounded-2xl bg-stone-100 border border-stone-200/80 shadow-inner">
           <button
             onClick={() => setLanguage("en")}
             className={cn(
               "px-2.5 py-1 text-[11px] font-bold rounded-xl transition-all duration-200",
               language === "en"
-                ? "bg-gradient-to-r from-[#FCE082] to-[#E8B038] text-stone-950 font-black shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white font-extrabold shadow-sm"
+                : "text-stone-600 hover:text-stone-900"
             )}
           >
             EN
@@ -208,8 +208,8 @@ export function Header() {
             className={cn(
               "px-2.5 py-1 text-[11px] font-bold rounded-xl transition-all duration-200",
               language === "gu"
-                ? "bg-gradient-to-r from-[#FCE082] to-[#E8B038] text-stone-950 font-black shadow-sm"
-                : "text-zinc-400 hover:text-white"
+                ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white font-extrabold shadow-sm"
+                : "text-stone-600 hover:text-stone-900"
             )}
           >
             ગુજરાતી
@@ -227,24 +227,24 @@ export function Header() {
               <img
                 src={user.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"}
                 alt={user.name}
-                className="h-9 w-9 rounded-2xl border border-amber-400/50 object-cover shadow-sm group-hover:border-amber-400 transition-colors"
+                className="h-9 w-9 rounded-2xl border border-amber-300 object-cover shadow-sm group-hover:border-amber-500 transition-colors"
               />
-              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-[#0A0D15]" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-white" />
             </div>
-            <ChevronDown className="h-3 w-3 text-zinc-400 hidden sm:inline opacity-70 group-hover:translate-y-0.5 transition-transform" />
+            <ChevronDown className="h-3 w-3 text-stone-400 hidden sm:inline opacity-70 group-hover:translate-y-0.5 transition-transform" />
           </button>
 
           {profileMenuOpen && (
             <>
               <div className="fixed inset-0 z-30" onClick={() => setProfileMenuOpen(false)} />
-              <div className="absolute right-0 top-11 z-40 w-72 rounded-3xl border border-white/10 bg-[#121622] p-3 shadow-[0_16px_48px_rgba(0,0,0,0.8)] backdrop-blur-2xl animate-in fade-in zoom-in-95 space-y-2">
-                <div className="p-3 rounded-2xl bg-[#181D2E] border border-white/[0.06] text-xs space-y-1">
-                  <p className="font-bold text-white text-sm">{user.name}</p>
-                  <p className="text-[11px] text-zinc-400">{user.email || user.phone}</p>
-                  <p className="text-[10px] text-amber-400 font-mono font-semibold">{user.mandir}</p>
+              <div className="absolute right-0 top-11 z-40 w-72 rounded-3xl border border-stone-200 bg-white p-3 shadow-[0_16px_48px_rgba(0,0,0,0.12)] backdrop-blur-2xl animate-in fade-in zoom-in-95 space-y-2">
+                <div className="p-3 rounded-2xl bg-amber-50/60 border border-amber-200/60 text-xs space-y-1">
+                  <p className="font-bold text-stone-900 text-sm font-display">{user.name}</p>
+                  <p className="text-[11px] text-stone-500">{user.email || user.phone}</p>
+                  <p className="text-[10px] text-amber-800 font-mono font-semibold">{user.mandir}</p>
                   <div className="flex flex-wrap gap-1 pt-1.5">
                     {(user.responsibilities || []).map((r, i) => (
-                      <span key={i} className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/15 text-amber-300 border border-amber-400/30">
+                      <span key={i} className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-white text-amber-800 border border-amber-300">
                         {language === "gu" && r.gujaratiTitle ? r.gujaratiTitle : r.title}
                       </span>
                     ))}
@@ -258,9 +258,9 @@ export function Header() {
                       lockApp();
                       router.push("/auth");
                     }}
-                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-zinc-200 hover:bg-white/[0.06] hover:text-white transition-colors"
+                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-stone-700 hover:bg-amber-50 hover:text-amber-900 transition-colors"
                   >
-                    <KeyRound className="h-4 w-4 text-amber-400" />
+                    <KeyRound className="h-4 w-4 text-amber-600" />
                     <span>{t("Lock Application (PIN)", "ઍપ લૉક કરો (પિન)")}</span>
                   </button>
 
@@ -269,9 +269,9 @@ export function Header() {
                       setProfileMenuOpen(false);
                       setPersonaModalOpen(true);
                     }}
-                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-zinc-200 hover:bg-white/[0.06] hover:text-white transition-colors"
+                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-stone-700 hover:bg-amber-50 hover:text-amber-900 transition-colors"
                   >
-                    <Users className="h-4 w-4 text-amber-400" />
+                    <Users className="h-4 w-4 text-amber-600" />
                     <span>{t("Switch Persona (Demo)", "વ્યક્તિ બદલો (ડેમો)")}</span>
                   </button>
 
@@ -281,9 +281,9 @@ export function Header() {
                       setProfileMenuOpen(false);
                       router.push("/auth");
                     }}
-                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-rose-400 hover:bg-rose-500/10 transition-colors"
+                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors"
                   >
-                    <LogOut className="h-4 w-4 text-rose-400" />
+                    <LogOut className="h-4 w-4 text-rose-600" />
                     <span>{t("Sign Out", "બહાર નીકળો")}</span>
                   </button>
                 </div>
@@ -310,18 +310,18 @@ export function Header() {
                 switchPersona(u.name);
                 setPersonaModalOpen(false);
               }}
-              className="w-full flex items-start gap-3 p-3.5 rounded-2xl border border-white/10 hover:border-amber-400/40 bg-[#161B28]/80 hover:bg-[#1D2436] transition-all text-left group"
+              className="w-full flex items-start gap-3 p-3.5 rounded-2xl border border-stone-200/90 hover:border-amber-400 bg-stone-50 hover:bg-amber-50/60 transition-all text-left group"
             >
-              <img src={u.avatar} alt={u.name} className="h-10 w-10 rounded-xl object-cover shrink-0 mt-0.5 border border-white/10" />
+              <img src={u.avatar} alt={u.name} className="h-10 w-10 rounded-xl object-cover shrink-0 mt-0.5 border border-stone-200" />
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-xs text-white group-hover:text-amber-300 transition-colors truncate">
+                <p className="font-bold text-xs text-stone-900 group-hover:text-amber-800 transition-colors truncate">
                   {u.name}
                 </p>
                 <div className="flex flex-wrap gap-1 mt-1.5">
                   {u.responsibilities.map((r, rIdx) => (
                     <span
                       key={rIdx}
-                      className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-white/[0.06] border border-white/10 text-zinc-300"
+                      className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-white border border-stone-200 text-stone-700"
                     >
                       {language === "gu" && r.gujaratiTitle ? r.gujaratiTitle : r.title}
                     </span>

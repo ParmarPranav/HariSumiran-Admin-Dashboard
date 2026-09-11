@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { QRScannerModal } from "@/components/ui/QRScannerModal";
+import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import {
   PartyPopper,
   QrCode,
@@ -92,17 +93,19 @@ export default function EventsPage() {
   };
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="relative min-h-full p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+      <MandalaBackground />
+
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <PartyPopper className="h-5 w-5 text-amber-400" />
-            <h1 className="font-display text-2xl font-bold text-white">
+            <PartyPopper className="h-5 w-5 text-amber-600" />
+            <h1 className="font-heading text-2xl font-bold text-stone-900">
               {language === "gu" ? "ઉત્સવ અને મહોત્સવ" : "Festivals, Events & Digital Passes"}
             </h1>
           </div>
-          <p className="text-xs text-charcoal-subtle mt-0.5">
+          <p className="text-xs text-stone-600 mt-0.5">
             Festival oversight, committee planning tasks &amp; Apple Wallet-style QR passes
           </p>
         </div>
@@ -111,7 +114,7 @@ export default function EventsPage() {
           <Button
             size="md"
             variant="outline"
-            leftIcon={<QrCode className="h-4 w-4 text-amber-400" />}
+            leftIcon={<QrCode className="h-4 w-4 text-amber-600" />}
             onClick={() => setQrModalOpen(true)}
           >
             Scan Pass at Gate
@@ -120,7 +123,7 @@ export default function EventsPage() {
       </div>
 
       {/* Events Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
         {events.map((evt) => {
           const isLive = evt.status === "Live";
           const progress = Math.round((evt.registeredCount / (evt.capacity || 1)) * 100);
@@ -129,40 +132,40 @@ export default function EventsPage() {
             <SpotlightCard
               key={evt._id}
               spotlightColor={isLive ? "rgba(244, 63, 94, 0.12)" : "rgba(245, 158, 11, 0.12)"}
-              className={`p-6 space-y-5 border-l-4 ${
-                isLive ? "border-l-rose-500" : "border-l-amber-400"
+              className={`p-6 space-y-5 border-l-4 bg-white border-stone-200/90 shadow-sm ${
+                isLive ? "border-l-rose-500" : "border-l-amber-500"
               }`}
             >
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-charcoal-subtle">{evt.eventCode}</span>
+                    <span className="font-mono text-xs font-bold text-stone-500">{evt.eventCode}</span>
                     <Badge variant={isLive ? "danger" : "primary"} size="sm">
                       {evt.status}
                     </Badge>
                   </div>
-                  <h3 className="font-display text-xl font-bold text-white mt-1 leading-tight">
+                  <h3 className="font-heading text-xl font-bold text-stone-900 mt-1 leading-tight">
                     {evt.title}
                   </h3>
                   {evt.gujaratiTitle && (
-                    <p className="text-xs text-amber-300/80 font-gujarati">{evt.gujaratiTitle}</p>
+                    <p className="text-xs text-amber-800 font-semibold font-gujarati mt-0.5">{evt.gujaratiTitle}</p>
                   )}
                 </div>
               </div>
 
-              <p className="text-xs text-charcoal-subtle leading-relaxed">{evt.description}</p>
+              <p className="text-xs text-stone-600 leading-relaxed">{evt.description}</p>
 
               {/* Progress Capacity Bar */}
               <div className="space-y-1.5">
-                <div className="flex justify-between text-xs">
-                  <span className="font-semibold text-gray-300">Registration Capacity:</span>
-                  <span className="font-mono font-bold text-amber-300">
+                <div className="flex justify-between text-xs font-semibold">
+                  <span className="text-stone-600">Registration Capacity:</span>
+                  <span className="font-mono font-bold text-amber-800">
                     {evt.registeredCount} / {evt.capacity} Devotees ({progress}%)
                   </span>
                 </div>
-                <div className="h-2 w-full rounded-full bg-[#161B28] border border-white/5 overflow-hidden">
+                <div className="h-2 w-full rounded-full bg-stone-100 border border-stone-200 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] transition-all duration-300 shadow-[0_0_12px_rgba(232,176,56,0.4)]"
+                    className="h-full rounded-full bg-gradient-to-r from-[#FF7A00] to-[#EA580C] transition-all duration-300 shadow-xs"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -170,15 +173,15 @@ export default function EventsPage() {
 
               {/* Committee Leads */}
               {evt.committeeLeads && evt.committeeLeads.length > 0 && (
-                <div className="space-y-2 border-t border-white/10 pt-3">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                <div className="space-y-2 border-t border-stone-200 pt-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-stone-500">
                     Organizing Committee Leads
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {evt.committeeLeads.map((lead: any, i: number) => (
-                      <div key={i} className="p-2.5 rounded-xl bg-[#161B28]/60 border border-white/10">
-                        <p className="font-semibold text-white">{lead.leadName}</p>
-                        <p className="text-[10px] text-gray-400">{lead.department}</p>
+                      <div key={i} className="p-2.5 rounded-xl bg-stone-50 border border-stone-200">
+                        <p className="font-bold text-stone-900">{lead.leadName}</p>
+                        <p className="text-[10px] text-stone-500 font-medium">{lead.department}</p>
                       </div>
                     ))}
                   </div>
@@ -187,28 +190,28 @@ export default function EventsPage() {
 
               {/* Tasks Checklist */}
               {evt.tasks && evt.tasks.length > 0 && (
-                <div className="space-y-1.5 border-t border-white/10 pt-3">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                <div className="space-y-1.5 border-t border-stone-200 pt-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-stone-500">
                     Readiness Checklist ({evt.tasks.filter((t: any) => t.completed).length} / {evt.tasks.length})
                   </p>
                   <div className="space-y-1">
                     {evt.tasks.map((task: any) => (
-                      <div key={task.id} className="flex items-center gap-2 text-xs text-gray-200">
+                      <div key={task.id} className="flex items-center gap-2 text-xs text-stone-700">
                         <CheckCircle2
                           className={`h-3.5 w-3.5 shrink-0 ${
-                            task.completed ? "text-emerald-400" : "text-gray-500 opacity-40"
+                            task.completed ? "text-emerald-600 font-bold" : "text-stone-300"
                           }`}
                         />
-                        <span className={task.completed ? "line-through text-gray-500" : ""}>{task.title}</span>
+                        <span className={task.completed ? "line-through text-stone-400" : "font-medium"}>{task.title}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-                <div className="text-xs text-gray-400 flex items-center gap-1.5">
-                  <Calendar className="h-3.5 w-3.5 text-amber-400" />
+              <div className="pt-3 border-t border-stone-200 flex items-center justify-between">
+                <div className="text-xs text-stone-500 flex items-center gap-1.5 font-medium">
+                  <Calendar className="h-3.5 w-3.5 text-amber-600" />
                   <span>{evt.date}</span>
                 </div>
                 <Button
@@ -236,22 +239,22 @@ export default function EventsPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-gray-300">Attendee Devotee Name *</label>
+            <label className="text-xs font-semibold text-stone-700">Attendee Devotee Name *</label>
             <input
               type="text"
               value={attendeeName}
               onChange={(e) => setAttendeeName(e.target.value)}
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 bg-white px-3.5 text-xs text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-gray-300">Household Name</label>
+            <label className="text-xs font-semibold text-stone-700">Household Name</label>
             <input
               type="text"
               value={attendeeFamily}
               onChange={(e) => setAttendeeFamily(e.target.value)}
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-gray-500 focus:border-amber-500/60 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 bg-white px-3.5 text-xs text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xs"
             />
           </div>
 
@@ -275,25 +278,25 @@ export default function EventsPage() {
           maxWidth="sm"
         >
           <div className="space-y-4 text-center">
-            <div className="rounded-3xl border border-amber-400/30 bg-gradient-to-b from-[#1C2236] to-[#0F121C] p-6 shadow-2xl space-y-4">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FCE082] via-[#E8B038] to-[#C98B1C] text-stone-950 font-heading font-black text-xl shadow-[0_0_20px_rgba(232,176,56,0.4)]">
+            <div className="rounded-3xl border border-amber-300 bg-gradient-to-b from-amber-50/70 via-white to-stone-50 p-6 shadow-xl space-y-4">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-white font-heading font-black text-xl shadow-sm">
                 હ
               </div>
 
               <div>
-                <h4 className="font-heading text-base font-bold text-white">{generatedPass.eventTitle}</h4>
-                <p className="text-xs text-gray-400">HariPrabodham Mandir, Nadiad</p>
+                <h4 className="font-heading text-base font-bold text-stone-900">{generatedPass.eventTitle}</h4>
+                <p className="text-xs text-stone-500">HariPrabodham Mandir, Nadiad</p>
               </div>
 
               {/* Simulated QR Code */}
-              <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-2xl bg-white p-2.5 border border-amber-400/40 shadow-glow-sm">
-                <QrCode className="h-28 w-28 text-stone-950" />
+              <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-2xl bg-white p-2.5 border border-amber-200 shadow-sm">
+                <QrCode className="h-28 w-28 text-stone-900" />
               </div>
 
-              <div className="border-t border-dashed border-white/15 pt-3 text-xs space-y-1">
-                <p className="font-bold text-white">{generatedPass.memberName}</p>
-                <p className="font-mono text-[11px] font-bold text-amber-300">{generatedPass.passCode}</p>
-                <p className="text-[10px] text-gray-400">Date: {generatedPass.date} &bull; Gate Pass</p>
+              <div className="border-t border-dashed border-stone-300 pt-3 text-xs space-y-1">
+                <p className="font-bold text-stone-900">{generatedPass.memberName}</p>
+                <p className="font-mono text-[11px] font-bold text-amber-800">{generatedPass.passCode}</p>
+                <p className="text-[10px] text-stone-500">Date: {generatedPass.date} &bull; Gate Pass</p>
               </div>
             </div>
 

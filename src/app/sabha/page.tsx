@@ -147,12 +147,12 @@ export default function SabhaPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <CalendarDays className="h-5 w-5 text-amber-400" />
-            <h1 className="font-display text-2xl font-bold text-white">
+            <CalendarDays className="h-6 w-6 text-amber-600" />
+            <h1 className="font-display text-2xl md:text-3xl font-black text-stone-900">
               {language === "gu" ? "સભા અને લાઈવ હાજરી" : "Sabha & Live Attendance Console"}
             </h1>
           </div>
-          <p className="text-xs text-charcoal-subtle mt-0.5">
+          <p className="text-xs md:text-sm text-stone-600 mt-0.5">
             Real-time multi-mode check-in (Search &bull; Full Roster &bull; QR Pass)
           </p>
         </div>
@@ -161,7 +161,7 @@ export default function SabhaPage() {
           <Button
             size="md"
             variant="outline"
-            leftIcon={<QrCode className="h-4 w-4 text-amber-400" />}
+            leftIcon={<QrCode className="h-4 w-4 text-amber-600" />}
             onClick={() => setQrModalOpen(true)}
           >
             Launch QR Scanner
@@ -179,50 +179,50 @@ export default function SabhaPage() {
       {/* Active Session Console Hero */}
       {activeSession && (
         <SpotlightCard
-          spotlightColor="rgba(245, 158, 11, 0.12)"
-          className="border-l-4 border-l-amber-400 p-6 space-y-5 bg-gradient-to-br from-[#111422]/95 via-[#151928]/90 to-[#0A0C14]/95 shadow-2xl backdrop-blur-xl"
+          spotlightColor="rgba(245, 158, 11, 0.08)"
+          className="border-l-4 border-l-amber-500 p-6 space-y-5 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-white border-amber-300/80 shadow-md backdrop-blur-xl"
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
-                <span className="font-mono text-xs font-bold text-rose-300 bg-rose-500/20 px-2 py-0.5 rounded-md border border-rose-500/30 uppercase">
+                <span className="font-mono text-xs font-bold text-rose-800 bg-rose-100 px-2 py-0.5 rounded-md border border-rose-300 uppercase">
                   {activeSession.status} Session
                 </span>
-                <span className="text-xs text-charcoal-subtle">&bull; {activeSession.type}</span>
+                <span className="text-xs text-stone-500">&bull; {activeSession.type}</span>
               </div>
-              <h2 className="font-display text-xl md:text-2xl font-bold text-white mt-1">
+              <h2 className="font-display text-xl md:text-2xl font-black text-stone-900 mt-1">
                 {activeSession.title}
               </h2>
-              <p className="text-xs text-charcoal-subtle mt-0.5">
+              <p className="text-xs text-stone-600 mt-0.5">
                 {activeSession.date} &bull; {activeSession.startTime} - {activeSession.endTime} &bull; {activeSession.location}
               </p>
             </div>
 
             {/* Live Count Stat Strip */}
-            <div className="flex items-center gap-4 bg-[#121622]/80 p-3.5 rounded-2xl border border-white/10 shadow-inner">
+            <div className="flex items-center gap-4 bg-white/90 p-3.5 rounded-2xl border border-stone-200 shadow-sm">
               <div className="text-right">
-                <p className="text-[10px] uppercase font-bold text-slate-400">Present / Expected</p>
-                <p className="font-display text-2xl font-extrabold text-white">
-                  <span className="text-amber-300 font-mono">{presentCount}</span> / <span className="font-mono">{activeSession.expectedCount}</span>
+                <p className="text-[10px] uppercase font-bold text-stone-500">Present / Expected</p>
+                <p className="font-display text-2xl font-black text-stone-900">
+                  <span className="text-amber-700 font-mono">{presentCount}</span> / <span className="font-mono">{activeSession.expectedCount}</span>
                 </p>
               </div>
-              <div className="h-10 w-10 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-mono font-bold text-sm">
+              <div className="h-10 w-10 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center border border-emerald-300 font-mono font-black text-sm">
                 {Math.round((presentCount / (activeSession.expectedCount || 1)) * 100)}%
               </div>
             </div>
           </div>
 
           {/* 3 Entry Modes Bar */}
-          <div className="border-t border-white/10 pt-4 space-y-4">
+          <div className="border-t border-stone-200/80 pt-4 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex gap-1.5 bg-white/[0.04] p-1 rounded-2xl border border-white/10 inline-flex">
+              <div className="flex gap-1.5 bg-stone-100 p-1 rounded-2xl border border-stone-200 inline-flex">
                 <button
                   onClick={() => setLiveMode("search")}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                     liveMode === "search"
-                      ? "bg-amber-500/20 text-amber-300 shadow-sm border border-amber-400/30"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white shadow-sm font-bold"
+                      : "text-stone-600 hover:text-stone-900"
                   }`}
                 >
                   <Search className="h-3.5 w-3.5" />
@@ -232,8 +232,8 @@ export default function SabhaPage() {
                   onClick={() => setLiveMode("list")}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                     liveMode === "list"
-                      ? "bg-amber-500/20 text-amber-300 shadow-sm border border-amber-400/30"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white shadow-sm font-bold"
+                      : "text-stone-600 hover:text-stone-900"
                   }`}
                 >
                   <Users className="h-3.5 w-3.5" />
@@ -241,7 +241,7 @@ export default function SabhaPage() {
                 </button>
                 <button
                   onClick={() => setQrModalOpen(true)}
-                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 text-amber-400 hover:bg-amber-500/15 transition-colors"
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 text-amber-700 hover:bg-amber-100/60 transition-colors"
                 >
                   <QrCode className="h-3.5 w-3.5" />
                   <span>Camera QR Scanner</span>
@@ -249,41 +249,41 @@ export default function SabhaPage() {
               </div>
 
               <div className="relative flex-1 max-w-xs">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-stone-400" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Type name or phone to mark..."
-                  className="h-9 w-full rounded-xl border border-white/10 bg-white/5 pl-8 pr-3 text-xs text-white focus:border-amber-400 focus:outline-none placeholder:text-slate-500"
+                  className="h-9 w-full rounded-xl border border-stone-200 bg-white pl-8 pr-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none placeholder:text-stone-400 shadow-inner"
                 />
               </div>
             </div>
 
             {/* Roster / Search Results Stream */}
-            <div className="max-h-72 overflow-y-auto divide-y divide-white/10 rounded-2xl border border-white/10 bg-[#161B28]/60">
+            <div className="max-h-72 overflow-y-auto divide-y divide-stone-100 rounded-2xl border border-stone-200 bg-white shadow-sm">
               {filteredRoster.length === 0 ? (
-                <div className="p-6 text-center text-xs text-slate-400">
+                <div className="p-6 text-center text-xs text-stone-500">
                   No devotees found matching &ldquo;{searchQuery}&rdquo;
                 </div>
               ) : (
                 filteredRoster.map((member) => (
                   <div
                     key={member.memberId}
-                    className="flex items-center justify-between p-3 text-xs hover:bg-white/[0.04] transition-colors"
+                    className="flex items-center justify-between p-3 text-xs hover:bg-amber-50/40 transition-colors"
                   >
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white">{member.memberName}</span>
-                        <span className="text-[11px] text-slate-400">({member.familyName})</span>
+                        <span className="font-bold text-stone-900">{member.memberName}</span>
+                        <span className="text-[11px] text-stone-500">({member.familyName})</span>
                       </div>
-                      <p className="text-[11px] text-slate-400 font-mono">+91 {member.phone} &bull; Streak: {member.attendanceStreak}w</p>
+                      <p className="text-[11px] text-stone-500 font-mono">+91 {member.phone} &bull; Streak: {member.attendanceStreak}w</p>
                     </div>
 
                     <div>
                       {member.isPresent ? (
-                        <div className="flex items-center gap-1 text-emerald-300 font-bold text-xs bg-emerald-500/15 px-2.5 py-1 rounded-xl border border-emerald-500/30">
-                          <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Present
+                        <div className="flex items-center gap-1 text-emerald-800 font-bold text-xs bg-emerald-50 px-2.5 py-1 rounded-xl border border-emerald-300">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Present
                         </div>
                       ) : (
                         <Button
@@ -305,47 +305,47 @@ export default function SabhaPage() {
 
       {/* Scheduled Sabhas History & Upcoming List */}
       <div className="space-y-4">
-        <h3 className="font-display text-lg font-bold text-white">All Scheduled Satsang Sessions</h3>
+        <h3 className="font-display text-lg font-black text-stone-900">All Scheduled Satsang Sessions</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {sabhas.map((sabha) => (
             <SpotlightCard
               key={sabha._id}
               spotlightColor="rgba(245, 158, 11, 0.08)"
-              className="p-5 space-y-3 flex flex-col justify-between border-white/10 bg-[#121624]/90"
+              className="p-5 space-y-3 flex flex-col justify-between border-stone-200/90 bg-white shadow-sm"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Badge variant={sabha.status === "Live" ? "danger" : sabha.status === "Completed" ? "success" : "primary"}>
                     {sabha.status}
                   </Badge>
-                  <span className="text-[10px] font-mono font-semibold text-slate-400">{sabha.sabhaCode}</span>
+                  <span className="text-[10px] font-mono font-semibold text-stone-500">{sabha.sabhaCode}</span>
                 </div>
 
-                <h4 className="font-display text-base font-bold text-white leading-tight">
+                <h4 className="font-display text-base font-black text-stone-900 leading-tight">
                   {sabha.title}
                 </h4>
                 {sabha.gujaratiTitle && (
-                  <p className="text-xs text-slate-400 font-gujarati">{sabha.gujaratiTitle}</p>
+                  <p className="text-xs text-stone-600 font-gujarati">{sabha.gujaratiTitle}</p>
                 )}
 
-                <div className="space-y-1 text-xs text-slate-400 pt-1">
+                <div className="space-y-1 text-xs text-stone-600 pt-1">
                   <div className="flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-slate-400" />
+                    <Clock className="h-3.5 w-3.5 text-amber-600" />
                     <span>{sabha.date} ({sabha.startTime} - {sabha.endTime})</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 text-slate-400" />
+                    <MapPin className="h-3.5 w-3.5 text-amber-600" />
                     <span>{sabha.location}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Users className="h-3.5 w-3.5 text-slate-400" />
+                    <Users className="h-3.5 w-3.5 text-amber-600" />
                     <span className="font-mono">{sabha.presentCount} / {sabha.expectedCount} Attendees</span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-white/10 flex justify-end">
+              <div className="pt-3 border-t border-stone-100 flex justify-end">
                 <Button
                   size="sm"
                   variant="outline"
@@ -381,70 +381,70 @@ export default function SabhaPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-slate-300">Sabha Title *</label>
+            <label className="text-xs font-bold text-stone-800">Sabha Title *</label>
             <input
               type="text"
               value={newSabha.title}
               onChange={(e) => setNewSabha({ ...newSabha, title: e.target.value })}
               placeholder="e.g. Sunday Evening Satsang Sabha"
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300">Sabha Type</label>
+              <label className="text-xs font-bold text-stone-800">Sabha Type</label>
               <select
                 value={newSabha.type}
                 onChange={(e) => setNewSabha({ ...newSabha, type: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
               >
-                <option value="Evening Sabha" className="bg-[#161B28] text-white">Evening Sabha</option>
-                <option value="Morning Sabha" className="bg-[#161B28] text-white">Morning Sabha</option>
-                <option value="Youth Sabha" className="bg-[#161B28] text-white">Youth Sabha</option>
-                <option value="Special Mahotsav" className="bg-[#161B28] text-white">Special Mahotsav</option>
-                <option value="Bal Sabha" className="bg-[#161B28] text-white">Bal Sabha</option>
+                <option value="Evening Sabha" className="bg-white text-stone-900">Evening Sabha</option>
+                <option value="Morning Sabha" className="bg-white text-stone-900">Morning Sabha</option>
+                <option value="Youth Sabha" className="bg-white text-stone-900">Youth Sabha</option>
+                <option value="Special Mahotsav" className="bg-white text-stone-900">Special Mahotsav</option>
+                <option value="Bal Sabha" className="bg-white text-stone-900">Bal Sabha</option>
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-300">Date *</label>
+              <label className="text-xs font-bold text-stone-800">Date *</label>
               <input
                 type="date"
                 value={newSabha.date}
                 onChange={(e) => setNewSabha({ ...newSabha, date: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300">Start Time</label>
+              <label className="text-xs font-bold text-stone-800">Start Time</label>
               <input
                 type="time"
                 value={newSabha.startTime}
                 onChange={(e) => setNewSabha({ ...newSabha, startTime: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-300">End Time</label>
+              <label className="text-xs font-bold text-stone-800">End Time</label>
               <input
                 type="time"
                 value={newSabha.endTime}
                 onChange={(e) => setNewSabha({ ...newSabha, endTime: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+                className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-300">Hall / Location</label>
+            <label className="text-xs font-bold text-stone-800">Hall / Location</label>
             <input
               type="text"
               value={newSabha.location}
               onChange={(e) => setNewSabha({ ...newSabha, location: e.target.value })}
-              className="mt-1 h-10 w-full rounded-xl border border-white/10 px-3.5 text-xs text-white focus:border-amber-400 focus:outline-none bg-white/5"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
             />
           </div>
 
