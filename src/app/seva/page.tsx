@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { QRScannerModal } from "@/components/ui/QRScannerModal";
+import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import {
   Sparkles,
   Users,
@@ -137,9 +138,11 @@ export default function SevaPage() {
   );
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="relative min-h-full p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+      <MandalaBackground />
+
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <Sparkles className="h-6 w-6 text-amber-600" />
@@ -174,7 +177,7 @@ export default function SevaPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-stone-200 pb-2">
+      <div className="relative z-10 flex gap-2 border-b border-stone-200 pb-2">
         <button
           onClick={() => setActiveTab("catalog")}
           className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
@@ -198,7 +201,7 @@ export default function SevaPage() {
       </div>
 
       {activeTab === "catalog" ? (
-        <div className="space-y-4">
+        <div className="relative z-10 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredOpps.map((opp) => (
               <GlassCard key={opp._id} hoverEffect className="p-5 space-y-4 flex flex-col justify-between bg-white border-stone-200/90 shadow-sm">
@@ -216,12 +219,12 @@ export default function SevaPage() {
                     {opp.title}
                   </h3>
                   {opp.gujaratiTitle && (
-                    <p className="text-xs text-stone-600 font-gujarati">{opp.gujaratiTitle}</p>
+                    <p className="text-xs text-amber-800 font-semibold font-gujarati">{opp.gujaratiTitle}</p>
                   )}
 
                   <p className="text-xs text-stone-600 leading-relaxed">{opp.description}</p>
 
-                  <div className="space-y-1 text-xs text-stone-600 pt-1">
+                  <div className="space-y-1 text-xs text-stone-600 pt-1 font-medium">
                     <div className="flex items-center gap-1.5">
                       <Clock className="h-3.5 w-3.5 text-amber-600" />
                       <span>{opp.timeCommitment}</span>
@@ -234,7 +237,7 @@ export default function SevaPage() {
 
                   <div className="flex flex-wrap gap-1 pt-1">
                     {opp.skillsRequired?.map((skill: string, idx: number) => (
-                      <span key={idx} className="rounded-md bg-stone-100 border border-stone-200 px-2 py-0.5 text-[10px] font-medium text-stone-700">
+                      <span key={idx} className="rounded-md bg-stone-100 border border-stone-200 px-2 py-0.5 text-[10px] font-semibold text-stone-700">
                         {skill}
                       </span>
                     ))}
@@ -258,7 +261,7 @@ export default function SevaPage() {
         </div>
       ) : (
         /* Rosters List */
-        <div className="space-y-4">
+        <div className="relative z-10 space-y-4">
           <div className="divide-y divide-stone-100 rounded-2xl border border-stone-200 bg-white shadow-sm p-4">
             {rosters.map((roster) => (
               <div key={roster._id} className="py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -278,7 +281,7 @@ export default function SevaPage() {
                       {roster.status}
                     </Badge>
                   </div>
-                  <p className="text-xs text-stone-600 mt-0.5">
+                  <p className="text-xs text-stone-600 mt-0.5 font-medium">
                     {roster.opportunityTitle} &bull; {roster.department}
                   </p>
                   <p className="text-[11px] text-stone-500 font-mono">
@@ -342,7 +345,7 @@ export default function SevaPage() {
               value={volunteerName}
               onChange={(e) => setVolunteerName(e.target.value)}
               placeholder="e.g. Rameshbhai Patel"
-              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-white shadow-xs"
             />
           </div>
 
@@ -353,7 +356,7 @@ export default function SevaPage() {
               value={volunteerPhone}
               onChange={(e) => setVolunteerPhone(e.target.value)}
               placeholder="98250 56789"
-              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-white shadow-xs font-mono"
             />
           </div>
 
@@ -383,7 +386,7 @@ export default function SevaPage() {
               value={newOpp.title}
               onChange={(e) => setNewOpp({ ...newOpp, title: e.target.value })}
               placeholder="e.g. Mahaprasad Kitchen Service"
-              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3.5 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-white shadow-xs"
             />
           </div>
 
@@ -392,7 +395,7 @@ export default function SevaPage() {
             <select
               value={newOpp.department}
               onChange={(e) => setNewOpp({ ...newOpp, department: e.target.value })}
-              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
+              className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-white shadow-xs"
             >
               <option value="Kitchen (Mahaprasad)" className="bg-white text-stone-900">Kitchen (Mahaprasad)</option>
               <option value="Sound & Broadcast" className="bg-white text-stone-900">Sound &amp; Broadcast</option>
@@ -409,7 +412,7 @@ export default function SevaPage() {
               value={newOpp.description}
               onChange={(e) => setNewOpp({ ...newOpp, description: e.target.value })}
               placeholder="Detailed responsibility description..."
-              className="mt-1 w-full rounded-xl border border-stone-200 p-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50 placeholder:text-stone-400"
+              className="mt-1 w-full rounded-xl border border-stone-200 p-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-white placeholder:text-stone-400 shadow-xs"
             />
           </div>
 

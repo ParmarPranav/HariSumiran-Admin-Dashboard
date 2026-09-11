@@ -7,6 +7,7 @@ import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
+import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import {
   UtensilsCrossed,
   Calendar as CalendarIcon,
@@ -279,7 +280,8 @@ export default function ThalPage() {
   });
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="relative min-h-full p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+      <MandalaBackground />
       {/* 🌟 TODAY'S WHOSE TURN FEATURED BANNER */}
       <SpotlightCard
         spotlightColor="rgba(245, 158, 11, 0.08)"

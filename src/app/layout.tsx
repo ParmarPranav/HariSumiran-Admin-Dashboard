@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className="h-full bg-[#08090d] text-charcoal antialiased selection:bg-amber-500/30 selection:text-amber-200">
+      <body className="h-full bg-[#FAF8F5] text-stone-900 antialiased selection:bg-amber-500/30 selection:text-amber-950">
         <AppProvider>
           <AppLayout>{children}</AppLayout>
           <Toaster
@@ -27,11 +27,13 @@ export default function RootLayout({
             richColors
             closeButton
             toastOptions={{
-              className: "border border-amber-400/30 bg-[#161B28] text-white shadow-2xl rounded-2xl backdrop-blur-2xl p-4 font-sans text-xs font-semibold",
+              className: "border border-amber-300 bg-white text-stone-900 shadow-xl rounded-2xl p-4 font-sans text-xs font-semibold",
               style: {
                 borderRadius: "20px",
-                border: "1px solid rgba(232, 176, 56, 0.3)",
-                boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(232, 176, 56, 0.15)",
+                border: "1px solid rgba(245, 158, 11, 0.3)",
+                boxShadow: "0 12px 32px -4px rgba(0, 0, 0, 0.08), 0 0 16px rgba(245, 158, 11, 0.12)",
+                background: "#FFFFFF",
+                color: "#1C1917",
               },
             }}
           />

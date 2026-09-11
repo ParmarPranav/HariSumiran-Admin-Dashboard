@@ -6,6 +6,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
+import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import Link from "next/link";
 import {
   Users,
@@ -149,9 +150,10 @@ export default function FamiliesPage() {
   };
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="relative min-h-full p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+      <MandalaBackground />
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <Users className="h-6 w-6 text-amber-600" />

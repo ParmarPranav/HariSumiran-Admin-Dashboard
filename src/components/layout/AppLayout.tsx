@@ -31,7 +31,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   // Before authenticating or when on /auth page, render ONLY the full-screen page content
   if (!mounted || isAuthPage || !isAuthenticated || isLocked) {
     return (
-      <div className="h-full w-full min-h-screen bg-[#090A0F] text-zinc-100">
+      <div className="h-full w-full min-h-screen bg-[#FAF8F5] text-stone-900">
         {children}
       </div>
     );
@@ -39,15 +39,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   // Authenticated state
   return (
-    <div className="flex h-full w-full overflow-hidden bg-[#090A0F] text-zinc-100">
+    <div className="flex h-full w-full overflow-hidden bg-[#FAF8F5] text-stone-900">
       {/* Desktop Sidebar */}
       <Sidebar />
 
       {/* Main Application Column */}
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col overflow-hidden bg-[#FAF8F5]">
         <Header />
 
-        <main className="flex-1 overflow-y-auto pb-24 md:pb-8">
+        <main className="flex-1 overflow-y-auto pb-24 md:pb-8 bg-[#FAF8F5]">
           {children}
         </main>
 
