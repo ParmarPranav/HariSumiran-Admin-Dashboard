@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useApp, getRoleLabel } from "@/context/AppContext";
+import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { StatCard } from "@/components/ui/StatCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { MandalaBackground } from "@/components/ui/MandalaBackground";
@@ -22,28 +21,51 @@ import {
   Plus,
   UtensilsCrossed,
   ShieldCheck,
-  TrendingUp,
-  MapPin,
+  Car,
+  ChefHat,
   Phone,
+  Bell,
+  Check,
+  MapPin,
 } from "lucide-react";
 import { toast } from "sonner";
 
-import { useRouter } from "next/navigation";
-
 export default function HomePage() {
-  const router = useRouter();
-  const { role, user, t, language } = useApp();
+  const { user, t, language, hasResponsibility, isAdmin, isKaryakarta, isThalCaptain, isMainCook, isCarOwner } = useApp();
   const [qrModalOpen, setQrModalOpen] = useState(false);
-  const [data, setData] = useState<any>(null);
+  const [dashboardData, setDashboardData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [claimedSevas, setClaimedSevas] = useState<string[]>([]);
+
+  // Fetch dynamic home feed
+  const loadHomeData = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/dashboard/home?userId=${user.id || user._id || ""}&userName=${encodeURIComponent(user.name)}`);
+      const data = await res.json();
+      if (data.success) {
+        setDashboardData(data);
+      }
+    } catch (e) {
+      console.error("Home feed fetch error", e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Redirect to login page at start
-    router.replace("/auth");
-  }, [router]);
+    loadHomeData();
+  }, [user]);
 
-  // Today's greeting in Gujarati / English
-  const todayFormatted = new Date().toLocaleDateString("en-IN", {
+  const handleClaimSeva = (sevaTitle: string) => {
+    setClaimedSevas((prev) => [...prev, sevaTitle]);
+    toast.success(
+      language === "gu" ? "સેવા સ્વીકારાઈ ગઈ!" : "Seva Claimed Successfully!",
+      { description: language === "gu" ? "તમારું નામ રસોઈ/સેવા યાદીમાં નોંધાઈ ગયું છે." : "Your slot has been recorded. Mandir team notified." }
+    );
+  };
+
+  const todayFormatted = new Date().toLocaleDateString(language === "gu" ? "gu-IN" : "en-IN", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -51,471 +73,301 @@ export default function HomePage() {
   });
 
   return (
-    <div className="relative min-h-full p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="relative min-h-full p-4 md:p-8 space-y-8 max-w-7xl mx-auto">
       <MandalaBackground />
 
-      {/* Greeting Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
+      {/* Top Welcome Header */}
+      <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <p className="text-xs font-semibold uppercase tracking-wider text-charcoal-subtle">
               {todayFormatted}
             </p>
           </div>
-          <h1 className="mt-1 font-heading text-2xl md:text-3xl font-bold tracking-tight text-charcoal">
-            {language === "gu" ? "જય સ્વામિનારાયણ" : "Jai Swaminarayan"},{" "}
+          <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-charcoal">
+            {t("Jai Swaminarayan", "જય સ્વામિનારાયણ")},{" "}
             <span className="text-primary-container">{user.name}</span>
           </h1>
-          <p className="text-xs md:text-sm text-charcoal-subtle mt-0.5">
-            {getRoleLabel(role)} &bull; {user.mandir}
-          </p>
+          <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+            {(user?.responsibilities || []).map((resp, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-saffron-100/70 border border-saffron-300/80 text-saffron-900"
+              >
+                {language === "gu" && resp.gujaratiTitle ? resp.gujaratiTitle : resp.title}
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* Quick Actions Bar */}
+        {/* Quick Scan QR & Core Shortcut */}
         <div className="flex items-center gap-2.5">
           <Button
             size="md"
             variant="outline"
             leftIcon={<QrCode className="h-4 w-4 text-primary-container" />}
             onClick={() => setQrModalOpen(true)}
+            className="shadow-subtle"
           >
-            Scan QR
+            {t("Scan QR", "ક્યુઆર સ્કેન")}
           </Button>
-          {role === "karyakarta" && (
+
+          {isKaryakarta && (
             <Link href="/sabha">
               <Button size="md" leftIcon={<CalendarDays className="h-4 w-4" />}>
-                Live Attendance
+                {t("Take Attendance", "હાજરી લો")}
               </Button>
             </Link>
           )}
-          {role === "mandir_admin" && (
-            <Link href="/announcements">
-              <Button size="md" leftIcon={<Plus className="h-4 w-4" />}>
-                New Broadcast
+
+          {isMainCook && (
+            <Link href="/kitchen">
+              <Button size="md" variant="secondary" leftIcon={<ChefHat className="h-4 w-4" />}>
+                {t("Recipe Calculator", "રસોઈ કેલ્ક્યુલેટર")}
               </Button>
             </Link>
           )}
         </div>
       </div>
 
-      {/* Role-Aware Dynamic View */}
-      {role === "mandir_admin" || role === "super_admin" ? (
-        <AdminDashboardView data={data} />
-      ) : role === "karyakarta" ? (
-        <KaryakartaTodayView onOpenQR={() => setQrModalOpen(true)} />
-      ) : role === "dept_head" ? (
-        <DeptHeadDashboardView />
-      ) : (
-        <FamilyPortalView />
-      )}
+      {/* ======================================================== */}
+      {/* 1. SECTION 1: WHAT DO I NEED TO DO? (Action Required) */}
+      {/* ======================================================== */}
+      <section className="relative z-10 space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-primary-container" />
+            <h2 className="font-heading text-base sm:text-lg font-bold text-charcoal">
+              {t("What do I need to do?", "મારે શું કરવાનું છે?")}
+            </h2>
+          </div>
+          <span className="text-xs font-mono font-semibold text-charcoal-subtle">
+            {(dashboardData?.whatDoINeedToDo || []).length} {t("Tasks", "કાર્યો")}
+          </span>
+        </div>
+
+        {(dashboardData?.whatDoINeedToDo || []).length === 0 ? (
+          <GlassCard className="p-6 text-center border border-dashed border-emerald-200 bg-emerald-50/20">
+            <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
+            <p className="text-sm font-bold text-charcoal">
+              {t("All caught up! No pending urgent duties.", "બધાં કાર્યો પૂર્ણ છે! કોઈ પેન્ડિંગ કાર્ય નથી.")}
+            </p>
+            <p className="text-xs text-charcoal-subtle mt-0.5">
+              {t("Check open seva opportunities below to contribute.", "યોગદાન આપવા નીચે ખુલ્લી સેવા જુઓ.")}
+            </p>
+          </GlassCard>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {dashboardData.whatDoINeedToDo.map((item: any) => (
+              <GlassCard
+                key={item.id}
+                className="border-l-4 border-l-primary-container p-4 space-y-3 flex flex-col justify-between hover:shadow-float transition-all"
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs font-bold text-charcoal line-clamp-1">
+                      {language === "gu" && item.gujaratiTitle ? item.gujaratiTitle : item.title}
+                    </span>
+                    <Badge variant={item.urgency === "Critical" ? "danger" : "warning"} size="sm">
+                      {item.badge}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-charcoal-subtle leading-relaxed">{item.description}</p>
+                </div>
+
+                <div className="pt-2 border-t border-hairline flex items-center justify-between">
+                  <Link
+                    href={item.link}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-primary-container hover:underline"
+                  >
+                    <span>{t("Take Action", "કાર્યવાહી કરો")}</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </GlassCard>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ======================================================== */}
+      {/* 2. SECTION 2: WHAT IS HAPPENING? (Mandir Activity Stream) */}
+      {/* ======================================================== */}
+      <section className="relative z-10 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-saffron-500" />
+            <h2 className="font-heading text-base sm:text-lg font-bold text-charcoal">
+              {t("What is happening?", "મંદિરમાં શું ચાલી રહ્યું છે?")}
+            </h2>
+          </div>
+          <Link href="/calendar" className="text-xs font-bold text-primary-container hover:underline">
+            {t("View Full Calendar &rarr;", "આખું કેલેન્ડર જુઓ &rarr;")}
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Upcoming Sabha Spotlight */}
+          <GlassCard className="p-4 space-y-3 border-l-4 border-l-sky-500">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-sky-800 flex items-center gap-1.5">
+                <CalendarDays className="h-4 w-4" /> {t("Upcoming Sabha", "આગામી સભા")}
+              </span>
+              <Badge variant="info" size="sm">Scheduled</Badge>
+            </div>
+            {dashboardData?.whatIsHappening?.upcomingSabhas?.[0] ? (
+              <div className="space-y-1">
+                <h4 className="font-heading text-sm font-bold text-charcoal">
+                  {language === "gu" && dashboardData.whatIsHappening.upcomingSabhas[0].gujaratiTitle
+                    ? dashboardData.whatIsHappening.upcomingSabhas[0].gujaratiTitle
+                    : dashboardData.whatIsHappening.upcomingSabhas[0].title}
+                </h4>
+                <p className="text-xs text-charcoal-subtle">
+                  📅 {dashboardData.whatIsHappening.upcomingSabhas[0].date} &bull; ⏰ {dashboardData.whatIsHappening.upcomingSabhas[0].startTime}
+                </p>
+                <p className="text-[11px] text-charcoal-subtle">
+                  📍 {dashboardData.whatIsHappening.upcomingSabhas[0].location}
+                </p>
+              </div>
+            ) : (
+              <p className="text-xs text-charcoal-subtle">No upcoming sabha scheduled.</p>
+            )}
+            <Link href="/sabha" className="inline-flex items-center gap-1 text-xs font-semibold text-sky-700 hover:underline pt-1">
+              <span>{t("Sabha Details & Attendance", "સભા વિગત અને હાજરી")}</span>
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </GlassCard>
+
+          {/* Transportation / Car Pooling Rides */}
+          <GlassCard className="p-4 space-y-3 border-l-4 border-l-emerald-600">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+                <Car className="h-4 w-4" /> {t("Travel & Rides Available", "મુસાફરી અને રાઈડ")}
+              </span>
+              <Badge variant="success" size="sm">{t("Available Seats", "ઉપલબ્ધ સીટો")}</Badge>
+            </div>
+            {dashboardData?.whatIsHappening?.activeRides?.[0] ? (
+              <div className="space-y-1">
+                <h4 className="font-heading text-sm font-bold text-charcoal">
+                  {dashboardData.whatIsHappening.activeRides[0].title}
+                </h4>
+                <p className="text-xs text-charcoal-subtle">
+                  🚗 Driver: {dashboardData.whatIsHappening.activeRides[0].driverName} &bull; {dashboardData.whatIsHappening.activeRides[0].availableSeats} seats open
+                </p>
+                <p className="text-[11px] text-charcoal-subtle">
+                  ⏰ Departs: {dashboardData.whatIsHappening.activeRides[0].departureTime}
+                </p>
+              </div>
+            ) : (
+              <p className="text-xs text-charcoal-subtle">No active carpool rides listed.</p>
+            )}
+            <Link href="/travel" className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 hover:underline pt-1">
+              <span>{t("Request / Offer Ride", "રાઈડ મેળવો / ઓફર કરો")}</span>
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </GlassCard>
+
+          {/* Mandir Announcement */}
+          <GlassCard className="p-4 space-y-3 border-l-4 border-l-amber-500">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                <Bell className="h-4 w-4 text-amber-600" /> {t("Mandir Update", "મંદિર જાહેરાત")}
+              </span>
+              <Badge variant="warning" size="sm">Mandir Office</Badge>
+            </div>
+            <div className="space-y-1">
+              <h4 className="font-heading text-sm font-bold text-charcoal">
+                {language === "gu" ? "આગામી ઉત્સવ દર્શન સમય" : "Upcoming Mahotsav Darshan Timings"}
+              </h4>
+              <p className="text-xs text-charcoal-subtle leading-snug">
+                {language === "gu"
+                  ? "વિશેષ ઉત્સવ સભા માટે સર્વે ભક્તોએ સાંજે ૬:૦૦ કલાકે સમયસર પધારવું."
+                  : "All devotees are requested to arrive on time at 6:00 PM for Special Mahotsav."}
+              </p>
+            </div>
+            <Link href="/announcements" className="inline-flex items-center gap-1 text-xs font-semibold text-amber-800 hover:underline pt-1">
+              <span>{t("View All Announcements", "બધી જાહેરાતો જુઓ")}</span>
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </GlassCard>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 3. SECTION 3: WHERE CAN I HELP? (Open Seva Opportunities) */}
+      {/* ======================================================== */}
+      <section className="relative z-10 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-emerald-500" />
+            <h2 className="font-heading text-base sm:text-lg font-bold text-charcoal">
+              {t("Where can I help?", "હું ક્યાં મદદ કરી શકું?")}
+            </h2>
+          </div>
+          <Link href="/seva" className="text-xs font-bold text-primary-container hover:underline">
+            {t("View Seva Board &rarr;", "સેવા બોર્ડ જુઓ &rarr;")}
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(dashboardData?.whereCanIHelp || []).map((seva: any) => {
+            const isClaimed = claimedSevas.includes(seva.title);
+            return (
+              <GlassCard key={seva._id || seva.title} className="p-4 space-y-3 flex flex-col justify-between hover:shadow-float transition-all">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs font-bold text-charcoal line-clamp-1">
+                      {language === "gu" && seva.gujaratiTitle ? seva.gujaratiTitle : seva.title}
+                    </span>
+                    <Badge variant="primary" size="sm">
+                      {seva.category || "Seva"}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-charcoal-subtle leading-relaxed line-clamp-2">
+                    {seva.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-[11px] text-charcoal-subtle pt-1">
+                    <span>⏰ {seva.startTime} - {seva.endTime}</span>
+                    <span>&bull;</span>
+                    <span>👥 {seva.acceptedVolunteerCount || 0} / {seva.requiredVolunteerCount || 5} {t("confirmed", "પુષ્ટિ")}</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-hairline flex items-center justify-between">
+                  {isClaimed ? (
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-xl">
+                      <Check className="h-3.5 w-3.5" /> {t("You have registered", "તમે નોંધાયા છો")}
+                    </span>
+                  ) : (
+                    <Button
+                      size="sm"
+                      onClick={() => handleClaimSeva(seva.title)}
+                      leftIcon={<Sparkles className="h-3.5 w-3.5" />}
+                    >
+                      {t("I Can Help", "હું સેવા કરીશ")}
+                    </Button>
+                  )}
+                  <Link href="/seva" className="text-[11px] font-semibold text-charcoal-subtle hover:text-charcoal">
+                    {t("Details", "વિગત")}
+                  </Link>
+                </div>
+              </GlassCard>
+            );
+          })}
+        </div>
+      </section>
 
       {/* QR Scanner Modal */}
       <QRScannerModal
         isOpen={qrModalOpen}
         onClose={() => setQrModalOpen(false)}
         onScanSuccess={(code) => {
-          toast.success("Identity Verified", { description: `Scanned code: ${code}` });
+          toast.success(t("Identity Verified", "ઓળખ પ્રમાણિત થઈ"), {
+            description: `${t("Scanned QR:", "સ્કેન કરેલ:")} ${code}`,
+          });
         }}
       />
-    </div>
-  );
-}
-
-// 1. Mandir Administrator Operations Dashboard
-function AdminDashboardView({ data }: { data: any }) {
-  const [approving, setApproving] = useState<string | null>(null);
-
-  const handleApprove = (id: string, name: string) => {
-    setApproving(id);
-    setTimeout(() => {
-      setApproving(null);
-      toast.success("Approved", { description: `${name} approved successfully.` });
-    }, 600);
-  };
-
-  return (
-    <div className="space-y-6">
-      {/* Alerts & Risks Band */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <GlassCard className="border-l-4 border-l-amber-500 bg-amber-50/30">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-            <div>
-              <h4 className="text-sm font-bold text-charcoal">3 Follow-Up Cases Overdue &gt; 7 Days</h4>
-              <p className="text-xs text-charcoal-subtle mt-0.5">Trivedi Parivar, Vora Family require urgent supervisor review.</p>
-              <Link href="/follow-up" className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary-container hover:underline">
-                Review Cases <ArrowRight className="h-3 w-3" />
-              </Link>
-            </div>
-          </div>
-        </GlassCard>
-
-        <GlassCard className="border-l-4 border-l-emerald-600 bg-emerald-50/30">
-          <div className="flex items-start gap-3">
-            <UtensilsCrossed className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
-            <div>
-              <h4 className="text-sm font-bold text-charcoal">Today's Thal: 100% Covered</h4>
-              <p className="text-xs text-charcoal-subtle mt-0.5">Morning Thal: Patel Household &bull; Evening: Shah Family.</p>
-              <Link href="/thal" className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-secondary hover:underline">
-                View Rotation <ArrowRight className="h-3 w-3" />
-              </Link>
-            </div>
-          </div>
-        </GlassCard>
-
-        <GlassCard className="border-l-4 border-l-primary-container bg-saffron-50/30">
-          <div className="flex items-start gap-3">
-            <CalendarDays className="h-5 w-5 text-primary-container shrink-0 mt-0.5" />
-            <div>
-              <h4 className="text-sm font-bold text-charcoal">Sunday Evening Sabha Live</h4>
-              <p className="text-xs text-charcoal-subtle mt-0.5">94 / 140 Marked Present &bull; 5 Seva Volunteers Checked In.</p>
-              <Link href="/sabha" className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary-container hover:underline">
-                Open Console <ArrowRight className="h-3 w-3" />
-              </Link>
-            </div>
-          </div>
-        </GlassCard>
-      </div>
-
-      {/* KPI Cards Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Active Families"
-          value={data?.kpis?.totalFamilies || "6"}
-          subtitle="All Nadiad zones"
-          icon={<Users className="h-5 w-5 text-primary-container" />}
-          iconBg="saffron"
-        />
-        <StatCard
-          title="Registered Members"
-          value={data?.kpis?.totalMembers || "6"}
-          subtitle="Verified & active"
-          icon={<CheckCircle2 className="h-5 w-5 text-emerald-600" />}
-          iconBg="green"
-        />
-        <StatCard
-          title="Active Follow-ups"
-          value={data?.kpis?.activeFollowUps || "3"}
-          subtitle="1 Due Today"
-          icon={<HeartHandshake className="h-5 w-5 text-amber-600" />}
-          iconBg="neutral"
-        />
-        <StatCard
-          title="Avg Sabha Attendance"
-          value="94 Devotees"
-          subtitle="+8% this month"
-          icon={<TrendingUp className="h-5 w-5 text-sky-600" />}
-          iconBg="blue"
-        />
-      </div>
-
-      {/* Operational Hub: Pending Approvals & Live Attendance Breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Approvals Queue */}
-        <GlassCard className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between border-b border-hairline pb-3">
-            <div>
-              <h3 className="font-heading text-base font-bold text-charcoal">Pending Approvals Queue</h3>
-              <p className="text-xs text-charcoal-subtle">Human confirmation required for sensitive actions</p>
-            </div>
-            <Badge variant="primary">2 Pending</Badge>
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl border border-hairline bg-surface-container-low/40">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Badge variant="warning" size="sm">Thal Swap Request</Badge>
-                  <span className="text-xs font-semibold text-charcoal">Trivedi Parivar &rarr; Open Waitlist</span>
-                </div>
-                <p className="text-xs text-charcoal-subtle">
-                  Reason: Medical recovery after cataract surgery &bull; Date: 26-Aug-2026
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => toast.info("Request Returned with Feedback")}
-                >
-                  Reject
-                </Button>
-                <Button
-                  size="sm"
-                  isLoading={approving === "swap1"}
-                  onClick={() => handleApprove("swap1", "Thal Swap for Trivedi Parivar")}
-                >
-                  Approve
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl border border-hairline bg-surface-container-low/40">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Badge variant="info" size="sm">Hall Booking</Badge>
-                  <span className="text-xs font-semibold text-charcoal">Dining Hall (Bhojanshala)</span>
-                </div>
-                <p className="text-xs text-charcoal-subtle">
-                  Mukeshbhai Shah &bull; 29-Aug (12:00 - 15:00) &bull; 75 Attendees
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button size="sm" variant="outline" onClick={() => toast.info("Booking Rejected")}>
-                  Decline
-                </Button>
-                <Button
-                  size="sm"
-                  isLoading={approving === "room1"}
-                  onClick={() => handleApprove("room1", "Dining Hall Booking")}
-                >
-                  Confirm
-                </Button>
-              </div>
-            </div>
-          </div>
-        </GlassCard>
-
-        {/* Quick Navigation Cards */}
-        <div className="space-y-4">
-          <GlassCard className="p-4 space-y-3">
-            <h4 className="font-heading text-sm font-bold text-charcoal">Upcoming Major Event</h4>
-            <div className="rounded-xl border border-saffron-200 bg-saffron-50/50 p-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-saffron-800">Janmashtami Mahotsav</span>
-                <Badge variant="primary" size="sm">30 Aug</Badge>
-              </div>
-              <p className="text-[11px] text-charcoal-subtle mt-1">420 / 600 Passes Issued</p>
-              <div className="w-full bg-saffron-200 h-1.5 rounded-full mt-2 overflow-hidden">
-                <div className="bg-primary-container h-full rounded-full" style={{ width: "70%" }} />
-              </div>
-            </div>
-            <Link href="/events" className="flex items-center justify-between text-xs font-semibold text-primary-container hover:underline">
-              <span>View Committee & Tasks</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </GlassCard>
-
-          <GlassCard className="p-4 space-y-2.5">
-            <h4 className="font-heading text-sm font-bold text-charcoal">Mandir Health & System</h4>
-            <div className="flex items-center justify-between text-xs py-1 border-b border-hairline">
-              <span className="text-charcoal-subtle">MongoDB Connection</span>
-              <span className="font-medium text-emerald-600 flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Atlas Online
-              </span>
-            </div>
-            <div className="flex items-center justify-between text-xs py-1 border-b border-hairline">
-              <span className="text-charcoal-subtle">Daily Backup</span>
-              <span className="font-medium text-charcoal">02:00 AM IST (Passed)</span>
-            </div>
-            <div className="flex items-center justify-between text-xs py-1">
-              <span className="text-charcoal-subtle">Audit Trail</span>
-              <Link href="/admin" className="font-semibold text-primary-container hover:underline">
-                View Log
-              </Link>
-            </div>
-          </GlassCard>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// 2. Karyakarta Today View (Fieldwork Focus)
-function KaryakartaTodayView({ onOpenQR }: { onOpenQR: () => void }) {
-  return (
-    <div className="space-y-6">
-      {/* Next Actions Card (Max 3) */}
-      <GlassCard className="space-y-3 border-l-4 border-l-primary-container">
-        <div className="flex items-center justify-between">
-          <h3 className="font-heading text-base font-bold text-charcoal">Today's Priority Actions</h3>
-          <Badge variant="primary">3 Tasks</Badge>
-        </div>
-
-        <div className="space-y-2.5">
-          <div className="flex items-center justify-between p-3 rounded-xl border border-hairline bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 text-amber-800">
-                <Phone className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-charcoal">Call Trivedi Parivar — Surgery Follow-up</p>
-                <p className="text-[11px] text-charcoal-subtle">Overdue 2 days &bull; Contact Hareshbhai (98250 76543)</p>
-              </div>
-            </div>
-            <Link href="/follow-up">
-              <Button size="sm">Open Case</Button>
-            </Link>
-          </div>
-
-          <div className="flex items-center justify-between p-3 rounded-xl border border-hairline bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-saffron-100 text-saffron-800">
-                <CalendarDays className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-charcoal">Sunday Evening Satsang Sabha Attendance</p>
-                <p className="text-[11px] text-charcoal-subtle">Session is Live &bull; 94 Check-ins logged</p>
-              </div>
-            </div>
-            <Link href="/sabha">
-              <Button size="sm" variant="secondary">Mark Attendance</Button>
-            </Link>
-          </div>
-
-          <div className="flex items-center justify-between p-3 rounded-xl border border-hairline bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-100 text-sky-800">
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-charcoal">Kitchen Seva Shift Check-In</p>
-                <p className="text-[11px] text-charcoal-subtle">16:00 - 19:00 with Dipakbhai Shah</p>
-              </div>
-            </div>
-            <Button size="sm" variant="outline" onClick={onOpenQR}>Scan QR Check-In</Button>
-          </div>
-        </div>
-      </GlassCard>
-
-      {/* Field KPI Strip */}
-      <div className="grid grid-cols-3 gap-3">
-        <GlassCard className="text-center p-4">
-          <p className="text-xs font-medium text-charcoal-subtle">Families in Your Zone</p>
-          <p className="font-heading text-xl font-bold text-charcoal mt-1">18</p>
-        </GlassCard>
-        <GlassCard className="text-center p-4">
-          <p className="text-xs font-medium text-charcoal-subtle">Visits This Month</p>
-          <p className="font-heading text-xl font-bold text-emerald-600 mt-1">12</p>
-        </GlassCard>
-        <GlassCard className="text-center p-4">
-          <p className="text-xs font-medium text-charcoal-subtle">Pending Notes</p>
-          <p className="font-heading text-xl font-bold text-amber-600 mt-1">1</p>
-        </GlassCard>
-      </div>
-    </div>
-  );
-}
-
-// 3. Department Head Dashboard View
-function DeptHeadDashboardView() {
-  return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatCard
-          title="Active Kitchen Volunteers"
-          value="8 / 10"
-          subtitle="Sunday Mahaprasad Duty"
-          icon={<Sparkles className="h-5 w-5 text-secondary" />}
-          iconBg="green"
-        />
-        <StatCard
-          title="Kitchen Utensil Inventory"
-          value="14 Units"
-          subtitle="Steam cookers inspected"
-          icon={<UtensilsCrossed className="h-5 w-5 text-primary-container" />}
-          iconBg="saffron"
-        />
-        <StatCard
-          title="Open Seva Slots"
-          value="2 Slots"
-          subtitle="Janmashtami prep"
-          icon={<Users className="h-5 w-5 text-sky-600" />}
-          iconBg="blue"
-        />
-      </div>
-
-      <GlassCard className="space-y-3">
-        <div className="flex items-center justify-between border-b border-hairline pb-3">
-          <h3 className="font-heading text-base font-bold text-charcoal">Today's Kitchen Volunteer Roster</h3>
-          <Link href="/seva">
-            <Button size="sm" variant="outline">Manage Full Roster</Button>
-          </Link>
-        </div>
-
-        <div className="divide-y divide-hairline">
-          <div className="py-2.5 flex items-center justify-between text-xs">
-            <div>
-              <p className="font-bold text-charcoal">Rameshbhai Patel</p>
-              <p className="text-charcoal-subtle">Mahaprasad Preparation &bull; 16:00 - 19:00</p>
-            </div>
-            <Badge variant="success">Checked In</Badge>
-          </div>
-          <div className="py-2.5 flex items-center justify-between text-xs">
-            <div>
-              <p className="font-bold text-charcoal">Hansaben Patel</p>
-              <p className="text-charcoal-subtle">Mahaprasad Preparation &bull; 16:00 - 19:00</p>
-            </div>
-            <Badge variant="success">Checked In</Badge>
-          </div>
-        </div>
-      </GlassCard>
-    </div>
-  );
-}
-
-// 4. Family Captain / Member View
-function FamilyPortalView() {
-  const [confirmed, setConfirmed] = useState(false);
-
-  return (
-    <div className="space-y-6">
-      {/* Your Thal Turn Card */}
-      <GlassCard className="border-l-4 border-l-secondary bg-emerald-50/20 space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <UtensilsCrossed className="h-5 w-5 text-secondary" />
-            <h3 className="font-heading text-base font-bold text-charcoal">Your Household Thal Turn</h3>
-          </div>
-          <Badge variant="success">Assigned</Badge>
-        </div>
-
-        <p className="text-xs text-charcoal-subtle leading-relaxed">
-          Your family is scheduled for <strong>Morning Thal</strong> on <strong>Sunday, 23rd August</strong> (Headcount: 45).
-        </p>
-
-        <div className="flex items-center gap-2 pt-2">
-          {confirmed ? (
-            <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
-              <CheckCircle2 className="h-4 w-4" /> Turn Confirmed with Mandir Office
-            </div>
-          ) : (
-            <>
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={() => {
-                  setConfirmed(true);
-                  toast.success("Thal Turn Confirmed", { description: "Mandir kitchen team notified." });
-                }}
-              >
-                Confirm Turn
-              </Button>
-              <Link href="/thal">
-                <Button size="sm" variant="outline">Request Swap</Button>
-              </Link>
-            </>
-          )}
-        </div>
-      </GlassCard>
-
-      {/* Mandir Announcements Feed */}
-      <GlassCard className="space-y-3">
-        <h3 className="font-heading text-base font-bold text-charcoal">Updates from Mandir Office</h3>
-        <div className="p-3 rounded-xl border border-hairline bg-surface-container-low/40 space-y-1">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-charcoal">Janmashtami Mahotsav Pass Available</span>
-            <span className="text-[10px] text-charcoal-subtle">Today</span>
-          </div>
-          <p className="text-xs text-charcoal-subtle">
-            Get your digital entry pass for the 30th August celebration.
-          </p>
-          <Link href="/events" className="inline-flex items-center gap-1 text-xs font-semibold text-primary-container hover:underline pt-1">
-            View My Pass <ArrowRight className="h-3 w-3" />
-          </Link>
-        </div>
-      </GlassCard>
     </div>
   );
 }

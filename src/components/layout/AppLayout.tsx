@@ -11,7 +11,7 @@ import { CommandPalette } from "@/components/layout/CommandPalette";
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuthenticated } = useApp();
+  const { isAuthenticated, isLocked } = useApp();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -22,16 +22,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (mounted) {
-      if (!isAuthenticated && !isAuthPage) {
+      if ((!isAuthenticated || isLocked) && !isAuthPage) {
         router.replace("/auth");
-      } else if (isAuthenticated && isAuthPage) {
-        router.replace("/thal");
       }
     }
-  }, [mounted, isAuthenticated, isAuthPage, router]);
+  }, [mounted, isAuthenticated, isLocked, isAuthPage, router]);
 
-  // Before authenticating or when on /auth page, render ONLY the full-screen page content without sidebar or header
-  if (!mounted || isAuthPage || !isAuthenticated) {
+  // Before authenticating or when on /auth page, render ONLY the full-screen page content
+  if (!mounted || isAuthPage || !isAuthenticated || isLocked) {
     return (
       <div className="h-full w-full min-h-screen bg-[#FBF9F5] text-charcoal">
         {children}
@@ -39,7 +37,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Once authenticated, render main dashboard with Sidebar, Header, and Navigation
+  // Authenticated state
   return (
     <div className="flex h-full w-full overflow-hidden bg-canvas">
       {/* Desktop Sidebar */}
@@ -49,7 +47,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header />
 
-        <main className="flex-1 overflow-y-auto pb-20 md:pb-6">
+        <main className="flex-1 overflow-y-auto pb-24 md:pb-8">
           {children}
         </main>
 

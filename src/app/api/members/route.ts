@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import { Member, Family, AuditLog } from "@/models";
+import { Member, Family, User, AuditLog } from "@/models";
+import { resolveUserScope, buildMemberScopeFilter, findUserByIdentifier } from "@/lib/authScope";
+import { initialMembers } from "@/lib/seedData";
 
 export async function GET(req: Request) {
   try {
@@ -10,6 +12,11 @@ export async function GET(req: Request) {
     const skill = searchParams.get("skill");
     const status = searchParams.get("status");
     const familyId = searchParams.get("familyId");
+    const zone = searchParams.get("zone");
+    const userId = searchParams.get("userId");
+
+    const user = await findUserByIdentifier(userId);
+    const scope = resolveUserScope(user as any);
 
     const query: any = {};
 
@@ -19,6 +26,7 @@ export async function GET(req: Request) {
         { phone: { $regex: search, $options: "i" } },
         { familyName: { $regex: search, $options: "i" } },
         { memberCode: { $regex: search, $options: "i" } },
+        { gujaratiName: { $regex: search, $options: "i" } },
       ];
     }
 
@@ -34,7 +42,23 @@ export async function GET(req: Request) {
       query.familyId = familyId;
     }
 
-    const members = await Member.find(query).sort({ attendanceStreak: -1, createdAt: -1 });
+    if (zone && zone !== "All") {
+      query.zone = zone;
+    }
+
+    const scopedFilter = buildMemberScopeFilter(scope, query);
+    let members = await Member.find(scopedFilter).sort({ attendanceStreak: -1, createdAt: -1 });
+
+    if (!members || members.length === 0) {
+      if (search || familyId || zone) {
+        // Return empty if filtered search
+        members = [];
+      } else {
+        // Fallback to initialMembers
+        members = initialMembers as any;
+      }
+    }
+
     return NextResponse.json({ success: true, count: members.length, members });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -55,6 +79,9 @@ export async function POST(req: Request) {
       phone,
       email,
       relationship,
+      zone = "North Nadiad",
+      area = "Station Road",
+      sabhaCategory = "Family Sabha",
       sevaSkills,
       communicationConsent = true,
       photoConsent = true,
@@ -79,6 +106,7 @@ export async function POST(req: Request) {
 
     const count = await Member.countDocuments();
     const memberCode = `MEM-NAD-${String(count + 1).padStart(3, "0")}`;
+    const qrCode = `MEMBER:${memberCode}:${name.toUpperCase().replace(/\s+/g, "_")}`;
 
     const member = await Member.create({
       memberCode,
@@ -90,12 +118,16 @@ export async function POST(req: Request) {
       gender,
       phone: phone.replace(/\D/g, ""),
       email: email || "",
-      relationship: relationship || "Member",
+      relationship: relationship || "Self",
+      zone: targetFamily ? targetFamily.zone : zone,
+      area: targetFamily ? targetFamily.area : area,
+      sabhaCategory,
       sevaSkills: sevaSkills || ["General Seva"],
       attendanceStreak: 0,
-      verificationStatus: "Pending Verification",
+      verificationStatus: "Verified",
       communicationConsent,
       photoConsent,
+      qrCode,
     });
 
     if (targetFamily) {
@@ -110,7 +142,7 @@ export async function POST(req: Request) {
       action: "REGISTER_MEMBER",
       module: "Members",
       recordId: member._id.toString(),
-      description: `Registered new member: ${name} (${memberCode}) in family ${resolvedFamilyName}`,
+      description: `Registered canonical member: ${name} (${memberCode}) in family ${resolvedFamilyName}`,
     });
 
     return NextResponse.json({

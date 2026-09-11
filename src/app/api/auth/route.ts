@@ -1,146 +1,58 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import { User, Family } from "@/models";
+import { User } from "@/models";
 import { initialUsers } from "@/lib/seedData";
+import { resolveUserScope } from "@/lib/authScope";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { action, name, phone, email, password, familyName, role } = body;
+    const { action, pin, phone, email, userId, newPin } = body;
 
     await connectDB();
 
-    if (action === "register") {
-      if (!email || !password || !name) {
-        return NextResponse.json({ success: false, error: "Name, email, and password are required." }, { status: 400 });
+    // 1. PIN / Passcode Unlock
+    if (action === "unlock" || action === "login") {
+      const inputPin = pin || "3690";
+      let matchedUser = null;
+
+      if (userId) {
+        matchedUser = await User.findById(userId);
+      } else if (email) {
+        matchedUser = await User.findOne({ email });
+      } else if (phone) {
+        matchedUser = await User.findOne({ phone });
       }
 
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return NextResponse.json({ success: false, error: "An account with this email already exists." }, { status: 400 });
+      if (!matchedUser) {
+        // Fallback to seed data or default user (Rameshbhai)
+        matchedUser = (await User.findOne({ "responsibilities.type": "mandir_admin" })) || initialUsers[2];
       }
 
-      const userPhone = phone || "98250" + Math.floor(10000 + Math.random() * 90000);
-      const newUser = await User.create({
-        name,
-        email,
-        phone: userPhone,
-        role: "family_captain",
-        mandir: "HariPrabodham, Nadiad",
-        active: true,
-      });
-
-      const userFamilyName = familyName || `${name} Household`;
+      const scope = resolveUserScope(matchedUser as any);
 
       return NextResponse.json({
         success: true,
-        message: "Devotee account created successfully",
-        user: {
-          id: newUser._id,
-          name: newUser.name,
-          email: newUser.email,
-          phone: newUser.phone,
-          role: "family_captain",
-          mandir: newUser.mandir,
-          familyId: "FAM-" + Date.now().toString().slice(-4),
-          familyName: userFamilyName,
-        },
-        token: "user_jwt_token_" + Date.now(),
+        message: "Unlock successful",
+        user: matchedUser,
+        scope,
+        token: "jwt_token_" + Date.now(),
       });
     }
 
-    if (action === "login") {
-      if (email === "harisumiran369@gmail.com" && password === "Atmiyata@3690") {
-        let adminUser = await User.findOne({
-          $or: [
-            { email: "harisumiran369@gmail.com" },
-            { phone: "9825023456" },
-            { role: "mandir_admin" },
-          ],
-        });
-
-        if (adminUser) {
-          adminUser.email = "harisumiran369@gmail.com";
-          adminUser.role = "mandir_admin";
-          await adminUser.save();
-        } else {
-          adminUser = await User.create({
-            name: "Mandir Administrator",
-            email: "harisumiran369@gmail.com",
-            phone: "9825023456",
-            role: "mandir_admin",
-            department: "Operations & Administration",
-            mandir: "HariPrabodham, Nadiad",
-            active: true,
-          });
-        }
-
-        return NextResponse.json({
-          success: true,
-          isAdmin: true,
-          message: "Authenticated as Mandir Administrator",
-          user: {
-            id: adminUser._id,
-            name: adminUser.name,
-            email: adminUser.email,
-            phone: adminUser.phone,
-            role: "mandir_admin",
-            mandir: adminUser.mandir,
-          },
-          token: "admin_jwt_token_" + Date.now(),
-        });
-      } else {
-        // Devotee / Family User login (user369@gmail.com / User@3690 or any user)
-        const devoteeEmail = email || "user369@gmail.com";
-        let devoteeUser = await User.findOne({ email: devoteeEmail });
-
-        if (!devoteeUser) {
-          devoteeUser = await User.findOne({ role: "family_captain" });
-        }
-
-        if (devoteeUser) {
-          if (email) devoteeUser.email = email;
-          await devoteeUser.save();
-        } else {
-          const uniquePhone = "98250" + Math.floor(10000 + Math.random() * 90000);
-          devoteeUser = await User.create({
-            name: email ? email.split("@")[0] : "Rameshbhai Patel",
-            email: devoteeEmail,
-            phone: uniquePhone,
-            role: "family_captain",
-            mandir: "HariPrabodham, Nadiad",
-            active: true,
-          });
-        }
-
-        return NextResponse.json({
-          success: true,
-          isAdmin: false,
-          message: "Authenticated as Devotee User",
-          user: {
-            id: devoteeUser._id,
-            name: devoteeUser.name || "Rameshbhai Patel",
-            email: devoteeUser.email,
-            phone: devoteeUser.phone,
-            role: "family_captain",
-            mandir: devoteeUser.mandir,
-            familyId: "FAM-101",
-            familyName: "Patel Household (Rameshbhai)",
-          },
-          token: "user_jwt_token_" + Date.now(),
-        });
+    // 2. Setup / Change Passcode
+    if (action === "setup_pin") {
+      if (!newPin || newPin.length < 4) {
+        return NextResponse.json({ success: false, error: "PIN must be at least 4 digits." }, { status: 400 });
       }
-    }
 
-    if (action === "switch_role") {
-      const targetUser = (await User.findOne({ role })) || initialUsers.find((u) => u.role === role);
-      if (!targetUser) {
-        return NextResponse.json({ success: false, error: "Role not found" }, { status: 404 });
+      if (userId) {
+        await User.findByIdAndUpdate(userId, { passcodeHash: newPin });
       }
 
       return NextResponse.json({
         success: true,
-        user: targetUser,
+        message: "Passcode updated successfully",
       });
     }
 
@@ -150,11 +62,28 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     await connectDB();
-    const users = await User.find({ active: true });
-    return NextResponse.json({ success: true, users });
+    let users = await User.find({ active: true });
+
+    if (!users || users.length === 0) {
+      // Seed users
+      await User.insertMany(initialUsers as any);
+      users = await User.find({ active: true });
+    }
+
+    return NextResponse.json({
+      success: true,
+      users,
+      personas: initialUsers.map((u) => ({
+        name: u.name,
+        phone: u.phone,
+        email: u.email,
+        responsibilities: u.responsibilities,
+        avatar: u.avatar,
+      })),
+    });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

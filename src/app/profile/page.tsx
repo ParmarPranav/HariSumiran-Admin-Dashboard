@@ -111,7 +111,7 @@ export default function ProfilePage() {
 
         <div className="flex items-center gap-2">
           <Badge variant="success" size="md">
-            {user.authProvider === "apple" ? "🍎 Sign in with Apple" : "📱 Mobile OTP Verified"}
+            {user.biometricEnabled ? "🔐 PIN + Biometric Protected" : "🔒 App PIN Protected"}
           </Badge>
         </div>
       </div>

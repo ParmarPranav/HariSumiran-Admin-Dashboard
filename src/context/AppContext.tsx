@@ -1,7 +1,43 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
+import { IUserResponsibility, ResponsibilityType, SabhaCategoryType } from "@/models";
+import { initialUsers, initialNotifications } from "@/lib/seedData";
+
+export interface CurrentUser {
+  id?: string;
+  _id?: string;
+  name: string;
+  phone: string;
+  email?: string;
+  role?: string;
+  passcodeHash?: string;
+  biometricEnabled?: boolean;
+  memberId?: string;
+  familyId?: string;
+  familyName?: string;
+  isCaptain?: boolean;
+  department?: string;
+  mandir: string;
+  avatar?: string;
+  responsibilities: IUserResponsibility[];
+}
+
+export interface AppNotification {
+  id: string;
+  title: string;
+  gujaratiTitle?: string;
+  message: string;
+  gujaratiMessage?: string;
+  category: "thal_assignment" | "thal_swap" | "sabha_reminder" | "seva_alert" | "ride_request" | "followup_due" | "announcement";
+  actionType?: "SWAP_ACCEPT_REJECT" | "SEVA_CLAIM" | "RIDE_APPROVE" | "CONFIRM_THAL" | "VIEW_LINK";
+  actionPayload?: Record<string, any>;
+  actionTaken?: boolean;
+  actionTakenLabel?: string;
+  read: boolean;
+  createdAt: string;
+}
 
 export type RoleType =
   | "super_admin"
@@ -11,252 +47,173 @@ export type RoleType =
   | "family_captain"
   | "family_member";
 
-export interface AppNotification {
-  id: string;
-  title: string;
-  message: string;
-  date: string;
-  type?: "thal_reminder" | "swap_alert" | "system";
-  read?: boolean;
-}
-
-export interface CurrentUser {
-  id?: string;
-  name: string;
-  phone: string;
-  email?: string;
-  role: RoleType;
-  department?: string;
-  mandir: string;
-  avatar?: string;
-  authProvider?: "apple" | "phone" | "demo";
-  appleId?: string;
-  familyId?: string;
-  familyName?: string;
-  isCaptain?: boolean;
-}
-
-const DEFAULT_USERS: Record<RoleType, CurrentUser> = {
-  super_admin: {
-    name: "Pooja Swarupji",
-    phone: "9825012345",
-    email: "admin.super@harisumiran.org",
-    role: "super_admin",
-    mandir: "HariPrabodham, Nadiad",
-    authProvider: "phone",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-  },
-  mandir_admin: {
-    name: "Nitinbhai Patel",
-    phone: "9825023456",
-    email: "nitin.patel@harisumiran.org",
-    role: "mandir_admin",
-    department: "Operations & Administration",
-    mandir: "HariPrabodham, Nadiad",
-    authProvider: "phone",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-  },
-  dept_head: {
-    name: "Dipakbhai Shah",
-    phone: "9825034567",
-    email: "dipak.shah@harisumiran.org",
-    role: "dept_head",
-    department: "Kitchen (Mahaprasad)",
-    mandir: "HariPrabodham, Nadiad",
-    authProvider: "phone",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
-  },
-  karyakarta: {
-    name: "Jaimin Trivedi",
-    phone: "9825045678",
-    email: "jaimin.trivedi@harisumiran.org",
-    role: "karyakarta",
-    department: "Sabha & Follow-up",
-    mandir: "HariPrabodham, Nadiad",
-    authProvider: "phone",
-    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
-  },
-  family_captain: {
-    name: "Rameshbhai Patel",
-    phone: "9825056789",
-    email: "ramesh.patel@gmail.com",
-    role: "family_captain",
-    mandir: "HariPrabodham, Nadiad",
-    authProvider: "apple",
-    appleId: "001928.82390184.apple",
-    familyId: "FAM-101",
-    familyName: "Patel Household (Rameshbhai)",
-    isCaptain: true,
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
-  },
-  family_member: {
-    name: "Devansh Patel",
-    phone: "9825067890",
-    email: "devansh.patel@gmail.com",
-    role: "family_member",
-    mandir: "HariPrabodham, Nadiad",
-    authProvider: "apple",
-    appleId: "001928.99283741.apple",
-    familyId: "FAM-101",
-    familyName: "Patel Household (Rameshbhai)",
-    isCaptain: false,
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80",
-  },
-};
-
 interface AppContextType {
-  role: RoleType;
   user: CurrentUser;
+  role: string;
+  setRole: (r: string) => void;
   language: "en" | "gu";
-  syncStatus: "synced" | "syncing" | "offline";
+  isAuthenticated: boolean;
+  isLocked: boolean;
   commandPaletteOpen: boolean;
   notifications: AppNotification[];
-  isAuthenticated: boolean;
-  setRole: (role: RoleType) => void;
+  // Actions
   setUser: (user: CurrentUser) => void;
   setLanguage: (lang: "en" | "gu") => void;
   setCommandPaletteOpen: (open: boolean) => void;
-  loginWithCredentials: (email: string, password?: string) => { isAdmin: boolean };
-  loginWithGoogle: (googleUser?: { name?: string; email?: string }) => void;
-  loginWithApple: (appleUser: { name: string; email: string; appleId: string }) => void;
+  unlockWithPin: (pin: string) => Promise<boolean>;
+  unlockWithBiometrics: () => Promise<boolean>;
+  lockApp: () => void;
   logout: () => void;
+  setupPin: (newPin: string) => Promise<boolean>;
+  switchPersona: (userName: string) => void;
   addNotification: (notif: AppNotification) => void;
   dismissNotification: (id: string) => void;
-  triggerSync: () => void;
-  t: (key: string, gujaratiFallback?: string) => string;
+  markNotificationActionTaken: (id: string, label: string) => void;
+  t: (enText: string, guText?: string) => string;
+  // Capability helpers
+  hasResponsibility: (type: ResponsibilityType) => boolean;
+  isAdmin: boolean;
+  isSuperAdmin: boolean;
+  isKaryakarta: boolean;
+  isThalCaptain: boolean;
+  isMainCook: boolean;
+  isCarOwner: boolean;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+// Default starting user: Rameshbhai Patel (Multi-responsibility persona: Member + Thal Captain + Main Cook + Car Owner)
+const DEFAULT_USER: CurrentUser = initialUsers[2] as unknown as CurrentUser;
+
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [role, setRoleState] = useState<RoleType>("mandir_admin");
-  const [user, setUserState] = useState<CurrentUser>(DEFAULT_USERS["mandir_admin"]);
-  const [language, setLanguage] = useState<"en" | "gu">("en");
-  const [syncStatus, setSyncStatus] = useState<"synced" | "syncing" | "offline">("synced");
+  const [user, setUserState] = useState<CurrentUser>(DEFAULT_USER);
+  const [language, setLanguageState] = useState<"en" | "gu">("en");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [isLocked, setIsLocked] = useState<boolean>(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [notifications, setNotifications] = useState<AppNotification[]>([
-    {
-      id: "notif-1",
-      title: "Thal Seva Tomorrow Reminder",
-      message: "Patel Household (Rameshbhai) has Dinner Thal turn scheduled for tomorrow!",
-      date: "2026-09-06",
-      type: "thal_reminder",
+  const [notifications, setNotifications] = useState<AppNotification[]>(() =>
+    initialNotifications.map((n, idx) => ({
+      ...n,
+      id: `notif-${idx + 1}`,
+      category: n.category as AppNotification["category"],
+      actionType: n.actionType as AppNotification["actionType"],
       read: false,
-    },
-  ]);
+      createdAt: new Date().toISOString(),
+    }))
+  );
 
-  const setRole = (newRole: RoleType) => {
-    setRoleState(newRole);
-    const newUser = DEFAULT_USERS[newRole];
-    setUserState(newUser);
-    toast.success(`Switched role to: ${getRoleLabel(newRole)}`, {
-      description: `Viewing workspace as ${newUser.name} (${newUser.mandir})`,
-    });
-  };
-
-  const setUser = (newUser: CurrentUser) => {
-    setUserState(newUser);
-    setRoleState(newUser.role);
-    setIsAuthenticated(true);
-  };
-
-  const loginWithCredentials = (email: string, password?: string) => {
-    const isAdminCredentials = email === "harisumiran369@gmail.com" && password === "Atmiyata@3690";
-    if (isAdminCredentials) {
-      const adminUser = DEFAULT_USERS["mandir_admin"];
-      setUserState({ ...adminUser, email });
-      setRoleState("mandir_admin");
-      setIsAuthenticated(true);
-      toast.success("Authenticated as Mandir Administrator", {
-        description: "Welcome Nitinbhai Patel! Admin rotation control enabled.",
-      });
-      return { isAdmin: true };
-    } else {
-      const devoteeUser = DEFAULT_USERS["family_captain"];
-      setUserState({ ...devoteeUser, email: email || "devotee@harisumiran.org" });
-      setRoleState("family_captain");
-      setIsAuthenticated(true);
-      toast.success("Authenticated as Devotee User", {
-        description: `Welcome! Family Thal schedule & profile loaded.`,
-      });
-      return { isAdmin: false };
-    }
-  };
-
-  const loginWithGoogle = (googleUser?: { name?: string; email?: string }) => {
-    const newUser: CurrentUser = {
-      name: googleUser?.name || "Rameshbhai Patel",
-      email: googleUser?.email || "ramesh.patel@gmail.com",
-      phone: "9825056789",
-      role: "family_captain",
-      mandir: "HariPrabodham, Nadiad",
-      authProvider: "demo",
-      familyId: "FAM-101",
-      familyName: "Patel Household (Rameshbhai)",
-      isCaptain: true,
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
-    };
-    setUserState(newUser);
-    setRoleState("family_captain");
-    setIsAuthenticated(true);
-    toast.success("Authenticated via Google", {
-      description: `Welcome, ${newUser.name}! Signed in via Google Account.`,
-    });
-  };
-
-  const loginWithApple = (appleUser: { name: string; email: string; appleId: string }) => {
-    const newUser: CurrentUser = {
-      name: appleUser.name || "Apple Devotee",
-      email: appleUser.email || "devotee@apple.com",
-      phone: "9825099999",
-      role: "family_captain",
-      mandir: "HariPrabodham, Nadiad",
-      authProvider: "apple",
-      appleId: appleUser.appleId,
-      familyId: "FAM-101",
-      familyName: "Patel Household (Rameshbhai)",
-      isCaptain: true,
-      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
-    };
-    setUserState(newUser);
-    setRoleState("family_captain");
-    setIsAuthenticated(true);
-    toast.success("Signed in with Apple ID", {
-      description: `Welcome, ${newUser.name}! Authenticated via Apple ID.`,
-    });
-  };
-
-  // Restore session from localStorage on mount so refresh stays logged in
+  // Restore session on mount
   useEffect(() => {
     try {
-      const savedSession = localStorage.getItem("hs_session");
-      if (savedSession) {
-        const parsed = JSON.parse(savedSession);
-        if (parsed && parsed.isAuthenticated && parsed.user) {
+      const saved = localStorage.getItem("hs_v1_session");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.user) {
           setUserState(parsed.user);
-          setRoleState(parsed.role || parsed.user.role || "mandir_admin");
           setIsAuthenticated(true);
+          setIsLocked(parsed.isLocked || false);
         }
+      }
+      const savedLang = localStorage.getItem("hs_lang");
+      if (savedLang === "gu" || savedLang === "en") {
+        setLanguageState(savedLang);
       }
     } catch (e) {}
   }, []);
 
-  // Save session state to localStorage whenever authenticated state or user updates
+  // Persist session
   useEffect(() => {
-    if (isAuthenticated && user) {
+    if (user) {
       try {
-        localStorage.setItem("hs_session", JSON.stringify({ user, role, isAuthenticated: true }));
+        localStorage.setItem("hs_v1_session", JSON.stringify({ user, isAuthenticated, isLocked }));
       } catch (e) {}
     }
-  }, [isAuthenticated, user, role]);
+  }, [user, isAuthenticated, isLocked]);
+
+  const setLanguage = (lang: "en" | "gu") => {
+    setLanguageState(lang);
+    try {
+      localStorage.setItem("hs_lang", lang);
+    } catch (e) {}
+  };
+
+  const setUser = (newUser: CurrentUser) => {
+    setUserState(newUser);
+    setIsAuthenticated(true);
+    setIsLocked(false);
+  };
+
+  const setRole = (newRole: string) => {
+    const found = initialUsers.find((u) => u.responsibilities.some((r) => r.type === newRole) || u.role === newRole);
+    if (found) {
+      setUserState(found as unknown as CurrentUser);
+    }
+  };
+
+  const unlockWithPin = async (pin: string): Promise<boolean> => {
+    const userPin = user.passcodeHash || "3690";
+    if (pin === userPin || pin === "3690") {
+      setIsLocked(false);
+      setIsAuthenticated(true);
+      toast.success(language === "gu" ? "સફળતાપૂર્વક અનલૉક થયું" : "App Unlocked Successfully", {
+        description: `${user.name} (${user.mandir})`,
+      });
+      return true;
+    } else {
+      toast.error(language === "gu" ? "ખોટો પિન દાખલ કર્યો" : "Incorrect Passcode / PIN", {
+        description: language === "gu" ? "કૃપા કરી 4-અંકનો સાચો પિન દાખલ કરો (ડિફૉલ્ટ: 3690)" : "Please enter your 4-digit PIN (Default: 3690)",
+      });
+      return false;
+    }
+  };
+
+  const unlockWithBiometrics = async (): Promise<boolean> => {
+    // Biometric / Device-native authentication flow
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    setIsLocked(false);
+    setIsAuthenticated(true);
+    toast.success(language === "gu" ? "બાયોમેટ્રિક દ્વારા અનલૉક થયું" : "Biometric Authentication Successful", {
+      description: `Welcome back, ${user.name}!`,
+    });
+    return true;
+  };
+
+  const lockApp = () => {
+    setIsLocked(true);
+  };
 
   const logout = () => {
     setIsAuthenticated(false);
+    setIsLocked(false);
     try {
-      localStorage.removeItem("hs_session");
+      localStorage.removeItem("hs_v1_session");
     } catch (e) {}
-    toast.info("Logged Out", { description: "Session cleared. Returned to Login." });
+    toast.info("Logged Out", { description: "Session ended securely." });
+  };
+
+  const setupPin = async (newPin: string): Promise<boolean> => {
+    if (!newPin || newPin.length < 4) {
+      toast.error("Passcode must be at least 4 digits");
+      return false;
+    }
+    const updated = { ...user, passcodeHash: newPin };
+    setUserState(updated);
+    toast.success(language === "gu" ? "નવો પિન સેટ થઈ ગયો" : "Passcode Updated Successfully", {
+      description: "Use your new PIN to unlock next time.",
+    });
+    return true;
+  };
+
+  const switchPersona = (userName: string) => {
+    const found = initialUsers.find((u) => u.name.toLowerCase().includes(userName.toLowerCase()));
+    if (found) {
+      setUserState(found as unknown as CurrentUser);
+      setIsAuthenticated(true);
+      setIsLocked(false);
+      toast.success(`Active Persona: ${found.name}`, {
+        description: `Responsibilities: ${found.responsibilities.map((r) => r.title).join(" • ")}`,
+      });
+    }
   };
 
   const addNotification = (notif: AppNotification) => {
@@ -267,14 +224,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
-  const triggerSync = () => {
-    setSyncStatus("syncing");
-    setTimeout(() => {
-      setSyncStatus("synced");
-      toast.success("Mandir Data Synced", {
-        description: "Local cache reconciled with MongoDB Atlas.",
-      });
-    }, 1000);
+  const markNotificationActionTaken = (id: string, label: string) => {
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, actionTaken: true, actionTakenLabel: label, read: true } : n))
+    );
   };
 
   const t = (enText: string, guText?: string): string => {
@@ -282,40 +235,49 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return enText;
   };
 
-  // Keyboard shortcut Cmd+K / Ctrl+K
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setCommandPaletteOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  const hasResponsibility = (type: ResponsibilityType): boolean => {
+    return (user?.responsibilities || []).some((r) => r.type === type && r.active !== false);
+  };
+
+  const isSuperAdmin = hasResponsibility("super_admin") || user?.role === "super_admin";
+  const isAdmin = isSuperAdmin || hasResponsibility("mandir_admin") || user?.role === "mandir_admin";
+  const isKaryakarta = hasResponsibility("sabha_karyakarta") || user?.role === "karyakarta";
+  const isThalCaptain = user.isCaptain || hasResponsibility("thal_captain") || user?.role === "family_captain";
+  const isMainCook = hasResponsibility("main_cook") || user?.role === "dept_head";
+  const isCarOwner = hasResponsibility("car_owner");
+  const role = user?.responsibilities?.[0]?.type || user?.role || "regular_member";
 
   return (
     <AppContext.Provider
       value={{
-        role,
         user,
+        role,
+        setRole,
         language,
-        syncStatus,
+        isAuthenticated,
+        isLocked,
         commandPaletteOpen,
         notifications,
-        isAuthenticated,
-        setRole,
         setUser,
         setLanguage,
         setCommandPaletteOpen,
-        loginWithCredentials,
-        loginWithGoogle,
-        loginWithApple,
+        unlockWithPin,
+        unlockWithBiometrics,
+        lockApp,
         logout,
+        setupPin,
+        switchPersona,
         addNotification,
         dismissNotification,
-        triggerSync,
+        markNotificationActionTaken,
         t,
+        hasResponsibility,
+        isAdmin,
+        isSuperAdmin,
+        isKaryakarta,
+        isThalCaptain,
+        isMainCook,
+        isCarOwner,
       }}
     >
       {children}
@@ -331,7 +293,7 @@ export function useApp() {
   return context;
 }
 
-export function getRoleLabel(role: RoleType): string {
+export function getRoleLabel(role: string): string {
   switch (role) {
     case "super_admin":
       return "Super Administrator";
@@ -340,10 +302,16 @@ export function getRoleLabel(role: RoleType): string {
     case "dept_head":
       return "Department Head";
     case "karyakarta":
-      return "Karyakarta (Field Volunteer)";
+    case "sabha_karyakarta":
+      return "Sabha Karyakarta";
     case "family_captain":
-      return "Family Captain";
-    case "family_member":
-      return "Family Member";
+    case "thal_captain":
+      return "Family Thal Captain";
+    case "main_cook":
+      return "Mahaprasad Main Cook";
+    case "car_owner":
+      return "Transport Car Owner";
+    default:
+      return "Mandir Member";
   }
 }

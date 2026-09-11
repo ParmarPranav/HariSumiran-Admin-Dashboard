@@ -50,11 +50,17 @@ export async function POST(req: Request) {
     }
 
     let member = null;
-    if (memberId) {
+    const identifier = memberId || memberCode;
+    if (memberId && typeof memberId === "string" && memberId.match(/^[0-9a-fA-F]{24}$/)) {
       member = await Member.findById(memberId);
-    } else if (memberCode) {
+    }
+    if (!member && identifier) {
       member = await Member.findOne({
-        $or: [{ memberCode }, { phone: memberCode.replace(/\D/g, "") }, { name: { $regex: memberCode, $options: "i" } }],
+        $or: [
+          { memberCode: identifier },
+          { phone: identifier.replace(/\D/g, "") },
+          { name: { $regex: identifier, $options: "i" } },
+        ],
       });
     }
 
