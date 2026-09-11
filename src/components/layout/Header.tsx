@@ -54,21 +54,28 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-white/[0.07] bg-[#0C0F17]/85 px-4 md:px-6 backdrop-blur-2xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-      {/* Left Search Command Trigger */}
-      <div className="flex items-center gap-3 flex-1 max-w-md">
+    <header className="sticky top-0 z-20 flex h-16 w-full items-center justify-between border-b border-white/[0.08] bg-[#0A0D15]/85 px-4 md:px-6 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+      {/* Left Search Command Trigger & Mandir Live Status */}
+      <div className="flex items-center gap-3 flex-1 max-w-lg">
         <button
           onClick={() => setCommandPaletteOpen(true)}
-          className="flex h-10 w-full items-center gap-2.5 rounded-2xl border border-white/[0.08] bg-[#141824]/80 px-3.5 text-xs text-zinc-400 hover:border-amber-400/40 hover:bg-[#1A2030] hover:text-zinc-200 transition-all shadow-sm"
+          className="group flex h-10 w-full max-w-sm items-center gap-2.5 rounded-2xl border border-white/[0.08] bg-[#121624]/70 px-3.5 text-xs text-zinc-400 hover:border-amber-400/40 hover:bg-[#181D2E] hover:text-zinc-200 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
         >
-          <Search className="h-4 w-4 text-zinc-400" />
-          <span className="flex-1 text-left truncate">
-            {t("Quick Search (Members, Thal, Sabha, Seva)...", "શોધો (સભ્યો, થાળ, સભા, સેવા)...")}
+          <Search className="h-3.5 w-3.5 text-zinc-400 group-hover:text-amber-300 transition-colors" />
+          <span className="flex-1 text-left truncate font-normal">
+            {t("Search (Members, Thal, Sabha, Seva)...", "શોધો (સભ્યો, થાળ, સભા, સેવા)...")}
           </span>
-          <kbd className="hidden sm:inline-flex h-5 items-center rounded border border-white/10 bg-white/[0.06] px-1.5 font-mono text-[10px] text-zinc-400">
+          <kbd className="hidden sm:inline-flex h-5 items-center rounded-lg border border-white/10 bg-white/[0.06] px-1.5 font-mono text-[10px] text-zinc-400">
             ⌘K
           </kbd>
         </button>
+
+        {/* Live Mandir Prayer Ticker */}
+        <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-xl bg-white/[0.03] border border-white/[0.06] text-[11px] text-zinc-300">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+          <span className="font-mono text-zinc-400">Nadiad:</span>
+          <span className="font-semibold text-amber-300 font-mono">07:00 PM Sandhya Aarti</span>
+        </div>
       </div>
 
       {/* Right Controls */}
@@ -76,24 +83,24 @@ export function Header() {
         {/* Persona Switcher Pill (One Account, Multi-Responsibilities) */}
         <button
           onClick={() => setPersonaModalOpen(true)}
-          className="flex items-center gap-1.5 rounded-2xl border border-amber-400/30 bg-amber-500/15 px-2.5 py-1.5 text-xs font-bold text-amber-300 hover:bg-amber-500/25 transition-colors shadow-sm"
+          className="group flex items-center gap-1.5 rounded-2xl border border-amber-400/30 bg-gradient-to-r from-amber-500/10 to-yellow-600/10 px-3 py-1.5 text-xs font-bold text-amber-300 hover:border-amber-400/50 hover:bg-amber-500/20 transition-all shadow-sm"
           title={t("Switch Persona for testing", "પરીક્ષણ માટે વ્યક્તિ બદલો")}
         >
-          <Users className="h-3.5 w-3.5" />
-          <span className="hidden sm:inline truncate max-w-[140px]">{user?.name}</span>
-          <ChevronDown className="h-3 w-3 opacity-70" />
+          <Users className="h-3.5 w-3.5 text-amber-400" />
+          <span className="hidden sm:inline truncate max-w-[130px] font-semibold">{user?.name}</span>
+          <ChevronDown className="h-3 w-3 opacity-70 group-hover:translate-y-0.5 transition-transform" />
         </button>
 
         {/* Actionable Notifications Bell */}
         <div className="relative">
           <button
             onClick={() => setNotificationsOpen(!notificationsOpen)}
-            className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-[#141824] text-zinc-300 hover:bg-[#1C2234] hover:text-white transition-colors shadow-sm"
+            className="relative flex h-9 w-9 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#121624] text-zinc-300 hover:bg-[#181D2E] hover:border-amber-400/30 hover:text-white transition-all shadow-sm"
             title={t("Actionable Notifications", "કાર્યવાહી સૂચનાઓ")}
           >
             <Bell className="h-4 w-4 text-zinc-400" />
             {unreadNotifications.length > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[9px] font-bold text-black shadow-sm animate-pulse">
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-[#FCE082] to-[#E8B038] text-[9px] font-black text-stone-950 shadow-md animate-pulse">
                 {unreadNotifications.length}
               </span>
             )}
@@ -183,29 +190,48 @@ export function Header() {
           )}
         </div>
 
-        {/* Language Toggle (EN / GU) */}
-        <button
-          onClick={() => setLanguage(language === "en" ? "gu" : "en")}
-          className="flex h-9 items-center gap-1 rounded-xl border border-white/[0.08] bg-[#141824] px-2.5 text-xs font-semibold text-zinc-200 hover:bg-[#1C2234] hover:text-white transition-colors shadow-sm"
-          title={t("Switch Gujarati / English", "ગુજરાતી / અંગ્રેજી")}
-        >
-          <Languages className="h-3.5 w-3.5 text-zinc-400" />
-          <span>{language === "en" ? "ગુજરાતી" : "EN"}</span>
-        </button>
+        {/* Language Toggle Capsule (EN / GU) */}
+        <div className="flex items-center p-0.5 rounded-2xl bg-[#121624] border border-white/[0.08] shadow-inner">
+          <button
+            onClick={() => setLanguage("en")}
+            className={cn(
+              "px-2.5 py-1 text-[11px] font-bold rounded-xl transition-all duration-200",
+              language === "en"
+                ? "bg-gradient-to-r from-[#FCE082] to-[#E8B038] text-stone-950 font-black shadow-sm"
+                : "text-zinc-400 hover:text-white"
+            )}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => setLanguage("gu")}
+            className={cn(
+              "px-2.5 py-1 text-[11px] font-bold rounded-xl transition-all duration-200",
+              language === "gu"
+                ? "bg-gradient-to-r from-[#FCE082] to-[#E8B038] text-stone-950 font-black shadow-sm"
+                : "text-zinc-400 hover:text-white"
+            )}
+          >
+            ગુજરાતી
+          </button>
+        </div>
 
         {/* User Profile & Lock Menu */}
         <div className="relative">
           <button
             onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-            className="flex items-center gap-2 pl-1 hover:opacity-90 transition-opacity focus:outline-none"
+            className="flex items-center gap-2 pl-1 hover:opacity-90 transition-opacity focus:outline-none group"
             title="User Profile Menu"
           >
-            <img
-              src={user.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"}
-              alt={user.name}
-              className="h-8 w-8 rounded-full border-2 border-amber-400/50 object-cover shadow-sm"
-            />
-            <ChevronDown className="h-3 w-3 text-zinc-400 hidden sm:inline opacity-70" />
+            <div className="relative">
+              <img
+                src={user.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"}
+                alt={user.name}
+                className="h-9 w-9 rounded-2xl border border-amber-400/50 object-cover shadow-sm group-hover:border-amber-400 transition-colors"
+              />
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-[#0A0D15]" />
+            </div>
+            <ChevronDown className="h-3 w-3 text-zinc-400 hidden sm:inline opacity-70 group-hover:translate-y-0.5 transition-transform" />
           </button>
 
           {profileMenuOpen && (

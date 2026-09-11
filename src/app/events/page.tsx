@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
@@ -97,7 +98,7 @@ export default function EventsPage() {
         <div>
           <div className="flex items-center gap-2">
             <PartyPopper className="h-5 w-5 text-amber-400" />
-            <h1 className="font-heading text-2xl font-bold text-white">
+            <h1 className="font-display text-2xl font-bold text-white">
               {language === "gu" ? "ઉત્સવ અને મહોત્સવ" : "Festivals, Events & Digital Passes"}
             </h1>
           </div>
@@ -125,8 +126,9 @@ export default function EventsPage() {
           const progress = Math.round((evt.registeredCount / (evt.capacity || 1)) * 100);
 
           return (
-            <GlassCard
+            <SpotlightCard
               key={evt._id}
+              spotlightColor={isLive ? "rgba(244, 63, 94, 0.12)" : "rgba(245, 158, 11, 0.12)"}
               className={`p-6 space-y-5 border-l-4 ${
                 isLive ? "border-l-rose-500" : "border-l-amber-400"
               }`}
@@ -139,7 +141,7 @@ export default function EventsPage() {
                       {evt.status}
                     </Badge>
                   </div>
-                  <h3 className="font-heading text-xl font-bold text-white mt-1 leading-tight">
+                  <h3 className="font-display text-xl font-bold text-white mt-1 leading-tight">
                     {evt.title}
                   </h3>
                   {evt.gujaratiTitle && (
@@ -219,7 +221,7 @@ export default function EventsPage() {
                   Get Digital Pass &rarr;
                 </Button>
               </div>
-            </GlassCard>
+            </SpotlightCard>
           );
         })}
       </div>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
@@ -147,7 +148,7 @@ export default function SabhaPage() {
         <div>
           <div className="flex items-center gap-2">
             <CalendarDays className="h-5 w-5 text-amber-400" />
-            <h1 className="font-heading text-2xl font-bold text-white">
+            <h1 className="font-display text-2xl font-bold text-white">
               {language === "gu" ? "સભા અને લાઈવ હાજરી" : "Sabha & Live Attendance Console"}
             </h1>
           </div>
@@ -177,7 +178,10 @@ export default function SabhaPage() {
 
       {/* Active Session Console Hero */}
       {activeSession && (
-        <GlassCard className="border-l-4 border-l-amber-400 p-6 space-y-5">
+        <SpotlightCard
+          spotlightColor="rgba(245, 158, 11, 0.12)"
+          className="border-l-4 border-l-amber-400 p-6 space-y-5 bg-gradient-to-br from-[#111422]/95 via-[#151928]/90 to-[#0A0C14]/95 shadow-2xl backdrop-blur-xl"
+        >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
@@ -187,7 +191,7 @@ export default function SabhaPage() {
                 </span>
                 <span className="text-xs text-charcoal-subtle">&bull; {activeSession.type}</span>
               </div>
-              <h2 className="font-heading text-xl md:text-2xl font-bold text-white mt-1">
+              <h2 className="font-display text-xl md:text-2xl font-bold text-white mt-1">
                 {activeSession.title}
               </h2>
               <p className="text-xs text-charcoal-subtle mt-0.5">
@@ -196,14 +200,14 @@ export default function SabhaPage() {
             </div>
 
             {/* Live Count Stat Strip */}
-            <div className="flex items-center gap-4 bg-surface-container-low/60 p-3.5 rounded-2xl border border-hairline">
+            <div className="flex items-center gap-4 bg-[#121622]/80 p-3.5 rounded-2xl border border-white/10 shadow-inner">
               <div className="text-right">
                 <p className="text-[10px] uppercase font-bold text-slate-400">Present / Expected</p>
-                <p className="font-heading text-2xl font-extrabold text-white">
-                  <span className="text-amber-300">{presentCount}</span> / {activeSession.expectedCount}
+                <p className="font-display text-2xl font-extrabold text-white">
+                  <span className="text-amber-300 font-mono">{presentCount}</span> / <span className="font-mono">{activeSession.expectedCount}</span>
                 </p>
               </div>
-              <div className="h-10 w-10 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-heading font-bold text-sm">
+              <div className="h-10 w-10 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-mono font-bold text-sm">
                 {Math.round((presentCount / (activeSession.expectedCount || 1)) * 100)}%
               </div>
             </div>
@@ -273,7 +277,7 @@ export default function SabhaPage() {
                         <span className="font-bold text-white">{member.memberName}</span>
                         <span className="text-[11px] text-slate-400">({member.familyName})</span>
                       </div>
-                      <p className="text-[11px] text-slate-400">+91 {member.phone} &bull; Streak: {member.attendanceStreak}w</p>
+                      <p className="text-[11px] text-slate-400 font-mono">+91 {member.phone} &bull; Streak: {member.attendanceStreak}w</p>
                     </div>
 
                     <div>
@@ -296,16 +300,20 @@ export default function SabhaPage() {
               )}
             </div>
           </div>
-        </GlassCard>
+        </SpotlightCard>
       )}
 
       {/* Scheduled Sabhas History & Upcoming List */}
       <div className="space-y-4">
-        <h3 className="font-heading text-lg font-bold text-white">All Scheduled Satsang Sessions</h3>
+        <h3 className="font-display text-lg font-bold text-white">All Scheduled Satsang Sessions</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {sabhas.map((sabha) => (
-            <GlassCard key={sabha._id} hoverEffect className="p-5 space-y-3 flex flex-col justify-between">
+            <SpotlightCard
+              key={sabha._id}
+              spotlightColor="rgba(245, 158, 11, 0.08)"
+              className="p-5 space-y-3 flex flex-col justify-between border-white/10 bg-[#121624]/90"
+            >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Badge variant={sabha.status === "Live" ? "danger" : sabha.status === "Completed" ? "success" : "primary"}>
@@ -314,7 +322,7 @@ export default function SabhaPage() {
                   <span className="text-[10px] font-mono font-semibold text-slate-400">{sabha.sabhaCode}</span>
                 </div>
 
-                <h4 className="font-heading text-base font-bold text-white leading-tight">
+                <h4 className="font-display text-base font-bold text-white leading-tight">
                   {sabha.title}
                 </h4>
                 {sabha.gujaratiTitle && (
@@ -332,7 +340,7 @@ export default function SabhaPage() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Users className="h-3.5 w-3.5 text-slate-400" />
-                    <span>{sabha.presentCount} / {sabha.expectedCount} Attendees</span>
+                    <span className="font-mono">{sabha.presentCount} / {sabha.expectedCount} Attendees</span>
                   </div>
                 </div>
               </div>
@@ -350,7 +358,7 @@ export default function SabhaPage() {
                   Manage Session &rarr;
                 </Button>
               </div>
-            </GlassCard>
+            </SpotlightCard>
           ))}
         </div>
       </div>

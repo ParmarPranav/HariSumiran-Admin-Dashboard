@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Modal } from "@/components/ui/Modal";
@@ -19,6 +20,7 @@ import {
   Calendar,
   UtensilsCrossed,
   Sparkles,
+  Lock,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -102,7 +104,7 @@ export default function ProfilePage() {
         <div>
           <div className="flex items-center gap-2">
             <User className="h-6 w-6 text-amber-400" />
-            <h1 className="font-heading text-2xl font-bold text-white">Devotee Profile &amp; Household</h1>
+            <h1 className="font-display text-2xl font-bold text-white">Devotee Profile &amp; Household</h1>
           </div>
           <p className="text-xs text-charcoal-subtle mt-0.5">
             Manage your authenticated profile, family registration, and family captain designation
@@ -111,14 +113,29 @@ export default function ProfilePage() {
 
         <div className="flex items-center gap-2">
           <Badge variant="success" size="md">
-            {user.biometricEnabled ? "🔐 PIN + Biometric Protected" : "🔒 App PIN Protected"}
+            <span className="inline-flex items-center gap-1.5">
+              {user.biometricEnabled ? (
+                <>
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>PIN + Biometric Protected</span>
+                </>
+              ) : (
+                <>
+                  <Lock className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>App PIN Protected</span>
+                </>
+              )}
+            </span>
           </Badge>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* User Card */}
-        <GlassCard className="p-6 space-y-4 md:col-span-1 flex flex-col justify-between">
+        <SpotlightCard
+          spotlightColor="rgba(245, 158, 11, 0.12)"
+          className="p-6 space-y-4 md:col-span-1 flex flex-col justify-between bg-[#121624]/90 border-white/10"
+        >
           <div className="space-y-4">
             <div className="text-center space-y-2">
               <img
@@ -127,7 +144,7 @@ export default function ProfilePage() {
                 className="h-20 w-20 rounded-full border-2 border-amber-400/50 mx-auto object-cover shadow-soft"
               />
               <div>
-                <h3 className="font-heading text-lg font-bold text-white">{user.name}</h3>
+                <h3 className="font-display text-lg font-bold text-white">{user.name}</h3>
                 <p className="text-xs text-amber-300 font-semibold uppercase tracking-wide">
                   {role.replace("_", " ")}
                 </p>
@@ -147,7 +164,7 @@ export default function ProfilePage() {
                 <span className="text-charcoal-subtle flex items-center gap-1.5">
                   <Phone className="h-3.5 w-3.5" /> Phone:
                 </span>
-                <span className="font-semibold text-white">+91 {user.phone}</span>
+                <span className="font-semibold text-white font-mono">+91 {user.phone}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-charcoal-subtle flex items-center gap-1.5">
@@ -168,14 +185,17 @@ export default function ProfilePage() {
               </p>
             </div>
           </div>
-        </GlassCard>
+        </SpotlightCard>
 
         {/* Household & Captain Details */}
-        <GlassCard className="p-6 space-y-6 md:col-span-2">
+        <SpotlightCard
+          spotlightColor="rgba(245, 158, 11, 0.12)"
+          className="p-6 space-y-6 md:col-span-2 bg-[#121624]/90 border-white/10"
+        >
           <div className="flex items-center justify-between border-b border-hairline pb-3">
             <div className="flex items-center gap-2">
               <Users className="h-5 w-5 text-amber-400" />
-              <h2 className="font-heading text-lg font-bold text-white">Household Family Profile</h2>
+              <h2 className="font-display text-lg font-bold text-white">Household Family Profile</h2>
             </div>
             {!family ? (
               <Button size="sm" onClick={() => setCreateFamilyModalOpen(true)}>
@@ -190,7 +210,7 @@ export default function ProfilePage() {
             <div className="space-y-5">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-[#141824] border border-white/10 shadow-sm">
                 <div>
-                  <h3 className="font-heading text-xl font-bold text-white">{family.name}</h3>
+                  <h3 className="font-display text-xl font-bold text-white">{family.name}</h3>
                   {family.gujaratiName && (
                     <p className="text-sm font-gujarati text-amber-300 font-medium">
                       {family.gujaratiName}
@@ -214,7 +234,7 @@ export default function ProfilePage() {
                   <div className="flex items-center gap-2">
                     <Crown className="h-5 w-5 text-amber-400" />
                     <div>
-                      <h4 className="font-heading text-sm font-bold text-white">Designated Family Captain</h4>
+                      <h4 className="font-display text-sm font-bold text-white">Designated Family Captain</h4>
                       <p className="text-[11px] text-slate-400">Responsible for Thal rotation RSVPs &amp; swap requests</p>
                     </div>
                   </div>
@@ -224,19 +244,19 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                  <div className="h-10 w-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-sm shadow-sm">
-                    👑
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#FCE082] via-[#E8B038] to-[#C98B1C] text-stone-950 flex items-center justify-center font-bold text-sm shadow-md">
+                    <Crown className="h-5 w-5 text-stone-950" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-white">{family.captainName}</p>
-                    <p className="text-[11px] text-slate-400">Contact: +91 {family.phone}</p>
+                    <p className="text-[11px] text-slate-400 font-mono">Contact: +91 {family.phone}</p>
                   </div>
                 </div>
               </div>
 
               {/* Members List */}
               <div className="space-y-3">
-                <h4 className="font-heading text-xs font-bold text-slate-300 uppercase tracking-wider">
+                <h4 className="font-display text-xs font-bold text-slate-300 uppercase tracking-wider">
                   Family Members ({members.length})
                 </h4>
                 <div className="divide-y divide-white/10 rounded-2xl border border-white/10 overflow-hidden">
@@ -250,12 +270,10 @@ export default function ProfilePage() {
                           <p className="font-bold text-white flex items-center gap-1.5">
                             {m.name}
                             {m.isCaptain && (
-                              <span className="px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-400/30 text-amber-300 text-[10px] font-semibold">
-                                Captain
-                              </span>
+                              <Crown className="h-3.5 w-3.5 text-amber-400 inline" />
                             )}
                           </p>
-                          <p className="text-slate-400">{m.relationship} &bull; +91 {m.phone}</p>
+                          <p className="text-slate-400 font-mono">{m.relationship} &bull; +91 {m.phone}</p>
                         </div>
                       </div>
 
@@ -281,7 +299,7 @@ export default function ProfilePage() {
               </Button>
             </div>
           )}
-        </GlassCard>
+        </SpotlightCard>
       </div>
 
       {/* Create Family Modal */}

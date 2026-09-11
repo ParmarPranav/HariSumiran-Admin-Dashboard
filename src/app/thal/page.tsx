@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
@@ -280,11 +281,14 @@ export default function ThalPage() {
   return (
     <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
       {/* 🌟 TODAY'S WHOSE TURN FEATURED BANNER */}
-      <GlassCard className="p-6 space-y-4 border-l-4 border-l-amber-400 bg-gradient-to-r from-[#131728] via-[#1A2035] to-[#0E111D] border-white/10 shadow-2xl">
+      <SpotlightCard
+        spotlightColor="rgba(245, 158, 11, 0.12)"
+        className="p-6 space-y-4 border-l-4 border-l-amber-400 bg-gradient-to-r from-[#111420]/95 via-[#161B2E]/90 to-[#0B0D15]/95 border-white/10 shadow-2xl backdrop-blur-xl"
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-3 w-3 rounded-full bg-emerald-400 animate-ping" />
-            <h2 className="font-heading text-lg font-bold text-white flex items-center gap-2">
+            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
+            <h2 className="font-display text-lg font-bold text-white flex items-center gap-2">
               <CalendarIcon className="h-5 w-5 text-amber-400" />
               Today's Thal Seva Turn &mdash; Sunday, September 6, 2026
             </h2>
@@ -296,7 +300,10 @@ export default function ThalPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Today's Morning Thal Card */}
-          <div className="p-4 rounded-2xl border border-amber-400/20 bg-[#121622]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md">
+          <SpotlightCard
+            spotlightColor="rgba(245, 158, 11, 0.15)"
+            className="p-4 rounded-2xl border border-amber-400/25 bg-[#121624]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md"
+          >
             <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-[#FCE082] to-[#C98B1C] text-stone-950 text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-md">
               Morning Thal
             </div>
@@ -306,7 +313,7 @@ export default function ThalPage() {
             {todayMorningTurn ? (
               <div className="space-y-2">
                 <div>
-                  <h3 className="font-heading text-lg font-bold text-white">
+                  <h3 className="font-display text-lg font-bold text-white">
                     {todayMorningTurn.assignedFamilyName}
                   </h3>
                   <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
@@ -318,24 +325,30 @@ export default function ThalPage() {
 
                 <div className="flex items-center justify-between pt-1">
                   <span className="text-xs text-slate-400 font-medium">
-                    Headcount: <strong className="text-slate-200">{todayMorningTurn.headcount || 45} Devotees</strong>
+                    Headcount: <strong className="text-slate-200 font-mono font-bold">{todayMorningTurn.headcount || 45} Devotees</strong>
                   </span>
                   <Badge variant={todayMorningTurn.status === "Confirmed" ? "success" : "warning"} size="sm">
                     {todayMorningTurn.status}
                   </Badge>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-slate-200 leading-snug">
-                  🍲 <strong>Menu:</strong> {todayMorningTurn.specialInstructions || "Puri, Shrikhand, Bataka nu Shaak, Dal Bhat"}
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-slate-200 leading-snug flex items-start gap-2">
+                  <UtensilsCrossed className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-amber-300">Menu:</strong> {todayMorningTurn.specialInstructions || "Puri, Shrikhand, Bataka nu Shaak, Dal Bhat"}
+                  </div>
                 </div>
               </div>
             ) : (
               <p className="text-xs text-slate-400">No Morning Thal turn scheduled for today.</p>
             )}
-          </div>
+          </SpotlightCard>
 
           {/* Today's Evening Thal Card */}
-          <div className="p-4 rounded-2xl border border-indigo-500/20 bg-[#121622]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md">
+          <SpotlightCard
+            spotlightColor="rgba(99, 102, 241, 0.15)"
+            className="p-4 rounded-2xl border border-indigo-500/25 bg-[#121624]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md"
+          >
             <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-sky-400 to-indigo-500 text-stone-950 text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-md">
               Evening Thal
             </div>
@@ -345,7 +358,7 @@ export default function ThalPage() {
             {todayEveningTurn ? (
               <div className="space-y-2">
                 <div>
-                  <h3 className="font-heading text-lg font-bold text-white">
+                  <h3 className="font-display text-lg font-bold text-white">
                     {todayEveningTurn.assignedFamilyName}
                   </h3>
                   <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
@@ -357,23 +370,26 @@ export default function ThalPage() {
 
                 <div className="flex items-center justify-between pt-1">
                   <span className="text-xs text-slate-400 font-medium">
-                    Headcount: <strong className="text-slate-200">{todayEveningTurn.headcount || 50} Devotees</strong>
+                    Headcount: <strong className="text-slate-200 font-mono font-bold">{todayEveningTurn.headcount || 50} Devotees</strong>
                   </span>
                   <Badge variant={todayEveningTurn.status === "Confirmed" ? "success" : "warning"} size="sm">
                     {todayEveningTurn.status}
                   </Badge>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[11px] text-slate-200 leading-snug">
-                  🍲 <strong>Menu:</strong> {todayEveningTurn.specialInstructions || "Khichdi, Kadhi, Ringan Bharta, Sukhdi"}
+                <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[11px] text-slate-200 leading-snug flex items-start gap-2">
+                  <UtensilsCrossed className="h-4 w-4 text-indigo-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-indigo-300">Menu:</strong> {todayEveningTurn.specialInstructions || "Khichdi, Kadhi, Ringan Bharta, Sukhdi"}
+                  </div>
                 </div>
               </div>
             ) : (
               <p className="text-xs text-slate-400">No Evening Thal turn scheduled for today.</p>
             )}
-          </div>
+          </SpotlightCard>
         </div>
-      </GlassCard>
+      </SpotlightCard>
 
       {/* Main Page Title Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -944,8 +960,11 @@ export default function ThalPage() {
                       Captain: <strong className="text-slate-200">{turn.captainName || "Rameshbhai Patel"}</strong> &bull; Phone: +91 {turn.assignedPhone}
                     </p>
                     <p className="text-slate-400">Headcount: <strong className="text-slate-200">{turn.headcount} Devotees</strong></p>
-                    <div className="p-2.5 rounded-xl bg-black/30 border border-amber-500/20 text-[11px] text-slate-200">
-                      🍲 <strong>Menu:</strong> {turn.specialInstructions}
+                    <div className="p-2.5 rounded-xl bg-black/30 border border-amber-500/20 text-[11px] text-slate-200 flex items-start gap-2">
+                      <UtensilsCrossed className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-amber-300">Menu:</strong> {turn.specialInstructions}
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-2 pt-1">
@@ -1007,8 +1026,11 @@ export default function ThalPage() {
                       Captain: <strong className="text-slate-200">{turn.captainName || "Mukeshbhai Shah"}</strong> &bull; Phone: +91 {turn.assignedPhone}
                     </p>
                     <p className="text-slate-400">Headcount: <strong className="text-slate-200">{turn.headcount} Devotees</strong></p>
-                    <div className="p-2.5 rounded-xl bg-black/30 border border-indigo-500/20 text-[11px] text-slate-200">
-                      🍲 <strong>Menu:</strong> {turn.specialInstructions}
+                    <div className="p-2.5 rounded-xl bg-black/30 border border-indigo-500/20 text-[11px] text-slate-200 flex items-start gap-2">
+                      <UtensilsCrossed className="h-4 w-4 text-indigo-400 shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-indigo-300">Menu:</strong> {turn.specialInstructions}
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-2 pt-1">

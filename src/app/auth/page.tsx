@@ -251,8 +251,9 @@ export default function AuthPage() {
               <KeyRound className="h-3.5 w-3.5" />
               <span>{t("Change PIN", "પિન બદલો")}</span>
             </button>
-            <span className="text-[11px] font-mono text-emerald-400 font-medium">
-              🔒 {t("Default PIN: 3690", "ડિફૉલ્ટ પિન: 3690")}
+            <span className="text-[11px] font-mono text-emerald-400 font-medium flex items-center gap-1">
+              <Lock className="h-3 w-3 text-emerald-400" />
+              <span>{t("Default PIN: 3690", "ડિફૉલ્ટ પિન: 3690")}</span>
             </span>
           </div>
         </div>

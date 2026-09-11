@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { MandalaBackground } from "@/components/ui/MandalaBackground";
@@ -14,6 +15,7 @@ import {
   UtensilsCrossed,
   Users,
   CalendarDays,
+  Flame,
   Car,
   ChefHat,
   CheckCircle2,
@@ -263,7 +265,11 @@ export default function ReportsPage() {
                           <td className="py-2 font-mono text-slate-400">{m.memberCode}</td>
                           <td className="py-2 font-bold text-white">{m.name}</td>
                           <td className="py-2 text-slate-300">{m.familyName}</td>
-                          <td className="py-2 text-right font-mono font-bold text-emerald-400">🔥 {m.attendanceStreak}</td>
+                          <td className="py-2 text-right font-mono font-bold text-emerald-400">
+                            <span className="inline-flex items-center gap-1 justify-end">
+                              <Flame className="h-3.5 w-3.5 text-amber-400" /> {m.attendanceStreak}
+                            </span>
+                          </td>
                           <td className="py-2 text-center">
                             <Badge variant="success" size="sm">{m.verificationStatus}</Badge>
                           </td>

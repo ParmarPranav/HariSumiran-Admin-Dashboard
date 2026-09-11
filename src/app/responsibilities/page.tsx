@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Tabs } from "@/components/ui/Tabs";
 import { MandalaBackground } from "@/components/ui/MandalaBackground";
@@ -10,6 +11,8 @@ import {
   Sparkles,
   UtensilsCrossed,
   CalendarDays,
+  Calendar,
+  Flame,
   HeartHandshake,
   Car,
   ChefHat,
@@ -111,7 +114,10 @@ export default function ResponsibilitiesPage() {
       {activeTab === "responsibilities" && (
         <div className="relative z-10 space-y-6">
           {/* Identity Summary Card */}
-          <GlassCard className="p-5 border-l-4 border-l-amber-500 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <SpotlightCard
+            spotlightColor="rgba(245, 158, 11, 0.12)"
+            className="p-5 border-l-4 border-l-amber-500 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#121624]/90 border-white/10"
+          >
             <div className="flex items-center gap-4">
               <img
                 src={user?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"}
@@ -140,14 +146,18 @@ export default function ResponsibilitiesPage() {
                 </span>
               </div>
             </div>
-          </GlassCard>
+          </SpotlightCard>
 
           {/* Cards for each active responsibility */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {(user?.responsibilities || []).map((resp, idx) => (
-              <GlassCard key={idx} className="p-5 space-y-3 hover:shadow-float transition-all">
+              <SpotlightCard
+                key={idx}
+                spotlightColor="rgba(245, 158, 11, 0.12)"
+                className="p-5 space-y-3 bg-[#121624]/90 border-white/10 hover:shadow-xl transition-all"
+              >
                 <div className="flex items-center justify-between">
-                  <span className="font-heading text-sm font-bold text-white flex items-center gap-2">
+                  <span className="font-display text-sm font-bold text-white flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-amber-400" />
                     {language === "gu" && resp.gujaratiTitle ? resp.gujaratiTitle : resp.title}
                   </span>
@@ -170,7 +180,7 @@ export default function ResponsibilitiesPage() {
                 <p className="text-xs text-gray-400 leading-relaxed">
                   {t("System automatically grants you scoped access for this duty without role switching.", "આ જવાબદારી માટે સિસ્ટમ આપમેળે અધિકૃત કાર્યો પ્રદાન કરે છે.")}
                 </p>
-              </GlassCard>
+              </SpotlightCard>
             ))}
           </div>
         </div>
@@ -179,14 +189,17 @@ export default function ResponsibilitiesPage() {
       {/* TAB 2: MY ACTIVITY HISTORY */}
       {activeTab === "activity" && (
         <div className="relative z-10 space-y-4">
-          <GlassCard className="p-5 space-y-4">
+          <SpotlightCard
+            spotlightColor="rgba(245, 158, 11, 0.1)"
+            className="p-5 space-y-4 bg-[#121624]/90 border-white/10 shadow-xl"
+          >
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <h3 className="font-heading text-sm font-bold text-white flex items-center gap-2">
+              <h3 className="font-display text-sm font-bold text-white flex items-center gap-2">
                 <Activity className="h-4 w-4 text-amber-400" />
                 <span>{t("Personal Contribution Log", "વ્યક્તિગત સેવા અને હાજરી ઇતિહાસ")}</span>
               </h3>
-              <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
-                🔥 18 {t("Sabha Streak", "સભા નિયમિતતા")}
+              <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
+                <Flame className="h-3.5 w-3.5 text-amber-400" /> 18 {t("Sabha Streak", "સભા નિયમિતતા")}
               </span>
             </div>
 
@@ -203,11 +216,13 @@ export default function ResponsibilitiesPage() {
                     <Badge variant="success" size="sm">{log.status}</Badge>
                   </div>
                   <p className="text-xs text-gray-400">{log.detail}</p>
-                  <p className="text-[10px] text-gray-500 font-mono pt-1">📅 {log.date}</p>
+                  <p className="text-[10px] text-gray-400 font-mono pt-1 flex items-center gap-1">
+                    <Calendar className="h-3 w-3 text-amber-400" /> {log.date}
+                  </p>
                 </div>
               ))}
             </div>
-          </GlassCard>
+          </SpotlightCard>
         </div>
       )}
     </div>

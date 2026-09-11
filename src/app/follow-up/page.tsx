@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
@@ -156,7 +157,7 @@ export default function FollowUpPage() {
         <div>
           <div className="flex items-center gap-2">
             <HeartHandshake className="h-5 w-5 text-amber-400" />
-            <h1 className="font-heading text-2xl font-bold text-white">
+            <h1 className="font-display text-2xl font-bold text-white">
               {language === "gu" ? "સંપર્ક અને ફોલો-અપ" : "Prioritized Follow-Up & Pastoral Care"}
             </h1>
           </div>
@@ -168,51 +169,55 @@ export default function FollowUpPage() {
 
       {/* Urgency Filter Strip */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        <GlassCard
+        <SpotlightCard
           onClick={() => setSelectedUrgency("All")}
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+          spotlightColor="rgba(245, 158, 11, 0.12)"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
             selectedUrgency === "All" ? "border-amber-500/50 bg-amber-500/10 shadow-glow-sm" : "border-white/10 hover:border-white/20"
           }`}
         >
           <p className="text-xs font-semibold text-gray-400">All Open Cases</p>
-          <p className="font-heading text-xl font-bold text-white">{cases.length}</p>
-        </GlassCard>
+          <p className="font-display text-xl font-bold text-white font-mono">{cases.length}</p>
+        </SpotlightCard>
 
-        <GlassCard
+        <SpotlightCard
           onClick={() => setSelectedUrgency("Overdue")}
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+          spotlightColor="rgba(244, 63, 94, 0.15)"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
             selectedUrgency === "Overdue" ? "border-rose-500/60 bg-rose-500/15 shadow-[0_0_12px_rgba(244,63,94,0.2)]" : "border-white/10 hover:border-white/20"
           }`}
         >
           <p className="text-xs font-semibold text-rose-400">Overdue (&gt; 7 Days)</p>
-          <p className="font-heading text-xl font-bold text-rose-300">
+          <p className="font-display text-xl font-bold text-rose-300 font-mono">
             {cases.filter((c) => c.urgency === "Overdue").length}
           </p>
-        </GlassCard>
+        </SpotlightCard>
 
-        <GlassCard
+        <SpotlightCard
           onClick={() => setSelectedUrgency("Due Today")}
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+          spotlightColor="rgba(245, 158, 11, 0.15)"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
             selectedUrgency === "Due Today" ? "border-amber-500/60 bg-amber-500/15 shadow-glow-sm" : "border-white/10 hover:border-white/20"
           }`}
         >
           <p className="text-xs font-semibold text-amber-300">Due Today</p>
-          <p className="font-heading text-xl font-bold text-amber-300">
+          <p className="font-display text-xl font-bold text-amber-300 font-mono">
             {cases.filter((c) => c.urgency === "Due Today").length}
           </p>
-        </GlassCard>
+        </SpotlightCard>
 
-        <GlassCard
+        <SpotlightCard
           onClick={() => setSelectedUrgency("Upcoming")}
-          className={`cursor-pointer text-center p-3.5 border-2 transition-all ${
+          spotlightColor="rgba(14, 165, 233, 0.15)"
+          className={`cursor-pointer text-center p-3.5 border-2 transition-all bg-[#121624]/90 ${
             selectedUrgency === "Upcoming" ? "border-sky-500/60 bg-sky-500/15 shadow-[0_0_12px_rgba(14,165,233,0.2)]" : "border-white/10 hover:border-white/20"
           }`}
         >
           <p className="text-xs font-semibold text-sky-300">Upcoming</p>
-          <p className="font-heading text-xl font-bold text-sky-300">
+          <p className="font-display text-xl font-bold text-sky-300 font-mono">
             {cases.filter((c) => c.urgency === "Upcoming").length}
           </p>
-        </GlassCard>
+        </SpotlightCard>
       </div>
 
       {/* Cases Stream */}
@@ -221,11 +226,11 @@ export default function FollowUpPage() {
           Loading pastoral care cases...
         </div>
       ) : cases.length === 0 ? (
-        <GlassCard className="py-12 text-center text-xs text-gray-400 space-y-2">
+        <SpotlightCard className="py-12 text-center text-xs text-gray-400 space-y-2 bg-[#121624]/90">
           <CheckCircle2 className="h-8 w-8 text-emerald-400 mx-auto" />
           <p className="font-bold text-white text-sm">No Pending Follow-Up Cases</p>
           <p>All devotee care touchpoints are up to date.</p>
-        </GlassCard>
+        </SpotlightCard>
       ) : (
         <div className="space-y-4">
           {cases.map((c) => {
@@ -233,9 +238,10 @@ export default function FollowUpPage() {
             const isDueToday = c.urgency === "Due Today";
 
             return (
-              <GlassCard
+              <SpotlightCard
                 key={c._id}
-                className={`p-5 space-y-4 border-l-4 ${
+                spotlightColor={isOverdue ? "rgba(244, 63, 94, 0.12)" : isDueToday ? "rgba(245, 158, 11, 0.12)" : "rgba(14, 165, 233, 0.12)"}
+                className={`p-5 space-y-4 border-l-4 bg-[#121624]/90 backdrop-blur-xl ${
                   isOverdue ? "border-l-rose-500" : isDueToday ? "border-l-amber-500" : "border-l-sky-500"
                 }`}
               >
@@ -250,7 +256,7 @@ export default function FollowUpPage() {
                         {c.category}
                       </span>
                     </div>
-                    <h3 className="font-heading text-lg font-bold text-white mt-1">
+                    <h3 className="font-display text-lg font-bold text-white mt-1">
                       {c.familyName}
                     </h3>
                     <p className="text-xs text-gray-400">
@@ -341,7 +347,7 @@ export default function FollowUpPage() {
                     </div>
                   </div>
                 )}
-              </GlassCard>
+              </SpotlightCard>
             );
           })}
         </div>

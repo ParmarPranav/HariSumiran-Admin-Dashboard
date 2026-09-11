@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
@@ -195,13 +196,17 @@ export default function TravelPage() {
           const approvedRequests = (ride.requests || []).filter((r: any) => r.status === "Approved");
 
           return (
-            <GlassCard key={ride._id || ride.rideCode} className="p-6 space-y-4 border-l-4 border-l-amber-500">
+            <SpotlightCard
+              key={ride._id || ride.rideCode}
+              spotlightColor="rgba(245, 158, 11, 0.12)"
+              className="p-6 space-y-4 border-l-4 border-l-amber-500 bg-[#121624]/90 border-white/10 shadow-xl backdrop-blur-xl"
+            >
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <Badge variant="primary" size="sm" className="mb-1.5">
                     {ride.status || "Scheduled"}
                   </Badge>
-                  <h3 className="font-heading text-base font-bold text-white">
+                  <h3 className="font-display text-base font-bold text-white">
                     {language === "gu" && ride.gujaratiTitle ? ride.gujaratiTitle : ride.title}
                   </h3>
                 </div>
@@ -230,7 +235,10 @@ export default function TravelPage() {
                   <p className="font-bold text-white flex items-center gap-1 mt-0.5">
                     <Clock className="h-3 w-3 text-amber-400" /> {ride.departureTime}
                   </p>
-                  <p className="text-[11px] text-slate-400 truncate">📍 {ride.departureLocation}</p>
+                  <p className="text-[11px] text-slate-400 truncate flex items-center gap-1">
+                    <MapPin className="h-3 w-3 text-amber-400 shrink-0" />
+                    <span>{ride.departureLocation}</span>
+                  </p>
                 </div>
               </div>
 
@@ -272,7 +280,7 @@ export default function TravelPage() {
                       >
                         <div>
                           <p className="font-bold text-white">{req.passengerName}</p>
-                          <p className="text-[10px] text-slate-400">
+                          <p className="text-[10px] text-slate-400 font-mono">
                             Pickup: {req.pickupPoint} &bull; {req.seatsRequested} seat(s)
                           </p>
                         </div>
@@ -316,7 +324,7 @@ export default function TravelPage() {
                   </span>
                 )}
               </div>
-            </GlassCard>
+            </SpotlightCard>
           );
         })}
       </div>

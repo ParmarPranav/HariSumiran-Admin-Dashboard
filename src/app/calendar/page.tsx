@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Badge } from "@/components/ui/Badge";
 import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import {
@@ -236,7 +237,9 @@ export default function UnifiedCalendarPage() {
                         <Clock className="h-3.5 w-3.5 text-amber-400" /> {ev.time}
                       </span>
                       <span>&bull;</span>
-                      <span>📍 {ev.location}</span>
+                      <span className="flex items-center gap-1">
+                        <MapPin className="h-3.5 w-3.5 text-amber-400" /> {ev.location}
+                      </span>
                     </div>
                   </div>
                 ))}

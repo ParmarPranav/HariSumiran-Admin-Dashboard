@@ -138,7 +138,7 @@ export default function KitchenPage() {
         {/* Right Column: Headcount Scaling & Ingredient Shopping Manifest */}
         <div className="lg:col-span-8 space-y-4">
           {/* Headcount Adjuster Card */}
-          <GlassCard className="p-5 border-l-4 border-l-amber-500 space-y-4">
+          <GlassCard className="p-5 border-l-4 border-l-amber-400 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400">
@@ -180,7 +180,7 @@ export default function KitchenPage() {
                   onClick={() => setHeadcount(val)}
                   className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
                     headcount === val
-                      ? "bg-amber-500 text-slate-950 shadow-sm shadow-amber-500/30"
+                      ? "bg-gradient-to-r from-[#FCE082] to-[#C98B1C] text-stone-950 font-black shadow-sm"
                       : "bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] text-slate-300"
                   }`}
                 >
