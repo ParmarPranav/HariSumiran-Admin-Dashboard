@@ -11,7 +11,7 @@ interface StatCardProps {
     isPositive?: boolean;
   };
   icon?: React.ReactNode;
-  iconBg?: "saffron" | "green" | "blue" | "neutral";
+  iconBg?: "gold" | "saffron" | "green" | "blue" | "neutral";
   className?: string;
   onClick?: () => void;
 }
@@ -22,15 +22,16 @@ export function StatCard({
   subtitle,
   trend,
   icon,
-  iconBg = "saffron",
+  iconBg = "gold",
   className,
   onClick,
 }: StatCardProps) {
   const iconBgStyles = {
-    saffron: "bg-amber-500/15 text-amber-300 border-amber-500/20 shadow-[0_0_12px_rgba(245,158,11,0.15)]",
-    green: "bg-emerald-500/15 text-emerald-300 border-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.15)]",
-    blue: "bg-sky-500/15 text-sky-300 border-sky-500/20 shadow-[0_0_12px_rgba(14,165,233,0.15)]",
-    neutral: "bg-white/5 text-gray-300 border-white/10",
+    gold: "bg-gradient-to-br from-amber-400/20 to-yellow-600/10 text-amber-300 border-amber-400/30 shadow-[0_0_15px_rgba(232,176,56,0.2)]",
+    saffron: "bg-gradient-to-br from-amber-400/20 to-yellow-600/10 text-amber-300 border-amber-400/30 shadow-[0_0_15px_rgba(232,176,56,0.2)]",
+    green: "bg-gradient-to-br from-emerald-400/20 to-teal-600/10 text-emerald-300 border-emerald-400/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]",
+    blue: "bg-gradient-to-br from-sky-400/20 to-indigo-600/10 text-sky-300 border-sky-400/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]",
+    neutral: "bg-white/5 text-zinc-300 border-white/10",
   };
 
   return (

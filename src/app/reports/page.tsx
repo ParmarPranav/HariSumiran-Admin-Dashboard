@@ -49,7 +49,7 @@ export default function ReportsPage() {
       title: "Karyakarta Follow-up Log",
       gujaratiTitle: "કાર્યકર્તા ફોલો-અપ લોગ",
       frequency: "Active",
-      icon: <Users className="h-4 w-4 text-primary-container" />,
+      icon: <Users className="h-4 w-4 text-amber-400" />,
       desc: "Active home visit cases, elder care follow-ups, and resolution status.",
     },
     {
@@ -57,7 +57,7 @@ export default function ReportsPage() {
       title: "Mahaprasad Kitchen Requirements",
       gujaratiTitle: "રસોઈ સામગ્રી અહેવાલ",
       frequency: "Event",
-      icon: <ChefHat className="h-4 w-4 text-emerald-600" />,
+      icon: <ChefHat className="h-4 w-4 text-emerald-400" />,
       desc: "Scaled ingredient shopping lists and volunteer rosters for upcoming Mahotsav.",
     },
     {
@@ -65,7 +65,7 @@ export default function ReportsPage() {
       title: "Transportation & Carpool Manifest",
       gujaratiTitle: "વાહન વ્યવસ્થા યાદી",
       frequency: "Live",
-      icon: <Car className="h-4 w-4 text-indigo-600" />,
+      icon: <Car className="h-4 w-4 text-indigo-400" />,
       desc: "Confirmed passenger pickups, vehicle assignments, and departure schedules.",
     },
   ];
@@ -95,8 +95,8 @@ export default function ReportsPage() {
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <FileSpreadsheet className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-charcoal">
+            <FileSpreadsheet className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-white">
               {t("Scoped Reports & Community Sharing", "અહેવાલો અને શેરિંગ")}
             </h1>
           </div>

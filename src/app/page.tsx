@@ -103,30 +103,32 @@ export default function HomePage() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="relative z-10 overflow-hidden rounded-3xl bg-gradient-to-r from-saffron-500 via-saffron-600 to-amber-600 p-6 md:p-8 text-white shadow-xl shadow-saffron-600/15"
+        className="relative z-10 overflow-hidden rounded-3xl bg-gradient-to-br from-[#131728] via-[#1A2035] to-[#0E111D] p-6 md:p-8 text-white border border-amber-400/25 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15)]"
       >
         {/* Subtle decorative background watermarks */}
-        <div className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
-        <div className="pointer-events-none absolute right-1/4 -bottom-16 h-48 w-48 rounded-full bg-amber-400/20 blur-xl" />
+        <div className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-gradient-to-br from-amber-400/15 to-yellow-500/5 blur-3xl" />
+        <div className="pointer-events-none absolute right-1/3 -bottom-16 h-48 w-48 rounded-full bg-gradient-to-tr from-indigo-500/15 to-purple-600/5 blur-3xl" />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 backdrop-blur-md border border-amber-400/30 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.15)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
                 {t("HariPrabodham Mandir • Nadiad", "હરિપ્રબોધમ મંદિર • નડિયાદ")}
               </span>
-              <span className="text-xs text-white/80 font-medium">
+              <span className="text-xs text-zinc-400 font-medium">
                 {todayFormatted}
               </span>
             </div>
 
             <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white drop-shadow-sm">
               {t("Jai Swaminarayan", "જય સ્વામિનારાયણ")},{" "}
-              <span className="text-amber-200">{user.name}</span>
+              <span className="bg-gradient-to-r from-[#FDE047] via-[#F59E0B] to-[#FCD34D] bg-clip-text text-transparent font-black">
+                {user.name}
+              </span>
             </h1>
 
-            <p className="text-xs sm:text-sm text-white/90 max-w-2xl font-normal leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl font-normal leading-relaxed">
               {language === "gu"
                 ? "એક મંદિર, એક એપ, એક ખાતું — તમારી બધી સેવા જવાબદારીઓ એક જ જગ્યાએ ઉપલબ્ધ છે."
                 : "One Mandir. One App. One Account. All your seva responsibilities unified in one place."}
@@ -137,9 +139,9 @@ export default function HomePage() {
               {(user?.responsibilities || []).map((resp, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white/15 backdrop-blur-md border border-white/25 text-white shadow-sm hover:bg-white/25 transition-colors cursor-default"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#1B2236]/90 backdrop-blur-md border border-amber-400/25 text-amber-200 shadow-sm hover:border-amber-400/40 transition-colors cursor-default"
                 >
-                  <Sparkles className="h-3 w-3 text-amber-200" />
+                  <Sparkles className="h-3 w-3 text-amber-300" />
                   {language === "gu" && resp.gujaratiTitle ? resp.gujaratiTitle : resp.title}
                 </span>
               ))}
@@ -152,9 +154,9 @@ export default function HomePage() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setQrModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white text-saffron-900 font-bold text-xs shadow-md shadow-black/10 hover:bg-saffron-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] text-stone-950 font-extrabold text-xs shadow-[0_0_20px_rgba(232,176,56,0.35)] border border-yellow-200/50 hover:brightness-110 transition-all"
             >
-              <QrCode className="h-4 w-4 text-primary-container" />
+              <QrCode className="h-4 w-4 text-stone-950" />
               <span>{t("Scan QR", "ક્યુઆર સ્કેન")}</span>
             </motion.button>
 
@@ -163,9 +165,9 @@ export default function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs shadow-sm hover:bg-white/30 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/[0.08] backdrop-blur-md border border-white/15 text-white font-bold text-xs shadow-sm hover:bg-white/[0.14] transition-colors"
                 >
-                  <CalendarDays className="h-4 w-4 text-amber-200" />
+                  <CalendarDays className="h-4 w-4 text-amber-300" />
                   <span>{t("Take Attendance", "હાજરી લો")}</span>
                 </motion.button>
               </Link>
@@ -176,9 +178,9 @@ export default function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs shadow-sm hover:bg-white/30 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/[0.08] backdrop-blur-md border border-white/15 text-white font-bold text-xs shadow-sm hover:bg-white/[0.14] transition-colors"
                 >
-                  <ChefHat className="h-4 w-4 text-amber-200" />
+                  <ChefHat className="h-4 w-4 text-amber-300" />
                   <span>{t("Bhojanshala", "રસોઈ ઘર")}</span>
                 </motion.button>
               </Link>
@@ -197,7 +199,7 @@ export default function HomePage() {
             <span className="text-[11px] font-bold text-charcoal-subtle uppercase tracking-wider">
               {t("Thal Turn", "થાળ પરિભ્રમણ")}
             </span>
-            <div className="h-8 w-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+            <div className="h-8 w-8 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center justify-center font-bold shadow-[0_0_10px_rgba(245,158,11,0.15)]">
               <UtensilsCrossed className="h-4 w-4" />
             </div>
           </div>
@@ -205,13 +207,13 @@ export default function HomePage() {
             <p className="font-heading text-lg sm:text-xl font-bold text-charcoal truncate">
               {user.familyName || t("Household Turn", "પરિવાર થાળ")}
             </p>
-            <div className="flex items-center gap-1.5 text-xs text-primary-container font-semibold">
+            <div className="flex items-center gap-1.5 text-xs text-amber-400 font-semibold">
               <Clock className="h-3.5 w-3.5" />
               <span>{t("Next: Saturday Morning", "આગામી: શનિવાર સવાર")}</span>
             </div>
           </div>
           <div className="mt-3 pt-2 border-t border-hairline flex items-center justify-between">
-            <Link href="/thal" className="text-[11px] font-bold text-primary-container hover:underline flex items-center gap-1">
+            <Link href="/thal" className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1">
               <span>{t("Schedule", "યાદી જુઓ")}</span>
               <ChevronRight className="h-3 w-3" />
             </Link>
@@ -225,7 +227,7 @@ export default function HomePage() {
             <span className="text-[11px] font-bold text-charcoal-subtle uppercase tracking-wider">
               {t("Sabha Streak", "સભા નિયમિતતા")}
             </span>
-            <div className="h-8 w-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
+            <div className="h-8 w-8 rounded-xl bg-rose-500/15 text-rose-300 border border-rose-500/30 flex items-center justify-center font-bold shadow-[0_0_10px_rgba(244,63,94,0.15)]">
               <Flame className="h-4 w-4" />
             </div>
           </div>
@@ -234,12 +236,12 @@ export default function HomePage() {
               <span className="font-heading text-2xl font-black text-charcoal">19</span>
               <span className="text-xs font-bold text-charcoal-subtle">{t("Weeks", "અઠવાડિયા")}</span>
             </div>
-            <p className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
+            <p className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
               <Award className="h-3.5 w-3.5" /> {t("100% Attendance", "સતત હાજરી રેકોર્ડ")}
             </p>
           </div>
           <div className="mt-3 pt-2 border-t border-hairline flex items-center justify-between">
-            <Link href="/sabha" className="text-[11px] font-bold text-primary-container hover:underline flex items-center gap-1">
+            <Link href="/sabha" className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1">
               <span>{t("History", "ઇતિહાસ")}</span>
               <ChevronRight className="h-3 w-3" />
             </Link>
@@ -253,7 +255,7 @@ export default function HomePage() {
             <span className="text-[11px] font-bold text-charcoal-subtle uppercase tracking-wider">
               {t("Transport Rides", "વાહન સુવિધા")}
             </span>
-            <div className="h-8 w-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+            <div className="h-8 w-8 rounded-xl bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center justify-center font-bold shadow-[0_0_10px_rgba(16,185,129,0.15)]">
               <Car className="h-4 w-4" />
             </div>
           </div>
@@ -266,7 +268,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="mt-3 pt-2 border-t border-hairline flex items-center justify-between">
-            <Link href="/travel" className="text-[11px] font-bold text-primary-container hover:underline flex items-center gap-1">
+            <Link href="/travel" className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1">
               <span>{t("Book Seat", "સીટ મેળવો")}</span>
               <ChevronRight className="h-3 w-3" />
             </Link>
@@ -280,7 +282,7 @@ export default function HomePage() {
             <span className="text-[11px] font-bold text-charcoal-subtle uppercase tracking-wider">
               {t("Seva Opportunities", "સેવા તકો")}
             </span>
-            <div className="h-8 w-8 rounded-xl bg-saffron-50 text-saffron-600 flex items-center justify-center font-bold">
+            <div className="h-8 w-8 rounded-xl bg-sky-500/15 text-sky-300 border border-sky-500/30 flex items-center justify-center font-bold shadow-[0_0_10px_rgba(14,165,233,0.15)]">
               <HeartHandshake className="h-4 w-4" />
             </div>
           </div>
@@ -293,7 +295,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="mt-3 pt-2 border-t border-hairline flex items-center justify-between">
-            <Link href="/seva" className="text-[11px] font-bold text-primary-container hover:underline flex items-center gap-1">
+            <Link href="/seva" className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1">
               <span>{t("Volunteer", "યોગદાન આપો")}</span>
               <ChevronRight className="h-3 w-3" />
             </Link>
@@ -308,12 +310,12 @@ export default function HomePage() {
       <section className="relative z-10 space-y-4">
         <div className="flex items-center justify-between border-b border-hairline pb-2">
           <div className="flex items-center gap-2.5">
-            <div className="h-3 w-3 rounded-full bg-primary-container animate-pulse" />
+            <div className="h-3 w-3 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
             <h2 className="font-heading text-lg sm:text-xl font-bold text-charcoal">
               {t("What do I need to do?", "મારે શું કરવાનું છે?")}
             </h2>
           </div>
-          <span className="text-xs font-mono font-bold text-primary-container bg-saffron-50 border border-saffron-200 px-2.5 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold text-amber-300 bg-amber-500/10 border border-amber-400/30 px-2.5 py-1 rounded-full shadow-sm">
             {(dashboardData?.whatDoINeedToDo || []).length} {t("Actions Pending", "કાર્યો બાકી")}
           </span>
         </div>
@@ -335,7 +337,7 @@ export default function HomePage() {
                 key={item.id}
                 variant="elevated"
                 hoverEffect
-                className="border-l-4 border-l-primary-container p-5 space-y-3 flex flex-col justify-between"
+                className="border-l-4 border-l-amber-400 p-5 space-y-3 flex flex-col justify-between"
               >
                 <div className="space-y-2">
                   <div className="flex items-start justify-between gap-2">
@@ -352,7 +354,7 @@ export default function HomePage() {
                 <div className="pt-3 border-t border-hairline flex items-center justify-between">
                   <Link
                     href={item.link}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-primary-container hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-amber-200"
                   >
                     <span>{t("Take Action", "કાર્યવાહી કરો")}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -373,12 +375,12 @@ export default function HomePage() {
       <section className="relative z-10 space-y-4">
         <div className="flex items-center justify-between border-b border-hairline pb-2">
           <div className="flex items-center gap-2.5">
-            <div className="h-3 w-3 rounded-full bg-saffron-500" />
+            <div className="h-3 w-3 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
             <h2 className="font-heading text-lg sm:text-xl font-bold text-charcoal">
               {t("What is happening?", "મંદિરમાં શું ચાલી રહ્યું છે?")}
             </h2>
           </div>
-          <Link href="/calendar" className="text-xs font-bold text-primary-container hover:underline flex items-center gap-1">
+          <Link href="/calendar" className="text-xs font-bold text-amber-300 hover:text-amber-200 flex items-center gap-1">
             <span>{t("View Full Calendar", "આખું કેલેન્ડર જુઓ")}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -386,9 +388,9 @@ export default function HomePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Upcoming Sabha Spotlight */}
-          <GlassCard variant="elevated" hoverEffect className="p-5 space-y-4 border-l-4 border-l-sky-500">
+          <GlassCard variant="elevated" hoverEffect className="p-5 space-y-4 border-l-4 border-l-sky-400">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-sky-800 flex items-center gap-1.5">
+              <span className="text-xs font-bold text-sky-300 flex items-center gap-1.5">
                 <CalendarDays className="h-4 w-4" /> {t("Upcoming Sabha", "આગામી સભા")}
               </span>
               <Badge variant="info" size="sm">Scheduled</Badge>
@@ -403,11 +405,11 @@ export default function HomePage() {
                 </h4>
                 <div className="space-y-1 text-xs text-charcoal-subtle">
                   <p className="flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-sky-600" />
+                    <Clock className="h-3.5 w-3.5 text-sky-400" />
                     <span>{dashboardData.whatIsHappening.upcomingSabhas[0].date} &bull; {dashboardData.whatIsHappening.upcomingSabhas[0].startTime} - {dashboardData.whatIsHappening.upcomingSabhas[0].endTime}</span>
                   </p>
                   <p className="flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 text-sky-600" />
+                    <MapPin className="h-3.5 w-3.5 text-sky-400" />
                     <span>{dashboardData.whatIsHappening.upcomingSabhas[0].location}</span>
                   </p>
                 </div>
@@ -417,7 +419,7 @@ export default function HomePage() {
             )}
 
             <div className="pt-2 border-t border-hairline">
-              <Link href="/sabha" className="inline-flex items-center gap-1 text-xs font-bold text-sky-700 hover:underline">
+              <Link href="/sabha" className="inline-flex items-center gap-1 text-xs font-bold text-sky-300 hover:text-sky-200">
                 <span>{t("Sabha Details & Attendance", "સભા વિગત અને હાજરી")}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -425,9 +427,9 @@ export default function HomePage() {
           </GlassCard>
 
           {/* Transportation / Car Pooling Rides */}
-          <GlassCard variant="elevated" hoverEffect className="p-5 space-y-4 border-l-4 border-l-emerald-600">
+          <GlassCard variant="elevated" hoverEffect className="p-5 space-y-4 border-l-4 border-l-emerald-400">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+              <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
                 <Car className="h-4 w-4" /> {t("Travel & Rides Available", "મુસાફરી અને રાઈડ")}
               </span>
               <Badge variant="success" size="sm">{t("Available Seats", "ઉપલબ્ધ સીટો")}</Badge>
@@ -443,10 +445,10 @@ export default function HomePage() {
                     🚗 {dashboardData.whatIsHappening.activeRides[0].driverName} &bull; {dashboardData.whatIsHappening.activeRides[0].vehicleModel}
                   </p>
                   <p className="flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-emerald-600" />
+                    <Clock className="h-3.5 w-3.5 text-emerald-400" />
                     <span>{t("Departs:", "પ્રસ્થાન:")} {dashboardData.whatIsHappening.activeRides[0].departureTime}</span>
                   </p>
-                  <p className="text-emerald-700 font-bold">
+                  <p className="text-emerald-400 font-bold">
                     {dashboardData.whatIsHappening.activeRides[0].availableSeats} {t("seats open for devotees", "સીટો ભક્તો માટે ઉપલબ્ધ")}
                   </p>
                 </div>
@@ -456,7 +458,7 @@ export default function HomePage() {
             )}
 
             <div className="pt-2 border-t border-hairline">
-              <Link href="/travel" className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:underline">
+              <Link href="/travel" className="inline-flex items-center gap-1 text-xs font-bold text-emerald-300 hover:text-emerald-200">
                 <span>{t("Request / Offer Ride", "રાઈડ મેળવો / ઓફર કરો")}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -464,10 +466,10 @@ export default function HomePage() {
           </GlassCard>
 
           {/* Mandir Announcement */}
-          <GlassCard variant="elevated" hoverEffect className="p-5 space-y-4 border-l-4 border-l-amber-500">
+          <GlassCard variant="elevated" hoverEffect className="p-5 space-y-4 border-l-4 border-l-amber-400">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
-                <Bell className="h-4 w-4 text-amber-600" /> {t("Mandir Notice", "મંદિર જાહેરાત")}
+              <span className="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                <Bell className="h-4 w-4 text-amber-400" /> {t("Mandir Notice", "મંદિર જાહેરાત")}
               </span>
               <Badge variant="warning" size="sm">Official</Badge>
             </div>
@@ -484,7 +486,7 @@ export default function HomePage() {
             </div>
 
             <div className="pt-2 border-t border-hairline">
-              <Link href="/announcements" className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 hover:underline">
+              <Link href="/announcements" className="inline-flex items-center gap-1 text-xs font-bold text-amber-300 hover:text-amber-200">
                 <span>{t("View All Announcements", "બધી જાહેરાતો જુઓ")}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -499,12 +501,12 @@ export default function HomePage() {
       <section className="relative z-10 space-y-4">
         <div className="flex items-center justify-between border-b border-hairline pb-2">
           <div className="flex items-center gap-2.5">
-            <div className="h-3 w-3 rounded-full bg-emerald-500" />
+            <div className="h-3 w-3 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
             <h2 className="font-heading text-lg sm:text-xl font-bold text-charcoal">
               {t("Where can I help?", "હું ક્યાં મદદ કરી શકું?")}
             </h2>
           </div>
-          <Link href="/seva" className="text-xs font-bold text-primary-container hover:underline flex items-center gap-1">
+          <Link href="/seva" className="text-xs font-bold text-amber-300 hover:text-amber-200 flex items-center gap-1">
             <span>{t("View Seva Board", "સેવા બોર્ડ જુઓ")}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -548,31 +550,31 @@ export default function HomePage() {
                     </div>
                     <div className="h-1.5 w-full rounded-full bg-surface-container overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-saffron-400 to-primary-container transition-all duration-500"
+                        className="h-full rounded-full bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] transition-all duration-500 shadow-[0_0_8px_rgba(232,176,56,0.5)]"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 text-[11px] text-charcoal-subtle">
-                    <Clock className="h-3 w-3 text-primary-container" />
+                    <Clock className="h-3 w-3 text-amber-400" />
                     <span>{seva.startTime} - {seva.endTime}</span>
                     <span>&bull;</span>
-                    <MapPin className="h-3 w-3 text-primary-container" />
+                    <MapPin className="h-3 w-3 text-amber-400" />
                     <span>{seva.location || "Mandir"}</span>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t border-hairline flex items-center justify-between">
                   {isClaimed ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl">
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-400/30 px-3 py-1.5 rounded-xl">
                       <Check className="h-4 w-4" /> {t("Registered for Seva", "સેવા માટે નોંધાયા")}
                     </span>
                   ) : (
                     <Button
                       size="sm"
                       onClick={() => handleClaimSeva(seva.title)}
-                      leftIcon={<Sparkles className="h-3.5 w-3.5 text-amber-200" />}
+                      leftIcon={<Sparkles className="h-3.5 w-3.5 text-stone-950" />}
                     >
                       {t("I Can Help", "હું સેવા કરીશ")}
                     </Button>

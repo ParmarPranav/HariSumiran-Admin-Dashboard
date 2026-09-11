@@ -95,7 +95,7 @@ export default function MemberProfilePage() {
             />
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold text-primary-container bg-saffron-50 px-2 py-0.5 rounded-md border border-saffron-200">
+                <span className="font-mono text-xs font-bold text-amber-300 bg-amber-500/15 px-2.5 py-0.5 rounded-lg border border-amber-400/30 shadow-sm">
                   {member.memberCode}
                 </span>
                 <Badge variant={member.verificationStatus === "Verified" ? "success" : "warning"}>
@@ -184,7 +184,7 @@ export default function MemberProfilePage() {
             <h4 className="font-heading text-sm font-bold text-charcoal">Assigned Seva Skills &amp; Departments</h4>
             <div className="flex flex-wrap gap-1.5">
               {member.sevaSkills?.map((skill: string, i: number) => (
-                <span key={i} className="rounded-xl bg-saffron-50 border border-saffron-200 px-3 py-1 text-xs font-semibold text-primary-container">
+                <span key={i} className="rounded-xl bg-amber-500/15 border border-amber-400/30 px-3 py-1 text-xs font-semibold text-amber-300">
                   {skill}
                 </span>
               ))}

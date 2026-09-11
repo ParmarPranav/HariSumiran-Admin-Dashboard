@@ -117,9 +117,9 @@ export default function UnifiedCalendarPage() {
       case "Sabha":
         return <CalendarDays className="h-4 w-4 text-sky-600" />;
       case "Seva":
-        return <HeartHandshake className="h-4 w-4 text-primary-container" />;
+        return <HeartHandshake className="h-4 w-4 text-amber-400" />;
       case "Travel":
-        return <Car className="h-4 w-4 text-emerald-600" />;
+        return <Car className="h-4 w-4 text-emerald-400" />;
       default:
         return <Sparkles className="h-4 w-4" />;
     }
@@ -133,8 +133,8 @@ export default function UnifiedCalendarPage() {
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <CalendarIcon className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-charcoal">
+            <CalendarIcon className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-white">
               {t("Unified Mandir Calendar", "સંકલિત મંદિર કેલેન્ડર")}
             </h1>
           </div>

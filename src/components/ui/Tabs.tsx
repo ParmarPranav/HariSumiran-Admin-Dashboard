@@ -55,7 +55,7 @@ export function Tabs({
               {isActive && (
                 <motion.div
                   layoutId="activeTabUnderline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FDE047] via-[#EAB308] to-[#CA8A04] shadow-[0_0_12px_rgba(234,179,8,0.8)]"
                   transition={{ type: "spring" as const, stiffness: 350, damping: 30 }}
                 />
               )}
@@ -82,7 +82,7 @@ export function Tabs({
             {isActive && (
               <motion.div
                 layoutId="activeTabPill"
-                className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 shadow-glow-sm"
+                className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400/25 via-yellow-400/15 to-amber-500/25 border border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.2)]"
                 transition={{ type: "spring" as const, stiffness: 350, damping: 30 }}
               />
             )}

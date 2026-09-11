@@ -96,8 +96,8 @@ export default function EventsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <PartyPopper className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <PartyPopper className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "ઉત્સવ અને મહોત્સવ" : "Festivals, Events & Digital Passes"}
             </h1>
           </div>
@@ -110,7 +110,7 @@ export default function EventsPage() {
           <Button
             size="md"
             variant="outline"
-            leftIcon={<QrCode className="h-4 w-4 text-primary-container" />}
+            leftIcon={<QrCode className="h-4 w-4 text-amber-400" />}
             onClick={() => setQrModalOpen(true)}
           >
             Scan Pass at Gate
@@ -128,7 +128,7 @@ export default function EventsPage() {
             <GlassCard
               key={evt._id}
               className={`p-6 space-y-5 border-l-4 ${
-                isLive ? "border-l-rose-500" : "border-l-primary-container"
+                isLive ? "border-l-rose-500" : "border-l-amber-400"
               }`}
             >
               <div className="flex items-start justify-between">
@@ -139,11 +139,11 @@ export default function EventsPage() {
                       {evt.status}
                     </Badge>
                   </div>
-                  <h3 className="font-heading text-xl font-bold text-charcoal mt-1 leading-tight">
+                  <h3 className="font-heading text-xl font-bold text-white mt-1 leading-tight">
                     {evt.title}
                   </h3>
                   {evt.gujaratiTitle && (
-                    <p className="text-xs text-charcoal-subtle font-gujarati">{evt.gujaratiTitle}</p>
+                    <p className="text-xs text-amber-300/80 font-gujarati">{evt.gujaratiTitle}</p>
                   )}
                 </div>
               </div>
@@ -154,13 +154,13 @@ export default function EventsPage() {
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs">
                   <span className="font-semibold text-gray-300">Registration Capacity:</span>
-                  <span className="font-mono font-bold text-amber-400">
+                  <span className="font-mono font-bold text-amber-300">
                     {evt.registeredCount} / {evt.capacity} Devotees ({progress}%)
                   </span>
                 </div>
                 <div className="h-2 w-full rounded-full bg-[#161B28] border border-white/5 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300 shadow-[0_0_8px_rgba(245,158,11,0.6)]"
+                    className="h-full rounded-full bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] transition-all duration-300 shadow-[0_0_12px_rgba(232,176,56,0.4)]"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -273,8 +273,8 @@ export default function EventsPage() {
           maxWidth="sm"
         >
           <div className="space-y-4 text-center">
-            <div className="rounded-3xl border border-amber-500/30 bg-gradient-to-b from-[#1C2236] to-[#0F121C] p-6 shadow-2xl shadow-black/80 space-y-4">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white font-heading font-bold text-xl shadow-glow-sm">
+            <div className="rounded-3xl border border-amber-400/30 bg-gradient-to-b from-[#1C2236] to-[#0F121C] p-6 shadow-2xl space-y-4">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FCE082] via-[#E8B038] to-[#C98B1C] text-stone-950 font-heading font-black text-xl shadow-[0_0_20px_rgba(232,176,56,0.4)]">
                 હ
               </div>
 
@@ -284,13 +284,13 @@ export default function EventsPage() {
               </div>
 
               {/* Simulated QR Code */}
-              <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-2xl bg-white p-2.5 border border-amber-500/30 shadow-glow-sm">
-                <QrCode className="h-28 w-28 text-charcoal" />
+              <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-2xl bg-white p-2.5 border border-amber-400/40 shadow-glow-sm">
+                <QrCode className="h-28 w-28 text-stone-950" />
               </div>
 
               <div className="border-t border-dashed border-white/15 pt-3 text-xs space-y-1">
                 <p className="font-bold text-white">{generatedPass.memberName}</p>
-                <p className="font-mono text-[11px] font-bold text-amber-400">{generatedPass.passCode}</p>
+                <p className="font-mono text-[11px] font-bold text-amber-300">{generatedPass.passCode}</p>
                 <p className="text-[10px] text-gray-400">Date: {generatedPass.date} &bull; Gate Pass</p>
               </div>
             </div>

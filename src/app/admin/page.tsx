@@ -70,8 +70,8 @@ export default function AdminPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Sliders className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <Sliders className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "સિસ્ટમ સેટિંગ્સ અને નિયંત્રણ" : "System Administration & Controls"}
             </h1>
           </div>

@@ -280,12 +280,12 @@ export default function ThalPage() {
   return (
     <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
       {/* 🌟 TODAY'S WHOSE TURN FEATURED BANNER */}
-      <GlassCard className="p-6 space-y-4 border-l-4 border-l-saffron-500 bg-gradient-to-r from-saffron-50/80 via-amber-50/40 to-white">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-saffron-200/60 pb-3">
+      <GlassCard className="p-6 space-y-4 border-l-4 border-l-amber-400 bg-gradient-to-r from-[#131728] via-[#1A2035] to-[#0E111D] border-white/10 shadow-2xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-3 w-3 rounded-full bg-emerald-500 animate-ping" />
-            <h2 className="font-heading text-lg font-bold text-charcoal flex items-center gap-2">
-              <CalendarIcon className="h-5 w-5 text-primary-container" />
+            <span className="flex h-3 w-3 rounded-full bg-emerald-400 animate-ping" />
+            <h2 className="font-heading text-lg font-bold text-white flex items-center gap-2">
+              <CalendarIcon className="h-5 w-5 text-amber-400" />
               Today's Thal Seva Turn &mdash; Sunday, September 6, 2026
             </h2>
           </div>
@@ -296,8 +296,8 @@ export default function ThalPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Today's Morning Thal Card */}
-          <div className="p-4 rounded-2xl border border-amber-500/20 bg-[#121622]/80 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md">
-            <div className="absolute top-0 right-0 px-3 py-1 bg-amber-500 text-slate-950 text-[10px] font-bold rounded-bl-xl uppercase tracking-wider shadow-sm">
+          <div className="p-4 rounded-2xl border border-amber-400/20 bg-[#121622]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md">
+            <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-[#FCE082] to-[#C98B1C] text-stone-950 text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-md">
               Morning Thal
             </div>
             <div className="flex items-center gap-2 text-amber-400 font-bold text-xs">
@@ -335,8 +335,8 @@ export default function ThalPage() {
           </div>
 
           {/* Today's Evening Thal Card */}
-          <div className="p-4 rounded-2xl border border-indigo-500/20 bg-[#121622]/80 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md">
-            <div className="absolute top-0 right-0 px-3 py-1 bg-indigo-500 text-white text-[10px] font-bold rounded-bl-xl uppercase tracking-wider shadow-sm">
+          <div className="p-4 rounded-2xl border border-indigo-500/20 bg-[#121622]/90 shadow-lg space-y-3 relative overflow-hidden backdrop-blur-md">
+            <div className="absolute top-0 right-0 px-3 py-1 bg-gradient-to-r from-sky-400 to-indigo-500 text-stone-950 text-[10px] font-black rounded-bl-xl uppercase tracking-wider shadow-md">
               Evening Thal
             </div>
             <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs">
@@ -379,8 +379,8 @@ export default function ThalPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <UtensilsCrossed className="h-6 w-6 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <UtensilsCrossed className="h-6 w-6 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "થાળ પરિભ્રમણ અને સેવા (સવાર અને સાંજ)" : "Thal Rotation - September 2026"}
             </h1>
           </div>
@@ -684,21 +684,21 @@ export default function ThalPage() {
 
                       <div className="flex items-center gap-2">
                         {isBreakfast ? (
-                          <Sun className="h-4 w-4 text-amber-500" />
+                          <Sun className="h-4 w-4 text-amber-400" />
                         ) : (
-                          <Moon className="h-4 w-4 text-indigo-500" />
+                          <Moon className="h-4 w-4 text-indigo-400" />
                         )}
-                        <span className="text-xs font-bold text-primary-container">
+                        <span className="text-xs font-bold text-amber-300">
                           {item.mealType}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-base font-bold text-charcoal leading-tight">
+                      <h3 className="font-heading text-base font-bold text-white leading-tight">
                         {item.assignedFamilyName}
                       </h3>
 
-                      <p className="text-xs text-charcoal-subtle flex items-center gap-1 font-medium">
-                        <CalendarIcon className="h-3.5 w-3.5 text-primary-container" /> Date: {item.date}
+                      <p className="text-xs text-zinc-400 flex items-center gap-1 font-medium">
+                        <CalendarIcon className="h-3.5 w-3.5 text-amber-400" /> Date: {item.date}
                       </p>
 
                       <div className="space-y-1 text-xs text-charcoal-subtle pt-1">

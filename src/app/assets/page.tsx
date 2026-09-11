@@ -142,8 +142,8 @@ export default function AssetsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Package className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <Package className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "મંદિર સાધન સામગ્રી" : "Mandir Assets & Hall Bookings"}
             </h1>
           </div>
@@ -156,7 +156,7 @@ export default function AssetsPage() {
           <Button
             size="md"
             variant="outline"
-            leftIcon={<QrCode className="h-4 w-4 text-primary-container" />}
+            leftIcon={<QrCode className="h-4 w-4 text-amber-400" />}
             onClick={() => setQrModalOpen(true)}
           >
             Scan Asset QR
@@ -177,17 +177,17 @@ export default function AssetsPage() {
           onClick={() => setActiveTab("assets")}
           className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "assets"
-              ? "bg-gradient-to-r from-amber-500/25 to-orange-500/25 text-amber-300 border border-amber-500/40 shadow-glow-sm font-bold"
+              ? "bg-gradient-to-r from-amber-500/20 to-yellow-600/20 text-amber-300 border border-amber-400/40 shadow-glow-sm font-bold"
               : "text-gray-400 hover:text-white"
           }`}
         >
-          Asset Registry ({assets.length})
+          Asset Inventory ({assets.length})
         </button>
         <button
           onClick={() => setActiveTab("rooms")}
           className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "rooms"
-              ? "bg-gradient-to-r from-amber-500/25 to-orange-500/25 text-amber-300 border border-amber-500/40 shadow-glow-sm font-bold"
+              ? "bg-gradient-to-r from-amber-500/20 to-yellow-600/20 text-amber-300 border border-amber-400/40 shadow-glow-sm font-bold"
               : "text-gray-400 hover:text-white"
           }`}
         >

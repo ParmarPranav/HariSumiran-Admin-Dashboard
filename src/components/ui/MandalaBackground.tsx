@@ -13,12 +13,12 @@ export function MandalaBackground({ className }: { className?: string }) {
       aria-hidden="true"
     >
       {/* Deep Obsidian Background Mesh */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(245,158,11,0.12),rgba(255,255,255,0))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(234,179,8,0.08),rgba(0,0,0,0))]" />
 
-      {/* Luminous Amber & Saffron Aura Orbs */}
-      <div className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-amber-500/15 via-orange-600/10 to-transparent blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 -right-32 w-[650px] h-[650px] rounded-full bg-gradient-to-bl from-amber-600/12 via-saffron-500/8 to-transparent blur-[160px] pointer-events-none" />
-      <div className="absolute -bottom-32 left-1/3 w-[550px] h-[550px] rounded-full bg-gradient-to-tr from-orange-500/10 via-amber-700/5 to-transparent blur-[150px] pointer-events-none" />
+      {/* Luminous Royal Gold & Celestial Midnight Aura Orbs */}
+      <div className="absolute -top-32 -left-32 w-[650px] h-[650px] rounded-full bg-gradient-to-br from-amber-300/10 via-yellow-500/5 to-transparent blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 -right-32 w-[650px] h-[650px] rounded-full bg-gradient-to-bl from-indigo-500/10 via-purple-600/5 to-transparent blur-[180px] pointer-events-none" />
+      <div className="absolute -bottom-32 left-1/3 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-emerald-500/8 via-teal-600/5 to-transparent blur-[160px] pointer-events-none" />
 
       {/* Subtle Sacred Mandala Center Motifs */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.04]">

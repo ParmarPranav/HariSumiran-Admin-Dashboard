@@ -72,8 +72,8 @@ export default function ResponsibilitiesPage() {
       <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-charcoal">
+            <Sparkles className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-white">
               {t("My Responsibilities & Activity", "મારી જવાબદારીઓ અને પ્રવૃત્તિ")}
             </h1>
           </div>
@@ -88,7 +88,7 @@ export default function ResponsibilitiesPage() {
             onClick={() => setActiveTab("responsibilities")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === "responsibilities"
-                ? "bg-gradient-to-r from-amber-500/25 to-orange-500/25 text-amber-300 border border-amber-500/40 shadow-glow-sm font-extrabold"
+                ? "bg-gradient-to-r from-amber-500/20 to-yellow-600/20 text-amber-300 border border-amber-400/40 shadow-glow-sm font-extrabold"
                 : "text-gray-400 hover:text-white"
             }`}
           >
@@ -98,7 +98,7 @@ export default function ResponsibilitiesPage() {
             onClick={() => setActiveTab("activity")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === "activity"
-                ? "bg-gradient-to-r from-amber-500/25 to-orange-500/25 text-amber-300 border border-amber-500/40 shadow-glow-sm font-extrabold"
+                ? "bg-gradient-to-r from-amber-500/20 to-yellow-600/20 text-amber-300 border border-amber-400/40 shadow-glow-sm font-extrabold"
                 : "text-gray-400 hover:text-white"
             }`}
           >

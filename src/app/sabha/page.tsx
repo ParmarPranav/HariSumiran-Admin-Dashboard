@@ -146,8 +146,8 @@ export default function SabhaPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <CalendarDays className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <CalendarDays className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "સભા અને લાઈવ હાજરી" : "Sabha & Live Attendance Console"}
             </h1>
           </div>
@@ -160,7 +160,7 @@ export default function SabhaPage() {
           <Button
             size="md"
             variant="outline"
-            leftIcon={<QrCode className="h-4 w-4 text-primary-container" />}
+            leftIcon={<QrCode className="h-4 w-4 text-amber-400" />}
             onClick={() => setQrModalOpen(true)}
           >
             Launch QR Scanner
@@ -177,17 +177,17 @@ export default function SabhaPage() {
 
       {/* Active Session Console Hero */}
       {activeSession && (
-        <GlassCard className="border-l-4 border-l-primary-container p-6 space-y-5">
+        <GlassCard className="border-l-4 border-l-amber-400 p-6 space-y-5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
-                <span className="font-mono text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200 uppercase">
+                <span className="font-mono text-xs font-bold text-rose-300 bg-rose-500/20 px-2 py-0.5 rounded-md border border-rose-500/30 uppercase">
                   {activeSession.status} Session
                 </span>
                 <span className="text-xs text-charcoal-subtle">&bull; {activeSession.type}</span>
               </div>
-              <h2 className="font-heading text-xl md:text-2xl font-bold text-charcoal mt-1">
+              <h2 className="font-heading text-xl md:text-2xl font-bold text-white mt-1">
                 {activeSession.title}
               </h2>
               <p className="text-xs text-charcoal-subtle mt-0.5">

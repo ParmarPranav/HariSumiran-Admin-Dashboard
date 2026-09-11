@@ -172,11 +172,11 @@ export function Sidebar() {
               className={cn(
                 "group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 relative",
                 isActive
-                  ? "bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-lg shadow-amber-500/25 font-bold border border-amber-400/30"
+                  ? "bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] text-stone-950 shadow-lg shadow-yellow-500/20 font-extrabold border border-yellow-200/60"
                   : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100"
               )}
             >
-              <span className={cn("shrink-0", isActive ? "text-white" : "text-zinc-400 group-hover:text-amber-400 transition-colors")}>
+              <span className={cn("shrink-0", isActive ? "text-stone-950" : "text-zinc-400 group-hover:text-amber-300 transition-colors")}>
                 {item.icon}
               </span>
               {!collapsed && (
@@ -188,7 +188,7 @@ export function Sidebar() {
                 <span
                   className={cn(
                     "rounded-full px-1.5 py-0.5 text-[8px] font-extrabold uppercase",
-                    isActive ? "bg-white/20 text-white" : "bg-amber-500/15 text-amber-300 border border-amber-400/30"
+                    isActive ? "bg-stone-950/20 text-stone-950 font-black" : "bg-amber-500/15 text-amber-300 border border-amber-400/30"
                   )}
                 >
                   {item.badge}

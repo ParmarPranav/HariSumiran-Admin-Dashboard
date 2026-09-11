@@ -87,8 +87,8 @@ export default function AnnouncementsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Megaphone className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <Megaphone className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "સૂચના અને સંદેશા" : "Communication & Broadcast Center"}
             </h1>
           </div>
@@ -152,7 +152,7 @@ export default function AnnouncementsPage() {
                 </div>
                 <div className="p-2 rounded-xl bg-surface-container-low">
                   <p className="text-[10px] text-charcoal-subtle">Opened</p>
-                  <p className="font-bold text-primary-container">{item.stats?.openedCount || 0}</p>
+                  <p className="font-bold text-amber-400">{item.stats?.openedCount || 0}</p>
                 </div>
               </div>
             </div>
@@ -161,7 +161,7 @@ export default function AnnouncementsPage() {
               <span>Author: <strong>{item.authorName}</strong></span>
               <div className="flex gap-1">
                 {item.channels?.map((ch: string, i: number) => (
-                  <span key={i} className="px-2 py-0.5 rounded-md bg-saffron-50 text-[10px] font-semibold text-primary-container">
+                  <span key={i} className="px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-[10px] font-semibold text-amber-300">
                     {ch}
                   </span>
                 ))}

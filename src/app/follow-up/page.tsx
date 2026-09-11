@@ -155,8 +155,8 @@ export default function FollowUpPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <HeartHandshake className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <HeartHandshake className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "સંપર્ક અને ફોલો-અપ" : "Prioritized Follow-Up & Pastoral Care"}
             </h1>
           </div>

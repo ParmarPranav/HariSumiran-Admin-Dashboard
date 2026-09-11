@@ -101,8 +101,8 @@ export default function ProfilePage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-hairline pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <User className="h-6 w-6 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">Devotee Profile &amp; Household</h1>
+            <User className="h-6 w-6 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">Devotee Profile &amp; Household</h1>
           </div>
           <p className="text-xs text-charcoal-subtle mt-0.5">
             Manage your authenticated profile, family registration, and family captain designation
@@ -124,11 +124,11 @@ export default function ProfilePage() {
               <img
                 src={user.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
                 alt={user.name}
-                className="h-20 w-20 rounded-full border-2 border-saffron-300 mx-auto object-cover shadow-soft"
+                className="h-20 w-20 rounded-full border-2 border-amber-400/50 mx-auto object-cover shadow-soft"
               />
               <div>
-                <h3 className="font-heading text-lg font-bold text-charcoal">{user.name}</h3>
-                <p className="text-xs text-primary-container font-semibold uppercase tracking-wide">
+                <h3 className="font-heading text-lg font-bold text-white">{user.name}</h3>
+                <p className="text-xs text-amber-300 font-semibold uppercase tracking-wide">
                   {role.replace("_", " ")}
                 </p>
               </div>
@@ -139,7 +139,7 @@ export default function ProfilePage() {
                 <span className="text-charcoal-subtle flex items-center gap-1.5">
                   <Mail className="h-3.5 w-3.5" /> Email:
                 </span>
-                <span className="font-semibold text-charcoal text-[11px] truncate max-w-[150px]">
+                <span className="font-semibold text-white text-[11px] truncate max-w-[150px]">
                   {user.email || "devotee@apple.com"}
                 </span>
               </div>
@@ -147,23 +147,23 @@ export default function ProfilePage() {
                 <span className="text-charcoal-subtle flex items-center gap-1.5">
                   <Phone className="h-3.5 w-3.5" /> Phone:
                 </span>
-                <span className="font-semibold text-charcoal">+91 {user.phone}</span>
+                <span className="font-semibold text-white">+91 {user.phone}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-charcoal-subtle flex items-center gap-1.5">
                   <MapPin className="h-3.5 w-3.5" /> Mandir:
                 </span>
-                <span className="font-semibold text-charcoal">{user.mandir}</span>
+                <span className="font-semibold text-white">{user.mandir}</span>
               </div>
             </div>
           </div>
 
           <div className="pt-4 border-t border-hairline">
-            <div className="p-3 rounded-2xl bg-saffron-50/70 border border-saffron-200 text-xs space-y-1">
-              <p className="font-bold text-primary-container flex items-center gap-1">
-                <ShieldCheck className="h-4 w-4" /> Authenticated Status
+            <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-xs space-y-1">
+              <p className="font-bold text-amber-300 flex items-center gap-1">
+                <ShieldCheck className="h-4 w-4 text-amber-400" /> Authenticated Status
               </p>
-              <p className="text-[11px] text-charcoal-subtle">
+              <p className="text-[11px] text-zinc-300">
                 Active member registered for Thal Breakfast &amp; Dinner turns.
               </p>
             </div>
@@ -174,28 +174,30 @@ export default function ProfilePage() {
         <GlassCard className="p-6 space-y-6 md:col-span-2">
           <div className="flex items-center justify-between border-b border-hairline pb-3">
             <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-primary-container" />
-              <h2 className="font-heading text-lg font-bold text-charcoal">Household Family Profile</h2>
+              <Users className="h-5 w-5 text-amber-400" />
+              <h2 className="font-heading text-lg font-bold text-white">Household Family Profile</h2>
             </div>
             {!family ? (
-              <Button size="sm" onClick={() => setCreateFamilyModalOpen(true)} leftIcon={<Plus className="h-4 w-4" />}>
-                Create Family
+              <Button size="sm" onClick={() => setCreateFamilyModalOpen(true)}>
+                Register Family
               </Button>
             ) : (
-              <Badge variant="info" size="md">
-                Code: {family.familyCode}
-              </Badge>
+              <Badge variant="primary">Family Code: {family.familyCode}</Badge>
             )}
           </div>
 
           {family ? (
             <div className="space-y-5">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 rounded-2xl bg-surface-container-low/60 border border-hairline gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-[#141824] border border-white/10 shadow-sm">
                 <div>
-                  <h3 className="font-heading text-base font-bold text-charcoal">{family.name}</h3>
-                  <p className="text-xs text-charcoal-subtle">{family.gujaratiName}</p>
-                  <p className="text-xs text-charcoal-subtle mt-1 flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5 text-primary-container" /> {family.address}, {family.area}
+                  <h3 className="font-heading text-xl font-bold text-white">{family.name}</h3>
+                  {family.gujaratiName && (
+                    <p className="text-sm font-gujarati text-amber-300 font-medium">
+                      {family.gujaratiName}
+                    </p>
+                  )}
+                  <p className="text-xs text-charcoal-subtle flex items-center gap-1.5 mt-1">
+                    <MapPin className="h-3.5 w-3.5 text-amber-400" /> {family.address}, {family.area}
                   </p>
                 </div>
                 <div className="text-right space-y-1">
@@ -291,45 +293,45 @@ export default function ProfilePage() {
       >
         <div className="space-y-4">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Family Name (English) *</label>
+            <label className="text-xs font-semibold text-zinc-200">Family Name (English) *</label>
             <input
               type="text"
               value={familyName}
               onChange={(e) => setFamilyName(e.target.value)}
               placeholder="e.g. Shah Household (Dipakbhai)"
-              className="mt-1 w-full rounded-xl border border-hairline px-3.5 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 py-2 text-xs text-white placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Gujarati Name</label>
+            <label className="text-xs font-semibold text-zinc-200">Gujarati Name</label>
             <input
               type="text"
               value={gujaratiName}
               onChange={(e) => setGujaratiName(e.target.value)}
               placeholder="e.g. શાહ પરિવાર"
-              className="mt-1 w-full rounded-xl border border-hairline px-3.5 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 py-2 text-xs text-white placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Address *</label>
+            <label className="text-xs font-semibold text-zinc-200">Address *</label>
             <textarea
               rows={2}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Full residence address in Nadiad..."
-              className="mt-1 w-full rounded-xl border border-hairline p-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-white/10 bg-[#161B28] p-3 text-xs text-white placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Area / Locality</label>
+              <label className="text-xs font-semibold text-zinc-200">Area / Locality</label>
               <select
                 value={area}
                 onChange={(e) => setArea(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-hairline px-3 py-2 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 py-2 text-xs text-white focus:border-amber-400 focus:outline-none"
               >
                 <option value="Santram Road">Santram Road</option>
                 <option value="Station Road">Station Road</option>
@@ -339,12 +341,12 @@ export default function ProfilePage() {
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">Initial Captain</label>
+              <label className="text-xs font-semibold text-zinc-200">Initial Captain</label>
               <input
                 type="text"
                 disabled
                 value={user.name}
-                className="mt-1 w-full rounded-xl border border-hairline px-3 py-2 text-xs text-charcoal bg-surface-container-low"
+                className="mt-1 w-full rounded-xl border border-white/10 bg-[#121622] px-3 py-2 text-xs text-zinc-400"
               />
             </div>
           </div>
@@ -368,7 +370,7 @@ export default function ProfilePage() {
         maxWidth="sm"
       >
         <div className="space-y-3">
-          <p className="text-xs text-charcoal-subtle">
+          <p className="text-xs text-zinc-400">
             Select one family member to serve as the Family Captain for Thal rotation reminders &amp; approvals:
           </p>
 
@@ -377,17 +379,17 @@ export default function ProfilePage() {
               <button
                 key={m.id}
                 onClick={() => handleSelectCaptain(m.name)}
-                className={`w-full flex items-center justify-between p-3 rounded-xl border text-left text-xs transition-colors ${
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-left text-xs transition-all ${
                   m.name === family?.captainName
-                    ? "border-amber-400 bg-amber-50/70 font-bold text-amber-900"
-                    : "border-hairline hover:bg-surface-container-low text-charcoal"
+                    ? "border-amber-400/50 bg-amber-500/15 font-bold text-amber-300 shadow-sm"
+                    : "border-white/10 hover:bg-[#1A2030] text-zinc-300"
                 }`}
               >
                 <div>
-                  <p className="font-semibold">{m.name}</p>
-                  <p className="text-[10px] text-charcoal-subtle">{m.relationship}</p>
+                  <p className="font-semibold text-white">{m.name}</p>
+                  <p className="text-[10px] text-zinc-400">{m.relationship}</p>
                 </div>
-                {m.name === family?.captainName && <Crown className="h-4 w-4 text-amber-600" />}
+                {m.name === family?.captainName && <Crown className="h-4 w-4 text-amber-400" />}
               </button>
             ))}
           </div>

@@ -142,8 +142,8 @@ export default function SevaPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary-container" />
-            <h1 className="font-heading text-2xl font-bold text-charcoal">
+            <Sparkles className="h-5 w-5 text-amber-400" />
+            <h1 className="font-heading text-2xl font-bold text-white">
               {language === "gu" ? "સેવા અને રોસ્ટર" : "Seva Opportunities & Volunteer Rosters"}
             </h1>
           </div>
@@ -156,7 +156,7 @@ export default function SevaPage() {
           <Button
             size="md"
             variant="outline"
-            leftIcon={<QrCode className="h-4 w-4 text-primary-container" />}
+            leftIcon={<QrCode className="h-4 w-4 text-amber-400" />}
             onClick={() => setQrModalOpen(true)}
           >
             Duty QR Check-In
@@ -177,20 +177,20 @@ export default function SevaPage() {
       <div className="flex gap-2 border-b border-hairline pb-2">
         <button
           onClick={() => setActiveTab("catalog")}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "catalog"
-              ? "bg-primary-container text-white shadow-sm"
-              : "text-charcoal-subtle hover:bg-surface-container"
+              ? "bg-amber-500/15 text-amber-300 font-bold border border-amber-400/30 shadow-sm"
+              : "text-zinc-400 hover:text-white hover:bg-white/5"
           }`}
         >
           Opportunity Catalog ({opportunities.length})
         </button>
         <button
           onClick={() => setActiveTab("roster")}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
             activeTab === "roster"
-              ? "bg-primary-container text-white shadow-sm"
-              : "text-charcoal-subtle hover:bg-surface-container"
+              ? "bg-amber-500/15 text-amber-300 font-bold border border-amber-400/30 shadow-sm"
+              : "text-zinc-400 hover:text-white hover:bg-white/5"
           }`}
         >
           Today&apos;s Active Rosters ({rosters.length})

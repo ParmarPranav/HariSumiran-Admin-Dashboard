@@ -162,7 +162,7 @@ export function Header() {
                         <div className="pt-1">
                           <button
                             onClick={() => handleNotificationAction(notif.id, "Claimed Seva Slot")}
-                            className="px-3 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:brightness-110 text-white font-bold text-[10px] shadow-sm flex items-center gap-1"
+                            className="px-3 py-1 rounded-lg bg-gradient-to-r from-[#FCE082] via-[#E8B038] to-[#C98B1C] hover:brightness-110 text-stone-950 font-extrabold text-[10px] shadow-sm border border-yellow-200/50 flex items-center gap-1"
                           >
                             <Sparkles className="h-3 w-3" />
                             <span>{t("I Can Help", "હું સેવા કરીશ")}</span>

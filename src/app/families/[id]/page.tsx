@@ -138,7 +138,7 @@ export default function FamilyDetailPage() {
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-primary-container bg-saffron-50 px-2 py-0.5 rounded-md border border-saffron-200">
+              <span className="font-mono text-xs font-bold text-amber-300 bg-amber-500/15 px-2.5 py-0.5 rounded-lg border border-amber-400/30 shadow-sm">
                 {family.familyCode}
               </span>
               <Badge
@@ -237,7 +237,7 @@ export default function FamilyDetailPage() {
                   <p><strong>Sabha Streak:</strong> {member.attendanceStreak} Weeks</p>
                   <div className="flex flex-wrap gap-1 pt-1">
                     {member.sevaSkills?.map((skill: string, idx: number) => (
-                      <span key={idx} className="rounded-md bg-saffron-50 px-2 py-0.5 text-[10px] font-semibold text-primary-container">
+                      <span key={idx} className="rounded-md bg-amber-500/15 border border-amber-400/30 px-2 py-0.5 text-[10px] font-semibold text-amber-300">
                         {skill}
                       </span>
                     ))}
@@ -258,9 +258,9 @@ export default function FamilyDetailPage() {
       {/* Tab 2: Interactions & Notes */}
       {activeTab === "interactions" && (
         <GlassCard className="p-6 space-y-4">
-          <h3 className="font-heading text-base font-bold text-charcoal">Field Visit &amp; Interaction Log</h3>
+          <h3 className="font-heading text-base font-bold text-white">Field Visit &amp; Interaction Log</h3>
           {family.notes ? (
-            <div className="rounded-2xl border border-hairline bg-surface-container-low/50 p-4 font-mono text-xs text-charcoal whitespace-pre-line leading-relaxed">
+            <div className="rounded-2xl border border-white/10 bg-[#161B28] p-4 font-mono text-xs text-zinc-200 whitespace-pre-line leading-relaxed">
               {family.notes}
             </div>
           ) : (
@@ -282,7 +282,7 @@ export default function FamilyDetailPage() {
                 <GlassCard key={turn._id} className="p-4 flex items-center justify-between">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-charcoal">{turn.mealType}</span>
+                      <span className="text-xs font-bold text-white">{turn.mealType}</span>
                       <Badge variant={turn.status === "Completed" ? "success" : "primary"} size="sm">
                         {turn.status}
                       </Badge>
@@ -310,7 +310,7 @@ export default function FamilyDetailPage() {
               {followUpCases.map((c) => (
                 <GlassCard key={c._id} className="p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-charcoal">{c.caseCode} &bull; {c.category}</span>
+                    <span className="text-xs font-bold text-white">{c.caseCode} &bull; {c.category}</span>
                     <Badge variant={c.urgency === "Overdue" ? "danger" : "warning"} size="sm">
                       {c.urgency}
                     </Badge>
@@ -318,7 +318,7 @@ export default function FamilyDetailPage() {
                   <p className="text-xs text-charcoal-subtle">
                     Assigned Karyakarta: {c.assignedKaryakartaName} &bull; Due: {c.dueDate}
                   </p>
-                  <Link href="/follow-up" className="text-xs font-semibold text-primary-container hover:underline block pt-1">
+                  <Link href="/follow-up" className="text-xs font-semibold text-amber-400 hover:text-amber-300 block pt-1">
                     Manage Case &rarr;
                   </Link>
                 </GlassCard>
@@ -331,12 +331,12 @@ export default function FamilyDetailPage() {
       {/* Tab 5: Audit Log */}
       {activeTab === "audit" && (
         <GlassCard className="p-6 space-y-3">
-          <h3 className="font-heading text-base font-bold text-charcoal">Record Audit Trail</h3>
+          <h3 className="font-heading text-base font-bold text-white">Record Audit Trail</h3>
           <div className="divide-y divide-hairline">
             {auditLogs.map((log) => (
               <div key={log._id} className="py-2.5 text-xs flex justify-between items-center">
                 <div>
-                  <p className="font-semibold text-charcoal">{log.action}</p>
+                  <p className="font-semibold text-white">{log.action}</p>
                   <p className="text-charcoal-subtle">{log.description}</p>
                 </div>
                 <span className="text-[10px] text-charcoal-subtle">
@@ -358,32 +358,32 @@ export default function FamilyDetailPage() {
       >
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-charcoal">Member Full Name *</label>
+            <label className="text-xs font-semibold text-zinc-200">Member Full Name *</label>
             <input
               type="text"
               value={newMember.name}
               onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
               placeholder="e.g. Devansh Patel"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-charcoal">Date of Birth</label>
+              <label className="text-xs font-semibold text-zinc-200">Date of Birth</label>
               <input
                 type="date"
                 value={newMember.dob}
                 onChange={(e) => setNewMember({ ...newMember, dob: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-400 focus:outline-none"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-charcoal">Relationship</label>
+              <label className="text-xs font-semibold text-zinc-200">Relationship</label>
               <select
                 value={newMember.relationship}
                 onChange={(e) => setNewMember({ ...newMember, relationship: e.target.value })}
-                className="mt-1 h-10 w-full rounded-xl border border-hairline px-3 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+                className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3 text-xs text-white focus:border-amber-400 focus:outline-none"
               >
                 <option value="Head of Family">Head of Family</option>
                 <option value="Spouse">Spouse</option>
@@ -396,24 +396,24 @@ export default function FamilyDetailPage() {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Phone Number (+91) *</label>
+            <label className="text-xs font-semibold text-zinc-200">Phone Number (+91) *</label>
             <input
               type="tel"
               value={newMember.phone}
               onChange={(e) => setNewMember({ ...newMember, phone: e.target.value })}
               placeholder="98250 12345"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-charcoal">Seva Skills (Comma separated)</label>
+            <label className="text-xs font-semibold text-zinc-200">Seva Skills (Comma separated)</label>
             <input
               type="text"
               value={newMember.sevaSkills}
               onChange={(e) => setNewMember({ ...newMember, sevaSkills: e.target.value })}
               placeholder="e.g. Sound, Kitchen, First Aid"
-              className="mt-1 h-10 w-full rounded-xl border border-hairline px-3.5 text-xs text-charcoal focus:border-saffron-400 focus:outline-none"
+              className="mt-1 h-10 w-full rounded-xl border border-white/10 bg-[#161B28] px-3.5 text-xs text-white placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none"
             />
           </div>
 
