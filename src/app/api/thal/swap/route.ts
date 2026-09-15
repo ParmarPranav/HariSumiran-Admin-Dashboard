@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import { ThalSwapRequest, ThalSchedule, ActionableNotification, AuditLog } from "@/models";
+import { ThalSwapRequest, ThalSchedule, ActionableNotification, Family } from "@/models";
 import { initialThalSwapRequests } from "@/lib/seedData";
 
 export async function GET(req: Request) {
@@ -21,13 +21,15 @@ export async function POST(req: Request) {
     await connectDB();
     const body = await req.json();
     const schedId = body.thalScheduleId || body.scheduleCode;
-    const {
+    let {
       originalDate,
-      mealType = "Breakfast (Morning Thal)",
+      mealType,
+      requesterFamilyId,
       requestingFamilyId,
       requestingFamilyName,
-      requestingCaptainName = "Captain",
-      swapType = "family_to_family",
+      requestingCaptainName,
+      swapTargetType,
+      swapType,
       targetFamilyId,
       targetFamilyName,
       targetCaptainName,
@@ -35,23 +37,66 @@ export async function POST(req: Request) {
       reason,
     } = body;
 
-    if (!schedId || !reason || !requestingFamilyName) {
+    const reqFamilyId = requesterFamilyId || requestingFamilyId;
+    let resolvedSwapType = swapType || (swapTargetType === "AdminPool" ? "admin_open_swap" : "family_to_family");
+
+    if (!schedId || !reason) {
       return NextResponse.json(
-        { success: false, error: "Schedule ID or Code, Requesting Family, and Reason are required." },
+        { success: false, error: "Thal Schedule ID/Code and Reason are required for swap request." },
         { status: 400 }
       );
     }
 
-    const initialStatus = swapType === "family_to_family" ? "Pending Target Captain" : "Pending Admin Approval";
+    // Auto-resolve schedule details if missing
+    let schedule = null;
+    if (schedId.match(/^[0-9a-fA-F]{24}$/)) {
+      schedule = await ThalSchedule.findById(schedId);
+    }
+    if (!schedule) {
+      schedule = await ThalSchedule.findOne({ scheduleCode: schedId });
+    }
+
+    if (schedule) {
+      originalDate = originalDate || schedule.date;
+      mealType = mealType || schedule.mealType;
+      requestingFamilyName = requestingFamilyName || schedule.assignedFamilyName;
+      requestingCaptainName = requestingCaptainName || schedule.captainName || "Captain";
+    }
+
+    // Auto-resolve requesting family
+    if (reqFamilyId && !requestingFamilyName) {
+      const rFam = await Family.findById(reqFamilyId);
+      if (rFam) {
+        requestingFamilyName = rFam.name;
+        requestingCaptainName = requestingCaptainName || rFam.captainName;
+      }
+    }
+
+    // Auto-resolve target family
+    if (targetFamilyId && !targetFamilyName) {
+      const tFam = await Family.findById(targetFamilyId);
+      if (tFam) {
+        targetFamilyName = tFam.name;
+        targetCaptainName = targetCaptainName || tFam.captainName;
+      }
+    }
+
+    if (!requestingFamilyName) {
+      requestingFamilyName = "Household Devotee";
+    }
+
+    const initialStatus = resolvedSwapType === "family_to_family" && targetFamilyName
+      ? "Pending Target Captain"
+      : "Pending Admin Approval";
 
     const swap = await ThalSwapRequest.create({
       thalScheduleId: schedId,
       originalDate: originalDate || new Date().toISOString().split("T")[0],
-      mealType,
-      requestingFamilyId: requestingFamilyId || "unassigned",
+      mealType: mealType || "Breakfast (Morning Thal)",
+      requestingFamilyId: reqFamilyId || "unassigned",
       requestingFamilyName,
-      requestingCaptainName,
-      swapType,
+      requestingCaptainName: requestingCaptainName || "Captain",
+      swapType: resolvedSwapType,
       targetFamilyId,
       targetFamilyName,
       targetCaptainName,
@@ -69,12 +114,12 @@ export async function POST(req: Request) {
     }
 
     // Create Actionable Notification for Target Captain or Admin
-    if (swapType === "family_to_family" && targetFamilyName) {
+    if (resolvedSwapType === "family_to_family" && targetFamilyName) {
       await ActionableNotification.create({
         recipientRole: "thal_captain",
         title: "Thal Swap Request Received",
         gujaratiTitle: "થાળ બદલી માટે વિનંતી મળી",
-        message: `${requestingFamilyName} requested a Thal swap with your household for ${mealType} on ${originalDate}. Reason: ${reason}`,
+        message: `${requestingFamilyName} requested a Thal swap with your household for ${mealType || "Thal"} on ${originalDate}. Reason: ${reason}`,
         gujaratiMessage: `${requestingFamilyName} એ ${originalDate} માટે થાળ બદલીની વિનંતી કરી છે. કારણ: ${reason}`,
         category: "thal_swap",
         actionType: "SWAP_ACCEPT_REJECT",
@@ -85,7 +130,7 @@ export async function POST(req: Request) {
         recipientRole: "mandir_admin",
         title: "New Thal Swap Request (Open Pool)",
         gujaratiTitle: "થાળ બદલી માટે નવી વિનંતી (એડમિન પુલ)",
-        message: `${requestingFamilyName} placed ${mealType} on ${originalDate} into open swap pool. Reason: ${reason}`,
+        message: `${requestingFamilyName} placed ${mealType || "Thal"} on ${originalDate} into open swap pool. Reason: ${reason}`,
         category: "thal_swap",
         actionType: "SWAP_ACCEPT_REJECT",
         actionPayload: { swapId: swap._id.toString(), scheduleId: schedId },
@@ -94,7 +139,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: swapType === "family_to_family"
+      message: resolvedSwapType === "family_to_family" && targetFamilyName
         ? `Swap request sent to ${targetFamilyName}. Pending target captain acceptance.`
         : "Swap request placed in open pool for Mandir Admin approval.",
       swap,
@@ -129,7 +174,6 @@ export async function PUT(req: Request) {
       swap.status = "Pending Admin Approval";
       await swap.save();
 
-      // Notify Admin
       await ActionableNotification.create({
         recipientRole: "mandir_admin",
         title: "Thal Swap Agreed by Target Captain - Ready for Approval",
@@ -147,7 +191,7 @@ export async function PUT(req: Request) {
       swap.targetCaptainDecidedAt = new Date();
       swap.status = "Rejected";
       await swap.save();
-      await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, { swapRequested: false });
+      await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, { swapRequested: false }).catch(() => null);
 
       return NextResponse.json({ success: true, message: "Swap request was declined by target captain.", swap });
     }
@@ -158,43 +202,62 @@ export async function PUT(req: Request) {
       swap.adminNotes = adminNotes || "Approved by Mandir Administrator";
       await swap.save();
 
-      // Automatically reassign schedule to Target Family
-      if (swap.targetFamilyName) {
-        await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, {
-          assignedFamilyName: swap.targetFamilyName,
-          assignedFamilyId: swap.targetFamilyId || "reassigned",
-          status: "Confirmed",
-          swapRequested: false,
-          declineReason: undefined,
-        });
+      if (swap.targetFamilyName || swap.targetFamilyId) {
+        await ThalSchedule.findOneAndUpdate(
+          { $or: [{ _id: swap.thalScheduleId }, { scheduleCode: swap.thalScheduleId }] },
+          {
+            assignedFamilyName: swap.targetFamilyName,
+            assignedFamilyId: swap.targetFamilyId || "reassigned",
+            status: "Confirmed",
+            swapRequested: false,
+            declineReason: undefined,
+          }
+        ).catch(() => null);
       }
 
       return NextResponse.json({ success: true, message: "Swap approved and schedule updated automatically!", swap });
     }
 
     if (action === "admin_override") {
-      swap.status = "Overridden";
-      swap.adminNotes = adminNotes || `Admin reassigned to ${overrideFamilyName}`;
-      await swap.save();
+      let resolvedOverrideName = overrideFamilyName;
+      let resolvedPhone = overridePhone || "9825000000";
 
-      if (overrideFamilyName) {
-        await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, {
-          assignedFamilyName: overrideFamilyName,
-          assignedFamilyId: overrideFamilyId || "override",
-          assignedPhone: overridePhone || "9825000000",
-          status: "Assigned",
-          swapRequested: false,
-        });
+      if (overrideFamilyId) {
+        const oFam = await Family.findById(overrideFamilyId);
+        if (oFam) {
+          resolvedOverrideName = resolvedOverrideName || oFam.name;
+          resolvedPhone = oFam.phone || resolvedPhone;
+        }
       }
 
-      return NextResponse.json({ success: true, message: `Thal reassigned to ${overrideFamilyName}.`, swap });
+      swap.status = "Overridden";
+      swap.adminNotes = adminNotes || `Admin reassigned to ${resolvedOverrideName}`;
+      await swap.save();
+
+      if (resolvedOverrideName) {
+        await ThalSchedule.findOneAndUpdate(
+          { $or: [{ _id: swap.thalScheduleId }, { scheduleCode: swap.thalScheduleId }] },
+          {
+            assignedFamilyName: resolvedOverrideName,
+            assignedFamilyId: overrideFamilyId || "override",
+            assignedPhone: resolvedPhone,
+            status: "Assigned",
+            swapRequested: false,
+          }
+        ).catch(() => null);
+      }
+
+      return NextResponse.json({ success: true, message: `Thal reassigned to ${resolvedOverrideName}.`, swap });
     }
 
     if (action === "admin_reject") {
       swap.status = "Rejected";
       swap.adminNotes = adminNotes || "Rejected by Administrator";
       await swap.save();
-      await ThalSchedule.findByIdAndUpdate(swap.thalScheduleId, { swapRequested: false });
+      await ThalSchedule.findOneAndUpdate(
+        { $or: [{ _id: swap.thalScheduleId }, { scheduleCode: swap.thalScheduleId }] },
+        { swapRequested: false }
+      ).catch(() => null);
 
       return NextResponse.json({ success: true, message: "Swap rejected by admin.", swap });
     }

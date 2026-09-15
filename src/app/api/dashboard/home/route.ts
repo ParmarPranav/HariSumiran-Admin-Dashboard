@@ -27,9 +27,15 @@ export async function GET(req: Request) {
     const userId = searchParams.get("userId");
     const userName = searchParams.get("userName");
 
+    const authHeader = req.headers.get("authorization");
+    let callerIdentifier = userId || userName;
+    if (!callerIdentifier && authHeader && authHeader.startsWith("Bearer ")) {
+      callerIdentifier = authHeader.replace("Bearer ", "");
+    }
+
     await connectDB();
 
-    const user = await findUserByIdentifier(userId || userName);
+    const user = await findUserByIdentifier(callerIdentifier);
     const scope = resolveUserScope(user as any);
 
     // 1. What is Happening?
@@ -55,9 +61,12 @@ export async function GET(req: Request) {
     const actionItems: any[] = [];
 
     // Check Thal turn for user's family
-    if (scope.familyId) {
+    if (scope.familyId || (user && user.familyName)) {
       const familyThal = await ThalSchedule.findOne({
-        assignedFamilyId: scope.familyId,
+        $or: [
+          { assignedFamilyId: scope.familyId },
+          { assignedFamilyName: user?.familyName },
+        ],
         status: { $in: ["Assigned", "Confirmed"] },
       });
       if (familyThal) {

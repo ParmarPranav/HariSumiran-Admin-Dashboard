@@ -1080,10 +1080,125 @@ curl -X POST https://hari-sumiran-admin-dashboard.vercel.app/api/seed \
 
 ---
 
-## 18. Mobile Client Developer Best Practices
+## 18. Unified Calendar & Scoped Reporting
+
+### 18.1 Unified Aggregated Calendar Feed
+* **Endpoint**: `GET /api/calendar/unified` (or `GET /api/calendar`)
+* **Query Parameters**:
+  * `month`: e.g. `2026-09`
+  * `userId`: *(optional)* Devotee/Karyakarta ID to tailor personal commitments
+* **Description**: Returns caller's combined Thal turns, Sabha sessions, Mandir Mahotsav events, claimed Seva shifts, and Carpool departures.
+
+```bash
+curl -X GET "https://hari-sumiran-admin-dashboard.vercel.app/api/calendar/unified?month=2026-09&userId=66dd10010000000000000003" \
+  -H "Accept: application/json"
+```
+
+#### Response (HTTP 200)
+```json
+{
+  "success": true,
+  "month": "2026-09",
+  "count": 14,
+  "events": [
+    {
+      "id": "THAL-66dd20010000000000000001",
+      "category": "Thal",
+      "date": "2026-09-12",
+      "time": "06:30 PM",
+      "title": "Dinner (Evening Thal)",
+      "gujaratiTitle": "સાંજ સંધ્યા થાળ વારો",
+      "badge": "My Family Turn",
+      "status": "Confirmed",
+      "isPersonal": true,
+      "details": {
+        "family": "Patel Household (Rameshbhai)",
+        "phone": "9825056789",
+        "headcount": 55,
+        "instructions": "Khichdi, Kadhi, Ringan Bharta"
+      }
+    },
+    {
+      "id": "SABHA-66dd30010000000000000001",
+      "category": "Sabha",
+      "date": "2026-09-13",
+      "time": "06:00 PM - 08:00 PM",
+      "title": "Youth Satsang Sabha",
+      "gujaratiTitle": "યુવક સત્સંગ સભા",
+      "badge": "Karyakarta Duty",
+      "status": "Scheduled",
+      "isPersonal": true
+    }
+  ]
+}
+```
+
+---
+
+### 18.2 Generate Scoped Reports & Exports
+* **Endpoint**: `GET /api/reports/generate` (or `GET /api/reports`)
+* **Query Parameters**:
+  * `type`: `attendance_summary` | `thal_monthly` | `followup_cases` | `seva_summary`
+  * `format`: `json` | `pdf` | `csv`
+  * `month`: e.g. `2026-09`
+  * `zone`: *(optional)* e.g. `Central Nadiad`
+  * `userId`: *(optional)* caller identity for boundary authorization
+* **Description**: Computes scoped analytical metrics, compliance indicators, and formatted download links.
+
+```bash
+curl -X GET "https://hari-sumiran-admin-dashboard.vercel.app/api/reports/generate?type=attendance_summary&format=json&month=2026-09" \
+  -H "Accept: application/json"
+```
+
+#### Response (HTTP 200)
+```json
+{
+  "success": true,
+  "reportType": "attendance_summary",
+  "format": "json",
+  "generatedAt": "2026-09-16T00:00:00.000Z",
+  "scopeApplied": "Mandir-Wide (All Zones) • All Mandir Categories",
+  "month": "2026-09",
+  "summary": {
+    "totalMembersInScope": 45,
+    "regularAttendees": 38,
+    "averageAttendanceRate": "84.4%",
+    "casesNeedingFollowUp": 7
+  },
+  "recordCount": 45,
+  "data": [],
+  "downloadUrl": "https://hari-sumiran-admin-dashboard.vercel.app/exports/report_attendance_summary_2026_09.json"
+}
+```
+
+---
+
+## 19. Dedicated Mobile REST Endpoints Reference
+
+| Module | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **Auth** | `POST` | `/api/auth/pin-setup` | Set/Change 4-digit PIN |
+| **Auth** | `POST` | `/api/auth/unlock` | Banking-style PIN/Biometric unlock |
+| **Attendance** | `POST` | `/api/attendance/scan` | Continuous live camera QR scan check-in |
+| **Attendance** | `POST` | `/api/attendance/manual` | Manual roster check-in |
+| **Seva** | `POST` | `/api/seva/:id/claim` | 1-Tap slot claiming by opportunity ID |
+| **Kitchen** | `GET/PUT/DELETE` | `/api/kitchen/recipes/:id` | Individual recipe operations |
+| **Carpool** | `POST` | `/api/transportation/rides/:id/request-seat` | Request seat on ride |
+| **Carpool** | `PUT` | `/api/transportation/rides/:id/passengers/:reqId/decision` | Driver approve/reject passenger |
+| **Carpool** | `PUT` | `/api/transportation/rides/:id/depart` | Mark vehicle departed |
+| **Thal** | `POST` | `/api/thal/assign` | Assign canonical family thal turn |
+| **Thal Swap** | `PUT` | `/api/thal/swap/:id/respond` | Target Captain accept/reject |
+| **Thal Swap** | `PUT` | `/api/thal/swap/:id/admin-decision` | Mandir Admin approve/override |
+| **Follow-Up** | `POST` | `/api/follow-up/:id/notes` | Append pastoral interaction notes |
+| **Calendar** | `GET` | `/api/calendar/unified` | Unified multi-responsibility calendar feed |
+| **Reports** | `GET` | `/api/reports/generate` | Scoped reporting & exports |
+
+---
+
+## 20. Mobile Client Developer Best Practices
 
 ### 1. QR Code Formats
-* **Member Digital ID QR**: `MEMBER:<MEMBER_CODE>:<NAME>`  
+* **Member Digital ID QR**: `MEMBER:<MEMBER_CODE>:<NAME>` or `HS-MEM-<OBJECT_ID>`  
   *(Example: `MEMBER:MEM-NAD-001:PRANAV_PARMAR`)*
 * **Event Gate Pass QR**: `PASS:<EVENT_CODE>:<PASS_CODE>`  
   *(Example: `PASS:EVT-2026-001:PASS-2026-7K9A2`)*
@@ -1092,9 +1207,9 @@ curl -X POST https://hari-sumiran-admin-dashboard.vercel.app/api/seed \
 
 ### 2. Local Caching & Offline Mode
 * Cache `GET /api/dashboard/home` and member profile in SQLite / Hive / CoreData.
-* When offline, allow Sabha attendance QR scanning into local queue, then batch-post via `POST /api/sabha/attendance` on network reconnection.
+* When offline, allow Sabha attendance QR scanning into local queue, then batch-post via `POST /api/attendance/scan` on network reconnection.
 
 ### 3. Biometric Authentication Workflow
 1. On initial login with PIN (`3690`), receive JWT `token` and store securely in Keychain / EncryptedSharedPreferences.
 2. Prompt devotee: *"Enable Face ID / Fingerprint unlock for HariSumiran"*.
-3. On subsequent app cold starts, authenticate biometric locally on device without requiring PIN re-entry.
+3. On subsequent app cold starts, call `POST /api/auth/unlock` to validate session and refresh scopes.

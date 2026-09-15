@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { Family, Member, AuditLog } from "@/models";
+import { resolveUserScope, findUserByIdentifier } from "@/lib/authScope";
 
 export async function GET(req: Request) {
   try {
@@ -8,8 +9,19 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search") || "";
     const area = searchParams.get("area");
+    const zone = searchParams.get("zone");
     const engagement = searchParams.get("engagement");
     const status = searchParams.get("status");
+    const userId = searchParams.get("userId");
+
+    const authHeader = req.headers.get("authorization");
+    let callerIdentifier = userId;
+    if (!callerIdentifier && authHeader && authHeader.startsWith("Bearer ")) {
+      callerIdentifier = authHeader.replace("Bearer ", "");
+    }
+
+    const user = await findUserByIdentifier(callerIdentifier);
+    const scope = resolveUserScope(user as any);
 
     const query: any = {};
 
@@ -25,6 +37,12 @@ export async function GET(req: Request) {
 
     if (area && area !== "All") {
       query.area = area;
+    }
+
+    if (zone && zone !== "All") {
+      query.zone = zone;
+    } else if (!scope.isAdmin && scope.isKaryakarta && scope.allowedZones.length > 0 && !scope.allowedZones.includes("*")) {
+      query.zone = { $in: scope.allowedZones };
     }
 
     if (engagement && engagement !== "All") {
@@ -72,7 +90,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check for possible duplicates
     const cleanPhone = phone.replace(/\D/g, "");
     const existingFamily = await Family.findOne({
       $or: [{ phone: cleanPhone }, { name: { $regex: `^${name}$`, $options: "i" } }],
@@ -90,7 +107,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Generate next familyCode
     const count = await Family.countDocuments();
     const familyCode = `FAM-NAD-${String(count + 1).padStart(3, "0")}`;
 
@@ -111,7 +127,6 @@ export async function POST(req: Request) {
       notes: notes || "",
     });
 
-    // Create captain as initial member if provided
     if (members.length === 0) {
       const memberCode = `MEM-NAD-${String(count * 4 + 1).padStart(3, "0")}`;
       await Member.create({
@@ -126,6 +141,7 @@ export async function POST(req: Request) {
         sevaSkills: ["General Seva"],
         attendanceStreak: 0,
         verificationStatus: "Pending Verification",
+        qrCode: `MEMBER:${memberCode}:${captainName.toUpperCase().replace(/\s+/g, "_")}`,
       });
     } else {
       for (let i = 0; i < members.length; i++) {
@@ -145,11 +161,11 @@ export async function POST(req: Request) {
           sevaSkills: m.sevaSkills || ["General Seva"],
           attendanceStreak: 0,
           verificationStatus: "Pending Verification",
+          qrCode: `MEMBER:${memberCode}:${m.name.toUpperCase().replace(/\s+/g, "_")}`,
         });
       }
     }
 
-    // Log audit
     await AuditLog.create({
       actorId: "usr-current",
       actorName: "Active User",

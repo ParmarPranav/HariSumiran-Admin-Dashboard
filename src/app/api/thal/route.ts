@@ -7,7 +7,7 @@ export async function GET(req: Request) {
   try {
     await connectDB();
     const { searchParams } = new URL(req.url);
-    const month = searchParams.get("month"); // e.g., "2026-08"
+    const month = searchParams.get("month"); // e.g., "2026-09"
 
     const query: any = {};
     if (month) {
@@ -25,7 +25,6 @@ export async function GET(req: Request) {
       }
 
       const year = 2026;
-      const m = 9;
       const daysInMonth = 30;
 
       const menusMorning = [
@@ -116,21 +115,24 @@ export async function POST(req: Request) {
       month = "2026-09",
       date,
       mealType = "Breakfast (Morning Thal)",
+      mealCategory,
+      familyId,
       assignedFamilyId,
       assignedFamilyName,
       assignedPhone,
+      captainMemberId,
+      captainId,
       headcount = 50,
       specialInstructions,
     } = body;
 
-    // Monthly Auto-Schedule Generator for September / selected month
+    // Monthly Auto-Schedule Generator
     if (action === "auto_generate") {
       const families = await Family.find({ status: "Active" });
       if (families.length === 0) {
         return NextResponse.json({ success: false, error: "No active families found for rotation." }, { status: 400 });
       }
 
-      // Generate dates for the month (e.g. 2026-09-01 to 2026-09-30)
       const year = parseInt(month.split("-")[0]);
       const m = parseInt(month.split("-")[1]);
       const daysInMonth = new Date(year, m, 0).getDate();
@@ -178,33 +180,76 @@ export async function POST(req: Request) {
       });
     }
 
-    if (!date || !assignedFamilyName) {
-      return NextResponse.json({ success: false, error: "Date and Assigned Family are required." }, { status: 400 });
+    if (!date) {
+      return NextResponse.json({ success: false, error: "Date is required." }, { status: 400 });
+    }
+
+    // Resolve Family details if familyId is passed
+    const fId = familyId || assignedFamilyId;
+    let resolvedFamilyName = assignedFamilyName;
+    let resolvedPhone = assignedPhone;
+    let resolvedCaptainName = body.captainName;
+    let resolvedCaptainId = captainMemberId || captainId;
+
+    if (fId) {
+      let family = null;
+      if (fId.match(/^[0-9a-fA-F]{24}$/)) {
+        family = await Family.findById(fId);
+      }
+      if (!family) {
+        family = await Family.findOne({
+          $or: [{ familyCode: fId }, { name: new RegExp(fId, "i") }],
+        });
+      }
+
+      if (family) {
+        resolvedFamilyName = resolvedFamilyName || family.name;
+        resolvedPhone = resolvedPhone || family.phone;
+        resolvedCaptainName = resolvedCaptainName || family.captainName;
+        resolvedCaptainId = resolvedCaptainId || family.captainId;
+      }
+    }
+
+    if (!resolvedFamilyName) {
+      return NextResponse.json(
+        { success: false, error: "Family Name or valid familyId is required for assignment." },
+        { status: 400 }
+      );
+    }
+
+    // Resolve meal type if mealCategory passed (e.g. "Dinner" -> "Dinner (Evening Thal)")
+    let resolvedMealType = mealType;
+    if (mealCategory === "Dinner" || mealType.toLowerCase().includes("dinner") || mealType.toLowerCase().includes("evening")) {
+      resolvedMealType = "Dinner (Evening Thal)";
+    } else if (mealCategory === "Breakfast" || mealType.toLowerCase().includes("breakfast") || mealType.toLowerCase().includes("morning")) {
+      resolvedMealType = "Breakfast (Morning Thal)";
     }
 
     // Check conflict
-    const existing = await ThalSchedule.findOne({ date, mealType });
+    const existing = await ThalSchedule.findOne({ date, mealType: resolvedMealType });
     if (existing) {
       return NextResponse.json(
         {
           success: false,
-          error: `${mealType} on ${date} is already assigned to ${existing.assignedFamilyName}.`,
+          error: `${resolvedMealType} on ${date} is already assigned to ${existing.assignedFamilyName}.`,
         },
         { status: 409 }
       );
     }
 
     const monthPeriod = date.substring(0, 7);
-    const scheduleCode = `THAL-${date.replace(/-/g, "")}-${mealType.includes("Breakfast") ? "B" : "D"}`;
+    const scheduleCode = `THAL-${date.replace(/-/g, "")}-${resolvedMealType.includes("Breakfast") ? "B" : "D"}`;
 
     const schedule = await ThalSchedule.create({
       scheduleCode,
       date,
       monthPeriod,
-      mealType,
-      assignedFamilyId: assignedFamilyId || "unassigned",
-      assignedFamilyName,
-      assignedPhone: assignedPhone || "9825000000",
+      mealType: resolvedMealType,
+      assignedFamilyId: fId || "unassigned",
+      assignedFamilyName: resolvedFamilyName,
+      assignedPhone: resolvedPhone || "9825000000",
+      captainId: resolvedCaptainId,
+      captainName: resolvedCaptainName,
       headcount,
       status: "Assigned",
       specialInstructions: specialInstructions || "Standard Satvik Thal preparation.",
@@ -217,7 +262,7 @@ export async function POST(req: Request) {
       action: "ASSIGN_THAL",
       module: "Thal Rotation",
       recordId: schedule._id.toString(),
-      description: `Assigned ${assignedFamilyName} for ${mealType} on ${date}`,
+      description: `Assigned ${resolvedFamilyName} for ${resolvedMealType} on ${date}`,
     });
 
     return NextResponse.json({

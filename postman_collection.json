@@ -71,6 +71,21 @@
       "key": "caseId",
       "value": "66dd70010000000000000001",
       "type": "string"
+    },
+    {
+      "key": "swapId",
+      "value": "66dd25010000000000000001",
+      "type": "string"
+    },
+    {
+      "key": "recipeId",
+      "value": "RCP-01",
+      "type": "string"
+    },
+    {
+      "key": "requestId",
+      "value": "REQ-701",
+      "type": "string"
     }
   ],
   "item": [
@@ -81,15 +96,25 @@
           "name": "PIN / Passcode Unlock & Login",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"action\": \"login\",\n  \"pin\": \"3690\",\n  \"phone\": \"9825056789\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth"
+              ]
             }
           }
         },
@@ -97,15 +122,25 @@
           "name": "Set / Change User 4-Digit PIN",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"action\": \"setup_pin\",\n  \"userId\": \"{{userId}}\",\n  \"newPin\": \"1234\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth"
+              ]
             }
           }
         },
@@ -113,11 +148,21 @@
           "name": "Get Active Personas & Demo Profiles",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/auth",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth"
+              ]
             }
           }
         },
@@ -125,15 +170,26 @@
           "name": "Google Sign-In Mobile Exchange",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"ramesh.patel@gmail.com\",\n  \"name\": \"Rameshbhai Patel\",\n  \"googleId\": \"google-oauth-109283019283\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/google",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "google"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "google"
+              ]
             }
           }
         },
@@ -141,15 +197,80 @@
           "name": "Apple Sign-In Mobile Exchange",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"appleId\": \"000123.abcde987654.1234\",\n  \"email\": \"devotee.private@privaterelay.appleid.com\",\n  \"name\": \"Pranav Parmar\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/apple",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "apple"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "apple"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/auth/pin-setup (Dedicated PIN Setup)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"currentPin\": \"3690\",\n  \"newPin\": \"7842\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/pin-setup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "pin-setup"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/auth/unlock (Dedicated PIN & Biometric Unlock)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"pin\": \"3690\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/unlock",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "unlock"
+              ]
             }
           }
         }
@@ -163,8 +284,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -172,8 +299,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/notifications/register-device",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "notifications", "register-device"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "register-device"
+              ]
             }
           }
         }
@@ -187,16 +320,34 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Accept", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/api/dashboard/home?userId={{userId}}&userName=Rameshbhai%20Patel",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "dashboard", "home"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "home"
+              ],
               "query": [
-                { "key": "userId", "value": "{{userId}}" },
-                { "key": "userName", "value": "Rameshbhai Patel" }
+                {
+                  "key": "userId",
+                  "value": "{{userId}}"
+                },
+                {
+                  "key": "userName",
+                  "value": "Rameshbhai Patel"
+                }
               ]
             }
           }
@@ -210,12 +361,27 @@
           "name": "Get Monthly Thal Schedules & Fairness Ranking",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/thal?month=2026-09",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal"],
-              "query": [{ "key": "month", "value": "2026-09" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal"
+              ],
+              "query": [
+                {
+                  "key": "month",
+                  "value": "2026-09"
+                }
+              ]
             }
           }
         },
@@ -224,8 +390,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -233,8 +405,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal"
+              ]
             }
           }
         },
@@ -243,8 +420,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -252,8 +435,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal"
+              ]
             }
           }
         },
@@ -262,8 +450,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -271,8 +465,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal"
+              ]
             }
           }
         },
@@ -280,11 +479,22 @@
           "name": "Get 1-Day Prior Thal Reminders",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/thal/notifications",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "notifications"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "notifications"
+              ]
             }
           }
         },
@@ -293,8 +503,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -302,8 +518,41 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal/notifications",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "notifications"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "notifications"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/thal/assign (Canonical Family Assignment)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"month\": \"2026-09\",\n  \"date\": \"2026-09-20\",\n  \"mealType\": \"Evening Sandhya Thal\",\n  \"mealCategory\": \"Dinner\",\n  \"familyId\": \"{{familyId}}\",\n  \"specialInstructions\": \"Prepare Satvik Mahaprasad for 60 devotees\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal/assign",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "assign"
+              ]
             }
           }
         }
@@ -316,11 +565,22 @@
           "name": "List All Thal Swap Requests",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/thal/swap",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "swap"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap"
+              ]
             }
           }
         },
@@ -329,8 +589,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -338,8 +604,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal/swap",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "swap"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap"
+              ]
             }
           }
         },
@@ -348,8 +620,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -357,8 +635,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal/swap",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "swap"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap"
+              ]
             }
           }
         },
@@ -367,8 +651,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -376,8 +666,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal/swap",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "swap"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap"
+              ]
             }
           }
         },
@@ -386,8 +682,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -395,8 +697,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal/swap",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "swap"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap"
+              ]
             }
           }
         },
@@ -405,8 +713,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -414,8 +728,72 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/thal/swap",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "thal", "swap"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/thal/swap/:id/respond (Target Captain Decision)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"Accepted\",\n  \"notes\": \"Gladly accepting this rotation swap.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal/swap/{{swapId}}/respond",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap",
+                "{{swapId}}",
+                "respond"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/thal/swap/:id/admin-decision (Admin Final Approval / Override)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"approve\",\n  \"adminNotes\": \"Approved by Mandir Administrator\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thal/swap/{{swapId}}/admin-decision",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thal",
+                "swap",
+                "{{swapId}}",
+                "admin-decision"
+              ]
             }
           }
         }
@@ -428,12 +806,27 @@
           "name": "List Sabha Sessions",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/sabha?status=Scheduled",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "sabha"],
-              "query": [{ "key": "status", "value": "Scheduled" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sabha"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Scheduled"
+                }
+              ]
             }
           }
         },
@@ -442,8 +835,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -451,8 +850,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/sabha",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "sabha"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sabha"
+              ]
             }
           }
         },
@@ -460,11 +864,22 @@
           "name": "Get Sabha Detail & Records",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/sabha/{{sabhaId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "sabha", "{{sabhaId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sabha",
+                "{{sabhaId}}"
+              ]
             }
           }
         },
@@ -472,12 +887,28 @@
           "name": "Get Sabha Attendance Roster & Streaks",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/sabha/attendance?sabhaId={{sabhaId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "sabha", "attendance"],
-              "query": [{ "key": "sabhaId", "value": "{{sabhaId}}" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sabha",
+                "attendance"
+              ],
+              "query": [
+                {
+                  "key": "sabhaId",
+                  "value": "{{sabhaId}}"
+                }
+              ]
             }
           }
         },
@@ -486,8 +917,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -495,8 +932,68 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/sabha/attendance",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "sabha", "attendance"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sabha",
+                "attendance"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/attendance/scan (Continuous QR Scan Attendance)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activityType\": \"Sabha\",\n  \"activityId\": \"{{sabhaId}}\",\n  \"qrCodePayload\": \"HS-MEM-66dd40010000000000000001\",\n  \"scannedAt\": \"2026-09-13T18:32:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/scan",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "scan"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/attendance/manual (Manual Roster Attendance)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activityType\": \"Sabha\",\n  \"activityId\": \"{{sabhaId}}\",\n  \"memberId\": \"{{memberId}}\",\n  \"isPresent\": true,\n  \"notes\": \"Attended with family\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/manual",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "manual"
+              ]
             }
           }
         }
@@ -509,12 +1006,27 @@
           "name": "List Seva Opportunities & Rosters",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/seva?department=Kitchen",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "seva"],
-              "query": [{ "key": "department", "value": "Kitchen" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seva"
+              ],
+              "query": [
+                {
+                  "key": "department",
+                  "value": "Kitchen"
+                }
+              ]
             }
           }
         },
@@ -523,8 +1035,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -532,8 +1050,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/seva",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "seva"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seva"
+              ]
             }
           }
         },
@@ -542,8 +1065,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -551,8 +1080,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/seva/claim",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "seva", "claim"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seva",
+                "claim"
+              ]
             }
           }
         },
@@ -561,8 +1096,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -570,8 +1111,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/seva/roster",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "seva", "roster"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seva",
+                "roster"
+              ]
             }
           }
         },
@@ -580,8 +1127,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -589,8 +1142,42 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/seva/check-in",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "seva", "check-in"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seva",
+                "check-in"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/seva/:id/claim (1-Tap Seva Claim by ID)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"memberId\": \"{{memberId}}\",\n  \"memberName\": \"Ankit Patel\",\n  \"phone\": \"+91 98250 99887\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/seva/{{opportunityId}}/claim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seva",
+                "{{opportunityId}}",
+                "claim"
+              ]
             }
           }
         }
@@ -603,11 +1190,22 @@
           "name": "List Temple Recipes",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/kitchen/recipes",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "kitchen", "recipes"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "kitchen",
+                "recipes"
+              ]
             }
           }
         },
@@ -616,8 +1214,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -625,8 +1229,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/kitchen/recipes",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "kitchen", "recipes"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "kitchen",
+                "recipes"
+              ]
             }
           }
         },
@@ -635,8 +1245,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -644,8 +1260,66 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/kitchen/calculate",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "kitchen", "calculate"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "kitchen",
+                "calculate"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/kitchen/recipes/:id (Recipe Detail with 10-person Headcount)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/kitchen/recipes/{{recipeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "kitchen",
+                "recipes",
+                "{{recipeId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/kitchen/recipes/:id (Update Satvik Recipe)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated temple satvik recipe ratios\",\n  \"prepTimeMinutes\": 50\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/kitchen/recipes/{{recipeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "kitchen",
+                "recipes",
+                "{{recipeId}}"
+              ]
             }
           }
         }
@@ -658,11 +1332,22 @@
           "name": "List Scheduled Carpool Rides",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/transportation/rides",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "transportation", "rides"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "transportation",
+                "rides"
+              ]
             }
           }
         },
@@ -671,8 +1356,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -680,8 +1371,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/transportation/rides",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "transportation", "rides"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "transportation",
+                "rides"
+              ]
             }
           }
         },
@@ -690,8 +1387,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -699,8 +1402,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/transportation/request",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "transportation", "request"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "transportation",
+                "request"
+              ]
             }
           }
         },
@@ -709,8 +1418,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -718,8 +1433,99 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/transportation/request",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "transportation", "request"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "transportation",
+                "request"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/transportation/rides/:id/request-seat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"passengerMemberId\": \"{{memberId}}\",\n  \"passengerName\": \"Rahul Patel\",\n  \"passengerPhone\": \"+91 98250 12345\",\n  \"pickupPoint\": \"College Road Cross\",\n  \"seatsRequested\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/transportation/rides/{{rideId}}/request-seat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "transportation",
+                "rides",
+                "{{rideId}}",
+                "request-seat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/transportation/rides/:id/passengers/:reqId/decision",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"APPROVE\",\n  \"driverNotes\": \"Seat confirmed, please arrive by 5:25 PM\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/transportation/rides/{{rideId}}/passengers/{{requestId}}/decision",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "transportation",
+                "rides",
+                "{{rideId}}",
+                "passengers",
+                "{{requestId}}",
+                "decision"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/transportation/rides/:id/depart (Mark Ride Departed)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/transportation/rides/{{rideId}}/depart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "transportation",
+                "rides",
+                "{{rideId}}",
+                "depart"
+              ]
             }
           }
         }
@@ -732,15 +1538,34 @@
           "name": "Search Families (with filters)",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/families?search=Patel&area=Station%20Road&status=Active",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "families"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "families"
+              ],
               "query": [
-                { "key": "search", "value": "Patel" },
-                { "key": "area", "value": "Station Road" },
-                { "key": "status", "value": "Active" }
+                {
+                  "key": "search",
+                  "value": "Patel"
+                },
+                {
+                  "key": "area",
+                  "value": "Station Road"
+                },
+                {
+                  "key": "status",
+                  "value": "Active"
+                }
               ]
             }
           }
@@ -750,8 +1575,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -759,8 +1590,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/families",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "families"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "families"
+              ]
             }
           }
         },
@@ -768,11 +1604,22 @@
           "name": "Get Family 360 Profile & History",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/families/{{familyId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "families", "{{familyId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "families",
+                "{{familyId}}"
+              ]
             }
           }
         },
@@ -781,8 +1628,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -790,8 +1643,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/families/{{familyId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "families", "{{familyId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "families",
+                "{{familyId}}"
+              ]
             }
           }
         }
@@ -804,12 +1663,27 @@
           "name": "Search Members (Skills & Verification)",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/members?status=Pending%20Verification",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "members"],
-              "query": [{ "key": "status", "value": "Pending Verification" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "members"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Pending Verification"
+                }
+              ]
             }
           }
         },
@@ -818,8 +1692,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -827,8 +1707,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/members",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "members"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "members"
+              ]
             }
           }
         },
@@ -836,11 +1721,22 @@
           "name": "Get Member Details & Seva History",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/members/{{memberId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "members", "{{memberId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "members",
+                "{{memberId}}"
+              ]
             }
           }
         },
@@ -849,8 +1745,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -858,8 +1760,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/members/{{memberId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "members", "{{memberId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "members",
+                "{{memberId}}"
+              ]
             }
           }
         }
@@ -872,14 +1780,30 @@
           "name": "List Follow-Up Cases (Filtered by Urgency)",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/follow-up?urgency=Overdue&status=Open",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "follow-up"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "follow-up"
+              ],
               "query": [
-                { "key": "urgency", "value": "Overdue" },
-                { "key": "status", "value": "Open" }
+                {
+                  "key": "urgency",
+                  "value": "Overdue"
+                },
+                {
+                  "key": "status",
+                  "value": "Open"
+                }
               ]
             }
           }
@@ -889,8 +1813,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -898,8 +1828,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/follow-up",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "follow-up"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "follow-up"
+              ]
             }
           }
         },
@@ -908,8 +1843,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -917,8 +1858,42 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/follow-up/{{caseId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "follow-up", "{{caseId}}"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "follow-up",
+                "{{caseId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/follow-up/:id/notes (Append Confidential Note)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"authorName\": \"Jaimin Trivedi\",\n  \"type\": \"Home Visit\",\n  \"note\": \"Met family at home. All devotees doing well and attending Sunday Sabha regularly.\",\n  \"isConfidential\": true,\n  \"newStatus\": \"In Progress\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/follow-up/{{caseId}}/notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "follow-up",
+                "{{caseId}}",
+                "notes"
+              ]
             }
           }
         }
@@ -931,11 +1906,21 @@
           "name": "List Assets & Hall Bookings",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/assets",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "assets"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assets"
+              ]
             }
           }
         },
@@ -944,8 +1929,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -953,8 +1944,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/assets/borrow",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "assets", "borrow"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "borrow"
+              ]
             }
           }
         },
@@ -963,8 +1960,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -972,8 +1975,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/assets/rooms",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "assets", "rooms"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "assets",
+                "rooms"
+              ]
             }
           }
         }
@@ -986,11 +1995,21 @@
           "name": "List Events & Mahotsav",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/events",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "events"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events"
+              ]
             }
           }
         },
@@ -999,8 +2018,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -1008,8 +2033,14 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/events/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "events", "register"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "register"
+              ]
             }
           }
         }
@@ -1022,11 +2053,21 @@
           "name": "List Broadcast Announcements",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/announcements",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "announcements"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
             }
           }
         },
@@ -1035,8 +2076,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -1044,8 +2091,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/announcements",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "announcements"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
             }
           }
         }
@@ -1058,11 +2110,21 @@
           "name": "Get Executive Analytics KPIs & Trends",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/analytics",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "analytics"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "analytics"
+              ]
             }
           }
         },
@@ -1070,11 +2132,21 @@
           "name": "Get Role Permissions Matrix & Audit Logs",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/admin",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "admin"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin"
+              ]
             }
           }
         }
@@ -1087,11 +2159,21 @@
           "name": "Get MongoDB Atlas Health & Record Counts",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Accept", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/api/seed",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "seed"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seed"
+              ]
             }
           }
         },
@@ -1100,13 +2182,173 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/api/seed",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "seed"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "seed"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "18. Unified Calendar & Reporting",
+      "item": [
+        {
+          "name": "GET /api/calendar/unified (Aggregated Schedule Feed)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/unified?month=2026-09&userId={{userId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "calendar",
+                "unified"
+              ],
+              "query": [
+                {
+                  "key": "month",
+                  "value": "2026-09"
+                },
+                {
+                  "key": "userId",
+                  "value": "{{userId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/reports/generate (Attendance Summary Report)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/generate?type=attendance_summary&format=json&month=2026-09",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "generate"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "attendance_summary"
+                },
+                {
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "key": "month",
+                  "value": "2026-09"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/reports/generate (Thal Monthly Rotation Report)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/generate?type=thal_monthly&format=pdf&month=2026-09",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "generate"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "thal_monthly"
+                },
+                {
+                  "key": "format",
+                  "value": "pdf"
+                },
+                {
+                  "key": "month",
+                  "value": "2026-09"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/reports/generate (Follow-Up Cases Summary)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/generate?type=followup_cases&format=json&month=2026-09",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "generate"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "followup_cases"
+                },
+                {
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "key": "month",
+                  "value": "2026-09"
+                }
+              ]
             }
           }
         }

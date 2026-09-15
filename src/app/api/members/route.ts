@@ -13,9 +13,18 @@ export async function GET(req: Request) {
     const status = searchParams.get("status");
     const familyId = searchParams.get("familyId");
     const zone = searchParams.get("zone");
+    const sabhaType = searchParams.get("sabhaType") || searchParams.get("sabhaCategory");
+    const gender = searchParams.get("gender");
     const userId = searchParams.get("userId");
 
-    const user = await findUserByIdentifier(userId);
+    // Extract Bearer token if present
+    const authHeader = req.headers.get("authorization");
+    let callerIdentifier = userId;
+    if (!callerIdentifier && authHeader && authHeader.startsWith("Bearer ")) {
+      callerIdentifier = authHeader.replace("Bearer ", "");
+    }
+
+    const user = await findUserByIdentifier(callerIdentifier);
     const scope = resolveUserScope(user as any);
 
     const query: any = {};
@@ -46,15 +55,21 @@ export async function GET(req: Request) {
       query.zone = zone;
     }
 
+    if (sabhaType && sabhaType !== "All") {
+      query.sabhaCategory = sabhaType;
+    }
+
+    if (gender && gender !== "All") {
+      query.gender = gender;
+    }
+
     const scopedFilter = buildMemberScopeFilter(scope, query);
     let members = await Member.find(scopedFilter).sort({ attendanceStreak: -1, createdAt: -1 });
 
     if (!members || members.length === 0) {
-      if (search || familyId || zone) {
-        // Return empty if filtered search
+      if (search || familyId || zone || sabhaType || gender) {
         members = [];
       } else {
-        // Fallback to initialMembers
         members = initialMembers as any;
       }
     }

@@ -31,37 +31,80 @@ export async function POST(req: Request) {
     const {
       title,
       gujaratiTitle,
-      department,
+      department = "Kitchen",
       description,
+      instructions,
+      date = new Date().toISOString().split("T")[0],
+      startTime,
+      shiftStartTime,
+      endTime,
+      shiftEndTime,
+      location = "HariPrabodham Mandir, Nadiad",
+      requiredVolunteers,
+      totalSlots,
+      targetScope,
+      genderEligibility,
+      zoneEligibility,
       skillsRequired = [],
       timeCommitment,
-      totalSlots = 5,
       leadName = "Mandir Seva Coordinator",
+      leadPhone,
     } = body;
 
-    if (!title || !department || !description || !timeCommitment) {
+    if (!title || !department) {
       return NextResponse.json(
-        { success: false, error: "Title, Department, Description, and Time Commitment are required." },
+        { success: false, error: "Title and Department are required." },
         { status: 400 }
       );
     }
 
+    const sStart = shiftStartTime || startTime || "06:00 AM";
+    const sEnd = shiftEndTime || endTime || "09:00 AM";
+    const reqCount = Number(requiredVolunteers || totalSlots || 5);
+    const desc = description || instructions || "Standard temple seva assignment.";
+    const commitment = timeCommitment || `${sStart} - ${sEnd}`;
+    const gender = (targetScope?.gender as any) || genderEligibility || "All";
+    const zone = targetScope?.zone || zoneEligibility || "All Nadiad";
+
     const opportunity = await SevaOpportunity.create({
       title,
       gujaratiTitle: gujaratiTitle || "",
+      category: department === "Kitchen" ? "Kitchen" : "Mandir Service",
       department,
-      description,
-      skillsRequired,
-      timeCommitment,
-      totalSlots,
+      description: desc,
+      date,
+      startTime: sStart,
+      endTime: sEnd,
+      location,
+      requiredVolunteerCount: reqCount,
+      acceptedVolunteerCount: 0,
+      totalSlots: reqCount,
       filledSlots: 0,
+      timeCommitment: commitment,
+      skillsRequired,
+      genderEligibility: gender,
+      zoneEligibility: zone,
       status: "Open",
       leadName,
+      leadPhone: leadPhone || "9825000000",
+      volunteers: [],
+    });
+
+    await AuditLog.create({
+      actorId: "usr-admin",
+      actorName: leadName,
+      actorRole: "karyakarta",
+      action: "CREATE_SEVA_OPPORTUNITY",
+      module: "Seva",
+      recordId: opportunity._id.toString(),
+      description: `Created Seva opportunity: ${title} (${department}) for ${reqCount} volunteers`,
     });
 
     return NextResponse.json({
       success: true,
       message: "Seva opportunity created successfully",
+      opportunityId: opportunity._id.toString(),
+      status: "Open",
       opportunity,
     });
   } catch (error: any) {
