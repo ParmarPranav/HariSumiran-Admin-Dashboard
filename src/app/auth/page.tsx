@@ -15,9 +15,14 @@ import {
   Languages,
   Users,
   Sparkles,
-  HelpCircle,
   Loader2,
+  CheckCircle2,
+  Building2,
+  UtensilsCrossed,
+  Crown,
+  UserCheck,
   Check,
+  Cpu,
 } from "lucide-react";
 import { toast } from "sonner";
 import { initialUsers } from "@/lib/seedData";
@@ -68,24 +73,29 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#FAF8F5] text-stone-900 flex flex-col justify-between p-4 md:p-8 font-sans selection:bg-amber-500/30 selection:text-amber-950 overflow-x-hidden">
+    <div className="relative min-h-[100dvh] w-full bg-[#FAF8F5] text-stone-900 flex flex-col justify-between p-4 sm:p-6 lg:p-10 font-sans selection:bg-amber-500/30 selection:text-amber-950 overflow-x-hidden">
       <MandalaBackground />
 
       {/* Top Header Bar */}
-      <header className="relative z-10 flex items-center justify-between max-w-5xl mx-auto w-full">
+      <header className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between pb-6">
         <div className="flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-white p-2 flex items-center justify-center shadow-md border border-stone-200 backdrop-blur-md">
+          <div className="h-11 w-11 rounded-2xl bg-white p-2 flex items-center justify-center shadow-md border border-stone-200/90 backdrop-blur-md">
             <img src="/logo.png" alt="HariSumiran Logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <h1 className="font-heading text-lg md:text-xl font-bold tracking-tight text-stone-900">HariSumiran</h1>
+            <div className="flex items-center gap-2">
+              <h1 className="font-heading text-lg md:text-xl font-bold tracking-tight text-stone-900">HariSumiran</h1>
+              <span className="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-amber-100/70 border border-amber-200 text-[10px] font-mono font-bold text-amber-900 uppercase">
+                Enterprise Node
+              </span>
+            </div>
             <p className="text-[10px] font-mono tracking-widest text-amber-700 font-bold uppercase">
               {t("HariPrabodham, Nadiad", "હરિપ્રબોધમ, નડિયાદ")}
             </p>
           </div>
         </div>
 
-        {/* Language & Quick Switcher */}
+        {/* Language & Demo Controls */}
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -107,201 +117,294 @@ export default function AuthPage() {
         </div>
       </header>
 
-      {/* Center Web Login Card */}
-      <main className="relative z-10 max-w-md mx-auto w-full my-auto py-8">
-        <div className="bg-white/95 border border-stone-200/90 rounded-[28px] p-7 sm:p-9 shadow-2xl backdrop-blur-2xl flex flex-col space-y-6">
-          
-          {/* Brand Emblem & Welcome Header */}
-          <div className="text-center space-y-2">
-            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200 shadow-sm mx-auto mb-1">
-              <img src="/logo.png" alt="HariSumiran Emblem" className="h-8 w-8 object-contain" />
+      {/* Main Split-Screen Layout */}
+      <main className="relative z-10 w-full max-w-7xl mx-auto my-auto py-6 sm:py-8 lg:py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+          {/* Left Column: Enterprise Hero Branding (Light, High-Status Temple Theme) */}
+          <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
+            
+            {/* Step Verification Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-800 text-xs font-semibold w-fit shadow-xs">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              <span>{t("Step 1: Sevak Credentials Verification", "પગલું ૧: સેવક ઓળખપત્ર ચકાસણી")}</span>
             </div>
-            <h2 className="font-heading text-2xl font-bold tracking-tight text-stone-900">
-              {t("Sign in to Dashboard", "ડેશબોર્ડમાં સાઇન ઇન કરો")}
-            </h2>
-            <p className="text-xs text-stone-500 max-w-xs mx-auto">
-              {t(
-                "Mandir Administration & Operations Management Portal",
-                "મંદિર વહીવટી અને સેવા સંચાલન પોર્ટલ"
-              )}
+
+            {/* Sub-label */}
+            <p className="text-xs font-bold tracking-[0.2em] text-stone-500 uppercase">
+              {t("BUSINESS & TEMPLE INTELLIGENCE PLATFORM", "મંદિર સંચાલન અને સેવા વ્યવસ્થાપન પ્લેટફોર્મ")}
             </p>
-          </div>
 
-          {/* Email & Password Form */}
-          <form onSubmit={handleSubmit} className="space-y-4 text-left">
-            {/* Email Field */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-stone-700 block uppercase tracking-wider">
-                {t("Email or Mobile Number", "ઈમેલ અથવા મોબાઈલ નંબર")}
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
-                  <Mail className="h-4 w-4" />
-                </div>
-                <input
-                  type="text"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin.super@harisumiran.org"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 bg-stone-50/50 hover:bg-white focus:bg-white transition-all shadow-xs"
-                />
-              </div>
-            </div>
-
-            {/* Password Field */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-stone-700 block uppercase tracking-wider">
-                  {t("Password", "પાસવર્ડ")}
-                </label>
-                <button
-                  type="button"
-                  onClick={() => setForgotModalOpen(true)}
-                  className="text-xs text-amber-700 hover:text-amber-900 font-semibold transition-colors cursor-pointer"
-                >
-                  {t("Forgot password?", "પાસવર્ડ ભૂલી ગયા?")}
-                </button>
-              </div>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
-                  <Lock className="h-4 w-4" />
-                </div>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 bg-stone-50/50 hover:bg-white focus:bg-white transition-all shadow-xs"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
-            </div>
-
-            {/* Remember Me Checkbox */}
-            <div className="flex items-center pt-1">
-              <label className="flex items-center gap-2 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 rounded border-stone-300 text-amber-600 focus:ring-amber-500 cursor-pointer"
-                />
-                <span className="text-xs text-stone-600 font-medium">
-                  {t("Keep me signed in on this device", "આ ડિવાઇસ પર મને સાઇન ઇન રાખો")}
-                </span>
-              </label>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full mt-2 bg-gradient-to-r from-[#DB4C0D] via-[#EA580C] to-[#F59E0B] text-white font-bold py-3 rounded-xl text-sm shadow-md hover:shadow-lg hover:brightness-105 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>{t("Signing in...", "સાઇન ઇન થઈ રહ્યું છે...")}</span>
-                </>
-              ) : (
-                <>
-                  <span>{t("Sign In to Mandir Dashboard", "ડેશબોર્ડમાં સાઇન ઇન કરો")}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </>
-              )}
-            </button>
-          </form>
-
-          {/* Quick Demo Access Pills */}
-          <div className="pt-2 border-t border-stone-200/80 space-y-2.5">
-            <div className="flex items-center justify-between text-[11px] text-stone-500 font-semibold">
-              <span className="flex items-center gap-1 text-amber-800 font-bold">
-                <Sparkles className="h-3 w-3 text-amber-600" />
-                {t("1-Click Demo Accounts:", "ઝડપી ડેમો એકાઉન્ટ:")}
+            {/* Massive Display Headline */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-stone-900 leading-[1.14]">
+              {t("An Intelligent ", "એક બુદ્ધિશાળી ")}
+              <span className="text-[#EA580C]">
+                {t("Multi-Responsibility", "બહુ-સેવા જવાબદારી")}
               </span>
-              <span className="text-[10px] text-stone-400 font-mono">Password: 3690</span>
+              <br />
+              {t("Mandir Management System", "મંદિર સંચાલન પ્રણાલી")}
+            </h2>
+
+            {/* Subtitle with vertical accent bar */}
+            <div className="flex items-start gap-3 border-l-2 border-amber-500 pl-4 py-0.5">
+              <p className="text-sm sm:text-base text-stone-600 leading-relaxed max-w-xl">
+                {t(
+                  "Step 1 of 2: Authenticate authorized Sevak & Administrator credentials to coordinate sabha attendance, family thal logistics, and mahaprasad operations.",
+                  "પગલું ૧/૨: સભા હાજરી, પારિવારિક થાળ અને મહાપ્રસાદ કામગીરીના સંકલન માટે અધિકૃત સેવક ઓળખપત્ર ચકાસો."
+                )}
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleSelectDemoAccount("harisumiran369@gmail.com", "Nitinbhai Patel")}
-                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
-              >
-                <div className="h-7 w-7 rounded-lg bg-amber-500/10 text-amber-700 flex items-center justify-center font-bold text-xs shrink-0">
-                  🏛️
+            {/* 4 Feature Module Chips */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 max-w-xl">
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/85 border border-stone-200/80 shadow-xs backdrop-blur-md">
+                <div className="h-8 w-8 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0">
+                  <Building2 className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
-                    Mandir Admin
-                  </p>
-                  <p className="text-[9px] text-stone-500 truncate">Nitinbhai</p>
+                  <p className="text-xs font-bold text-stone-800 truncate">{t("17+ Seva Modules", "૧૭+ સેવા વિભાગો")}</p>
+                  <p className="text-[10px] text-stone-500">{t("Real-time department sync", "રીયલ-ટાઇમ સંકલન")}</p>
                 </div>
-              </button>
+              </div>
 
-              <button
-                type="button"
-                onClick={() => handleSelectDemoAccount("admin.super@harisumiran.org", "Pooja Swarupji")}
-                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
-              >
-                <div className="h-7 w-7 rounded-lg bg-orange-500/10 text-orange-700 flex items-center justify-center font-bold text-xs shrink-0">
-                  👑
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/85 border border-stone-200/80 shadow-xs backdrop-blur-md">
+                <div className="h-8 w-8 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-700 shrink-0">
+                  <Users className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
-                    Super Admin
-                  </p>
-                  <p className="text-[9px] text-stone-500 truncate">Pooja Swarupji</p>
+                  <p className="text-xs font-bold text-stone-800 truncate">{t("Family Thal & Rosters", "પારિવારિક થાળ અને રોસ્ટર")}</p>
+                  <p className="text-[10px] text-stone-500">{t("One account, many roles", "એક ખાતું, અનેક સેવા")}</p>
                 </div>
-              </button>
+              </div>
 
-              <button
-                type="button"
-                onClick={() => handleSelectDemoAccount("ramesh.patel@gmail.com", "Rameshbhai Patel")}
-                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
-              >
-                <div className="h-7 w-7 rounded-lg bg-emerald-500/10 text-emerald-700 flex items-center justify-center font-bold text-xs shrink-0">
-                  🥘
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/85 border border-stone-200/80 shadow-xs backdrop-blur-md">
+                <div className="h-8 w-8 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 shrink-0">
+                  <UtensilsCrossed className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
-                    Thal & Cook Lead
-                  </p>
-                  <p className="text-[9px] text-stone-500 truncate">Rameshbhai</p>
+                  <p className="text-xs font-bold text-stone-800 truncate">{t("Mahaprasad Logistics", "મહાપ્રસાદ રસોડું વ્યવસ્થા")}</p>
+                  <p className="text-[10px] text-stone-500">{t("Dynamic batch recipe scaling", "સ્માર્ટ જથ્થો ગણતરી")}</p>
                 </div>
-              </button>
+              </div>
 
-              <button
-                type="button"
-                onClick={() => handleSelectDemoAccount("jaimin.trivedi@harisumiran.org", "Jaimin Trivedi")}
-                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
-              >
-                <div className="h-7 w-7 rounded-lg bg-blue-500/10 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0">
-                  🚩
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/85 border border-stone-200/80 shadow-xs backdrop-blur-md">
+                <div className="h-8 w-8 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 shrink-0">
+                  <ShieldCheck className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
-                    Karyakarta
-                  </p>
-                  <p className="text-[9px] text-stone-500 truncate">Jaimin</p>
+                  <p className="text-xs font-bold text-stone-800 truncate">{t("Role-Based Security", "ભૂમિકા આધારિત સુરક્ષા")}</p>
+                  <p className="text-[10px] text-stone-500">{t("256-Bit encrypted node", "એન્ક્રિપ્ટેડ પોર્ટલ")}</p>
                 </div>
-              </button>
+              </div>
             </div>
+
           </div>
 
-          {/* Security Badge */}
-          <div className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-stone-500 pt-1">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-            <span>{t("Enterprise Security & Role-Based Access Control", "મંદિર સુરક્ષા અને ભૂમિકા આધારિત ઍક્સેસ")}</span>
+          {/* Right Column: Node Authentication Form */}
+          <div className="lg:col-span-5 flex flex-col space-y-4">
+            
+            {/* Header Above Form Card */}
+            <div className="text-left space-y-1">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900">
+                {t("Node Authentication", "સેવક પ્રમાણીકરણ")}
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-500">
+                {t("Step 1 of 2: Provide security credentials to proceed.", "પગલું ૧: આગળ વધવા સુરક્ષા ઓળખપત્ર દાખલ કરો.")}
+              </p>
+            </div>
+
+            {/* Elevated Form Card */}
+            <div className="bg-white/95 border border-stone-200/90 rounded-[24px] p-6 sm:p-8 shadow-xl shadow-stone-200/50 backdrop-blur-2xl flex flex-col space-y-5">
+              
+              <form onSubmit={handleSubmit} className="space-y-4 text-left">
+                {/* Field 1: Email or Sevak Identifier */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-bold text-stone-600 block uppercase tracking-wider">
+                    {t("EMAIL / NODE IDENTIFIER", "ઈમેલ / સેવક આઈડી")}
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+                      <Mail className="h-4 w-4" />
+                    </div>
+                    <input
+                      type="text"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="name@harisumiran.org"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 bg-stone-50/70 hover:bg-white focus:bg-white transition-all shadow-xs"
+                    />
+                  </div>
+                </div>
+
+                {/* Field 2: Security Key */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-bold text-stone-600 block uppercase tracking-wider">
+                      {t("SECURITY KEY", "સુરક્ષા કી / પાસવર્ડ")}
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setForgotModalOpen(true)}
+                      className="text-xs text-amber-700 hover:text-amber-900 font-semibold transition-colors cursor-pointer"
+                    >
+                      {t("Forgot?", "ભૂલી ગયા?")}
+                    </button>
+                  </div>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+                      <Lock className="h-4 w-4" />
+                    </div>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-200 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 bg-stone-50/70 hover:bg-white focus:bg-white transition-all shadow-xs"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Keep Signed In Checkbox */}
+                <div className="flex items-center pt-0.5">
+                  <label className="flex items-center gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="h-4 w-4 rounded border-stone-300 text-amber-600 focus:ring-amber-500 cursor-pointer"
+                    />
+                    <span className="text-xs text-stone-600 font-medium">
+                      {t("Keep me signed in on this workstation", "આ ડિવાઇસ પર સાઇન ઇન રાખો")}
+                    </span>
+                  </label>
+                </div>
+
+                {/* Big Primary CTA Button */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-[#DB4C0D] via-[#EA580C] to-[#F59E0B] text-white font-bold py-3.5 rounded-xl text-sm shadow-md hover:shadow-lg hover:brightness-105 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span>{t("Verifying Credentials...", "ચકાસણી થઈ રહી છે...")}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>{t("Proceed to Mandir Dashboard", "ડેશબોર્ડ પર આગળ વધો")}</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              {/* 1-Click Demo Testing Accounts */}
+              <div className="pt-3 border-t border-stone-200/80 space-y-2.5">
+                <div className="flex items-center justify-between text-[11px] text-stone-500 font-semibold">
+                  <span className="flex items-center gap-1 text-amber-800 font-bold">
+                    <Sparkles className="h-3.5 w-3.5 text-amber-600" />
+                    {t("1-Click Demo Accounts:", "ઝડપી ડેમો એકાઉન્ટ:")}
+                  </span>
+                  <span className="text-[10px] text-stone-400 font-mono">Password: 3690</span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleSelectDemoAccount("harisumiran369@gmail.com", "Nitinbhai Patel")}
+                    className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+                  >
+                    <div className="h-7 w-7 rounded-lg bg-amber-500/10 text-amber-700 flex items-center justify-center shrink-0">
+                      <Building2 className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                        Mandir Admin
+                      </p>
+                      <p className="text-[9px] text-stone-500 truncate">Nitinbhai</p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSelectDemoAccount("admin.super@harisumiran.org", "Pooja Swarupji")}
+                    className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+                  >
+                    <div className="h-7 w-7 rounded-lg bg-orange-500/10 text-orange-700 flex items-center justify-center shrink-0">
+                      <Crown className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                        Super Admin
+                      </p>
+                      <p className="text-[9px] text-stone-500 truncate">Pooja Swarupji</p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSelectDemoAccount("ramesh.patel@gmail.com", "Rameshbhai Patel")}
+                    className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+                  >
+                    <div className="h-7 w-7 rounded-lg bg-emerald-500/10 text-emerald-700 flex items-center justify-center shrink-0">
+                      <UtensilsCrossed className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                        Thal & Kitchen
+                      </p>
+                      <p className="text-[9px] text-stone-500 truncate">Rameshbhai</p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSelectDemoAccount("jaimin.trivedi@harisumiran.org", "Jaimin Trivedi")}
+                    className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+                  >
+                    <div className="h-7 w-7 rounded-lg bg-blue-500/10 text-blue-700 flex items-center justify-center shrink-0">
+                      <UserCheck className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                        Karyakarta
+                      </p>
+                      <p className="text-[9px] text-stone-500 truncate">Jaimin</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Live Operational Status Bar (Inspired by Toast in Reference Image) */}
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white/90 border border-stone-200/90 shadow-xs text-xs text-stone-600 backdrop-blur-md">
+              <div className="flex items-center gap-2.5">
+                <div className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                </div>
+                <span className="font-semibold text-[11px] text-stone-700">
+                  {t("Temple Node Online & Verified", "મંદિર નોડ સક્રિય અને ચકાસાયેલ")}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-stone-400 font-mono text-[10px]">
+                <Cpu className="h-3 w-3 text-stone-400" />
+                <span>NADIAD-NODE-01</span>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -383,8 +486,9 @@ export default function AuthPage() {
       </Modal>
 
       {/* Footer */}
-      <footer className="relative z-10 text-center text-xs text-stone-500 py-2">
+      <footer className="relative z-10 w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 pt-6 text-xs text-stone-500">
         <p>© 2026 HariSumiran Platform &bull; {t("One Mandir. One App. One Account. Many Responsibilities.", "એક મંદિર. એક ઍપ. એક ખાતું. અનેક સેવા જવાબદારીઓ.")}</p>
+        <p className="font-mono text-[11px] text-stone-400">Node Cluster: HP-NADIAD-01 &bull; v1.2.0</p>
       </footer>
     </div>
   );
