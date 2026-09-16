@@ -1,23 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useApp } from "@/context/AppContext";
 import { useRouter } from "next/navigation";
 import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import { Modal } from "@/components/ui/Modal";
 import {
+  Mail,
   Lock,
-  Fingerprint,
-  ScanFace,
-  Delete,
+  Eye,
+  EyeOff,
+  ArrowRight,
   ShieldCheck,
   Languages,
-  CheckCircle2,
-  Sparkles,
   Users,
-  Shield,
-  KeyRound,
-  ArrowRight,
+  Sparkles,
+  HelpCircle,
+  Loader2,
+  Check,
 } from "lucide-react";
 import { toast } from "sonner";
 import { initialUsers } from "@/lib/seedData";
@@ -25,81 +25,50 @@ import { initialUsers } from "@/lib/seedData";
 export default function AuthPage() {
   const router = useRouter();
   const {
-    user,
-    unlockWithPin,
-    unlockWithBiometrics,
+    loginWithEmail,
     switchPersona,
-    setupPin,
     language,
     setLanguage,
     t,
   } = useApp();
 
-  const [pin, setPin] = useState("");
+  const [email, setEmail] = useState("harisumiran369@gmail.com");
+  const [password, setPassword] = useState("••••••••");
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [setupModalOpen, setSetupModalOpen] = useState(false);
-  const [newPin, setNewPin] = useState("");
-  const [confirmPin, setConfirmPin] = useState("");
+  const [forgotModalOpen, setForgotModalOpen] = useState(false);
   const [personaModalOpen, setPersonaModalOpen] = useState(false);
 
-  // Handle number pad button click
-  const handleDigit = (digit: string) => {
-    if (pin.length < 4) {
-      const nextPin = pin + digit;
-      setPin(nextPin);
-      if (nextPin.length === 4) {
-        verifyPinAuto(nextPin);
-      }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) {
+      toast.error(t("Please enter your email or phone number", "કૃપા કરી તમારો ઈમેલ અથવા મોબાઈલ નંબર દાખલ કરો"));
+      return;
     }
-  };
 
-  const handleBackspace = () => {
-    setPin((prev) => prev.slice(0, -1));
-  };
-
-  const handleClear = () => {
-    setPin("");
-  };
-
-  const verifyPinAuto = async (code: string) => {
     setLoading(true);
-    const success = await unlockWithPin(code);
+    const success = await loginWithEmail(email, password);
     setLoading(false);
-    if (success) {
-      router.push("/");
-    } else {
-      setPin("");
-    }
-  };
 
-  const handleBiometricClick = async () => {
-    setLoading(true);
-    const success = await unlockWithBiometrics();
-    setLoading(false);
     if (success) {
       router.push("/");
     }
   };
 
-  const handleSaveNewPin = async () => {
-    if (newPin.length !== 4) {
-      toast.error(t("PIN must be 4 digits", "પિન 4 અંકનો હોવો જોઈએ"));
-      return;
-    }
-    if (newPin !== confirmPin) {
-      toast.error(t("PINs do not match", "પિન મેળ ખાતા નથી"));
-      return;
-    }
-    const success = await setupPin(newPin);
+  const handleSelectDemoAccount = async (demoEmail: string, demoName: string) => {
+    setEmail(demoEmail);
+    setPassword("3690");
+    setLoading(true);
+    const success = await loginWithEmail(demoEmail, "3690");
+    setLoading(false);
     if (success) {
-      setSetupModalOpen(false);
-      setNewPin("");
-      setConfirmPin("");
+      router.push("/");
     }
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#FAF8F5] text-stone-900 flex flex-col justify-between p-4 md:p-8 font-sans selection:bg-amber-500/30 selection:text-amber-950 overflow-hidden">
+    <div className="relative min-h-screen w-full bg-[#FAF8F5] text-stone-900 flex flex-col justify-between p-4 md:p-8 font-sans selection:bg-amber-500/30 selection:text-amber-950 overflow-x-hidden">
       <MandalaBackground />
 
       {/* Top Header Bar */}
@@ -116,12 +85,12 @@ export default function AuthPage() {
           </div>
         </div>
 
-        {/* Language & Persona Test Switcher */}
+        {/* Language & Quick Switcher */}
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setLanguage(language === "en" ? "gu" : "en")}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-semibold text-stone-700 shadow-xs hover:bg-stone-50 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-semibold text-stone-700 shadow-xs hover:bg-stone-50 transition-colors cursor-pointer"
           >
             <Languages className="h-3.5 w-3.5 text-amber-600" />
             <span>{language === "en" ? "ગુજરાતી" : "English"}</span>
@@ -130,187 +99,251 @@ export default function AuthPage() {
           <button
             type="button"
             onClick={() => setPersonaModalOpen(true)}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-xs font-bold text-amber-800 shadow-xs hover:bg-amber-100 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-xs font-bold text-amber-800 shadow-xs hover:bg-amber-100 transition-colors cursor-pointer"
           >
             <Users className="h-3.5 w-3.5 text-amber-600" />
-            <span className="hidden sm:inline">{t("Switch Persona", "વ્યક્તિ બદલો")}</span>
+            <span className="hidden sm:inline">{t("Demo Personas", "ડેમો વ્યક્તિઓ")}</span>
           </button>
         </div>
       </header>
 
-      {/* Center Bank-Style Unlock Keypad Card */}
-      <main className="relative z-10 max-w-md mx-auto w-full my-auto py-6">
-        <div className="bg-white/95 border border-stone-200/90 rounded-[36px] p-6 sm:p-8 shadow-xl backdrop-blur-2xl flex flex-col items-center text-center space-y-6">
-          {/* User Avatar & Identity Badge */}
-          <div className="relative">
-            <div className="h-20 w-20 rounded-full border-2 border-amber-400 p-1 shadow-md bg-amber-50/50">
-              <img
-                src={user?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80"}
-                alt={user?.name}
-                className="h-full w-full rounded-full object-cover"
-              />
+      {/* Center Web Login Card */}
+      <main className="relative z-10 max-w-md mx-auto w-full my-auto py-8">
+        <div className="bg-white/95 border border-stone-200/90 rounded-[28px] p-7 sm:p-9 shadow-2xl backdrop-blur-2xl flex flex-col space-y-6">
+          
+          {/* Brand Emblem & Welcome Header */}
+          <div className="text-center space-y-2">
+            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200 shadow-sm mx-auto mb-1">
+              <img src="/logo.png" alt="HariSumiran Emblem" className="h-8 w-8 object-contain" />
             </div>
-            <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-white text-[10px] shadow-sm">
-              <ShieldCheck className="h-3.5 w-3.5" />
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <h2 className="font-heading text-xl font-bold text-stone-900">
-              {t("Welcome back", "પુનઃ સ્વાગત છે")}, {user?.name}
+            <h2 className="font-heading text-2xl font-bold tracking-tight text-stone-900">
+              {t("Sign in to Dashboard", "ડેશબોર્ડમાં સાઇન ઇન કરો")}
             </h2>
-            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
-              {(user?.responsibilities || []).map((resp, idx) => (
-                <span
-                  key={idx}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 border border-amber-300 text-amber-900"
-                >
-                  {language === "gu" && resp.gujaratiTitle ? resp.gujaratiTitle : resp.title}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* 4-Dot Passcode Indicator */}
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-stone-500">
-              {t("Enter 4-Digit Passcode / PIN", "૪-અંકનો પાસકોડ / પિન દાખલ કરો")}
+            <p className="text-xs text-stone-500 max-w-xs mx-auto">
+              {t(
+                "Mandir Administration & Operations Management Portal",
+                "મંદિર વહીવટી અને સેવા સંચાલન પોર્ટલ"
+              )}
             </p>
-            <div className="flex items-center justify-center gap-4 py-2">
-              {[0, 1, 2, 3].map((index) => {
-                const filled = pin.length > index;
-                return (
-                  <div
-                    key={index}
-                    className={`h-4 w-4 rounded-full transition-all duration-200 ${
-                      filled
-                        ? "bg-gradient-to-r from-[#FF7A00] to-[#EA580C] scale-125 shadow-[0_0_10px_rgba(245,158,11,0.6)]"
-                        : "bg-stone-100 border border-stone-300"
-                    }`}
-                  />
-                );
-              })}
+          </div>
+
+          {/* Email & Password Form */}
+          <form onSubmit={handleSubmit} className="space-y-4 text-left">
+            {/* Email Field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-stone-700 block uppercase tracking-wider">
+                {t("Email or Mobile Number", "ઈમેલ અથવા મોબાઈલ નંબર")}
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+                  <Mail className="h-4 w-4" />
+                </div>
+                <input
+                  type="text"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin.super@harisumiran.org"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 bg-stone-50/50 hover:bg-white focus:bg-white transition-all shadow-xs"
+                />
+              </div>
+            </div>
+
+            {/* Password Field */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-stone-700 block uppercase tracking-wider">
+                  {t("Password", "પાસવર્ડ")}
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setForgotModalOpen(true)}
+                  className="text-xs text-amber-700 hover:text-amber-900 font-semibold transition-colors cursor-pointer"
+                >
+                  {t("Forgot password?", "પાસવર્ડ ભૂલી ગયા?")}
+                </button>
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+                  <Lock className="h-4 w-4" />
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 placeholder:text-stone-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 bg-stone-50/50 hover:bg-white focus:bg-white transition-all shadow-xs"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Remember Me Checkbox */}
+            <div className="flex items-center pt-1">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 rounded border-stone-300 text-amber-600 focus:ring-amber-500 cursor-pointer"
+                />
+                <span className="text-xs text-stone-600 font-medium">
+                  {t("Keep me signed in on this device", "આ ડિવાઇસ પર મને સાઇન ઇન રાખો")}
+                </span>
+              </label>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-2 bg-gradient-to-r from-[#DB4C0D] via-[#EA580C] to-[#F59E0B] text-white font-bold py-3 rounded-xl text-sm shadow-md hover:shadow-lg hover:brightness-105 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>{t("Signing in...", "સાઇન ઇન થઈ રહ્યું છે...")}</span>
+                </>
+              ) : (
+                <>
+                  <span>{t("Sign In to Mandir Dashboard", "ડેશબોર્ડમાં સાઇન ઇન કરો")}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Quick Demo Access Pills */}
+          <div className="pt-2 border-t border-stone-200/80 space-y-2.5">
+            <div className="flex items-center justify-between text-[11px] text-stone-500 font-semibold">
+              <span className="flex items-center gap-1 text-amber-800 font-bold">
+                <Sparkles className="h-3 w-3 text-amber-600" />
+                {t("1-Click Demo Accounts:", "ઝડપી ડેમો એકાઉન્ટ:")}
+              </span>
+              <span className="text-[10px] text-stone-400 font-mono">Password: 3690</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => handleSelectDemoAccount("harisumiran369@gmail.com", "Nitinbhai Patel")}
+                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+              >
+                <div className="h-7 w-7 rounded-lg bg-amber-500/10 text-amber-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  🏛️
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                    Mandir Admin
+                  </p>
+                  <p className="text-[9px] text-stone-500 truncate">Nitinbhai</p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSelectDemoAccount("admin.super@harisumiran.org", "Pooja Swarupji")}
+                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+              >
+                <div className="h-7 w-7 rounded-lg bg-orange-500/10 text-orange-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  👑
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                    Super Admin
+                  </p>
+                  <p className="text-[9px] text-stone-500 truncate">Pooja Swarupji</p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSelectDemoAccount("ramesh.patel@gmail.com", "Rameshbhai Patel")}
+                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+              >
+                <div className="h-7 w-7 rounded-lg bg-emerald-500/10 text-emerald-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  🥘
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                    Thal & Cook Lead
+                  </p>
+                  <p className="text-[9px] text-stone-500 truncate">Rameshbhai</p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSelectDemoAccount("jaimin.trivedi@harisumiran.org", "Jaimin Trivedi")}
+                className="flex items-center gap-2 p-2 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-amber-50/80 hover:border-amber-300 transition-all text-left group cursor-pointer"
+              >
+                <div className="h-7 w-7 rounded-lg bg-blue-500/10 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  🚩
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-bold text-stone-800 group-hover:text-amber-900 truncate">
+                    Karyakarta
+                  </p>
+                  <p className="text-[9px] text-stone-500 truncate">Jaimin</p>
+                </div>
+              </button>
             </div>
           </div>
 
-          {/* Numeric Keypad */}
-          <div className="grid grid-cols-3 gap-3.5 w-full max-w-xs pt-2">
-            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((num) => (
-              <button
-                key={num}
-                type="button"
-                onClick={() => handleDigit(num)}
-                disabled={loading}
-                className="h-14 rounded-2xl bg-stone-50 hover:bg-amber-50 active:scale-95 text-lg font-heading font-bold text-stone-900 border border-stone-200 hover:border-amber-300 transition-all flex items-center justify-center shadow-xs"
-              >
-                {num}
-              </button>
-            ))}
-
-            {/* Biometric Quick Button */}
-            <button
-              type="button"
-              onClick={handleBiometricClick}
-              disabled={loading}
-              className="h-14 rounded-2xl bg-amber-100/70 hover:bg-amber-100 text-amber-900 border border-amber-300 transition-all flex flex-col items-center justify-center text-[10px] font-bold shadow-xs active:scale-95"
-              title={t("Face ID / Fingerprint", "ફેસ આઈડી / ફિંગરપ્રિન્ટ")}
-            >
-              <ScanFace className="h-5 w-5 mb-0.5 text-amber-700" />
-              <span>{t("Biometric", "બાયોમેટ્રિક")}</span>
-            </button>
-
-            {/* 0 Button */}
-            <button
-              type="button"
-              onClick={() => handleDigit("0")}
-              disabled={loading}
-              className="h-14 rounded-2xl bg-stone-50 hover:bg-amber-50 active:scale-95 text-lg font-heading font-bold text-stone-900 border border-stone-200 hover:border-amber-300 transition-all flex items-center justify-center shadow-xs"
-            >
-              0
-            </button>
-
-            {/* Backspace Button */}
-            <button
-              type="button"
-              onClick={handleBackspace}
-              disabled={loading}
-              className="h-14 rounded-2xl bg-stone-50 hover:bg-rose-50 hover:text-rose-600 active:scale-95 text-stone-500 border border-stone-200 transition-all flex items-center justify-center shadow-xs"
-              title={t("Backspace", "પાછળ")}
-            >
-              <Delete className="h-5 w-5" />
-            </button>
+          {/* Security Badge */}
+          <div className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-stone-500 pt-1">
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+            <span>{t("Enterprise Security & Role-Based Access Control", "મંદિર સુરક્ષા અને ભૂમિકા આધારિત ઍક્સેસ")}</span>
           </div>
 
-          {/* Bottom Security Note & PIN setup */}
-          <div className="flex items-center justify-between w-full text-xs text-stone-500 pt-2 border-t border-stone-200">
-            <button
-              type="button"
-              onClick={() => setSetupModalOpen(true)}
-              className="hover:text-amber-800 font-bold flex items-center gap-1 text-[11px] transition-colors text-stone-700"
-            >
-              <KeyRound className="h-3.5 w-3.5 text-amber-600" />
-              <span>{t("Change PIN", "પિન બદલો")}</span>
-            </button>
-            <span className="text-[11px] font-mono text-emerald-700 font-bold flex items-center gap-1">
-              <Lock className="h-3 w-3 text-emerald-600" />
-              <span>{t("Default PIN: 3690", "ડિફૉલ્ટ પિન: 3690")}</span>
-            </span>
-          </div>
         </div>
       </main>
 
-      {/* Setup / Change PIN Modal */}
+      {/* Forgot Password Modal */}
       <Modal
-        isOpen={setupModalOpen}
-        onClose={() => setSetupModalOpen(false)}
-        title={t("Set New 4-Digit Passcode", "નવો ૪-અંકનો પાસકોડ સેટ કરો")}
-        subtitle={t("Secure your Mandir App", "તમારી મંદિર ઍપ સુરક્ષિત કરો")}
+        isOpen={forgotModalOpen}
+        onClose={() => setForgotModalOpen(false)}
+        title={t("Reset Password", "પાસવર્ડ રીસેટ")}
+        subtitle={t("Mandir Administrator Assistance", "મંદિર વહીવટકર્તા સહાય")}
         maxWidth="sm"
       >
-        <div className="space-y-4">
-          <div>
-            <label className="text-xs font-bold text-stone-700 block mb-1 uppercase">
-              {t("NEW 4-DIGIT PIN", "નવો ૪-અંકનો પિન")}
-            </label>
-            <input
-              type="password"
-              maxLength={4}
-              value={newPin}
-              onChange={(e) => setNewPin(e.target.value.replace(/\D/g, ""))}
-              placeholder="••••"
-              className="w-full text-center text-xl tracking-widest font-mono rounded-xl border border-stone-200 py-2.5 text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 bg-white shadow-xs"
-            />
+        <div className="space-y-4 text-left text-xs text-stone-600">
+          <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 space-y-1">
+            <p className="font-bold">{t("Need assistance resetting your password?", "પાસવર્ડ રીસેટ કરવા માટે મદદ જોઈએ છે?")}</p>
+            <p className="text-[11px] leading-relaxed">
+              {t(
+                "For institutional security, passwords can be reset by the Mandir Super Administrator or using the demo password '3690'.",
+                "સંસ્થાકીય સુરક્ષા માટે, પાસવર્ડ મંદિર સુપર એડમિનિસ્ટ્રેટર દ્વારા રીસેટ કરી શકાય છે અથવા ડેમો પાસવર્ડ '3690' વાપરી શકાય છે."
+              )}
+            </p>
           </div>
-
-          <div>
-            <label className="text-xs font-bold text-stone-700 block mb-1 uppercase">
-              {t("CONFIRM PIN", "પિનની પુષ્ટિ કરો")}
-            </label>
-            <input
-              type="password"
-              maxLength={4}
-              value={confirmPin}
-              onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, ""))}
-              placeholder="••••"
-              className="w-full text-center text-xl tracking-widest font-mono rounded-xl border border-stone-200 py-2.5 text-stone-900 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 bg-white shadow-xs"
-            />
+          <div className="space-y-1.5">
+            <p className="font-bold text-stone-700">{t("Helpdesk Contacts:", "સહાયક સંપર્ક:")}</p>
+            <p className="font-mono text-[11px] text-stone-600">support@harisumiran.org &bull; +91 98250 23456</p>
           </div>
-
           <button
             type="button"
-            onClick={handleSaveNewPin}
-            className="w-full bg-gradient-to-r from-[#FF7A00] via-[#F59E0B] to-[#EA580C] text-white font-extrabold py-3 rounded-xl text-xs shadow-sm hover:brightness-105 transition-all"
+            onClick={() => setForgotModalOpen(false)}
+            className="w-full bg-stone-900 text-white font-bold py-2.5 rounded-xl text-xs hover:bg-stone-800 transition-colors"
           >
-            {t("Save Passcode", "પાસકોડ સાચવો")}
+            {t("Close", "બંધ કરો")}
           </button>
         </div>
       </Modal>
 
-      {/* Persona Switcher Modal (For seamless V1 Scenario Testing) */}
+      {/* Persona Switcher Modal */}
       <Modal
         isOpen={personaModalOpen}
         onClose={() => setPersonaModalOpen(false)}
-        title={t("Select User Persona to Test", "પરીક્ષણ માટે વ્યક્તિ પસંદ કરો")}
+        title={t("Select User Account to Test", "પરીક્ષણ માટે એકાઉન્ટ પસંદ કરો")}
         subtitle={t("Demonstrating 'One Account, Many Responsibilities'", "'એક ખાતું, અનેક જવાબદારીઓ' દર્શાવવું")}
         maxWidth="md"
       >
@@ -320,10 +353,10 @@ export default function AuthPage() {
               key={idx}
               type="button"
               onClick={() => {
-                switchPersona(u.name);
+                handleSelectDemoAccount(u.email, u.name);
                 setPersonaModalOpen(false);
               }}
-              className="w-full flex items-start gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-amber-400 bg-stone-50 hover:bg-amber-50/60 transition-all text-left group shadow-xs"
+              className="w-full flex items-start gap-3 p-3.5 rounded-2xl border border-stone-200 hover:border-amber-400 bg-stone-50 hover:bg-amber-50/60 transition-all text-left group shadow-xs cursor-pointer"
             >
               <img src={u.avatar} alt={u.name} className="h-10 w-10 rounded-xl object-cover shrink-0 mt-0.5 border border-stone-200" />
               <div className="flex-1 min-w-0">
@@ -331,7 +364,7 @@ export default function AuthPage() {
                   <p className="font-bold text-xs text-stone-900 group-hover:text-amber-800 truncate">
                     {u.name}
                   </p>
-                  <span className="text-[10px] font-mono text-stone-500 font-bold">PIN: 3690</span>
+                  <span className="text-[10px] font-mono text-stone-500 font-bold">{u.email}</span>
                 </div>
                 <div className="flex flex-wrap gap-1 mt-1.5">
                   {u.responsibilities.map((r, rIdx) => (
@@ -349,7 +382,7 @@ export default function AuthPage() {
         </div>
       </Modal>
 
-      {/* Footer info */}
+      {/* Footer */}
       <footer className="relative z-10 text-center text-xs text-stone-500 py-2">
         <p>© 2026 HariSumiran Platform &bull; {t("One Mandir. One App. One Account. Many Responsibilities.", "એક મંદિર. એક ઍપ. એક ખાતું. અનેક સેવા જવાબદારીઓ.")}</p>
       </footer>
