@@ -14,7 +14,6 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Lock,
   Sparkles,
 } from "lucide-react";
 
@@ -22,7 +21,7 @@ export function SuperAdminSidebar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { user, language, logout, t } = useApp();
+  const { user, language, logout } = useApp();
   const [collapsed, setCollapsed] = useState(false);
 
   const currentTab = searchParams?.get("tab") || "users";
@@ -74,7 +73,7 @@ export function SuperAdminSidebar() {
       {/* Brand Header */}
       <div className="flex h-16 items-center justify-between px-4 border-b border-stone-200/90">
         <Link href="/super-admin" className="flex items-center gap-3 overflow-hidden">
-          <div className="h-9 w-9 rounded-xl bg-amber-500/10 p-1.5 border border-amber-300 shrink-0 flex items-center justify-center text-amber-600 shadow-2xs">
+          <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 p-2 shrink-0 flex items-center justify-center text-white shadow-md shadow-amber-500/20">
             <ShieldCheck className="h-full w-full object-contain" />
           </div>
           {!collapsed && (
@@ -83,7 +82,7 @@ export function SuperAdminSidebar() {
                 <span className="font-display text-sm font-extrabold tracking-tight text-stone-900 truncate">
                   Super Admin
                 </span>
-                <span className="px-1.5 py-0.2 rounded bg-amber-100 text-amber-900 text-[9px] font-mono font-bold uppercase">
+                <span className="px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-900 text-[9px] font-mono font-bold uppercase">
                   Root
                 </span>
               </div>
@@ -102,15 +101,15 @@ export function SuperAdminSidebar() {
         </button>
       </div>
 
-      {/* Root Access Callout Banner */}
+      {/* Root Access Security Banner */}
       {!collapsed && (
         <div className="px-3 pt-3">
-          <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-[11px] text-amber-950 space-y-0.5">
-            <div className="flex items-center gap-1 font-bold text-amber-900">
-              <Sparkles className="h-3 w-3 text-amber-600" />
-              <span>Isolated Governance Node</span>
+          <div className="p-3 rounded-2xl bg-gradient-to-br from-amber-50/90 to-amber-100/40 border border-amber-200/80 text-[11px] text-amber-950 space-y-1 shadow-2xs">
+            <div className="flex items-center gap-1.5 font-bold text-amber-900">
+              <Sparkles className="h-3.5 w-3.5 text-amber-600" />
+              <span>Isolated Governance Terminal</span>
             </div>
-            <p className="text-[10px] text-stone-600 leading-tight">
+            <p className="text-[10px] text-stone-600 leading-relaxed">
               Institutional security, user role scopes &amp; immutable audit controls.
             </p>
           </div>
@@ -138,7 +137,7 @@ export function SuperAdminSidebar() {
                 "group relative flex items-center gap-3 rounded-2xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 active:scale-98",
                 isActive
                   ? "bg-amber-600 text-white shadow-sm font-bold"
-                  : "text-stone-600 hover:bg-amber-50/70 hover:text-amber-950"
+                  : "text-stone-600 hover:bg-amber-50/80 hover:text-amber-950"
               )}
               title={collapsed ? (language === "gu" ? item.gujaratiLabel : item.label) : undefined}
             >
@@ -168,11 +167,14 @@ export function SuperAdminSidebar() {
       {/* Bottom Footer: Super Admin Profile & Sign Out */}
       <div className="border-t border-stone-200/90 p-3 bg-stone-50/50 space-y-2">
         <div className="flex items-center gap-2.5 p-2 rounded-2xl bg-white border border-stone-200/80 shadow-2xs">
-          <img
-            src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
-            alt={user?.name || "Super Admin"}
-            className="h-8 w-8 rounded-xl object-cover border border-amber-300 shrink-0"
-          />
+          <div className="relative">
+            <img
+              src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
+              alt={user?.name || "Super Admin"}
+              className="h-8 w-8 rounded-xl object-cover ring-2 ring-amber-400 ring-offset-1 shrink-0"
+            />
+            <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-500" />
+          </div>
           {!collapsed && (
             <div className="flex flex-col min-w-0 flex-1">
               <span className="text-xs font-bold text-stone-900 truncate">
@@ -188,7 +190,7 @@ export function SuperAdminSidebar() {
         <button
           onClick={handleSignOut}
           className={cn(
-            "w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-rose-700 bg-rose-50/70 hover:bg-rose-100 border border-rose-200 transition-all",
+            "w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-rose-700 bg-white hover:bg-rose-50 border border-rose-200 shadow-2xs transition-all active:scale-95",
             collapsed && "justify-center"
           )}
           title="Sign out of Super Admin"
@@ -200,4 +202,3 @@ export function SuperAdminSidebar() {
     </aside>
   );
 }
-
