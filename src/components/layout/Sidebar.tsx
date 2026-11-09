@@ -18,6 +18,7 @@ import {
   Megaphone,
   FileSpreadsheet,
   ShieldAlert,
+  ShieldCheck,
   UserCheck,
   ChevronLeft,
   ChevronRight,
@@ -117,6 +118,14 @@ export function Sidebar() {
       href: "/admin",
       icon: <ShieldAlert className="h-4 w-4 text-rose-400" />,
       condition: (a) => a.isAdmin,
+    },
+    {
+      label: "Super Admin",
+      gujaratiLabel: "સુપર એડમિન",
+      href: "/super-admin",
+      icon: <ShieldCheck className="h-4 w-4 text-amber-500" />,
+      badge: "Root",
+      condition: (a) => a.isSuperAdmin,
     },
     {
       label: "My Profile & Family",

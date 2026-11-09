@@ -2,6 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/super-sdmin",
+        destination: "/super-admin",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
