@@ -34,9 +34,15 @@ export function CommandPalette() {
     { label: "Festivals, Events & QR Passes", href: "/events", icon: <PartyPopper className="h-4 w-4" /> },
     { label: "Broadcast Announcement Composer", href: "/announcements", icon: <Megaphone className="h-4 w-4" /> },
     { label: "System Administration & Permissions", href: "/admin", icon: <Sliders className="h-4 w-4" /> },
+    { label: "Super Admin Console (Users & Roles)", href: "/super-admin", icon: <ShieldAlert className="h-4 w-4 text-amber-500" /> },
   ];
 
   const quickActions = [
+    {
+      label: "Switch to Super Administrator",
+      action: () => setRole("super_admin"),
+      badge: "Root",
+    },
     {
       label: "Switch to Mandir Administrator",
       action: () => setRole("mandir_admin"),

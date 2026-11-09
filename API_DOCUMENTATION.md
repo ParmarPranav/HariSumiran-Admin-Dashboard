@@ -1080,6 +1080,59 @@ curl -X POST https://hari-sumiran-admin-dashboard.vercel.app/api/seed \
 
 ---
 
+### 17.5 Super Admin User Directory & Statistics
+* **Endpoint**: `GET /api/super-admin/users?q={search}&role={roleFilter}`
+* **Role**: `super_admin` only
+* **Description**: Returns full list of user accounts with assigned responsibilities, family codes, department, and aggregate KPI statistics.
+
+```bash
+curl -X GET "https://hari-sumiran-admin-dashboard.vercel.app/api/super-admin/users?role=sabha_karyakarta" \
+  -H "Accept: application/json"
+```
+
+---
+
+### 17.6 Super Admin Role Assignment, Update & Revocation
+* **Assign Role**: `POST /api/super-admin/users/:id/roles`
+* **Update Role / Status**: `PUT /api/super-admin/users/:id/roles`
+* **Revoke / Delete Role**: `DELETE /api/super-admin/users/:id/roles`
+* **Role**: `super_admin` only
+
+```bash
+# Assign new responsibility
+curl -X POST https://hari-sumiran-admin-dashboard.vercel.app/api/super-admin/users/USER_ID/roles \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "sabha_karyakarta",
+    "title": "Youth Sabha Coordinator",
+    "gujaratiTitle": "યુવા સભા સંયોજક",
+    "scope": {
+      "sabhaType": "Youth Male",
+      "zone": "North Nadiad"
+    },
+    "actorId": "super_admin_id",
+    "actorName": "Pooja Swarupji"
+  }'
+
+# Update role active status or primary role
+curl -X PUT https://hari-sumiran-admin-dashboard.vercel.app/api/super-admin/users/USER_ID/roles \
+  -H "Content-Type: application/json" \
+  -d '{
+    "index": 0,
+    "active": false,
+    "primaryRole": "mandir_admin"
+  }'
+
+# Revoke / Delete responsibility
+curl -X DELETE https://hari-sumiran-admin-dashboard.vercel.app/api/super-admin/users/USER_ID/roles \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "sabha_karyakarta"
+  }'
+```
+
+---
+
 ## 18. Unified Calendar & Scoped Reporting
 
 ### 18.1 Unified Aggregated Calendar Feed
