@@ -1080,7 +1080,25 @@ curl -X POST https://hari-sumiran-admin-dashboard.vercel.app/api/seed \
 
 ---
 
-### 17.5 Super Admin User Directory & Statistics
+### 17.5 Super Admin Dedicated Authentication
+* **Endpoint**: `POST /api/super-admin/auth`
+* **Description**: Dedicated high-security authentication endpoint for Root Super Administrator.
+* **Credentials**:
+  * Email: `hpsuperadmin@gmail.com`
+  * Password: `HP@Super#Admin@1809`
+
+```bash
+curl -X POST https://hari-sumiran-admin-dashboard.vercel.app/api/super-admin/auth \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "hpsuperadmin@gmail.com",
+    "password": "HP@Super#Admin@1809"
+  }'
+```
+
+---
+
+### 17.6 Super Admin User Directory & Statistics
 * **Endpoint**: `GET /api/super-admin/users?q={search}&role={roleFilter}`
 * **Role**: `super_admin` only
 * **Description**: Returns full list of user accounts with assigned responsibilities, family codes, department, and aggregate KPI statistics.

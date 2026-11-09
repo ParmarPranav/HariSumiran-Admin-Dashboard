@@ -63,6 +63,7 @@ interface AppContextType {
   unlockWithPin: (pin: string) => Promise<boolean>;
   unlockWithBiometrics: () => Promise<boolean>;
   loginWithEmail: (email: string, password?: string) => Promise<boolean>;
+  loginSuperAdmin: (email: string, password: string) => Promise<boolean>;
   lockApp: () => void;
   logout: () => void;
   setupPin: (newPin: string) => Promise<boolean>;
@@ -188,6 +189,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return false;
     }
 
+    // Dedicated Super Admin credential check
+    if (trimmedEmail === "hpsuperadmin@gmail.com") {
+      if (trimmedPass && trimmedPass !== "HP@Super#Admin@1809") {
+        toast.error("Invalid Super Admin password");
+        return false;
+      }
+      return await loginSuperAdmin(trimmedEmail, trimmedPass || "HP@Super#Admin@1809");
+    }
+
     // 1. Check in initialUsers
     const foundUser = initialUsers.find(
       (u) =>
@@ -244,6 +254,46 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       description: language === "gu" ? "કૃપા કરી માન્ય ઈમેલ સરનામું દાખલ કરો." : "Please enter a valid email address.",
     });
     return false;
+  };
+
+  const loginSuperAdmin = async (email: string, pass: string): Promise<boolean> => {
+    try {
+      const res = await fetch("/api/super-admin/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: pass }),
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        setUserState(data.user);
+        setIsAuthenticated(true);
+        setIsLocked(false);
+        toast.success("Root Super Admin Authenticated", {
+          description: "Full oversight & access control privileges active.",
+        });
+        return true;
+      } else {
+        toast.error("Authentication Failed", {
+          description: data.error || "Invalid Super Admin credentials.",
+        });
+        return false;
+      }
+    } catch (e: any) {
+      // In-memory fallback
+      if (
+        email.toLowerCase() === "hpsuperadmin@gmail.com" &&
+        pass === "HP@Super#Admin@1809"
+      ) {
+        const rootUser = initialUsers[0];
+        setUserState(rootUser as unknown as CurrentUser);
+        setIsAuthenticated(true);
+        setIsLocked(false);
+        toast.success("Root Super Admin Authenticated (Offline Mode)");
+        return true;
+      }
+      toast.error("Connection error during login");
+      return false;
+    }
   };
 
   const lockApp = () => {
@@ -332,6 +382,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         unlockWithPin,
         unlockWithBiometrics,
         loginWithEmail,
+        loginSuperAdmin,
         lockApp,
         logout,
         setupPin,

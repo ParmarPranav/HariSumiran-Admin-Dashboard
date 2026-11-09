@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useApp } from "@/context/AppContext";
 import { useRouter } from "next/navigation";
 import { MandalaBackground } from "@/components/ui/MandalaBackground";
@@ -403,6 +404,17 @@ export default function AuthPage() {
                 <Cpu className="h-3 w-3 text-stone-400" />
                 <span>NADIAD-NODE-01</span>
               </div>
+            </div>
+
+            {/* Super Admin Root Access Link */}
+            <div className="text-center pt-1">
+              <Link
+                href="/super-admin/login"
+                className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-800 hover:text-amber-950 hover:underline transition-colors"
+              >
+                <ShieldCheck className="h-3.5 w-3.5 text-amber-600" />
+                <span>{t("Super Admin Root Portal ➜", "સુપર એડમિન રૂટ પોર્ટલ ➜")}</span>
+              </Link>
             </div>
 
           </div>

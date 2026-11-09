@@ -15,6 +15,7 @@ import {
   UtensilsCrossed,
   Megaphone,
   Sliders,
+  ShieldAlert,
   QrCode,
   ArrowRight,
 } from "lucide-react";

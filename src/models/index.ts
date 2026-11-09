@@ -46,6 +46,7 @@ export interface IUser extends Document {
   name: string;
   phone: string;
   email?: string;
+  password?: string;
   role?: string; // Legacy fallback
   passcodeHash?: string; // 4 or 6 digit PIN (e.g. "3690" or hashed)
   biometricEnabled: boolean;
@@ -104,6 +105,7 @@ const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
   phone: { type: String, required: true, unique: true },
   email: { type: String },
+  password: { type: String },
   role: { type: String, default: "karyakarta" },
   passcodeHash: { type: String, default: "3690" },
   biometricEnabled: { type: Boolean, default: true },

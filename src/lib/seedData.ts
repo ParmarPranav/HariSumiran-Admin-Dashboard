@@ -1,8 +1,31 @@
 export const initialUsers = [
   {
+    name: "HP Super Admin",
+    phone: "9825000000",
+    email: "hpsuperadmin@gmail.com",
+    password: "HP@Super#Admin@1809",
+    role: "super_admin",
+    passcodeHash: "1809",
+    mandir: "HariPrabodham, Nadiad",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    biometricEnabled: true,
+    active: true,
+    responsibilities: [
+      {
+        type: "super_admin",
+        title: "Root Super Administrator",
+        gujaratiTitle: "મુખ્ય વહીવટકર્તા (રૂટ)",
+        scope: {},
+        active: true,
+        assignedAt: new Date(),
+      },
+    ],
+  },
+  {
     name: "Pooja Swarupji",
     phone: "9825012345",
     email: "admin.super@harisumiran.org",
+    password: "HP@Super#Admin@1809",
     role: "super_admin",
     passcodeHash: "3690",
     mandir: "HariPrabodham, Nadiad",

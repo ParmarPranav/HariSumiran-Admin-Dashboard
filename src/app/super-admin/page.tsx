@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
@@ -105,7 +106,8 @@ const ZONE_OPTIONS = [
 ];
 
 export default function SuperAdminPage() {
-  const { isSuperAdmin, user: currentUser, switchPersona, language, setUser } = useApp();
+  const router = useRouter();
+  const { isSuperAdmin, user: currentUser, switchPersona, language, setUser, logout } = useApp();
 
   const [users, setUsers] = useState<SuperAdminUser[]>([]);
   const [stats, setStats] = useState<any>(null);
@@ -491,15 +493,25 @@ export default function SuperAdminPage() {
             <p className="text-stone-700">Role: <span className="font-mono uppercase text-[11px] font-bold text-amber-800">{currentUser?.role}</span></p>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2 space-y-2">
             <Button
-              className="w-full"
+              className="w-full justify-center shadow-md shadow-amber-600/20"
               variant="primary"
               size="lg"
-              leftIcon={<ShieldCheck className="h-4 w-4" />}
+              leftIcon={<Lock className="h-4 w-4" />}
+              onClick={() => router.push("/super-admin/login")}
+            >
+              Sign In with Super Admin ID
+            </Button>
+
+            <Button
+              className="w-full justify-center"
+              variant="outline"
+              size="md"
+              leftIcon={<ShieldCheck className="h-4 w-4 text-amber-600" />}
               onClick={() => switchPersona("Pooja Swarupji")}
             >
-              Switch to Super Admin (Pooja Swarupji)
+              Quick Test: Switch to Pooja Swarupji
             </Button>
           </div>
         </GlassCard>
@@ -535,6 +547,20 @@ export default function SuperAdminPage() {
         </div>
 
         <div className="flex items-center gap-2.5">
+          {currentUser?.email === "hpsuperadmin@gmail.com" && (
+            <Button
+              size="md"
+              variant="outline"
+              onClick={() => {
+                logout();
+                router.push("/super-admin/login");
+              }}
+              leftIcon={<Lock className="h-4 w-4 text-stone-500" />}
+            >
+              Sign Out
+            </Button>
+          )}
+
           <Button
             size="md"
             variant="outline"
