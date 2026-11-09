@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "node -r dotenv/config scripts/seed.mjs"
+    "seed": "node -r dotenv/config scripts/seed.mjs",
+    "seed:city": "node scripts/seed-city-zone.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

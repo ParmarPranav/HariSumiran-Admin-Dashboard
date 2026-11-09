@@ -98,6 +98,7 @@ const SABHA_CATEGORIES: SabhaCategoryType[] = [
 ];
 
 const ZONE_OPTIONS = [
+  "City Area Zone",
   "North Nadiad",
   "Central Nadiad",
   "South Nadiad",
