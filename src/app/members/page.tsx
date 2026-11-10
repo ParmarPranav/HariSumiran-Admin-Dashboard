@@ -28,6 +28,7 @@ export default function MembersPage() {
   const [members, setMembers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [selectedZone, setSelectedZone] = useState("All");
   const [selectedSkill, setSelectedSkill] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [activeTab, setActiveTab] = useState<"directory" | "verification">("directory");
@@ -50,6 +51,7 @@ export default function MembersPage() {
     setLoading(true);
     const params = new URLSearchParams();
     if (search) params.set("search", search);
+    if (selectedZone !== "All") params.set("zone", selectedZone);
     if (selectedSkill !== "All") params.set("skill", selectedSkill);
     if (selectedStatus !== "All") params.set("status", selectedStatus);
 
@@ -64,7 +66,7 @@ export default function MembersPage() {
 
   useEffect(() => {
     fetchMembers();
-  }, [search, selectedSkill, selectedStatus]);
+  }, [search, selectedZone, selectedSkill, selectedStatus]);
 
   const handleRegisterMember = async () => {
     if (!formData.name || !formData.phone) {
@@ -187,6 +189,18 @@ export default function MembersPage() {
                   className="h-10 w-full rounded-xl border border-stone-200 bg-stone-50 pl-10 pr-4 text-xs text-stone-900 focus:border-amber-500 focus:outline-none placeholder:text-stone-400 shadow-xs"
                 />
               </div>
+
+              <select
+                value={selectedZone}
+                onChange={(e) => setSelectedZone(e.target.value)}
+                className="h-10 rounded-xl border border-stone-200 bg-stone-50 px-3 text-xs text-stone-800 focus:border-amber-500 focus:outline-none shadow-xs"
+              >
+                <option value="All" className="bg-white text-stone-900">All Mandir Zones</option>
+                <option value="City Area Zone" className="bg-white text-stone-900">City Area Zone</option>
+                <option value="North Nadiad" className="bg-white text-stone-900">North Nadiad</option>
+                <option value="Central Nadiad" className="bg-white text-stone-900">Central Nadiad</option>
+                <option value="South Nadiad" className="bg-white text-stone-900">South Nadiad</option>
+              </select>
 
               <select
                 value={selectedSkill}

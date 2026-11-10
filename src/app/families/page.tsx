@@ -379,6 +379,7 @@ export default function FamiliesPage() {
                     onChange={(e) => setFormData({ ...formData, zone: e.target.value })}
                     className="mt-1 h-10 w-full rounded-xl border border-stone-200 px-3 text-xs text-stone-900 focus:border-amber-500 focus:outline-none bg-stone-50"
                   >
+                    <option value="City Area Zone" className="bg-white text-stone-900">City Area Zone</option>
                     <option value="North Nadiad" className="bg-white text-stone-900">North Nadiad</option>
                     <option value="Central Nadiad" className="bg-white text-stone-900">Central Nadiad</option>
                     <option value="South Nadiad" className="bg-white text-stone-900">South Nadiad</option>

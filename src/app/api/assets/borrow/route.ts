@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     await connectDB();
     const body = await req.json();
-    const { assetId, action = "borrow", holderName, returnDate, conditionNotes } = body;
+    const { assetId, action = "borrow", holderName, holderRole, holderPhone, dueTime, returnDate, conditionNotes } = body;
 
     const asset = await Asset.findById(assetId);
     if (!asset) {
@@ -17,17 +17,23 @@ export async function POST(req: Request) {
       if (asset.status !== "Available") {
         return NextResponse.json({ success: false, error: "Asset is currently " + asset.status }, { status: 400 });
       }
-      asset.status = "In Use";
+      asset.status = "In Custody";
       asset.currentHolder = holderName || "Karyakarta";
+      if (holderRole) asset.holderRole = holderRole;
+      if (holderPhone) asset.holderPhone = holderPhone;
+      if (dueTime) asset.dueTime = dueTime;
       asset.expectedReturnDate = returnDate || new Date(Date.now() + 86400000).toISOString().split("T")[0];
     } else if (action === "return") {
       asset.status = "Available";
       asset.currentHolder = undefined;
+      asset.holderRole = undefined;
+      asset.holderPhone = undefined;
+      asset.dueTime = undefined;
       asset.expectedReturnDate = undefined;
       if (conditionNotes) asset.notes = conditionNotes;
     } else if (action === "report_maintenance") {
-      asset.status = "Under Maintenance";
-      asset.condition = "Needs Maintenance";
+      asset.status = "Maintenance";
+      asset.condition = "Needs Service";
       if (conditionNotes) asset.notes = conditionNotes;
     }
 

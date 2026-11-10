@@ -2353,6 +2353,193 @@
           }
         }
       ]
+    },
+    {
+      "name": "Super Admin & Role Governance",
+      "item": [
+        {
+          "name": "POST /api/super-admin/auth (Root Super Admin Login)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"hpsuperadmin@gmail.com\",\n  \"password\": \"HP@Super#Admin@1809\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/super-admin/auth",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "super-admin",
+                "auth"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/super-admin/users (List Directory & KPI Stats)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/super-admin/users?role=all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "super-admin",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "all"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/super-admin/users/:id/roles (User Role Details)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/super-admin/users/:id/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "super-admin",
+                "users",
+                ":id",
+                "roles"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "675cb0000000000000000001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/super-admin/users/:id/roles (Assign New Role)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"sabha_karyakarta\",\n  \"sabhaCategory\": \"Youth Male\",\n  \"zone\": \"City Area Zone\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/super-admin/users/:id/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "super-admin",
+                "users",
+                ":id",
+                "roles"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "675cb0000000000000000001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/super-admin/users/:id/roles (Update Role or Status)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"sabha_karyakarta\",\n  \"active\": true,\n  \"scopes\": {\n    \"sabhaCategories\": [\"Youth Male\"],\n    \"zones\": [\"City Area Zone\"]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/super-admin/users/:id/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "super-admin",
+                "users",
+                ":id",
+                "roles"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "675cb0000000000000000001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/super-admin/users/:id/roles (Revoke Role)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"sabha_karyakarta\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/super-admin/users/:id/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "super-admin",
+                "users",
+                ":id",
+                "roles"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "675cb0000000000000000001"
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   ]
 }

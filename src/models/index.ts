@@ -820,11 +820,17 @@ const EventRegistrationSchema = new Schema<IEventRegistration>({
 export interface IAsset extends Document {
   assetCode: string;
   name: string;
+  gujaratiName?: string;
   category: string;
+  subcategory?: string;
+  iconType?: string;
   location: string;
   condition: string;
   status: string;
   currentHolder?: string;
+  holderRole?: string;
+  holderPhone?: string;
+  dueTime?: string;
   expectedReturnDate?: string;
   qrCode?: string;
   photoUrl?: string;
@@ -835,11 +841,17 @@ export interface IAsset extends Document {
 const AssetSchema = new Schema<IAsset>({
   assetCode: { type: String, required: true },
   name: { type: String, required: true },
+  gujaratiName: { type: String },
   category: { type: String, default: "General" },
+  subcategory: { type: String },
+  iconType: { type: String, default: "box" },
   location: { type: String, default: "Mandir Store Room" },
   condition: { type: String, default: "Good" },
   status: { type: String, default: "Available" },
   currentHolder: { type: String },
+  holderRole: { type: String },
+  holderPhone: { type: String },
+  dueTime: { type: String },
   expectedReturnDate: { type: String },
   qrCode: { type: String },
   photoUrl: { type: String },
