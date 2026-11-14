@@ -162,16 +162,16 @@ async function main() {
 
   // 3. Register Key Yuvak Karyakartas as User accounts in MongoDB
   const yuvakKaryakartas = [
-    { name: "Jay Ashokbhai Khapre", phone: "9825020001", role: "karyakarta" },
-    { name: "Nikeshbhai Nayak", phone: "9825020002", role: "karyakarta" },
-    { name: "Sarjanbhai Patel", phone: "9825020004", role: "karyakarta" },
-    { name: "Meet Dharmeshbhai Parmar", phone: "9825020010", role: "karyakarta" },
-    { name: "Milap Ashishkumar Chokshi", phone: "9825020011", role: "karyakarta" },
-    { name: "Rutansh Dehulbhai Patel", phone: "9825020013", role: "karyakarta" },
-    { name: "Shubham Jigneshbhai Chauhan", phone: "9825020014", role: "karyakarta" },
-    { name: "Tanmay Tapasbhai Paul", phone: "9825020015", role: "karyakarta" },
-    { name: "Pratikbhai Jadav", phone: "9825020017", role: "karyakarta" },
-    { name: "Gopal Shaktipada Adhikari", phone: "9825020041", role: "karyakarta" },
+    { name: "Jay Ashokbhai Khapre", phone: "9825020001", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80" },
+    { name: "Nikeshbhai Nayak", phone: "9825020002", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=200&auto=format&fit=crop&q=80" },
+    { name: "Sarjanbhai Patel", phone: "9825020004", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?w=200&auto=format&fit=crop&q=80" },
+    { name: "Meet Dharmeshbhai Parmar", phone: "9825020010", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&auto=format&fit=crop&q=80" },
+    { name: "Milap Ashishkumar Chokshi", phone: "9825020011", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&auto=format&fit=crop&q=80" },
+    { name: "Rutansh Dehulbhai Patel", phone: "9825020013", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80" },
+    { name: "Shubham Jigneshbhai Chauhan", phone: "9825020014", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&auto=format&fit=crop&q=80" },
+    { name: "Tanmay Tapasbhai Paul", phone: "9825020015", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=200&auto=format&fit=crop&q=80" },
+    { name: "Pratikbhai Jadav", phone: "9825020017", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=200&auto=format&fit=crop&q=80" },
+    { name: "Gopal Shaktipada Adhikari", phone: "9825020041", role: "karyakarta", avatar: "https://images.unsplash.com/photo-1548142813-c348350df52b?w=200&auto=format&fit=crop&q=80" },
   ];
 
   for (const y of yuvakKaryakartas) {
@@ -184,7 +184,7 @@ async function main() {
         role: y.role,
         passcodeHash: "3690",
         mandir: "HariPrabodham, Nadiad",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+        avatar: y.avatar,
         biometricEnabled: true,
         active: true,
         responsibilities: [
