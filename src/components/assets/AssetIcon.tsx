@@ -72,3 +72,4 @@ export function AssetIcon({ iconType, category, className = "", size = "md" }: A
 
   return <Package className={`${sizeClass} ${className}`} />;
 }
+

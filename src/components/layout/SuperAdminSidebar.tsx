@@ -104,10 +104,16 @@ export function SuperAdminSidebar() {
       {/* Root Access Security Banner */}
       {!collapsed && (
         <div className="px-3 pt-3">
-          <div className="p-3 rounded-2xl bg-gradient-to-br from-amber-50/90 to-amber-100/40 border border-amber-200/80 text-[11px] text-amber-950 space-y-1 shadow-2xs">
-            <div className="flex items-center gap-1.5 font-bold text-amber-900">
-              <Sparkles className="h-3.5 w-3.5 text-amber-600" />
-              <span>Isolated Governance Terminal</span>
+          <div className="p-3 rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/20 text-[11px] text-amber-950 space-y-1.5 shadow-2xs">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                <ShieldCheck className="h-3.5 w-3.5 text-amber-600" />
+                <span>Isolated Governance</span>
+              </div>
+              <span className="flex items-center gap-1 text-[9px] font-mono font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full border border-emerald-200/80">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Active
+              </span>
             </div>
             <p className="text-[10px] text-stone-600 leading-relaxed">
               Institutional security, user role scopes &amp; immutable audit controls.
@@ -164,7 +170,7 @@ export function SuperAdminSidebar() {
         })}
       </div>
 
-      {/* Bottom Footer: Super Admin Profile & Sign Out */}
+      {/* Bottom Footer: Super Admin Profile & Status */}
       <div className="border-t border-stone-200/90 p-3 bg-stone-50/50 space-y-2">
         <div className="flex items-center gap-2.5 p-2 rounded-2xl bg-white border border-stone-200/80 shadow-2xs">
           <div className="relative">
@@ -187,17 +193,15 @@ export function SuperAdminSidebar() {
           )}
         </div>
 
-        <button
-          onClick={handleSignOut}
-          className={cn(
-            "w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-rose-700 bg-white hover:bg-rose-50 border border-rose-200 shadow-2xs transition-all active:scale-95",
-            collapsed && "justify-center"
-          )}
-          title="Sign out of Super Admin"
-        >
-          <LogOut className="h-3.5 w-3.5 text-rose-600" />
-          {!collapsed && <span>Sign Out of Console</span>}
-        </button>
+        {!collapsed ? (
+          <div className="flex items-center justify-between px-2 py-1 text-[10px] font-mono text-stone-500">
+            <span className="flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Level 0 Terminal</span>
+            </span>
+            <span className="text-amber-800 font-semibold font-mono">v1.2.0</span>
+          </div>
+        ) : null}
       </div>
     </aside>
   );

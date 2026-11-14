@@ -677,12 +677,23 @@ function SuperAdminContent() {
       {/* ======================================================== */}
       {currentTab === "users" && (
         <>
-          {/* KPI Stats Cards */}
+          {/* KPI Stats Cards (Interactive 1-Click Role Filters) */}
           <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
-            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-amber-300 transition-all group">
+            {/* Total Users */}
+            <button
+              type="button"
+              onClick={() => setRoleFilter("all")}
+              className={`p-4 rounded-2xl text-left transition-all active:scale-[0.98] cursor-pointer border group ${
+                roleFilter === "all"
+                  ? "bg-white border-amber-500 ring-2 ring-amber-500/30 shadow-md"
+                  : "bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-amber-300"
+              }`}
+            >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider">Total Users</span>
-                <div className="h-7 w-7 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center group-hover:bg-amber-100 group-hover:text-amber-800 transition-colors">
+                <div className={`h-7 w-7 rounded-xl flex items-center justify-center transition-colors ${
+                  roleFilter === "all" ? "bg-amber-100 text-amber-800" : "bg-stone-100 text-stone-700 group-hover:bg-amber-100 group-hover:text-amber-800"
+                }`}>
                   <Users className="h-3.5 w-3.5" />
                 </div>
               </div>
@@ -691,12 +702,23 @@ function SuperAdminContent() {
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>{stats?.activeUsers ?? users.length} Active in Directory</span>
               </div>
-            </GlassCard>
+            </button>
 
-            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-amber-300 transition-all group">
+            {/* Super Admins */}
+            <button
+              type="button"
+              onClick={() => setRoleFilter("super_admin")}
+              className={`p-4 rounded-2xl text-left transition-all active:scale-[0.98] cursor-pointer border group ${
+                roleFilter === "super_admin"
+                  ? "bg-white border-amber-500 ring-2 ring-amber-500/30 shadow-md"
+                  : "bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-amber-300"
+              }`}
+            >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider">Super Admins</span>
-                <div className="h-7 w-7 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                <div className={`h-7 w-7 rounded-xl flex items-center justify-center transition-colors ${
+                  roleFilter === "super_admin" ? "bg-amber-500 text-white" : "bg-amber-500/10 text-amber-700 group-hover:bg-amber-500 group-hover:text-white"
+                }`}>
                   <ShieldCheck className="h-3.5 w-3.5" />
                 </div>
               </div>
@@ -704,12 +726,23 @@ function SuperAdminContent() {
               <div className="flex items-center gap-1 mt-1.5 text-[10px] font-medium text-stone-500">
                 <span>Root Level Oversight</span>
               </div>
-            </GlassCard>
+            </button>
 
-            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-amber-300 transition-all group">
+            {/* Mandir Admins */}
+            <button
+              type="button"
+              onClick={() => setRoleFilter("mandir_admin")}
+              className={`p-4 rounded-2xl text-left transition-all active:scale-[0.98] cursor-pointer border group ${
+                roleFilter === "mandir_admin"
+                  ? "bg-white border-emerald-500 ring-2 ring-emerald-500/30 shadow-md"
+                  : "bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-emerald-300"
+              }`}
+            >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider">Mandir Admins</span>
-                <div className="h-7 w-7 rounded-xl bg-emerald-500/10 text-emerald-700 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                <div className={`h-7 w-7 rounded-xl flex items-center justify-center transition-colors ${
+                  roleFilter === "mandir_admin" ? "bg-emerald-500 text-white" : "bg-emerald-500/10 text-emerald-700 group-hover:bg-emerald-500 group-hover:text-white"
+                }`}>
                   <Building2 className="h-3.5 w-3.5" />
                 </div>
               </div>
@@ -717,12 +750,23 @@ function SuperAdminContent() {
               <div className="flex items-center gap-1 mt-1.5 text-[10px] font-medium text-stone-500">
                 <span>Operations &amp; Seva</span>
               </div>
-            </GlassCard>
+            </button>
 
-            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-amber-300 transition-all group">
+            {/* Sabha Karyakarta */}
+            <button
+              type="button"
+              onClick={() => setRoleFilter("sabha_karyakarta")}
+              className={`p-4 rounded-2xl text-left transition-all active:scale-[0.98] cursor-pointer border group ${
+                roleFilter === "sabha_karyakarta"
+                  ? "bg-white border-sky-500 ring-2 ring-sky-500/30 shadow-md"
+                  : "bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-sky-300"
+              }`}
+            >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider">Sabha Karyakarta</span>
-                <div className="h-7 w-7 rounded-xl bg-sky-500/10 text-sky-700 flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                <div className={`h-7 w-7 rounded-xl flex items-center justify-center transition-colors ${
+                  roleFilter === "sabha_karyakarta" ? "bg-sky-500 text-white" : "bg-sky-500/10 text-sky-700 group-hover:bg-sky-500 group-hover:text-white"
+                }`}>
                   <CalendarDays className="h-3.5 w-3.5" />
                 </div>
               </div>
@@ -730,12 +774,23 @@ function SuperAdminContent() {
               <div className="flex items-center gap-1 mt-1.5 text-[10px] font-medium text-stone-500">
                 <span>Attendance &amp; Follow-up</span>
               </div>
-            </GlassCard>
+            </button>
 
-            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-amber-300 transition-all group col-span-2 sm:col-span-1">
+            {/* Thal Captains */}
+            <button
+              type="button"
+              onClick={() => setRoleFilter("thal_captain")}
+              className={`p-4 rounded-2xl text-left transition-all active:scale-[0.98] cursor-pointer border group col-span-2 sm:col-span-1 ${
+                roleFilter === "thal_captain"
+                  ? "bg-white border-orange-500 ring-2 ring-orange-500/30 shadow-md"
+                  : "bg-white/95 border-stone-200/90 shadow-2xs hover:shadow-md hover:border-orange-300"
+              }`}
+            >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider">Thal Captains</span>
-                <div className="h-7 w-7 rounded-xl bg-orange-500/10 text-orange-700 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                <div className={`h-7 w-7 rounded-xl flex items-center justify-center transition-colors ${
+                  roleFilter === "thal_captain" ? "bg-orange-500 text-white" : "bg-orange-500/10 text-orange-700 group-hover:bg-orange-500 group-hover:text-white"
+                }`}>
                   <UtensilsCrossed className="h-3.5 w-3.5" />
                 </div>
               </div>
@@ -743,7 +798,7 @@ function SuperAdminContent() {
               <div className="flex items-center gap-1 mt-1.5 text-[10px] font-medium text-stone-500">
                 <span>Family Rotation Leads</span>
               </div>
-            </GlassCard>
+            </button>
           </div>
 
           {/* Directory Search & Filter Controls */}
@@ -776,7 +831,7 @@ function SuperAdminContent() {
             </div>
 
             {/* Filter Pills with Real Counts */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar scrollbar-none">
               {[
                 { id: "all", label: "All Users" },
                 { id: "super_admin", label: "Super Admin" },
@@ -820,12 +875,12 @@ function SuperAdminContent() {
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-stone-200 bg-stone-50/80 text-stone-500 font-bold uppercase text-[10px] tracking-wider">
-                    <th className="p-3.5 pl-5">User Profile</th>
-                    <th className="p-3.5">Primary Role</th>
-                    <th className="p-3.5">Assigned Responsibilities</th>
-                    <th className="p-3.5">Scope &amp; Mandir</th>
-                    <th className="p-3.5 text-center">Status</th>
-                    <th className="p-3.5 pr-5 text-right">Actions</th>
+                    <th className="p-3.5 pl-5 min-w-[250px]">User Profile</th>
+                    <th className="p-3.5 min-w-[130px]">Primary Role</th>
+                    <th className="p-3.5 min-w-[280px]">Assigned Responsibilities</th>
+                    <th className="p-3.5 min-w-[170px]">Scope &amp; Mandir</th>
+                    <th className="p-3.5 text-center w-[110px]">Status</th>
+                    <th className="p-3.5 pr-5 text-right w-[150px] min-w-[150px]">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-100">
@@ -849,7 +904,7 @@ function SuperAdminContent() {
                           className="hover:bg-amber-50/40 cursor-pointer transition-colors group"
                         >
                           {/* User Info */}
-                          <td className="p-3.5 pl-5">
+                          <td className="p-3.5 pl-5 min-w-[250px]">
                             <div className="flex items-center gap-3">
                               <div className="relative">
                                 <img
@@ -884,7 +939,7 @@ function SuperAdminContent() {
                           </td>
 
                           {/* Primary Role */}
-                          <td className="p-3.5">
+                          <td className="p-3.5 min-w-[130px]">
                             {u.role === "super_admin" ? (
                               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-500/15 to-amber-600/10 text-amber-900 border border-amber-300 font-bold uppercase tracking-wider text-[10px]">
                                 <ShieldCheck className="h-3 w-3 text-amber-600" />
@@ -917,33 +972,47 @@ function SuperAdminContent() {
                           </td>
 
                           {/* Assigned Responsibilities */}
-                          <td className="p-3.5">
-                            <div className="flex flex-wrap items-center gap-1.5 max-w-md">
+                          <td className="p-3.5 min-w-[280px]">
+                            <div className="flex flex-col gap-1.5 max-w-sm">
                               {activeRoles.length === 0 ? (
                                 <span className="text-stone-400 italic text-[11px]">No specific roles assigned</span>
                               ) : (
                                 activeRoles.map((r, idx) => (
-                                  <span
+                                  <div
                                     key={idx}
-                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 text-[11px] font-medium shadow-2xs"
+                                    className="p-1.5 px-2.5 rounded-xl bg-amber-50/80 border border-amber-200/80 text-amber-950 text-[11px] shadow-2xs space-y-0.5"
                                   >
-                                    {r.type === "super_admin" && <ShieldCheck className="h-3 w-3 text-amber-600" />}
-                                    {r.type === "mandir_admin" && <Building2 className="h-3 w-3 text-amber-600" />}
-                                    {r.type === "sabha_karyakarta" && <CalendarDays className="h-3 w-3 text-amber-600" />}
-                                    {r.type === "thal_captain" && <UtensilsCrossed className="h-3 w-3 text-amber-600" />}
-                                    {(r.type === "main_cook" || r.type === "sub_cook") && <ChefHat className="h-3 w-3 text-amber-600" />}
-                                    {r.type === "car_owner" && <Car className="h-3 w-3 text-amber-600" />}
-                                    <span>{r.title || r.type}</span>
-                                    {r.gujaratiTitle && (
-                                      <span className="text-[10px] text-amber-800/80 font-normal">
-                                        ({r.gujaratiTitle})
-                                      </span>
+                                    <div className="flex items-center gap-1.5 font-bold">
+                                      {r.type === "super_admin" && <ShieldCheck className="h-3 w-3 text-amber-600 shrink-0" />}
+                                      {r.type === "mandir_admin" && <Building2 className="h-3 w-3 text-amber-600 shrink-0" />}
+                                      {r.type === "sabha_karyakarta" && <CalendarDays className="h-3 w-3 text-amber-600 shrink-0" />}
+                                      {r.type === "thal_captain" && <UtensilsCrossed className="h-3 w-3 text-amber-600 shrink-0" />}
+                                      {(r.type === "main_cook" || r.type === "sub_cook") && <ChefHat className="h-3 w-3 text-amber-600 shrink-0" />}
+                                      {r.type === "car_owner" && <Car className="h-3 w-3 text-amber-600 shrink-0" />}
+                                      <span>{r.title || r.type}</span>
+                                    </div>
+                                    {r.gujaratiTitle && language === "gu" && (
+                                      <p className="text-[10px] text-amber-900/80 pl-4 font-gujarati">
+                                        {r.gujaratiTitle}
+                                      </p>
                                     )}
-                                  </span>
+                                    {r.scope?.zone && (
+                                      <div className="flex items-center gap-1 pl-4 pt-0.5">
+                                        <span className="px-1.5 py-0.2 rounded bg-stone-100 text-stone-700 font-mono text-[9px] font-semibold border border-stone-200/80">
+                                          {r.scope.zone}
+                                        </span>
+                                        {r.scope.sabhaType && (
+                                          <span className="px-1.5 py-0.2 rounded bg-amber-100/70 text-amber-900 font-mono text-[9px] font-semibold">
+                                            {r.scope.sabhaType}
+                                          </span>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
                                 ))
                               )}
                               {inactiveRoles.length > 0 && (
-                                <span className="text-[10px] text-stone-400 font-medium px-1.5 py-0.5 rounded-md bg-stone-100">
+                                <span className="text-[10px] text-stone-400 font-medium px-1.5 py-0.5 rounded-md bg-stone-100 self-start">
                                   +{inactiveRoles.length} inactive
                                 </span>
                               )}
@@ -951,7 +1020,7 @@ function SuperAdminContent() {
                           </td>
 
                           {/* Scope & Mandir */}
-                          <td className="p-3.5 text-stone-600 font-medium">
+                          <td className="p-3.5 text-stone-600 font-medium min-w-[170px]">
                             <div className="flex items-center gap-1 text-[11px] font-bold text-stone-800">
                               <MapPin className="h-3 w-3 text-amber-600 shrink-0" />
                               <span className="truncate max-w-[150px]">{u.mandir}</span>
@@ -967,7 +1036,7 @@ function SuperAdminContent() {
                           </td>
 
                           {/* Status */}
-                          <td className="p-3.5 text-center">
+                          <td className="p-3.5 text-center w-[110px]">
                             <span
                               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold ${
                                 u.active !== false
@@ -985,17 +1054,17 @@ function SuperAdminContent() {
                           </td>
 
                           {/* Actions */}
-                          <td className="p-3.5 pr-5 text-right">
+                          <td className="p-3.5 pr-5 text-right w-[150px] min-w-[150px] whitespace-nowrap">
                             <button
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 openUserModal(u);
                               }}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-600 hover:text-white hover:border-amber-600 text-stone-700 text-xs font-semibold shadow-2xs hover:shadow-xs transition-all active:scale-95"
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-600 hover:text-white hover:border-amber-600 text-stone-700 text-xs font-semibold shadow-2xs hover:shadow-xs transition-all active:scale-95 whitespace-nowrap shrink-0"
                             >
-                              <UserCog className="h-3.5 w-3.5" />
-                              <span>Manage Roles</span>
+                              <UserCog className="h-3.5 w-3.5 shrink-0" />
+                              <span className="whitespace-nowrap">Manage Roles</span>
                             </button>
                           </td>
                         </tr>

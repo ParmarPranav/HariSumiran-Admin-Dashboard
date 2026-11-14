@@ -312,3 +312,4 @@ main()
     console.error("Asset seeding failed:", err);
     process.exit(1);
   });
+
