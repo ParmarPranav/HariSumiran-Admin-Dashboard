@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import { cn } from "@/lib/utils";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 import {
   ShieldCheck,
   ShieldAlert,
@@ -173,14 +174,12 @@ export function SuperAdminSidebar() {
       {/* Bottom Footer: Super Admin Profile & Status */}
       <div className="border-t border-stone-200/90 p-3 bg-stone-50/50 space-y-2">
         <div className="flex items-center gap-2.5 p-2 rounded-2xl bg-white border border-stone-200/80 shadow-2xs">
-          <div className="relative">
-            <img
-              src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
-              alt={user?.name || "Super Admin"}
-              className="h-8 w-8 rounded-xl object-cover ring-2 ring-amber-400 ring-offset-1 shrink-0"
-            />
-            <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-500" />
-          </div>
+          <UserAvatar
+            name={user?.name || "HP Super Admin"}
+            avatarUrl={user?.avatar}
+            role={user?.role || "super_admin"}
+            size="sm"
+          />
           {!collapsed && (
             <div className="flex flex-col min-w-0 flex-1">
               <span className="text-xs font-bold text-stone-900 truncate">

@@ -3,6 +3,7 @@
 import React from "react";
 import { useApp } from "@/context/AppContext";
 import { useRouter } from "next/navigation";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 import {
   ShieldCheck,
   Languages,
@@ -56,14 +57,12 @@ export function SuperAdminHeader() {
 
         {/* User Status Pill */}
         <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-2xl bg-stone-50/90 border border-stone-200 shadow-2xs">
-          <div className="relative">
-            <img
-              src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"}
-              alt={user?.name || "Super Admin"}
-              className="h-7 w-7 rounded-xl object-cover ring-2 ring-amber-400 ring-offset-1"
-            />
-            <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-white" />
-          </div>
+          <UserAvatar
+            name={user?.name || "HP Super Admin"}
+            avatarUrl={user?.avatar}
+            role={user?.role || "super_admin"}
+            size="sm"
+          />
           <div className="hidden sm:flex flex-col text-left">
             <span className="text-xs font-bold text-stone-900 leading-tight">
               {user?.name || "HP Super Admin"}

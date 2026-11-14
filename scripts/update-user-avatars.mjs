@@ -46,3 +46,4 @@ main().catch((err) => {
   console.error("Error updating user avatars:", err);
   process.exit(1);
 });
+

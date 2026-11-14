@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { MandalaBackground } from "@/components/ui/MandalaBackground";
 import { TypeToConfirmDialog } from "@/components/ui/TypeToConfirmDialog";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 import {
   ShieldCheck,
   ShieldAlert,
@@ -906,23 +907,12 @@ function SuperAdminContent() {
                           {/* User Info */}
                           <td className="p-3.5 pl-5 min-w-[250px]">
                             <div className="flex items-center gap-3">
-                              <div className="relative">
-                                <img
-                                  src={u.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(u.name || "User")}&background=F59E0B&color=78350F&bold=true&size=150`}
-                                  alt={u.name}
-                                  onError={(e) => {
-                                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(u.name || "User")}&background=F59E0B&color=78350F&bold=true&size=150`;
-                                  }}
-                                  className={`h-10 w-10 rounded-2xl object-cover border-2 border-white shadow-2xs transition-all shrink-0 ${
-                                    isSuper ? "ring-2 ring-amber-400 ring-offset-1" : "ring-1 ring-stone-200"
-                                  }`}
-                                />
-                                {isSuper && (
-                                  <span className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-amber-500 text-white flex items-center justify-center text-[9px] shadow-2xs">
-                                    <ShieldCheck className="h-2.5 w-2.5" />
-                                  </span>
-                                )}
-                              </div>
+                              <UserAvatar
+                                name={u.name}
+                                avatarUrl={u.avatar}
+                                role={u.role || u.responsibilities?.[0]?.type}
+                                size="md"
+                              />
                               <div>
                                 <div className="flex items-center gap-1.5">
                                   <span className="font-heading font-bold text-sm text-stone-900 group-hover:text-amber-900 transition-colors">
@@ -1234,13 +1224,11 @@ function SuperAdminContent() {
             {/* Modal Header: User Info Card */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-200">
               <div className="flex items-center gap-3">
-                <img
-                  src={selectedUser.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedUser.name || "User")}&background=F59E0B&color=78350F&bold=true&size=150`}
-                  alt={selectedUser.name}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedUser.name || "User")}&background=F59E0B&color=78350F&bold=true&size=150`;
-                  }}
-                  className="h-12 w-12 rounded-2xl object-cover border border-amber-300 shadow-xs shrink-0"
+                <UserAvatar
+                  name={selectedUser.name}
+                  avatarUrl={selectedUser.avatar}
+                  role={selectedUser.role || selectedUser.responsibilities?.[0]?.type}
+                  size="lg"
                 />
                 <div>
                   <h3 className="font-heading text-lg font-bold text-stone-900">{selectedUser.name}</h3>
