@@ -962,3 +962,24 @@ export const Asset: Model<IAsset> = mongoose.models.Asset || mongoose.model<IAss
 export const RoomBooking: Model<IRoomBooking> = mongoose.models.RoomBooking || mongoose.model<IRoomBooking>("RoomBooking", RoomBookingSchema);
 export const Announcement: Model<IAnnouncement> = mongoose.models.Announcement || mongoose.model<IAnnouncement>("Announcement", AnnouncementSchema);
 export const AuditLog: Model<IAuditLog> = mongoose.models.AuditLog || mongoose.model<IAuditLog>("AuditLog", AuditLogSchema);
+
+// 20. OTP Verification Schema for Email & WhatsApp Auth
+export interface IOtpVerification extends Document {
+  phone?: string;
+  email?: string;
+  otp: string;
+  verified: boolean;
+  createdAt: Date;
+}
+
+const OtpVerificationSchema = new Schema<IOtpVerification>({
+  phone: { type: String, index: true },
+  email: { type: String, index: true },
+  otp: { type: String, required: true },
+  verified: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now, expires: 600 }, // Auto-expires after 10 minutes (TTL index)
+});
+
+export const OtpVerification: Model<IOtpVerification> =
+  mongoose.models.OtpVerification || mongoose.model<IOtpVerification>("OtpVerification", OtpVerificationSchema);
+
