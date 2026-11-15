@@ -28,14 +28,18 @@ export async function POST(req: Request) {
       });
 
       // Send Super Admin Onboarding Alert
-      sendNewUserOnboardingAlert({
-        name: user.name,
-        phone: uniquePhone,
-        email: user.email,
-        role: "FAMILY_CAPTAIN",
-        channel: "Apple Sign-In",
-        onboardedAt: user.createdAt,
-      }).catch((err) => console.error("[Apple Onboarding Alert Exception]:", err.message));
+      try {
+        await sendNewUserOnboardingAlert({
+          name: user.name,
+          phone: uniquePhone,
+          email: user.email,
+          role: "FAMILY_CAPTAIN",
+          channel: "Apple Sign-In",
+          onboardedAt: user.createdAt,
+        });
+      } catch (mailErr: any) {
+        console.error("[Apple Onboarding Alert Exception]:", mailErr?.message || mailErr);
+      }
     }
 
     return NextResponse.json({

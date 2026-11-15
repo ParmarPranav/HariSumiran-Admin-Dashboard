@@ -26,15 +26,19 @@ export async function POST(req: Request) {
       });
 
       // Send Super Admin Onboarding Alert
-      sendNewUserOnboardingAlert({
-        name: targetName,
-        phone: user.phone || "9825056789",
-        email: targetEmail,
-        role: "FAMILY_CAPTAIN",
-        familyName: "Patel Household (Rameshbhai)",
-        channel: "Google Sign-In",
-        onboardedAt: user.createdAt,
-      }).catch((err) => console.error("[Google Onboarding Alert Exception]:", err.message));
+      try {
+        await sendNewUserOnboardingAlert({
+          name: targetName,
+          phone: user.phone || "9825056789",
+          email: targetEmail,
+          role: "FAMILY_CAPTAIN",
+          familyName: "Patel Household (Rameshbhai)",
+          channel: "Google Sign-In",
+          onboardedAt: user.createdAt,
+        });
+      } catch (mailErr: any) {
+        console.error("[Google Onboarding Alert Exception]:", mailErr?.message || mailErr);
+      }
     }
 
     return NextResponse.json({

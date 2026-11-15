@@ -169,23 +169,27 @@ export async function POST(req: Request) {
       }
 
       // 4. Send Instant Administrative Email Alert to Super Admin (pranavparmar1809@gmail.com)
-      sendNewUserOnboardingAlert({
-        name: devoteeName,
-        gujaratiName: body.gujaratiName,
-        phone: cleanPhone,
-        email: body.email,
-        memberId: memberCode,
-        familyId: body.familyId || "FAM-IND-01",
-        familyName: body.familyName || `${devoteeName} Parivar`,
-        role: "MEMBER",
-        responsibilities: newUser.responsibilities,
-        zone: body.zone || "Nadiad Central",
-        area: body.area || "Station Road",
-        sabhaCategory: body.sabhaCategory || "Yuvak",
-        department: "General Devotee",
-        channel: "Direct App Registration",
-        onboardedAt: newUser.createdAt,
-      }).catch((err) => console.error("[Onboarding Email Alert Exception]:", err.message));
+      try {
+        await sendNewUserOnboardingAlert({
+          name: devoteeName,
+          gujaratiName: body.gujaratiName,
+          phone: cleanPhone,
+          email: body.email,
+          memberId: memberCode,
+          familyId: body.familyId || "FAM-IND-01",
+          familyName: body.familyName || `${devoteeName} Parivar`,
+          role: "MEMBER",
+          responsibilities: newUser.responsibilities,
+          zone: body.zone || "Nadiad Central",
+          area: body.area || "Station Road",
+          sabhaCategory: body.sabhaCategory || "Yuvak",
+          department: "General Devotee",
+          channel: "Direct App Registration",
+          onboardedAt: newUser.createdAt,
+        });
+      } catch (mailErr: any) {
+        console.error("[Onboarding Email Alert Exception]:", mailErr?.message || mailErr);
+      }
 
       return NextResponse.json({
         success: true,

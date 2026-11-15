@@ -162,21 +162,25 @@ export async function POST(req: Request) {
     });
 
     // Send Super Admin Onboarding Alert
-    sendNewUserOnboardingAlert({
-      name,
-      gujaratiName,
-      phone: phone.replace(/\D/g, ""),
-      email,
-      memberId: memberCode,
-      familyId: resolvedFamilyId,
-      familyName: resolvedFamilyName,
-      role: "MEMBER",
-      zone: targetFamily ? targetFamily.zone : zone,
-      area: targetFamily ? targetFamily.area : area,
-      sabhaCategory,
-      channel: "Admin Directory Addition",
-      onboardedAt: member.createdAt,
-    }).catch((err) => console.error("[Member Directory Alert Exception]:", err.message));
+    try {
+      await sendNewUserOnboardingAlert({
+        name,
+        gujaratiName,
+        phone: phone.replace(/\D/g, ""),
+        email,
+        memberId: memberCode,
+        familyId: resolvedFamilyId,
+        familyName: resolvedFamilyName,
+        role: "MEMBER",
+        zone: targetFamily ? targetFamily.zone : zone,
+        area: targetFamily ? targetFamily.area : area,
+        sabhaCategory,
+        channel: "Admin Directory Addition",
+        onboardedAt: member.createdAt,
+      });
+    } catch (mailErr: any) {
+      console.error("[Member Directory Alert Exception]:", mailErr?.message || mailErr);
+    }
 
     return NextResponse.json({
       success: true,

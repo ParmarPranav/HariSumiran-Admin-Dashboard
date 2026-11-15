@@ -11,8 +11,14 @@ export interface SendEmailOtpOptions {
  * Supports standard Gmail with App Password, or custom SMTP configurations.
  */
 function createTransporter() {
-  const gmailUser = process.env.GMAIL_USER || process.env.SMTP_USER;
-  const gmailPass = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
+  const gmailUser =
+    process.env.GMAIL_USER ||
+    process.env.SMTP_USER ||
+    "pranavparmar1809@gmail.com";
+  const gmailPass =
+    process.env.GMAIL_APP_PASSWORD ||
+    process.env.SMTP_PASS ||
+    "rxkayldwhzxgfevh";
 
   if (gmailUser && gmailPass) {
     if (process.env.SMTP_HOST) {
@@ -24,6 +30,9 @@ function createTransporter() {
           user: gmailUser,
           pass: gmailPass,
         },
+        connectionTimeout: 8000,
+        greetingTimeout: 8000,
+        socketTimeout: 10000,
       });
     }
 
@@ -34,6 +43,9 @@ function createTransporter() {
         user: gmailUser,
         pass: gmailPass,
       },
+      connectionTimeout: 8000,
+      greetingTimeout: 8000,
+      socketTimeout: 10000,
     });
   }
 
@@ -52,7 +64,7 @@ export async function sendEmailOtp({ email, phone, otp }: SendEmailOtpOptions) {
     try {
       const fromAddress =
         process.env.EMAIL_FROM ||
-        `"HariSumiran Mandir" <${process.env.GMAIL_USER || process.env.SMTP_USER}>`;
+        `"HariSumiran Mandir" <${process.env.GMAIL_USER || process.env.SMTP_USER || "pranavparmar1809@gmail.com"}>`;
 
       const htmlContent = `
 <!DOCTYPE html>
@@ -202,7 +214,7 @@ export async function sendNewUserOnboardingAlert(details: NewUserOnboardingOptio
     try {
       const fromAddress =
         process.env.EMAIL_FROM ||
-        `"HariSumiran Mandir" <${process.env.GMAIL_USER || process.env.SMTP_USER}>`;
+        `"HariSumiran Mandir" <${process.env.GMAIL_USER || process.env.SMTP_USER || "pranavparmar1809@gmail.com"}>`;
 
       const htmlContent = `
 <!DOCTYPE html>
