@@ -147,6 +147,7 @@ export async function POST(req: Request) {
         sevaSkills: body.sevaSkills || ["Devotee", "Youth Volunteer"],
         attendanceStreak: 1,
         verificationStatus: "Verified",
+        photoUrl: body.avatar || body.photoUrl || "",
         communicationConsent: true,
         photoConsent: true,
         qrCode: `HS-DEVOTEE-${cleanPhone}`,
