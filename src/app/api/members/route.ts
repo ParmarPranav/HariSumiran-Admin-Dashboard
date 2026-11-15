@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/db";
 import { Member, Family, User, AuditLog } from "@/models";
 import { resolveUserScope, buildMemberScopeFilter, findUserByIdentifier } from "@/lib/authScope";
 import { initialMembers } from "@/lib/seedData";
+import { sendNewUserOnboardingAlert } from "@/lib/email";
 
 export async function GET(req: Request) {
   try {
@@ -159,6 +160,23 @@ export async function POST(req: Request) {
       recordId: member._id.toString(),
       description: `Registered canonical member: ${name} (${memberCode}) in family ${resolvedFamilyName}`,
     });
+
+    // Send Super Admin Onboarding Alert
+    sendNewUserOnboardingAlert({
+      name,
+      gujaratiName,
+      phone: phone.replace(/\D/g, ""),
+      email,
+      memberId: memberCode,
+      familyId: resolvedFamilyId,
+      familyName: resolvedFamilyName,
+      role: "MEMBER",
+      zone: targetFamily ? targetFamily.zone : zone,
+      area: targetFamily ? targetFamily.area : area,
+      sabhaCategory,
+      channel: "Admin Directory Addition",
+      onboardedAt: member.createdAt,
+    }).catch((err) => console.error("[Member Directory Alert Exception]:", err.message));
 
     return NextResponse.json({
       success: true,

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { User } from "@/models";
+import { sendNewUserOnboardingAlert } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -12,6 +13,7 @@ export async function POST(req: Request) {
     const targetName = name || "Rameshbhai Patel";
 
     let user = await User.findOne({ email: targetEmail });
+    const isNewUser = !user;
 
     if (!user) {
       user = await User.create({
@@ -22,6 +24,17 @@ export async function POST(req: Request) {
         mandir: "HariPrabodham, Nadiad",
         active: true,
       });
+
+      // Send Super Admin Onboarding Alert
+      sendNewUserOnboardingAlert({
+        name: targetName,
+        phone: user.phone || "9825056789",
+        email: targetEmail,
+        role: "FAMILY_CAPTAIN",
+        familyName: "Patel Household (Rameshbhai)",
+        channel: "Google Sign-In",
+        onboardedAt: user.createdAt,
+      }).catch((err) => console.error("[Google Onboarding Alert Exception]:", err.message));
     }
 
     return NextResponse.json({

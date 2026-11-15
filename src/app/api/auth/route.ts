@@ -4,7 +4,7 @@ import { User, Member, AuditLog, OtpVerification } from "@/models";
 import { initialUsers } from "@/lib/seedData";
 import { resolveUserScope } from "@/lib/authScope";
 import { sendWhatsAppOtp } from "@/lib/whatsapp";
-import { sendEmailOtp } from "@/lib/email";
+import { sendEmailOtp, sendNewUserOnboardingAlert } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -167,6 +167,25 @@ export async function POST(req: Request) {
       } catch (auditErr) {
         console.warn("Audit log creation skipped:", auditErr);
       }
+
+      // 4. Send Instant Administrative Email Alert to Super Admin (pranavparmar1809@gmail.com)
+      sendNewUserOnboardingAlert({
+        name: devoteeName,
+        gujaratiName: body.gujaratiName,
+        phone: cleanPhone,
+        email: body.email,
+        memberId: memberCode,
+        familyId: body.familyId || "FAM-IND-01",
+        familyName: body.familyName || `${devoteeName} Parivar`,
+        role: "MEMBER",
+        responsibilities: newUser.responsibilities,
+        zone: body.zone || "Nadiad Central",
+        area: body.area || "Station Road",
+        sabhaCategory: body.sabhaCategory || "Yuvak",
+        department: "General Devotee",
+        channel: "Direct App Registration",
+        onboardedAt: newUser.createdAt,
+      }).catch((err) => console.error("[Onboarding Email Alert Exception]:", err.message));
 
       return NextResponse.json({
         success: true,

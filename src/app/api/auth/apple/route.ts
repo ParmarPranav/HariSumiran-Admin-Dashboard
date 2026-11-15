@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { User } from "@/models";
+import { sendNewUserOnboardingAlert } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -25,6 +26,16 @@ export async function POST(req: Request) {
         mandir: "HariPrabodham, Nadiad",
         active: true,
       });
+
+      // Send Super Admin Onboarding Alert
+      sendNewUserOnboardingAlert({
+        name: user.name,
+        phone: uniquePhone,
+        email: user.email,
+        role: "FAMILY_CAPTAIN",
+        channel: "Apple Sign-In",
+        onboardedAt: user.createdAt,
+      }).catch((err) => console.error("[Apple Onboarding Alert Exception]:", err.message));
     }
 
     return NextResponse.json({
