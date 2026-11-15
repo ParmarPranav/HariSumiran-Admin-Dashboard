@@ -16,12 +16,16 @@ export type ResponsibilityType =
 export type SabhaCategoryType =
   | "Youth Male"
   | "Youth Female"
+  | "Yuvak"
   | "Yuvati"
+  | "Mahila"
+  | "Vadil"
   | "Family Sabha"
   | "Morning Sabha"
   | "Evening Sabha"
   | "Special Mahotsav"
-  | "Bal Sabha";
+  | "Bal Sabha"
+  | "General Devotee";
 
 export interface IUserResponsibility {
   type: ResponsibilityType;
@@ -216,8 +220,21 @@ const MemberSchema = new Schema<IMember>({
   area: { type: String, default: "Station Road" },
   sabhaCategory: {
     type: String,
-    enum: ["Youth Male", "Youth Female", "Yuvati", "Family Sabha", "Morning Sabha", "Evening Sabha", "Special Mahotsav", "Bal Sabha"],
-    default: "Family Sabha",
+    enum: [
+      "Youth Male",
+      "Youth Female",
+      "Yuvak",
+      "Yuvati",
+      "Mahila",
+      "Vadil",
+      "Family Sabha",
+      "Morning Sabha",
+      "Evening Sabha",
+      "Special Mahotsav",
+      "Bal Sabha",
+      "General Devotee",
+    ],
+    default: "Youth Male",
   },
   attendanceStreak: { type: Number, default: 0 },
   verificationStatus: { type: String, enum: ["Verified", "Pending Verification", "Rejected"], default: "Pending Verification" },

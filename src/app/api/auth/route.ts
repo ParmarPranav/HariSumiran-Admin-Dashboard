@@ -130,28 +130,44 @@ export async function POST(req: Request) {
       });
 
       // 2. Create Corresponding Member Document for Devotee Directory & Sabha Pass
-      const newMember = await Member.create({
-        memberCode,
-        familyId: body.familyId || "FAM-IND-01",
-        familyName: body.familyName || `${devoteeName} Parivar`,
-        name: devoteeName,
-        gujaratiName: body.gujaratiName || "",
-        dob: body.dob || "15 Aug 2004",
-        gender: body.gender || "Male",
-        phone: cleanPhone,
-        email: body.email || "",
-        relationship: "Self",
-        zone: body.zone || "Nadiad Central",
-        area: body.area || "Station Road",
-        sabhaCategory: body.sabhaCategory || "Yuvak",
-        sevaSkills: body.sevaSkills || ["Devotee", "Youth Volunteer"],
-        attendanceStreak: 1,
-        verificationStatus: "Verified",
-        photoUrl: body.avatar || body.photoUrl || "",
-        communicationConsent: true,
-        photoConsent: true,
-        qrCode: `HS-DEVOTEE-${cleanPhone}`,
-      });
+      const resolvedGender = body.gender
+        ? (body.gender.toLowerCase() === "female" ? "Female" : "Male")
+        : "Male";
+
+      let resolvedSabhaCategory: any = "Youth Male";
+      const rawCat = (body.sabhaCategory || "").trim();
+      if (rawCat === "Yuvak" || rawCat === "Youth Male") resolvedSabhaCategory = "Youth Male";
+      else if (rawCat === "Yuvati" || rawCat === "Youth Female") resolvedSabhaCategory = "Youth Female";
+      else if (rawCat === "Mahila") resolvedSabhaCategory = "Mahila";
+      else if (rawCat) resolvedSabhaCategory = rawCat;
+
+      let newMember = null;
+      try {
+        newMember = await Member.create({
+          memberCode,
+          familyId: body.familyId || "FAM-IND-01",
+          familyName: body.familyName || `${devoteeName} Parivar`,
+          name: devoteeName,
+          gujaratiName: body.gujaratiName || "",
+          dob: body.dob || "15 Aug 2004",
+          gender: resolvedGender,
+          phone: cleanPhone,
+          email: body.email || "",
+          relationship: "Self",
+          zone: body.zone || "Nadiad Central",
+          area: body.area || "Station Road",
+          sabhaCategory: resolvedSabhaCategory,
+          sevaSkills: body.sevaSkills || ["Devotee", "Youth Volunteer"],
+          attendanceStreak: 1,
+          verificationStatus: "Verified",
+          photoUrl: body.avatar || body.photoUrl || "",
+          communicationConsent: true,
+          photoConsent: true,
+          qrCode: `HS-DEVOTEE-${cleanPhone}`,
+        });
+      } catch (memberErr: any) {
+        console.warn("[Member Directory Sync Warning]:", memberErr.message);
+      }
 
       // 3. Create AuditLog for Super Admin & Admin Panels
       try {
@@ -170,7 +186,7 @@ export async function POST(req: Request) {
 
       // 4. Send Instant Administrative Email Alert to Super Admin (pranavparmar1809@gmail.com)
       try {
-        await sendNewUserOnboardingAlert({
+        const mailResult = await sendNewUserOnboardingAlert({
           name: devoteeName,
           gujaratiName: body.gujaratiName,
           phone: cleanPhone,
@@ -182,11 +198,26 @@ export async function POST(req: Request) {
           responsibilities: newUser.responsibilities,
           zone: body.zone || "Nadiad Central",
           area: body.area || "Station Road",
-          sabhaCategory: body.sabhaCategory || "Yuvak",
+          sabhaCategory: resolvedSabhaCategory,
           department: "General Devotee",
           channel: "Direct App Registration",
           onboardedAt: newUser.createdAt,
         });
+
+        // Audit log entry for email delivery verification
+        try {
+          await AuditLog.create({
+            actorId: newUser._id.toString(),
+            actorName: devoteeName,
+            actorRole: "family_member",
+            action: "EMAIL_NOTIFICATION_SENT",
+            module: "Notifications",
+            recordId: newUser._id.toString(),
+            description: `Super Admin onboarding alert sent to pranavparmar1809@gmail.com for devotee ${devoteeName} (${mailResult.success ? "DELIVERED: " + (mailResult.messageId || "OK") : "FAILED: " + (mailResult.error || "unknown")})`,
+          });
+        } catch (auditErr) {
+          console.warn("Email audit log creation skipped:", auditErr);
+        }
       } catch (mailErr: any) {
         console.error("[Onboarding Email Alert Exception]:", mailErr?.message || mailErr);
       }
