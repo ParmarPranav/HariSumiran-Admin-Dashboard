@@ -107,7 +107,10 @@ export async function POST(req: Request) {
     await member.save();
 
     const presentCount = await SabhaAttendance.countDocuments({ sabhaId, status: "Present" });
-    await Sabha.findByIdAndUpdate(sabhaId, { presentCount, status: "Live" });
+    const currentSabha = await Sabha.findById(sabhaId);
+    const todayStr = new Date().toISOString().split("T")[0];
+    const newStatus = currentSabha && currentSabha.date === todayStr ? "Live" : (currentSabha?.status || "Scheduled");
+    await Sabha.findByIdAndUpdate(sabhaId, { presentCount, status: newStatus });
 
     return NextResponse.json({
       success: true,

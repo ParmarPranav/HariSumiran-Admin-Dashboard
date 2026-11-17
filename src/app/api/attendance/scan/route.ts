@@ -113,7 +113,10 @@ export async function POST(req: Request) {
         expectedCount = sabha.expectedCount || 120;
         sabha.presentCount = presentCount;
         if (sabha.status === "Scheduled") {
-          sabha.status = "Live";
+          const todayStr = new Date().toISOString().split("T")[0];
+          if (sabha.date === todayStr) {
+            sabha.status = "Live";
+          }
         }
         await sabha.save();
       }

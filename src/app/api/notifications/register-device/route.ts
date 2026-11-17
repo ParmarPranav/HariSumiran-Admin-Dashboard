@@ -12,8 +12,19 @@ export async function POST(req: Request) {
 
     await connectDB();
 
-    // Find user by userId or phone
-    const query = userId ? { _id: userId } : phone ? { phone } : { role: "mandir_admin" };
+    // Find user by valid ObjectId or cleaned phone regex
+    const cleanPhone = phone ? phone.toString().replace(/\D/g, "") : "";
+    const isValidObjectId = userId && /^[0-9a-fA-F]{24}$/.test(userId.toString());
+
+    let query: any;
+    if (isValidObjectId) {
+      query = { _id: userId };
+    } else if (cleanPhone) {
+      query = { phone: { $regex: cleanPhone.slice(-10) + "$" } };
+    } else {
+      query = { role: "mandir_admin" };
+    }
+
     const user = await User.findOne(query);
 
     if (!user) {
