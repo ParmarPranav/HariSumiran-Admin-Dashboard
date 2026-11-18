@@ -64,6 +64,7 @@ export interface IUser extends Document {
   mandir: string;
   avatar?: string;
   active: boolean;
+  fcmToken?: string;
   deviceTokens?: {
     token: string;
     platform: "ios" | "android" | "web";
@@ -123,6 +124,7 @@ const UserSchema = new Schema<IUser>({
   mandir: { type: String, default: "HariPrabodham, Nadiad" },
   avatar: { type: String },
   active: { type: Boolean, default: true },
+  fcmToken: { type: String },
   deviceTokens: [
     {
       token: { type: String },
@@ -999,4 +1001,60 @@ const OtpVerificationSchema = new Schema<IOtpVerification>({
 
 export const OtpVerification: Model<IOtpVerification> =
   mongoose.models.OtpVerification || mongoose.model<IOtpVerification>("OtpVerification", OtpVerificationSchema);
+
+// ==========================================
+// 21. Notification Broadcast Log
+// ==========================================
+export interface INotificationBroadcastLog extends Document {
+  title: string;
+  gujaratiTitle?: string;
+  body: string;
+  gujaratiBody?: string;
+  targetAudience: "all" | "role" | "custom";
+  targetRole?: string;
+  totalTokensTargeted: number;
+  totalUsersTargeted: number;
+  successCount: number;
+  failureCount: number;
+  invalidTokensCleaned?: number;
+  sentBy: {
+    name: string;
+    phone: string;
+    role: string;
+  };
+  deepLinkRoute?: string;
+  priority?: "high" | "normal";
+  status: "success" | "partial_failure" | "failed";
+  dispatchErrors?: string[];
+  createdAt: Date;
+}
+
+const NotificationBroadcastLogSchema = new Schema<INotificationBroadcastLog>({
+  title: { type: String, required: true },
+  gujaratiTitle: { type: String },
+  body: { type: String, required: true },
+  gujaratiBody: { type: String },
+  targetAudience: { type: String, enum: ["all", "role", "custom"], default: "all" },
+  targetRole: { type: String },
+  totalTokensTargeted: { type: Number, default: 0 },
+  totalUsersTargeted: { type: Number, default: 0 },
+  successCount: { type: Number, default: 0 },
+  failureCount: { type: Number, default: 0 },
+  invalidTokensCleaned: { type: Number, default: 0 },
+  sentBy: {
+    name: { type: String, default: "Super Admin" },
+    phone: { type: String, default: "" },
+    role: { type: String, default: "super_admin" },
+  },
+  deepLinkRoute: { type: String, default: "/" },
+  priority: { type: String, enum: ["high", "normal"], default: "high" },
+  status: { type: String, enum: ["success", "partial_failure", "failed"], default: "success" },
+  dispatchErrors: [{ type: String }],
+  createdAt: { type: Date, default: Date.now },
+});
+
+export const NotificationBroadcastLog: Model<INotificationBroadcastLog> =
+  mongoose.models.NotificationBroadcastLog ||
+  mongoose.model<INotificationBroadcastLog>("NotificationBroadcastLog", NotificationBroadcastLogSchema);
+
 

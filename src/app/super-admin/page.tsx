@@ -48,6 +48,13 @@ import {
   Download,
   CheckCircle,
   Clock,
+  BellRing,
+  Send,
+  Smartphone,
+  Radio,
+  Layers,
+  CheckCheck,
+  AlertCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 import { ResponsibilityType, SabhaCategoryType } from "@/models";
@@ -233,6 +240,101 @@ function SuperAdminContent() {
   const [roleToDelete, setRoleToDelete] = useState<{ index: number; title: string; type: string } | null>(null);
   const [deletingLoading, setDeletingLoading] = useState(false);
 
+  // Notification Broadcast State
+  const [notificationStats, setNotificationStats] = useState<{
+    totalUsers: number;
+    usersWithTokens: number;
+    totalTokens: number;
+    platformBreakdown: { android: number; ios: number; web: number; other: number };
+    roleBreakdown: Record<string, number>;
+    firebaseConnected: boolean;
+  } | null>(null);
+  const [notificationDevotees, setNotificationDevotees] = useState<any[]>([]);
+  const [notificationHistory, setNotificationHistory] = useState<any[]>([]);
+  const [notificationLoading, setNotificationLoading] = useState(false);
+  const [broadcastSubmitting, setBroadcastSubmitting] = useState(false);
+  const [confirmBroadcastOpen, setConfirmBroadcastOpen] = useState(false);
+
+  const [broadcastForm, setBroadcastForm] = useState({
+    title: "",
+    gujaratiTitle: "",
+    body: "",
+    gujaratiBody: "",
+    targetAudience: "all" as "all" | "role",
+    targetRole: "all",
+    deepLinkRoute: "/",
+    priority: "high" as "high" | "normal",
+  });
+
+  const fetchNotificationData = async () => {
+    setNotificationLoading(true);
+    try {
+      const res = await fetch("/api/super-admin/notifications");
+      const data = await res.json();
+      if (data.success) {
+        setNotificationStats(data.stats);
+        setNotificationDevotees(data.devotees || []);
+        setNotificationHistory(data.history || []);
+      }
+    } catch (e: any) {
+      console.error("Error fetching notification stats:", e);
+    } finally {
+      setNotificationLoading(false);
+    }
+  };
+
+  const handleSendBroadcast = async () => {
+    if (!broadcastForm.title.trim()) {
+      toast.error("Please enter a notification title");
+      return;
+    }
+    if (!broadcastForm.body.trim()) {
+      toast.error("Please enter a notification message body");
+      return;
+    }
+
+    setBroadcastSubmitting(true);
+    try {
+      const res = await fetch("/api/super-admin/notifications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...broadcastForm,
+          sentBy: {
+            name: currentUser?.name || "Super Admin",
+            phone: currentUser?.phone || "",
+            role: "super_admin",
+          },
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        toast.success("Push Notification Dispatched!", {
+          description: `Successfully delivered to ${data.successCount} of ${data.totalTokensTargeted} registered device(s).`,
+        });
+        setConfirmBroadcastOpen(false);
+        setBroadcastForm({
+          title: "",
+          gujaratiTitle: "",
+          body: "",
+          gujaratiBody: "",
+          targetAudience: "all",
+          targetRole: "all",
+          deepLinkRoute: "/",
+          priority: "high",
+        });
+        fetchNotificationData();
+      } else {
+        toast.error("Broadcast failed: " + (data.error || data.message || "Unknown error"));
+      }
+    } catch (err: any) {
+      toast.error("Error sending broadcast: " + err.message);
+    } finally {
+      setBroadcastSubmitting(false);
+    }
+  };
+
   // Fetch Users
   const fetchUsers = async () => {
     setLoading(true);
@@ -271,7 +373,14 @@ function SuperAdminContent() {
   useEffect(() => {
     fetchUsers();
     fetchAdminData();
+    fetchNotificationData();
   }, []);
+
+  useEffect(() => {
+    if (currentTab === "notifications") {
+      fetchNotificationData();
+    }
+  }, [currentTab]);
 
   const handleSeedDatabase = async () => {
     setResettingData(true);
@@ -630,6 +739,15 @@ function SuperAdminContent() {
     });
   }, [users, searchQuery, roleFilter]);
 
+  // Targeted Devotees count for push notifications
+  const targetedDevoteesCount = useMemo(() => {
+    if (!notificationStats) return 0;
+    if (broadcastForm.targetAudience === "all" || broadcastForm.targetRole === "all") {
+      return notificationStats.usersWithTokens;
+    }
+    return notificationStats.roleBreakdown?.[broadcastForm.targetRole] || 0;
+  }, [notificationStats, broadcastForm.targetAudience, broadcastForm.targetRole]);
+
   // Non-SuperAdmin View (Access Guard with instant switch persona for easy testing)
   if (!isSuperAdmin) {
     return (
@@ -698,6 +816,8 @@ function SuperAdminContent() {
                 <h1 className="font-heading text-2xl font-bold text-stone-900">
                   {currentTab === "permissions"
                     ? language === "gu" ? "પરવાનગી મેટ્રિક્સ" : "Role-Permission Matrix"
+                    : currentTab === "notifications"
+                    ? language === "gu" ? "પુશ નોટિફિકેશન પ્રસારણ" : "Push Notification Broadcast"
                     : currentTab === "audit"
                     ? language === "gu" ? "સિસ્ટમ ઓડિટ લોગ" : "System Audit Trail"
                     : currentTab === "system"
@@ -711,6 +831,8 @@ function SuperAdminContent() {
               <p className="text-xs text-stone-600 mt-0.5">
                 {currentTab === "permissions"
                   ? "Controls module visibility, action authorizations, and data masking levels"
+                  : currentTab === "notifications"
+                  ? "Broadcast real-time push alerts to devotees registered on HariSumiran Android & iOS apps"
                   : currentTab === "audit"
                   ? "Unmasked audit records and institutional security accountability"
                   : currentTab === "system"
@@ -725,10 +847,11 @@ function SuperAdminContent() {
           <Button
             size="md"
             variant="outline"
-            isLoading={loading || adminLoading}
+            isLoading={loading || adminLoading || notificationLoading}
             onClick={() => {
               fetchUsers();
               fetchAdminData();
+              fetchNotificationData();
             }}
             leftIcon={<RefreshCw className="h-4 w-4" />}
           >
@@ -1766,6 +1889,632 @@ function SuperAdminContent() {
       )}
 
       {/* ======================================================== */}
+      {/* TAB 5: PUSH NOTIFICATIONS BROADCAST HUB                  */}
+      {/* ======================================================== */}
+      {currentTab === "notifications" && (
+        <div className="space-y-6 relative z-10">
+          {/* Top KPI Telemetry Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+            {/* Metric 1: Reachable Devotees */}
+            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs rounded-3xl relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                  Reachable Devotees
+                </span>
+                <div className="h-8 w-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600">
+                  <Users className="h-4 w-4" />
+                </div>
+              </div>
+              <div className="mt-2 flex items-baseline gap-2">
+                <span className="font-display text-2xl font-black text-stone-900">
+                  {notificationStats?.usersWithTokens ?? 0}
+                </span>
+                <span className="text-xs text-stone-600">
+                  / {notificationStats?.totalUsers ?? 0} members
+                </span>
+              </div>
+              <div className="mt-1 text-[11px] text-emerald-700 font-semibold flex items-center gap-1">
+                <CheckCircle2 className="h-3 w-3" />
+                <span>Active app sessions</span>
+              </div>
+            </GlassCard>
+
+            {/* Metric 2: Registered FCM Tokens */}
+            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs rounded-3xl relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                  Registered Tokens
+                </span>
+                <div className="h-8 w-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+                  <Smartphone className="h-4 w-4" />
+                </div>
+              </div>
+              <div className="mt-2 flex items-baseline gap-2">
+                <span className="font-display text-2xl font-black text-stone-900">
+                  {notificationStats?.totalTokens ?? 0}
+                </span>
+                <span className="text-xs text-stone-600">device tokens</span>
+              </div>
+              <div className="mt-1 text-[11px] text-stone-600">
+                Auto-pruned upon bounce
+              </div>
+            </GlassCard>
+
+            {/* Metric 3: Device Platforms */}
+            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs rounded-3xl relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                  Device Platforms
+                </span>
+                <div className="h-8 w-8 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600">
+                  <Layers className="h-4 w-4" />
+                </div>
+              </div>
+              <div className="mt-2 flex items-center gap-1.5 flex-wrap">
+                <span className="px-2 py-0.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-bold">
+                  Android: {notificationStats?.platformBreakdown?.android ?? 0}
+                </span>
+                <span className="px-2 py-0.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 text-[10px] font-bold">
+                  iOS: {notificationStats?.platformBreakdown?.ios ?? 0}
+                </span>
+                {(notificationStats?.platformBreakdown?.web ?? 0) > 0 && (
+                  <span className="px-2 py-0.5 rounded-lg bg-purple-50 border border-purple-200 text-purple-800 text-[10px] font-bold">
+                    Web: {notificationStats?.platformBreakdown?.web ?? 0}
+                  </span>
+                )}
+              </div>
+              <div className="mt-1 text-[11px] text-stone-600">
+                Multi-platform gateway
+              </div>
+            </GlassCard>
+
+            {/* Metric 4: Firebase Admin Status */}
+            <GlassCard className="p-4 bg-white/95 border-stone-200/90 shadow-2xs rounded-3xl relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                  FCM Gateway
+                </span>
+                <div className={`h-8 w-8 rounded-xl ${
+                  notificationStats?.firebaseConnected
+                    ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-600"
+                    : "bg-rose-500/10 border border-rose-500/20 text-rose-600"
+                } flex items-center justify-center`}>
+                  <Radio className="h-4 w-4" />
+                </div>
+              </div>
+              <div className="mt-2 flex items-center gap-1.5">
+                <span className={`h-2.5 w-2.5 rounded-full ${
+                  notificationStats?.firebaseConnected ? "bg-emerald-500 animate-pulse" : "bg-rose-500"
+                }`} />
+                <span className="font-heading text-sm font-bold text-stone-900">
+                  {notificationStats?.firebaseConnected ? "Online & Ready" : "Unconnected"}
+                </span>
+              </div>
+              <div className="mt-1 text-[11px] font-mono text-stone-600 truncate">
+                harisumiran-9924c
+              </div>
+            </GlassCard>
+          </div>
+
+          {/* Main 2-Column Composer & Device Preview */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Left 7 Columns: Broadcast Composer Form */}
+            <GlassCard className="lg:col-span-7 p-6 bg-white/95 border-stone-200/90 shadow-2xs rounded-3xl space-y-5">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="h-8 w-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-700">
+                    <Send className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-base font-bold text-stone-900">
+                      Compose Push Broadcast
+                    </h3>
+                    <p className="text-xs text-stone-600">
+                      Dispatches high-priority push notifications to registered devices
+                    </p>
+                  </div>
+                </div>
+
+                <Badge variant="outline" size="sm" className="bg-amber-50 text-amber-900 border-amber-300 font-bold">
+                  {targetedDevoteesCount} Devotee(s) Selected
+                </Badge>
+              </div>
+
+              {/* Target Audience Segment */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-stone-700 uppercase tracking-wider block">
+                  Target Audience
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setBroadcastForm({ ...broadcastForm, targetAudience: "all", targetRole: "all" })}
+                    className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-2.5 ${
+                      broadcastForm.targetAudience === "all"
+                        ? "border-amber-500 bg-amber-50/70 shadow-xs ring-1 ring-amber-400"
+                        : "border-stone-200 bg-stone-50/50 hover:bg-stone-100/70"
+                    }`}
+                  >
+                    <div className={`h-4 w-4 rounded-full border mt-0.5 flex items-center justify-center ${
+                      broadcastForm.targetAudience === "all" ? "border-amber-600 bg-amber-600" : "border-stone-300 bg-white"
+                    }`}>
+                      {broadcastForm.targetAudience === "all" && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-stone-900 block">
+                        All Users with App (Default)
+                      </span>
+                      <span className="text-[11px] text-stone-600 block mt-0.5">
+                        Broadcasts to all devotees who have active device tokens ({notificationStats?.usersWithTokens ?? 0} devotees)
+                      </span>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setBroadcastForm({ ...broadcastForm, targetAudience: "role" })}
+                    className={`p-3 rounded-2xl border text-left transition-all flex items-start gap-2.5 ${
+                      broadcastForm.targetAudience === "role"
+                        ? "border-amber-500 bg-amber-50/70 shadow-xs ring-1 ring-amber-400"
+                        : "border-stone-200 bg-stone-50/50 hover:bg-stone-100/70"
+                    }`}
+                  >
+                    <div className={`h-4 w-4 rounded-full border mt-0.5 flex items-center justify-center ${
+                      broadcastForm.targetAudience === "role" ? "border-amber-600 bg-amber-600" : "border-stone-300 bg-white"
+                    }`}>
+                      {broadcastForm.targetAudience === "role" && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-stone-900 block">
+                        Target by Mandir Role
+                      </span>
+                      <span className="text-[11px] text-stone-600 block mt-0.5">
+                        Filter recipients by administrative or operational responsibility
+                      </span>
+                    </div>
+                  </button>
+                </div>
+
+                {/* Role Filter Dropdown if role mode selected */}
+                {broadcastForm.targetAudience === "role" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-3 bg-amber-50/50 rounded-2xl border border-amber-200 space-y-1.5 mt-2"
+                  >
+                    <label className="text-[11px] font-bold text-amber-900 uppercase tracking-wider block">
+                      Select Target Role
+                    </label>
+                    <select
+                      value={broadcastForm.targetRole}
+                      onChange={(e) => setBroadcastForm({ ...broadcastForm, targetRole: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl border border-amber-300 bg-white text-xs font-bold text-stone-800 focus:outline-hidden focus:border-amber-500 shadow-2xs"
+                    >
+                      <option value="all">All Devotees with Active Tokens</option>
+                      <option value="mandir_admin">Mandir Administrators ({notificationStats?.roleBreakdown?.mandir_admin ?? 0} with tokens)</option>
+                      <option value="super_admin">Super Administrators ({notificationStats?.roleBreakdown?.super_admin ?? 0} with tokens)</option>
+                      <option value="sabha_karyakarta">Sabha Karyakartas ({notificationStats?.roleBreakdown?.sabha_karyakarta ?? 0} with tokens)</option>
+                      <option value="thal_captain">Thal Captains ({notificationStats?.roleBreakdown?.thal_captain ?? 0} with tokens)</option>
+                      <option value="main_cook">Mahaprasad Kitchen Leads ({notificationStats?.roleBreakdown?.main_cook ?? 0} with tokens)</option>
+                      <option value="car_owner">Transport Drivers ({notificationStats?.roleBreakdown?.car_owner ?? 0} with tokens)</option>
+                      <option value="regular_member">Regular Members ({notificationStats?.roleBreakdown?.regular_member ?? 0} with tokens)</option>
+                    </select>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Title Section (Bilingual) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-stone-700 flex items-center justify-between">
+                    <span>Notification Title (English) *</span>
+                    <span className="text-[10px] text-stone-600 font-normal">{broadcastForm.title.length}/60</span>
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={60}
+                    value={broadcastForm.title}
+                    onChange={(e) => setBroadcastForm({ ...broadcastForm, title: e.target.value })}
+                    placeholder="e.g., Sunday Sabha Timing Changed"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-hidden focus:border-amber-500 shadow-2xs bg-white"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-stone-700 flex items-center justify-between">
+                    <span>Title (ગુજરાતી) (Optional)</span>
+                    <span className="text-[10px] text-stone-600 font-normal">{broadcastForm.gujaratiTitle.length}/60</span>
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={60}
+                    value={broadcastForm.gujaratiTitle}
+                    onChange={(e) => setBroadcastForm({ ...broadcastForm, gujaratiTitle: e.target.value })}
+                    placeholder="દા.ત., રવિવાર સભા સમય બદલાયો છે"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-hidden focus:border-amber-500 shadow-2xs bg-white"
+                  />
+                </div>
+              </div>
+
+              {/* Message Body Section (Bilingual) */}
+              <div className="space-y-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-stone-700 flex items-center justify-between">
+                    <span>Message Body (English) *</span>
+                    <span className="text-[10px] text-stone-600 font-normal">{broadcastForm.body.length}/240</span>
+                  </label>
+                  <textarea
+                    rows={3}
+                    maxLength={240}
+                    value={broadcastForm.body}
+                    onChange={(e) => setBroadcastForm({ ...broadcastForm, body: e.target.value })}
+                    placeholder="Type the announcement details here. This message will be pushed instantly to all active devices."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-hidden focus:border-amber-500 shadow-2xs bg-white resize-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-stone-700 flex items-center justify-between">
+                    <span>Message Body (ગુજરાતી) (Optional)</span>
+                    <span className="text-[10px] text-stone-600 font-normal">{broadcastForm.gujaratiBody.length}/240</span>
+                  </label>
+                  <textarea
+                    rows={2}
+                    maxLength={240}
+                    value={broadcastForm.gujaratiBody}
+                    onChange={(e) => setBroadcastForm({ ...broadcastForm, gujaratiBody: e.target.value })}
+                    placeholder="ગુજરાતીમાં વિગતો દાખલ કરો..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-hidden focus:border-amber-500 shadow-2xs bg-white resize-none"
+                  />
+                </div>
+              </div>
+
+              {/* Action Route & Priority Controls */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-stone-700 block">
+                    In-App Deep Link Screen
+                  </label>
+                  <select
+                    value={broadcastForm.deepLinkRoute}
+                    onChange={(e) => setBroadcastForm({ ...broadcastForm, deepLinkRoute: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl border border-stone-300 bg-white text-xs text-stone-800 focus:outline-hidden focus:border-amber-500 shadow-2xs"
+                  >
+                    <option value="/">Home Dashboard (/)</option>
+                    <option value="/sabha">Sabha Schedule &amp; Attendance (/sabha)</option>
+                    <option value="/thal">Family Thal Rotation (/thal)</option>
+                    <option value="/announcements">Mandir Announcements (/announcements)</option>
+                    <option value="/seva">Seva Opportunities (/seva)</option>
+                    <option value="/kitchen">Mahaprasad Kitchen (/kitchen)</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-stone-700 block">
+                    Delivery Priority
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setBroadcastForm({ ...broadcastForm, priority: "high" })}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all text-center ${
+                        broadcastForm.priority === "high"
+                          ? "bg-amber-600 text-white border-amber-600 shadow-xs"
+                          : "bg-white text-stone-700 border-stone-300 hover:bg-stone-50"
+                      }`}
+                    >
+                      High (Heads-up)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setBroadcastForm({ ...broadcastForm, priority: "normal" })}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all text-center ${
+                        broadcastForm.priority === "normal"
+                          ? "bg-amber-600 text-white border-amber-600 shadow-xs"
+                          : "bg-white text-stone-700 border-stone-300 hover:bg-stone-50"
+                      }`}
+                    >
+                      Normal (Quiet)
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Form Action Buttons */}
+              <div className="flex items-center justify-between pt-4 border-t border-stone-200">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="md"
+                  onClick={() =>
+                    setBroadcastForm({
+                      title: "",
+                      gujaratiTitle: "",
+                      body: "",
+                      gujaratiBody: "",
+                      targetAudience: "all",
+                      targetRole: "all",
+                      deepLinkRoute: "/",
+                      priority: "high",
+                    })
+                  }
+                  disabled={broadcastSubmitting}
+                >
+                  Clear Form
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="primary"
+                  size="md"
+                  disabled={!broadcastForm.title.trim() || !broadcastForm.body.trim() || broadcastSubmitting}
+                  onClick={() => setConfirmBroadcastOpen(true)}
+                  leftIcon={<Send className="h-4 w-4" />}
+                  className="shadow-md shadow-amber-600/25"
+                >
+                  Review &amp; Dispatch Broadcast
+                </Button>
+              </div>
+            </GlassCard>
+
+            {/* Right 5 Columns: Smartphone Lockscreen Preview & Audience Roster */}
+            <div className="lg:col-span-5 space-y-5">
+              {/* Device Mockup */}
+              <GlassCard className="p-5 bg-gradient-to-b from-stone-900 to-stone-950 text-white border-stone-800 shadow-xl rounded-3xl space-y-4">
+                <div className="flex items-center justify-between text-stone-400 text-xs border-b border-stone-800 pb-3">
+                  <div className="flex items-center gap-1.5 font-semibold text-[11px]">
+                    <Smartphone className="h-3.5 w-3.5 text-amber-400" />
+                    <span>Real-time Lockscreen Simulation</span>
+                  </div>
+                  <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded-md bg-stone-800 text-stone-300">
+                    Live Preview
+                  </span>
+                </div>
+
+                {/* Smartphone Bezel Card */}
+                <div className="rounded-2xl bg-stone-900/90 border border-stone-700/60 p-4 space-y-3 relative overflow-hidden backdrop-blur-md">
+                  {/* Phone Status Bar */}
+                  <div className="flex items-center justify-between text-[10px] text-stone-400 font-mono px-1">
+                    <span>9:41</span>
+                    <div className="flex items-center gap-1.5">
+                      <Radio className="h-2.5 w-2.5" />
+                      <span>5G</span>
+                      <div className="w-4 h-2 border border-stone-400 rounded-2xs p-0.2">
+                        <div className="h-full w-3/4 bg-white rounded-3xs" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Push Notification Card (iOS / Android style) */}
+                  <motion.div
+                    key={broadcastForm.title + broadcastForm.body}
+                    initial={{ opacity: 0.8, y: -2 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-3.5 rounded-xl bg-white/95 text-stone-900 shadow-lg border border-white/20 space-y-2 backdrop-blur-md"
+                  >
+                    {/* Header Row */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="h-5 w-5 rounded-md bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-2xs font-serif text-[11px] font-black">
+                          ॐ
+                        </div>
+                        <span className="font-bold text-[11px] text-stone-900 tracking-tight">
+                          HariSumiran
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-stone-600 font-medium">now</span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="space-y-1">
+                      <h5 className="font-heading text-xs font-black text-stone-900 leading-tight">
+                        {broadcastForm.title.trim() || "Sunday Sabha Notification Title"}
+                      </h5>
+                      {broadcastForm.gujaratiTitle.trim() && (
+                        <p className="text-[11px] font-bold text-amber-900 leading-tight">
+                          {broadcastForm.gujaratiTitle.trim()}
+                        </p>
+                      )}
+                      <p className="text-[11px] text-stone-600 leading-snug line-clamp-3">
+                        {broadcastForm.body.trim() ||
+                          "Devotees are cordially invited to participate in this week's sacred sabha and mahaprasad..."}
+                      </p>
+                      {broadcastForm.gujaratiBody.trim() && (
+                        <p className="text-[11px] text-stone-600 leading-snug line-clamp-2 pt-0.5">
+                          {broadcastForm.gujaratiBody.trim()}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Action Route Pill */}
+                    <div className="pt-1.5 flex items-center justify-between border-t border-stone-100 text-[10px] text-amber-700 font-semibold">
+                      <span>Tap to open screen</span>
+                      <span className="font-mono">{broadcastForm.deepLinkRoute}</span>
+                    </div>
+                  </motion.div>
+                </div>
+
+                <p className="text-[11px] text-stone-400 text-center leading-relaxed">
+                  Renders natively across Android notification shade, iOS lockscreen banners, and Apple Watch companion displays.
+                </p>
+              </GlassCard>
+
+              {/* Connected Devotee Accounts Card */}
+              <GlassCard className="p-5 bg-white/95 border-stone-200/90 shadow-2xs rounded-3xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Smartphone className="h-4 w-4 text-emerald-600" />
+                    <h4 className="font-heading text-xs font-bold text-stone-900 uppercase tracking-wider">
+                      Targetable Devotee Devices ({notificationDevotees.length})
+                    </h4>
+                  </div>
+                  <Badge variant="outline" size="sm" className="bg-emerald-50 text-emerald-800 border-emerald-300 font-bold">
+                    Live Tokens
+                  </Badge>
+                </div>
+
+                <div className="divide-y divide-stone-100 max-h-56 overflow-y-auto pr-1">
+                  {notificationDevotees.length === 0 ? (
+                    <div className="p-4 text-center text-xs text-stone-600">
+                      No active FCM devices registered yet. Users will appear here when they log into the app.
+                    </div>
+                  ) : (
+                    notificationDevotees.map((dev) => (
+                      <div key={dev.id} className="py-2.5 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <UserAvatar name={dev.name} role={dev.role} size="sm" />
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-stone-900 truncate">{dev.name}</p>
+                            <p className="text-[10px] text-stone-600 font-mono">
+                              +{dev.phone.slice(0, 4)}••••{dev.phone.slice(-3)}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          {dev.platforms.map((p: string) => (
+                            <span
+                              key={p}
+                              className="px-1.5 py-0.5 rounded-md bg-stone-100 text-stone-700 text-[9px] font-mono font-bold uppercase"
+                            >
+                              {p}
+                            </span>
+                          ))}
+                          <span className="px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                            {dev.tokensCount} token{dev.tokensCount > 1 ? "s" : ""}
+                          </span>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </GlassCard>
+            </div>
+          </div>
+
+          {/* Broadcast History & Delivery Log Table */}
+          <GlassCard className="p-6 bg-white/95 border-stone-200/90 shadow-2xs rounded-3xl space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="h-8 w-8 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-700">
+                  <History className="h-4 w-4" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-base font-bold text-stone-900">
+                    Broadcast Dispatch History
+                  </h3>
+                  <p className="text-xs text-stone-600">
+                    Audited record of all alerts, delivery rates, and automatic token hygiene
+                  </p>
+                </div>
+              </div>
+
+              <span className="text-xs text-stone-600">
+                Showing last {notificationHistory.length} broadcasts
+              </span>
+            </div>
+
+            {notificationHistory.length === 0 ? (
+              <div className="p-8 text-center space-y-2">
+                <BellRing className="h-8 w-8 text-stone-300 mx-auto" />
+                <p className="text-sm font-semibold text-stone-700">No broadcasts recorded yet</p>
+                <p className="text-xs text-stone-600">
+                  Use the composer above to dispatch your first push notification to registered devices.
+                </p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-stone-200 text-[11px] font-bold uppercase text-stone-500 tracking-wider">
+                      <th className="py-2.5 px-3">Date &amp; Time</th>
+                      <th className="py-2.5 px-3">Notification Content</th>
+                      <th className="py-2.5 px-3">Audience Target</th>
+                      <th className="py-2.5 px-3 text-center">Delivery Success</th>
+                      <th className="py-2.5 px-3">Status</th>
+                      <th className="py-2.5 px-3">Sent By</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-stone-100">
+                    {notificationHistory.map((item) => (
+                      <tr key={item._id} className="hover:bg-amber-50/40 transition-colors">
+                        <td className="py-3 px-3 whitespace-nowrap">
+                          <span className="font-mono text-stone-800 font-semibold block">
+                            {new Date(item.createdAt).toLocaleDateString("en-IN", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                          </span>
+                          <span className="text-[10px] text-stone-600 font-mono block">
+                            {new Date(item.createdAt).toLocaleTimeString("en-IN", {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </span>
+                        </td>
+
+                        <td className="py-3 px-3 max-w-xs">
+                          <p className="font-bold text-stone-900 truncate">{item.title}</p>
+                          <p className="text-[11px] text-stone-600 truncate mt-0.5">{item.body}</p>
+                          {item.deepLinkRoute && item.deepLinkRoute !== "/" && (
+                            <span className="text-[10px] text-amber-700 font-mono mt-1 inline-block">
+                              Target: {item.deepLinkRoute}
+                            </span>
+                          )}
+                        </td>
+
+                        <td className="py-3 px-3 whitespace-nowrap">
+                          <span className="px-2 py-0.5 rounded-lg bg-stone-100 text-stone-800 text-[11px] font-bold uppercase block w-fit">
+                            {item.targetAudience === "all" ? "All Devotees" : item.targetRole || "Role Segment"}
+                          </span>
+                          <span className="text-[10px] text-stone-600 mt-0.5 block">
+                            {item.totalTokensTargeted} tokens targeted
+                          </span>
+                        </td>
+
+                        <td className="py-3 px-3 text-center whitespace-nowrap">
+                          <span className="font-mono font-bold text-emerald-700 block">
+                            {item.successCount} / {item.totalTokensTargeted}
+                          </span>
+                          {item.invalidTokensCleaned > 0 && (
+                            <span className="text-[10px] text-rose-600 block">
+                              Pruned {item.invalidTokensCleaned} dead
+                            </span>
+                          )}
+                        </td>
+
+                        <td className="py-3 px-3 whitespace-nowrap">
+                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${
+                            item.status === "success"
+                              ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                              : item.status === "partial_failure"
+                              ? "bg-amber-100 text-amber-800 border border-amber-200"
+                              : "bg-rose-100 text-rose-800 border border-rose-200"
+                          }`}>
+                            {item.status.replace("_", " ")}
+                          </span>
+                        </td>
+
+                        <td className="py-3 px-3 whitespace-nowrap">
+                          <span className="text-stone-800 font-semibold block">
+                            {item.sentBy?.name || "Super Admin"}
+                          </span>
+                          <span className="text-[10px] text-stone-600 block">
+                            {item.sentBy?.role || "super_admin"}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </GlassCard>
+        </div>
+      )}
+
+      {/* ======================================================== */}
       {/* ROLE MANAGEMENT MODAL (Assign, Update, Delete)            */}
       {/* ======================================================== */}
       {selectedUser && (
@@ -2410,6 +3159,86 @@ function SuperAdminContent() {
           confirmWord="RESET"
           actionLabel="Execute Reset"
         />
+      )}
+
+      {/* Broadcast Dispatch Confirmation Modal */}
+      {confirmBroadcastOpen && (
+        <Modal
+          isOpen={confirmBroadcastOpen}
+          onClose={() => setConfirmBroadcastOpen(false)}
+          maxWidth="md"
+        >
+          <div className="space-y-4 p-1">
+            <div className="flex items-center gap-3 border-b border-stone-200 pb-3">
+              <div className="h-10 w-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center shrink-0">
+                <Send className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-heading text-base font-bold text-stone-900">
+                  Confirm Push Broadcast
+                </h3>
+                <p className="text-xs text-stone-600">
+                  Root Level Notification Dispatch
+                </p>
+              </div>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-stone-600 font-medium">Target Audience:</span>
+                <span className="font-bold text-stone-900 uppercase">
+                  {broadcastForm.targetAudience === "all" ? "All Active App Users" : broadcastForm.targetRole}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-stone-600 font-medium">Reachable Recipients:</span>
+                <span className="font-bold text-emerald-700">
+                  {targetedDevoteesCount} devotee(s) ({notificationStats?.totalTokens ?? 0} tokens)
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-stone-600 font-medium">In-App Screen:</span>
+                <span className="font-mono text-stone-800">{broadcastForm.deepLinkRoute}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-stone-600 font-medium">Priority:</span>
+                <span className="font-bold text-amber-800 uppercase">{broadcastForm.priority}</span>
+              </div>
+            </div>
+
+            <div className="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs space-y-1">
+              <p className="font-bold text-stone-900">{broadcastForm.title}</p>
+              <p className="text-stone-600 leading-relaxed">{broadcastForm.body}</p>
+            </div>
+
+            <p className="text-[11px] text-stone-600 leading-relaxed">
+              Clicking <strong>"Dispatch Now"</strong> will immediately transmit push packets via Firebase Cloud Messaging gateway to all selected devotee hardware.
+            </p>
+
+            <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-stone-200">
+              <Button
+                type="button"
+                variant="outline"
+                size="md"
+                onClick={() => setConfirmBroadcastOpen(false)}
+                disabled={broadcastSubmitting}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                size="md"
+                onClick={handleSendBroadcast}
+                isLoading={broadcastSubmitting}
+                leftIcon={<Send className="h-4 w-4" />}
+                className="shadow-md shadow-amber-600/25"
+              >
+                Dispatch Now
+              </Button>
+            </div>
+          </div>
+        </Modal>
       )}
     </div>
   );

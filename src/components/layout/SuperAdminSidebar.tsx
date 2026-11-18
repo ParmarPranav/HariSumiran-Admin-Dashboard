@@ -19,6 +19,7 @@ import {
   Sparkles,
   Lock,
   Cpu,
+  BellRing,
 } from "lucide-react";
 
 export function SuperAdminSidebar() {
@@ -45,6 +46,14 @@ export function SuperAdminSidebar() {
       gujaratiLabel: "ભૂમિકા અને પરવાનગી મેટ્રિક્સ",
       href: "/super-admin?tab=permissions",
       icon: ShieldAlert,
+    },
+    {
+      id: "notifications",
+      label: "Push Notifications",
+      gujaratiLabel: "પુશ નોટિફિકેશન પ્રસારણ",
+      href: "/super-admin?tab=notifications",
+      icon: BellRing,
+      badge: "FCM",
     },
     {
       id: "audit",
