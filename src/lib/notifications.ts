@@ -1,6 +1,6 @@
 import { connectDB } from "@/lib/db";
 import { User, NotificationBroadcastLog } from "@/models";
-import { getFCM } from "@/lib/firebaseAdmin";
+import { getFCM, getFirebaseAdminStatus } from "@/lib/firebaseAdmin";
 import { MulticastMessage } from "firebase-admin/messaging";
 
 export interface PushNotificationPayload {
@@ -83,10 +83,12 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
   try {
     await connectDB();
     const fcm = getFCM();
+    const fcmStatus = getFirebaseAdminStatus();
 
     if (!fcm) {
       throw new Error(
-        "Firebase Admin Messaging is not initialized. Please check FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY."
+        fcmStatus.error ||
+          "Firebase Admin Messaging is not initialized. Please verify FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY."
       );
     }
 

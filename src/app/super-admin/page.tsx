@@ -248,6 +248,13 @@ function SuperAdminContent() {
     platformBreakdown: { android: number; ios: number; web: number; other: number };
     roleBreakdown: Record<string, number>;
     firebaseConnected: boolean;
+    firebaseStatus?: {
+      connected: boolean;
+      projectId: string | null;
+      clientEmail: string | null;
+      hasPrivateKey: boolean;
+      error: string | null;
+    };
   } | null>(null);
   const [notificationDevotees, setNotificationDevotees] = useState<any[]>([]);
   const [notificationHistory, setNotificationHistory] = useState<any[]>([]);
@@ -1991,8 +1998,13 @@ function SuperAdminContent() {
                 </span>
               </div>
               <div className="mt-1 text-[11px] font-mono text-stone-600 truncate">
-                harisumiran-9924c
+                {notificationStats?.firebaseStatus?.projectId || "harisumiran-9924c"}
               </div>
+              {notificationStats && !notificationStats.firebaseConnected && notificationStats.firebaseStatus?.error && (
+                <p className="mt-1 text-[10px] text-rose-600 line-clamp-2 leading-tight">
+                  {notificationStats.firebaseStatus.error}
+                </p>
+              )}
             </GlassCard>
           </div>
 
@@ -2019,6 +2031,19 @@ function SuperAdminContent() {
                   {targetedDevoteesCount} Devotee(s) Selected
                 </Badge>
               </div>
+
+              {notificationStats && !notificationStats.firebaseConnected && (
+                <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-300 flex items-start gap-3 text-xs text-amber-900">
+                  <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <p className="font-bold">Firebase Admin Credentials Notice</p>
+                    <p className="text-[11px] text-amber-800 leading-relaxed">
+                      {notificationStats.firebaseStatus?.error ||
+                        "If you just added the environment variables to Vercel, please redeploy in your Vercel dashboard to apply them."}
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Target Audience Segment */}
               <div className="space-y-2">

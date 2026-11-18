@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { User, NotificationBroadcastLog } from "@/models";
 import { broadcastNotification } from "@/lib/notifications";
-import { getFirebaseAdminApp } from "@/lib/firebaseAdmin";
+import { getFirebaseAdminApp, getFirebaseAdminStatus } from "@/lib/firebaseAdmin";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET() {
   try {
@@ -85,7 +88,7 @@ export async function GET() {
       }
     });
 
-    const isFirebaseConfigured = !!getFirebaseAdminApp();
+    const fcmStatus = getFirebaseAdminStatus();
 
     // Fetch past broadcasts
     const history = await NotificationBroadcastLog.find()
@@ -101,7 +104,8 @@ export async function GET() {
         totalTokens: totalTokensCount,
         platformBreakdown,
         roleBreakdown: roleTokenCounts,
-        firebaseConnected: isFirebaseConfigured,
+        firebaseConnected: fcmStatus.connected,
+        firebaseStatus: fcmStatus,
       },
       devotees: tokenDevotees,
       history,
