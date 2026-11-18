@@ -245,8 +245,7 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
 
             if (
               errorCode === "messaging/invalid-registration-token" ||
-              errorCode === "messaging/registration-token-not-registered" ||
-              errorCode === "messaging/mismatched-credential"
+              errorCode === "messaging/registration-token-not-registered"
             ) {
               deadTokensToClean.push(token);
             }
