@@ -1,5 +1,7 @@
-import { getApps, initializeApp, cert, App, ServiceAccount } from "firebase-admin/app";
-import { getMessaging, Messaging } from "firebase-admin/messaging";
+import { getApps, initializeApp, cert } from "firebase-admin/app";
+import type { App, ServiceAccount } from "firebase-admin/app";
+import { getMessaging } from "firebase-admin/messaging";
+import type { Messaging } from "firebase-admin/messaging";
 import { createPrivateKey } from "crypto";
 import fs from "fs";
 import path from "path";
