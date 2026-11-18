@@ -28,6 +28,8 @@ import { cn } from "@/lib/utils";
 import { initialUsers } from "@/lib/seedData";
 import { Modal } from "@/components/ui/Modal";
 import { UserAvatar } from "@/components/ui/UserAvatar";
+import { usePwa } from "@/components/pwa/PwaManager";
+import { Smartphone } from "lucide-react";
 import { toast } from "sonner";
 
 export function Header() {
@@ -45,6 +47,7 @@ export function Header() {
     setCommandPaletteOpen,
     t,
   } = useApp();
+  const { isStandalone, promptInstall } = usePwa();
 
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -390,6 +393,18 @@ export function Header() {
             </>
           )}
         </div>
+
+        {/* PWA Phone Install Button */}
+        {!isStandalone && (
+          <button
+            onClick={promptInstall}
+            className="flex h-8 items-center gap-1.5 rounded-xl border border-amber-300 bg-amber-50 px-2.5 text-[11px] font-bold text-amber-900 hover:bg-amber-100 transition-all shadow-2xs"
+            title="Install HariSumiran PWA App"
+          >
+            <Smartphone className="h-3.5 w-3.5 text-amber-600" />
+            <span className="hidden sm:inline">Install App</span>
+          </button>
+        )}
 
         {/* Language Toggle Capsule (EN / GU) */}
         <div className="flex items-center p-0.5 rounded-2xl bg-stone-100 border border-stone-200/80 shadow-inner">

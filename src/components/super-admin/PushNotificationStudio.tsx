@@ -152,11 +152,26 @@ const PRESET_TEMPLATES = [
     isFullScreen: false,
     alertType: "general" as const,
   },
+  {
+    id: "new_onboarding",
+    label: "New Devotee Onboarded",
+    gujaratiLabel: "નવા ભક્ત જોડાણ સૂચના",
+    title: "New Devotee Onboarded: Jayesh Patel",
+    gujaratiTitle: "નવા હરિભક્ત જોડાયા: જયેશ પટેલ",
+    body: "Jayesh Patel (+91 98250 12345) registered in Mandir Directory. Parivar: Patel Household.",
+    gujaratiBody: "જયેશ પટેલ (+91 98250 12345) હરિપ્રબોધમ્, નડિયાદમાં સફળતાપૂર્વક જોડાયા છે.",
+    route: "/super-admin?tab=users",
+    priority: "high" as const,
+    icon: Users,
+    isFullScreen: false,
+    alertType: "custom" as const,
+  },
 ];
 
 // Deep Link Route Options with descriptions and icon metadata
 const DEEP_LINK_ROUTES = [
   { value: "/", label: "Home Dashboard", gujarati: "મુખ્ય પેજ", desc: "Default landing screen" },
+  { value: "/super-admin?tab=users", label: "Devotee & Role Manager", gujarati: "ભક્ત અને રોલ મેનેજર", desc: "Opens Super Admin Devotee Directory" },
   { value: "/sabha", label: "Sabha Schedule & Attendance", gujarati: "સભા કાર્યક્રમ", desc: "Opens sabha details & QR check-in" },
   { value: "/thal", label: "Family Thal Rotation", gujarati: "થાળ સેવા રોટેશન", desc: "Opens thal captain parivar schedule" },
   { value: "/announcements", label: "Mandir Announcements", gujarati: "મંદિર જાહેરાતો", desc: "Opens official satsang notices" },

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { User } from "@/models";
-import { sendNewUserOnboardingAlert } from "@/lib/email";
+import { notifySuperAdminsNewUser } from "@/lib/notifications";
 
 export async function POST(req: Request) {
   try {
@@ -27,9 +27,9 @@ export async function POST(req: Request) {
         active: true,
       });
 
-      // Send Super Admin Onboarding Alert
+      // Send Super Admin Onboarding Alert (FCM Push + Email)
       try {
-        await sendNewUserOnboardingAlert({
+        await notifySuperAdminsNewUser({
           name: user.name,
           phone: uniquePhone,
           email: user.email,
@@ -37,8 +37,8 @@ export async function POST(req: Request) {
           channel: "Apple Sign-In",
           onboardedAt: user.createdAt,
         });
-      } catch (mailErr: any) {
-        console.error("[Apple Onboarding Alert Exception]:", mailErr?.message || mailErr);
+      } catch (notifyErr: any) {
+        console.error("[Apple Onboarding Alert Exception]:", notifyErr?.message || notifyErr);
       }
     }
 

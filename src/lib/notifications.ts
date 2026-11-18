@@ -383,3 +383,93 @@ export async function sendPushNotificationPayload(payload: PushNotificationPaylo
     return { success: false, error: error.message };
   }
 }
+
+export interface NewUserOnboardingNotificationDetails {
+  name: string;
+  gujaratiName?: string;
+  phone: string;
+  email?: string;
+  memberId?: string;
+  familyId?: string;
+  familyName?: string;
+  role?: string;
+  responsibilities?: any[];
+  zone?: string;
+  area?: string;
+  sabhaCategory?: string;
+  department?: string;
+  channel?: string;
+  onboardedAt?: Date;
+}
+
+/**
+ * Triggers instant real-time notifications to Super Admins when a new devotee is onboarded:
+ * 1. Dispatches high-priority FCM Push Notification to all active Super Admin hardware devices
+ * 2. Dispatches institutional HTML email alert to the Super Admin inbox
+ */
+export async function notifySuperAdminsNewUser(
+  details: NewUserOnboardingNotificationDetails
+) {
+  const cleanPhone = (details.phone || "").replace(/\D/g, "");
+  const formattedPhone =
+    cleanPhone.length === 10
+      ? `+91 ${cleanPhone.slice(0, 5)} ${cleanPhone.slice(5)}`
+      : `+91 ${cleanPhone}`;
+
+  const fcmTitle = `New Devotee Onboarded: ${details.name}`;
+  const fcmGujaratiTitle = details.gujaratiName
+    ? `નવા હરિભક્ત જોડાયા: ${details.gujaratiName}`
+    : `નવા હરિભક્ત જોડાયા: ${details.name}`;
+
+  const fcmBody = `${details.name} (${formattedPhone}) registered in the Mandir directory. Parivar: ${
+    details.familyName || details.name + " Parivar"
+  }.`;
+  const fcmGujaratiBody = `${details.name} (${formattedPhone}) હરિપ્રબોધમ્, નડિયાદમાં જોડાયા છે.`;
+
+  let pushSuccessCount = 0;
+
+  try {
+    const pushResult = await broadcastNotification({
+      title: fcmTitle,
+      gujaratiTitle: fcmGujaratiTitle,
+      body: fcmBody,
+      gujaratiBody: fcmGujaratiBody,
+      targetAudience: "role",
+      targetRole: "super_admin",
+      deepLinkRoute: "/super-admin",
+      priority: "high",
+      sentBy: {
+        name: "Onboarding System Bot",
+        phone: "",
+        role: "system",
+      },
+      customData: {
+        type: "NEW_DEVOTEE_ONBOARDED",
+        devoteeName: details.name,
+        devoteePhone: cleanPhone,
+        memberId: details.memberId || "",
+        channel: details.channel || "App Registration",
+      },
+    });
+
+    pushSuccessCount = pushResult.successCount;
+    console.log(
+      `[New Devotee Onboarding Push]: Dispatched to ${pushSuccessCount} Super Admin device(s).`
+    );
+  } catch (pushErr: any) {
+    console.error("[New Devotee Onboarding Push Error]:", pushErr?.message || pushErr);
+  }
+
+  // Also dispatch institutional email alert
+  try {
+    const { sendNewUserOnboardingAlert } = await import("@/lib/email");
+    await sendNewUserOnboardingAlert(details as any);
+  } catch (emailErr: any) {
+    console.error("[New Devotee Onboarding Email Error]:", emailErr?.message || emailErr);
+  }
+
+  return {
+    success: true,
+    pushDispatchedCount: pushSuccessCount,
+  };
+}

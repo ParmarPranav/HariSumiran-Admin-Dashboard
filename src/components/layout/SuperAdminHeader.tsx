@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
+import { usePwa } from "@/components/pwa/PwaManager";
 import { useRouter } from "next/navigation";
 import { UserAvatar } from "@/components/ui/UserAvatar";
 import { motion } from "framer-motion";
@@ -13,11 +14,14 @@ import {
   Activity,
   Server,
   Zap,
+  Smartphone,
+  BellRing,
 } from "lucide-react";
 
 export function SuperAdminHeader() {
   const router = useRouter();
   const { user, language, setLanguage, logout } = useApp();
+  const { isStandalone, promptInstall, pushPermission, requestPushPermission } = usePwa();
   const [latency, setLatency] = useState(18);
 
   // Subtle real-time ping fluctuation simulating live telemetry
@@ -70,7 +74,36 @@ export function SuperAdminHeader() {
       </div>
 
       {/* Right: Controls & Profile */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-2 sm:gap-2.5">
+        {/* PWA Phone Install Action (Hidden if already in Standalone App mode) */}
+        {!isStandalone && (
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={promptInstall}
+            className="flex h-9 items-center gap-1.5 rounded-xl border border-amber-300 bg-amber-50/80 px-2.5 sm:px-3 text-xs font-bold text-amber-900 hover:bg-amber-100 transition-all shadow-2xs"
+            title="Install App on Phone"
+          >
+            <Smartphone className="h-3.5 w-3.5 text-amber-700" />
+            <span className="hidden sm:inline text-[11px]">Install App</span>
+            <span className="sm:hidden text-[11px]">Install</span>
+          </motion.button>
+        )}
+
+        {/* Enable Push Notifications button if not yet granted */}
+        {pushPermission !== "granted" && (
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={requestPushPermission}
+            className="flex h-9 items-center gap-1.5 rounded-xl border border-stone-200 bg-white px-2.5 sm:px-3 text-xs font-semibold text-stone-700 hover:bg-stone-50 transition-all shadow-2xs"
+            title="Enable Onboarding Notifications"
+          >
+            <BellRing className="h-3.5 w-3.5 text-amber-600 animate-pulse" />
+            <span className="hidden md:inline text-[11px]">Enable Alerts</span>
+          </motion.button>
+        )}
+
         {/* Language Switcher */}
         <motion.button
           whileHover={{ scale: 1.03 }}

@@ -5,6 +5,7 @@ import { initialUsers } from "@/lib/seedData";
 import { resolveUserScope } from "@/lib/authScope";
 import { sendWhatsAppOtp } from "@/lib/whatsapp";
 import { sendEmailOtp, sendNewUserOnboardingAlert } from "@/lib/email";
+import { notifySuperAdminsNewUser } from "@/lib/notifications";
 
 export async function POST(req: Request) {
   try {
@@ -184,9 +185,9 @@ export async function POST(req: Request) {
         console.warn("Audit log creation skipped:", auditErr);
       }
 
-      // 4. Send Instant Administrative Email Alert to Super Admin (pranavparmar1809@gmail.com)
+      // 4. Send Instant Push & Email Alerts to Super Admin
       try {
-        const mailResult = await sendNewUserOnboardingAlert({
+        await notifySuperAdminsNewUser({
           name: devoteeName,
           gujaratiName: body.gujaratiName,
           phone: cleanPhone,
@@ -204,22 +205,22 @@ export async function POST(req: Request) {
           onboardedAt: newUser.createdAt,
         });
 
-        // Audit log entry for email delivery verification
+        // Audit log entry for notification delivery
         try {
           await AuditLog.create({
             actorId: newUser._id.toString(),
             actorName: devoteeName,
             actorRole: "family_member",
-            action: "EMAIL_NOTIFICATION_SENT",
+            action: "ONBOARDING_NOTIFICATIONS_DISPATCHED",
             module: "Notifications",
             recordId: newUser._id.toString(),
-            description: `Super Admin onboarding alert sent to pranavparmar1809@gmail.com for devotee ${devoteeName} (${mailResult.success ? "DELIVERED: " + (mailResult.messageId || "OK") : "FAILED: " + (mailResult.error || "unknown")})`,
+            description: `Super Admin FCM push and email onboarding alerts dispatched for devotee ${devoteeName} (+91 ${cleanPhone})`,
           });
         } catch (auditErr) {
-          console.warn("Email audit log creation skipped:", auditErr);
+          console.warn("Audit log creation skipped:", auditErr);
         }
-      } catch (mailErr: any) {
-        console.error("[Onboarding Email Alert Exception]:", mailErr?.message || mailErr);
+      } catch (notifyErr: any) {
+        console.error("[Onboarding Alert Exception]:", notifyErr?.message || notifyErr);
       }
 
       return NextResponse.json({

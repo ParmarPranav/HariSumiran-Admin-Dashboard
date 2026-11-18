@@ -3,7 +3,7 @@ import { connectDB } from "@/lib/db";
 import { Member, Family, User, AuditLog } from "@/models";
 import { resolveUserScope, buildMemberScopeFilter, findUserByIdentifier } from "@/lib/authScope";
 import { initialMembers } from "@/lib/seedData";
-import { sendNewUserOnboardingAlert } from "@/lib/email";
+import { notifySuperAdminsNewUser } from "@/lib/notifications";
 
 export async function GET(req: Request) {
   try {
@@ -161,9 +161,9 @@ export async function POST(req: Request) {
       description: `Registered canonical member: ${name} (${memberCode}) in family ${resolvedFamilyName}`,
     });
 
-    // Send Super Admin Onboarding Alert
+    // Send Super Admin Onboarding Alert (FCM Push + Email)
     try {
-      await sendNewUserOnboardingAlert({
+      await notifySuperAdminsNewUser({
         name,
         gujaratiName,
         phone: phone.replace(/\D/g, ""),
