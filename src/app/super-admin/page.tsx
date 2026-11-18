@@ -56,6 +56,8 @@ import {
   Layers,
   CheckCheck,
   AlertCircle,
+  QrCode,
+  KeyRound,
 } from "lucide-react";
 import { toast } from "sonner";
 import { ResponsibilityType, SabhaCategoryType } from "@/models";
@@ -240,6 +242,7 @@ function SuperAdminContent() {
   // Delete Confirmation State
   const [roleToDelete, setRoleToDelete] = useState<{ index: number; title: string; type: string } | null>(null);
   const [deletingLoading, setDeletingLoading] = useState(false);
+  const [mfaQrModalOpen, setMfaQrModalOpen] = useState(false);
 
   // Notification Broadcast State
   const [notificationStats, setNotificationStats] = useState<{
@@ -1790,6 +1793,40 @@ function SuperAdminContent() {
             </div>
           </GlassCard>
 
+          {/* Root Two-Factor Authentication Security Governance */}
+          <GlassCard className="p-5 md:p-6 bg-white/95 border-amber-200/90 shadow-2xs rounded-3xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="h-10 w-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center shrink-0 shadow-2xs">
+                  <Smartphone className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-heading text-sm font-bold text-stone-900">
+                      Google Authenticator (RFC 6238 TOTP) MFA
+                    </h4>
+                    <span className="px-2 py-0.2 rounded-md bg-emerald-50 border border-emerald-300 text-emerald-800 text-[10px] font-bold font-mono">
+                      ACTIVE &amp; ENFORCED
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-600 mt-0.5 leading-relaxed">
+                    Root level logins strictly require 6-digit cryptographic verification with anti-replay protection, time-drift tolerance ($\pm 30$s), and automatic 15-minute brute-force lockout.
+                  </p>
+                </div>
+              </div>
+
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => setMfaQrModalOpen(true)}
+                className="px-4 py-2.5 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-xs shadow-md transition-all shrink-0 active:scale-95 flex items-center gap-2"
+              >
+                <QrCode className="h-4 w-4 text-amber-400" />
+                <span>View Authenticator QR &amp; Key</span>
+              </motion.button>
+            </div>
+          </GlassCard>
+
           {/* Disaster Recovery Safe Zone */}
           <GlassCard className="p-5 md:p-6 bg-white/95 border-rose-200 shadow-2xs rounded-3xl space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -2470,6 +2507,53 @@ function SuperAdminContent() {
           </div>
         </Modal>
       )}
+      {/* Two-Factor Authentication QR Modal */}
+      {mfaQrModalOpen && (
+        <Modal
+          isOpen={mfaQrModalOpen}
+          onClose={() => setMfaQrModalOpen(false)}
+          title="Google Authenticator (TOTP) Setup"
+          subtitle="hpsuperadmin@gmail.com • HariSumiran Root Authority"
+          maxWidth="md"
+        >
+          <div className="space-y-4 p-1 text-center">
+            <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 inline-block">
+              <img
+                src="/icons/icon-512x512.png"
+                alt="HariSumiran"
+                className="h-12 w-12 mx-auto rounded-2xl mb-2 shadow-xs"
+              />
+              <p className="text-xs font-bold text-stone-800">Master Secret Key (Base32):</p>
+              <code className="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-lg block mt-1.5 select-all break-all border border-amber-200">
+                HARISUMIRANROOT2026NADIA3690MFA
+              </code>
+            </div>
+
+            <div className="p-3 bg-amber-50/70 rounded-2xl border border-amber-200 text-left text-xs space-y-1.5">
+              <span className="font-bold text-amber-950 block">Setup Instructions:</span>
+              <ol className="list-decimal list-inside space-y-1 text-amber-900 text-[11px]">
+                <li>Open Google Authenticator on your mobile phone.</li>
+                <li>Tap the <strong>+</strong> button in the bottom right corner.</li>
+                <li>Select <strong>Enter a setup key</strong>.</li>
+                <li>Account name: <strong className="font-mono">hpsuperadmin@gmail.com</strong></li>
+                <li>Your key: <strong className="font-mono">HARISUMIRANROOT2026NADIA3690MFA</strong></li>
+                <li>Key type: <strong>Time-based</strong> (30-second interval).</li>
+              </ol>
+            </div>
+
+            <Button
+              type="button"
+              variant="primary"
+              size="md"
+              onClick={() => setMfaQrModalOpen(false)}
+              className="w-full justify-center shadow-xs"
+            >
+              Done &amp; Return to Console
+            </Button>
+          </div>
+        </Modal>
+      )}
+
       {/* Destructive Confirm Dialog */}
       {confirmResetOpen && (
         <TypeToConfirmDialog

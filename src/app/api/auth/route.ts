@@ -6,15 +6,30 @@ import { resolveUserScope } from "@/lib/authScope";
 import { sendWhatsAppOtp } from "@/lib/whatsapp";
 import { sendEmailOtp, sendNewUserOnboardingAlert } from "@/lib/email";
 import { notifySuperAdminsNewUser } from "@/lib/notifications";
+import {
+  verifyTOTP,
+  verifyRecoveryCode,
+  ROOT_SUPER_ADMIN_2FA_SECRET,
+} from "@/lib/totp";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { action, pin, phone, email, userId, newPin } = body;
+    const {
+      action,
+      pin,
+      phone,
+      email,
+      userId,
+      newPin,
+      totpCode,
+      recoveryCode,
+      tempSessionToken,
+    } = body;
 
     await connectDB();
 
-    // 1. PIN / Passcode Unlock
+    // 1. PIN / Passcode Unlock & Regular Login
     if (action === "unlock" || action === "login") {
       const inputPin = pin || "3690";
       let matchedUser = null;
@@ -29,7 +44,108 @@ export async function POST(req: Request) {
 
       if (!matchedUser) {
         // Fallback to seed data or default user (Rameshbhai)
-        matchedUser = (await User.findOne({ "responsibilities.type": "mandir_admin" })) || initialUsers[2];
+        matchedUser =
+          (await User.findOne({ "responsibilities.type": "mandir_admin" })) ||
+          initialUsers[2];
+      }
+
+      // Check if user is an Administrator with 2FA requirement
+      const userDoc: any = matchedUser;
+      const isAdminAccount =
+        userDoc.role === "mandir_admin" ||
+        userDoc.role === "super_admin" ||
+        userDoc.responsibilities?.some(
+          (r: any) =>
+            r.type === "mandir_admin" || r.type === "super_admin"
+        );
+
+      const requires2FA = userDoc.twoFactorEnabled || (isAdminAccount && userDoc.twoFactorSecret);
+
+      if (requires2FA) {
+        // Rate limit lockout check
+        if (
+          userDoc.twoFactorLockedUntil &&
+          userDoc.twoFactorLockedUntil > new Date()
+        ) {
+          const remainingMinutes = Math.ceil(
+            (userDoc.twoFactorLockedUntil.getTime() - Date.now()) / (60 * 1000)
+          );
+          return NextResponse.json(
+            {
+              success: false,
+              error: `Security Lockout: Too many failed 2FA verification attempts. Please wait ${remainingMinutes} minute(s).`,
+            },
+            { status: 429 }
+          );
+        }
+
+        // Stage 1: Request 2FA if code not provided
+        if (!totpCode && !recoveryCode) {
+          return NextResponse.json({
+            success: true,
+            require2FA: true,
+            tempSessionToken: `mfa_user_${userDoc._id}_${Date.now()}`,
+            user: {
+              _id: userDoc._id,
+              name: userDoc.name,
+              email: userDoc.email,
+              phone: userDoc.phone,
+              role: userDoc.role,
+            },
+            message: "Google Authenticator code required for administrative account.",
+          });
+        }
+
+        // Stage 2: Verify TOTP or Recovery Code
+        const secret = userDoc.twoFactorSecret || ROOT_SUPER_ADMIN_2FA_SECRET;
+        let isVerified = false;
+
+        if (recoveryCode) {
+          const recRes = verifyRecoveryCode(
+            recoveryCode,
+            userDoc.twoFactorRecoveryCodes || []
+          );
+          if (recRes.valid) {
+            isVerified = true;
+            userDoc.twoFactorRecoveryCodes = recRes.remainingCodes;
+            userDoc.twoFactorFailedAttempts = 0;
+            if (typeof userDoc.save === "function") await userDoc.save();
+          } else {
+            return NextResponse.json(
+              { success: false, error: "Invalid recovery code." },
+              { status: 400 }
+            );
+          }
+        } else if (totpCode) {
+          const totpRes = verifyTOTP(
+            totpCode,
+            secret,
+            1,
+            userDoc.lastUsedTimeStep
+          );
+          if (totpRes.valid) {
+            isVerified = true;
+            userDoc.twoFactorFailedAttempts = 0;
+            userDoc.lastUsedTimeStep = totpRes.timeStep;
+            userDoc.lastLoginAt = new Date();
+            if (typeof userDoc.save === "function") await userDoc.save();
+          } else {
+            userDoc.twoFactorFailedAttempts =
+              (userDoc.twoFactorFailedAttempts || 0) + 1;
+            if (typeof userDoc.save === "function") await userDoc.save();
+            return NextResponse.json(
+              { success: false, error: "Invalid Google Authenticator code." },
+              { status: 400 }
+            );
+          }
+        }
+
+        if (!isVerified) {
+          return NextResponse.json(
+            { success: false, error: "2-Factor verification required." },
+            { status: 400 }
+          );
+        }
       }
 
       const scope = resolveUserScope(matchedUser as any);

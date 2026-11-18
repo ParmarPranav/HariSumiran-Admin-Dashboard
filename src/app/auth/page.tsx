@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useApp } from "@/context/AppContext";
 import { useRouter } from "next/navigation";
@@ -24,6 +24,10 @@ import {
   UserCheck,
   Check,
   Cpu,
+  Smartphone,
+  KeyRound,
+  Clock,
+  LifeBuoy,
 } from "lucide-react";
 import { toast } from "sonner";
 import { initialUsers } from "@/lib/seedData";
@@ -46,6 +50,27 @@ export default function AuthPage() {
   const [forgotModalOpen, setForgotModalOpen] = useState(false);
   const [personaModalOpen, setPersonaModalOpen] = useState(false);
 
+  // 2FA Multi-Factor States
+  const [mfaModalOpen, setMfaModalOpen] = useState(false);
+  const [totpDigits, setOtpDigits] = useState<string[]>(["", "", "", "", "", ""]);
+  const [mfaTempToken, setMfaTempToken] = useState("");
+  const [mfaLoading, setMfaLoading] = useState(false);
+  const [isUsingRecovery, setIsUsingRecovery] = useState(false);
+  const [recoveryCode, setRecoveryCode] = useState("");
+  const [secondsRemaining, setSecondsRemaining] = useState(30);
+  const mfaInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // 30-Second TOTP window live countdown
+  useEffect(() => {
+    const updateCountdown = () => {
+      const nowSeconds = Math.floor(Date.now() / 1000);
+      setSecondsRemaining(30 - (nowSeconds % 30));
+    };
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
@@ -54,11 +79,88 @@ export default function AuthPage() {
     }
 
     setLoading(true);
-    const success = await loginWithEmail(email, password);
+    const result = await loginWithEmail(email, password);
     setLoading(false);
 
-    if (success) {
+    if (result.require2FA) {
+      setMfaTempToken(result.tempSessionToken || "");
+      setMfaModalOpen(true);
+      setTimeout(() => mfaInputRefs.current[0]?.focus(), 150);
+    } else if (result.success) {
       router.push("/");
+    }
+  };
+
+  const handleVerify2FA = async (codeToVerify?: string) => {
+    const code = codeToVerify || (isUsingRecovery ? recoveryCode.trim() : totpDigits.join(""));
+
+    if (isUsingRecovery) {
+      if (!recoveryCode.trim()) {
+        toast.error("Please enter your recovery code");
+        return;
+      }
+    } else {
+      if (code.length !== 6) {
+        toast.error("Please enter all 6 digits of your Google Authenticator code");
+        return;
+      }
+    }
+
+    setMfaLoading(true);
+    const result = await loginWithEmail(
+      email,
+      password,
+      !isUsingRecovery ? code : undefined,
+      isUsingRecovery ? recoveryCode.trim() : undefined,
+      mfaTempToken
+    );
+    setMfaLoading(false);
+
+    if (result.success) {
+      setMfaModalOpen(false);
+      router.push("/");
+    } else if (result.error) {
+      if (!isUsingRecovery) {
+        setOtpDigits(["", "", "", "", "", ""]);
+        mfaInputRefs.current[0]?.focus();
+      }
+    }
+  };
+
+  const handleDigitChange = (index: number, value: string) => {
+    if (value.length > 1) {
+      const numbers = value.replace(/\D/g, "").slice(0, 6).split("");
+      if (numbers.length > 0) {
+        const newDigits = [...totpDigits];
+        numbers.forEach((num, i) => {
+          if (index + i < 6) newDigits[index + i] = num;
+        });
+        setOtpDigits(newDigits);
+        const nextFocus = Math.min(index + numbers.length, 5);
+        mfaInputRefs.current[nextFocus]?.focus();
+        if (newDigits.every((d) => d.length === 1)) {
+          handleVerify2FA(newDigits.join(""));
+        }
+      }
+      return;
+    }
+
+    const clean = value.replace(/\D/g, "");
+    const newDigits = [...totpDigits];
+    newDigits[index] = clean;
+    setOtpDigits(newDigits);
+
+    if (clean && index < 5) {
+      mfaInputRefs.current[index + 1]?.focus();
+    }
+    if (clean && index === 5 && newDigits.every((d) => d.length === 1)) {
+      handleVerify2FA(newDigits.join(""));
+    }
+  };
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace" && !totpDigits[index] && index > 0) {
+      mfaInputRefs.current[index - 1]?.focus();
     }
   };
 
@@ -66,9 +168,14 @@ export default function AuthPage() {
     setEmail(demoEmail);
     setPassword("3690");
     setLoading(true);
-    const success = await loginWithEmail(demoEmail, "3690");
+    const result = await loginWithEmail(demoEmail, "3690");
     setLoading(false);
-    if (success) {
+
+    if (result.require2FA) {
+      setMfaTempToken(result.tempSessionToken || "");
+      setMfaModalOpen(true);
+      setTimeout(() => mfaInputRefs.current[0]?.focus(), 150);
+    } else if (result.success) {
       router.push("/");
     }
   };
@@ -494,6 +601,93 @@ export default function AuthPage() {
               </div>
             </button>
           ))}
+        </div>
+      </Modal>
+
+      {/* Google Authenticator 2FA Modal */}
+      <Modal
+        isOpen={mfaModalOpen}
+        onClose={() => setMfaModalOpen(false)}
+        title={t("Google Authenticator Verification", "ગૂગલ ઓથેન્ટિકેટર ચકાસણી")}
+        subtitle={t("Secondary security factor required for administrative access", "વહીવટી ઍક્સેસ માટે દ્વિતીય સુરક્ષા ચકાસણી જરૂરી છે")}
+        maxWidth="sm"
+      >
+        <div className="space-y-5 p-1 text-center">
+          <div className="mx-auto h-12 w-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
+            <Smartphone className="h-6 w-6" />
+          </div>
+
+          <p className="text-xs text-stone-600 leading-relaxed">
+            {t(
+              "Please enter the 6-digit verification code from your Google Authenticator app.",
+              "કૃપા કરી તમારા ગૂગલ ઓથેન્ટિકેટર ઍપમાંથી ૬-અંકનો ચકાસણી કોડ દાખલ કરો."
+            )}
+          </p>
+
+          {!isUsingRecovery ? (
+            <div className="space-y-3">
+              <div className="flex items-center justify-center gap-2">
+                {totpDigits.map((digit, idx) => (
+                  <input
+                    key={idx}
+                    ref={(el) => {
+                      mfaInputRefs.current[idx] = el;
+                    }}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={6}
+                    value={digit}
+                    onChange={(e) => handleDigitChange(idx, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(idx, e)}
+                    className="h-12 w-10 text-center text-xl font-mono font-bold rounded-xl border-2 border-stone-200 bg-stone-50 text-stone-900 focus:border-amber-500 focus:bg-white focus:outline-hidden transition-all shadow-2xs"
+                  />
+                ))}
+              </div>
+
+              {/* Refresh timer */}
+              <div className="flex items-center justify-center gap-1.5 text-[11px] font-mono text-stone-500">
+                <Clock className="h-3 w-3 text-amber-600" />
+                <span>
+                  {t("Code refreshes in:", "કોડ રિફ્રેશ:")} <strong className="text-amber-700">{secondsRemaining}s</strong>
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-2 text-left">
+              <label className="text-xs font-bold text-stone-700 block">
+                {t("Emergency Recovery Code", "ઇમરજન્સી રિકવરી કોડ")}
+              </label>
+              <input
+                type="text"
+                value={recoveryCode}
+                onChange={(e) => setRecoveryCode(e.target.value.toUpperCase())}
+                placeholder="e.g. 34AA-5F87"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 font-mono text-xs tracking-wider text-center font-bold text-stone-900 focus:border-amber-500 focus:outline-hidden"
+              />
+            </div>
+          )}
+
+          <div className="space-y-2 pt-2">
+            <button
+              type="button"
+              disabled={mfaLoading}
+              onClick={() => handleVerify2FA()}
+              className="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs transition-all shadow-md shadow-amber-600/20 disabled:opacity-50"
+            >
+              {mfaLoading ? t("Verifying...", "ચકાસણી ચાલુ...") : t("Verify & Sign In", "ચકાસો અને પ્રવેશ કરો")}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setIsUsingRecovery(!isUsingRecovery);
+                setOtpDigits(["", "", "", "", "", ""]);
+              }}
+              className="text-xs text-amber-800 hover:text-amber-950 font-semibold"
+            >
+              {isUsingRecovery ? t("Use 6-Digit Authenticator", "૬-અંકનો ઓથેન્ટિકેટર વાપરો") : t("Use Recovery Code", "રિકવરી કોડ વાપરો")}
+            </button>
+          </div>
         </div>
       </Modal>
 

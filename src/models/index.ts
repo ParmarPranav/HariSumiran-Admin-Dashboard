@@ -70,6 +70,13 @@ export interface IUser extends Document {
     platform: "ios" | "android" | "web";
     updatedAt: Date;
   }[];
+  // Multi-Factor Authentication (Google Authenticator TOTP RFC 6238)
+  twoFactorEnabled?: boolean;
+  twoFactorSecret?: string;
+  twoFactorRecoveryCodes?: string[];
+  twoFactorFailedAttempts?: number;
+  twoFactorLockedUntil?: Date;
+  lastUsedTimeStep?: number;
   lastLoginAt?: Date;
   createdAt: Date;
 }
@@ -132,6 +139,12 @@ const UserSchema = new Schema<IUser>({
       updatedAt: { type: Date, default: Date.now },
     },
   ],
+  twoFactorEnabled: { type: Boolean, default: false },
+  twoFactorSecret: { type: String },
+  twoFactorRecoveryCodes: [{ type: String }],
+  twoFactorFailedAttempts: { type: Number, default: 0 },
+  twoFactorLockedUntil: { type: Date },
+  lastUsedTimeStep: { type: Number },
   lastLoginAt: { type: Date },
   createdAt: { type: Date, default: Date.now },
 });

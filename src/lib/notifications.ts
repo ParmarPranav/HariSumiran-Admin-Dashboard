@@ -89,7 +89,7 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
     if (!fcm) {
       throw new Error(
         fcmStatus.error ||
-          "Firebase Admin Messaging is not initialized. Please verify FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY."
+        "Firebase Admin Messaging is not initialized. Please verify FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY."
       );
     }
 
@@ -206,8 +206,6 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
       ...customData,
     };
 
-    const isFullScreenAlert = payloadData.type === "full_screen_alert";
-
     for (const batch of tokenBatches) {
       const multicastMessage: MulticastMessage = {
         tokens: batch,
@@ -217,11 +215,9 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
         },
         data: payloadData,
         android: {
-          priority: isFullScreenAlert ? "high" : priority === "high" ? "high" : "normal",
+          priority: priority === "high" ? "high" : "normal",
           notification: {
-            channelId: isFullScreenAlert
-              ? "hari_sumiran_urgent_fullscreen"
-              : "harisumiran_announcements",
+            channelId: "harisumiran_announcements",
             sound: "default",
             defaultSound: true,
             defaultVibrateTimings: true,
@@ -277,8 +273,8 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
       overallSuccess === totalTokens
         ? "success"
         : overallSuccess > 0
-        ? "partial_failure"
-        : "failed";
+          ? "partial_failure"
+          : "failed";
 
     const log = await NotificationBroadcastLog.create({
       title,
@@ -312,9 +308,8 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
       invalidTokensCleaned: cleanedCount,
       errors: collectedErrors,
       logId: log._id.toString(),
-      message: `Successfully delivered to ${overallSuccess} device(s)${
-        overallFailure > 0 ? `, ${overallFailure} failed` : ""
-      }.`,
+      message: `Successfully delivered to ${overallSuccess} device(s)${overallFailure > 0 ? `, ${overallFailure} failed` : ""
+        }.`,
     };
   } catch (error: any) {
     console.error("[Broadcast Notification Error]:", error);

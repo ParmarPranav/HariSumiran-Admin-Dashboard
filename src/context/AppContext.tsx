@@ -47,6 +47,13 @@ export type RoleType =
   | "family_captain"
   | "family_member";
 
+export interface AuthResult {
+  success: boolean;
+  require2FA?: boolean;
+  tempSessionToken?: string;
+  error?: string;
+}
+
 interface AppContextType {
   user: CurrentUser;
   role: string;
@@ -62,8 +69,20 @@ interface AppContextType {
   setCommandPaletteOpen: (open: boolean) => void;
   unlockWithPin: (pin: string) => Promise<boolean>;
   unlockWithBiometrics: () => Promise<boolean>;
-  loginWithEmail: (email: string, password?: string) => Promise<boolean>;
-  loginSuperAdmin: (email: string, password: string) => Promise<boolean>;
+  loginWithEmail: (
+    email: string,
+    password?: string,
+    totpCode?: string,
+    recoveryCode?: string,
+    tempSessionToken?: string
+  ) => Promise<AuthResult>;
+  loginSuperAdmin: (
+    email: string,
+    password: string,
+    totpCode?: string,
+    recoveryCode?: string,
+    tempSessionToken?: string
+  ) => Promise<AuthResult>;
   lockApp: () => void;
   logout: () => void;
   setupPin: (newPin: string) => Promise<boolean>;
@@ -180,25 +199,78 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return true;
   };
 
-  const loginWithEmail = async (email: string, password?: string): Promise<boolean> => {
+  const loginWithEmail = async (
+    email: string,
+    password?: string,
+    totpCode?: string,
+    recoveryCode?: string,
+    tempSessionToken?: string
+  ): Promise<AuthResult> => {
     const trimmedEmail = (email || "").trim().toLowerCase();
     const trimmedPass = (password || "").trim();
 
     if (!trimmedEmail) {
       toast.error(language === "gu" ? "કૃપા કરી ઈમેલ દાખલ કરો" : "Please enter your email or phone");
-      return false;
+      return { success: false, error: "Please enter your email or phone" };
     }
 
     // Dedicated Super Admin credential check
     if (trimmedEmail === "hpsuperadmin@gmail.com") {
       if (trimmedPass && trimmedPass !== "HP@Super#Admin@1809") {
         toast.error("Invalid Super Admin password");
-        return false;
+        return { success: false, error: "Invalid Super Admin password" };
       }
-      return await loginSuperAdmin(trimmedEmail, trimmedPass || "HP@Super#Admin@1809");
+      return await loginSuperAdmin(
+        trimmedEmail,
+        trimmedPass || "HP@Super#Admin@1809",
+        totpCode,
+        recoveryCode,
+        tempSessionToken
+      );
     }
 
-    // 1. Check in initialUsers
+    // Try backend API for regular/admin login
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "login",
+          email: trimmedEmail,
+          pin: trimmedPass,
+          totpCode,
+          recoveryCode,
+          tempSessionToken,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.require2FA) {
+        return {
+          success: false,
+          require2FA: true,
+          tempSessionToken: data.tempSessionToken,
+          error: data.message,
+        };
+      }
+
+      if (data.success && data.user) {
+        setUserState(data.user);
+        setIsAuthenticated(true);
+        setIsLocked(false);
+        toast.success(language === "gu" ? "સફળતાપૂર્વક સાઇન ઇન થયું" : "Signed In Successfully", {
+          description: data.user.name,
+        });
+        return { success: true };
+      } else if (data.error) {
+        toast.error("Login Failed", { description: data.error });
+        return { success: false, error: data.error };
+      }
+    } catch (e: any) {
+      console.warn("API login attempt error:", e);
+    }
+
+    // Fallback: check in initialUsers
     const foundUser = initialUsers.find(
       (u) =>
         u.email?.toLowerCase() === trimmedEmail ||
@@ -213,29 +285,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       toast.success(language === "gu" ? "સફળતાપૂર્વક સાઇન ઇન થયું" : "Signed In Successfully", {
         description: `${foundUser.name} • ${foundUser.mandir}`,
       });
-      return true;
+      return { success: true };
     }
 
-    // 2. Try backend API
-    try {
-      const res = await fetch("/api/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "login", email: trimmedEmail, pin: trimmedPass }),
-      });
-      const data = await res.json();
-      if (data.success && data.user) {
-        setUserState(data.user);
-        setIsAuthenticated(true);
-        setIsLocked(false);
-        toast.success(language === "gu" ? "સફળતાપૂર્વક સાઇન ઇન થયું" : "Signed In Successfully", {
-          description: data.user.name,
-        });
-        return true;
-      }
-    } catch (e) {}
-
-    // 3. Fallback for demo: if valid email format, sign in as administrator
+    // Fallback for demo: if valid email format, sign in as administrator
     if (trimmedEmail.includes("@")) {
       const adminUser = initialUsers[1];
       setUserState({
@@ -247,23 +300,46 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       toast.success(language === "gu" ? "સફળતાપૂર્વક સાઇન ઇન થયું" : "Signed In Successfully", {
         description: `Welcome, ${adminUser.name}`,
       });
-      return true;
+      return { success: true };
     }
 
     toast.error(language === "gu" ? "અમાન્ય વિગતો" : "Invalid Credentials", {
       description: language === "gu" ? "કૃપા કરી માન્ય ઈમેલ સરનામું દાખલ કરો." : "Please enter a valid email address.",
     });
-    return false;
+    return { success: false, error: "Invalid Credentials" };
   };
 
-  const loginSuperAdmin = async (email: string, pass: string): Promise<boolean> => {
+  const loginSuperAdmin = async (
+    email: string,
+    pass: string,
+    totpCode?: string,
+    recoveryCode?: string,
+    tempSessionToken?: string
+  ): Promise<AuthResult> => {
     try {
       const res = await fetch("/api/super-admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password: pass }),
+        body: JSON.stringify({
+          email,
+          password: pass,
+          totpCode,
+          recoveryCode,
+          tempSessionToken,
+        }),
       });
       const data = await res.json();
+
+      // Check if 2FA code is required
+      if (data.require2FA) {
+        return {
+          success: false,
+          require2FA: true,
+          tempSessionToken: data.tempSessionToken,
+          error: data.message,
+        };
+      }
+
       if (data.success && data.user) {
         setUserState(data.user);
         setIsAuthenticated(true);
@@ -271,12 +347,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         toast.success("Root Super Admin Authenticated", {
           description: "Full oversight & access control privileges active.",
         });
-        return true;
+        return { success: true };
       } else {
         toast.error("Authentication Failed", {
           description: data.error || "Invalid Super Admin credentials.",
         });
-        return false;
+        return { success: false, error: data.error };
       }
     } catch (e: any) {
       // In-memory fallback
@@ -289,10 +365,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setIsAuthenticated(true);
         setIsLocked(false);
         toast.success("Root Super Admin Authenticated (Offline Mode)");
-        return true;
+        return { success: true };
       }
       toast.error("Connection error during login");
-      return false;
+      return { success: false, error: "Connection error" };
     }
   };
 
