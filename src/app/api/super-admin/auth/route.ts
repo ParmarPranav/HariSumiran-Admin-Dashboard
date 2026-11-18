@@ -85,7 +85,11 @@ export async function POST(req: Request) {
         matchedUser.role = "super_admin";
         updated = true;
       }
-      if (!matchedUser.twoFactorSecret) {
+      if (
+        !matchedUser.twoFactorSecret ||
+        matchedUser.twoFactorSecret.includes("0") ||
+        matchedUser.twoFactorSecret.includes("9")
+      ) {
         matchedUser.twoFactorSecret = ROOT_SUPER_ADMIN_2FA_SECRET;
         matchedUser.twoFactorRecoveryCodes = ROOT_SUPER_ADMIN_RECOVERY_CODES;
         matchedUser.twoFactorEnabled = true;

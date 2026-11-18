@@ -1,8 +1,8 @@
 import crypto from "crypto";
 import QRCode from "qrcode";
 
-// Default Master Root Super Admin 2FA Credentials
-export const ROOT_SUPER_ADMIN_2FA_SECRET = "HARISUMIRANROOT2026NADIA3690MFA";
+// Default Master Root Super Admin 2FA Credentials (strictly RFC 4648 Base32 compliant: A-Z, 2-7)
+export const ROOT_SUPER_ADMIN_2FA_SECRET = "HARISUMIRANROOTMANDIRADMIN234567";
 export const ROOT_SUPER_ADMIN_RECOVERY_CODES = [
   "34AA-5F87",
   "BB9D-835A",
@@ -198,12 +198,12 @@ export function verifyRecoveryCode(
 export function buildOtpAuthUrl(
   account: string,
   secret: string,
-  issuer = "HariSumiran Mandir"
+  issuer = "HariSumiran"
 ): string {
-  return `otpauth://totp/${encodeURIComponent(issuer)}:${encodeURIComponent(
-    account
-  )}?secret=${secret}&issuer=${encodeURIComponent(
-    issuer
+  const cleanAccount = (account || "").trim();
+  const cleanIssuer = (issuer || "HariSumiran").trim();
+  return `otpauth://totp/${encodeURIComponent(cleanIssuer)}:${cleanAccount}?secret=${secret}&issuer=${encodeURIComponent(
+    cleanIssuer
   )}&algorithm=SHA1&digits=6&period=30`;
 }
 
@@ -212,10 +212,11 @@ export function buildOtpAuthUrl(
  */
 export async function generateQRCodeDataUrl(otpAuthUrl: string): Promise<string> {
   return QRCode.toDataURL(otpAuthUrl, {
-    width: 320,
-    margin: 2,
+    width: 380,
+    margin: 3,
+    errorCorrectionLevel: "M",
     color: {
-      dark: "#1C1917",
+      dark: "#000000",
       light: "#FFFFFF",
     },
   });

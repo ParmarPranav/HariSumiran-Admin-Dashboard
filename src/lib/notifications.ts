@@ -416,9 +416,8 @@ export async function notifySuperAdminsNewUser(
     ? `નવા હરિભક્ત જોડાયા: ${details.gujaratiName}`
     : `નવા હરિભક્ત જોડાયા: ${details.name}`;
 
-  const fcmBody = `${details.name} (${formattedPhone}) registered in the Mandir directory. Parivar: ${
-    details.familyName || details.name + " Parivar"
-  }.`;
+  const fcmBody = `${details.name} (${formattedPhone}) registered in the Mandir directory. Parivar: ${details.familyName || details.name + " Parivar"
+    }.`;
   const fcmGujaratiBody = `${details.name} (${formattedPhone}) હરિપ્રબોધમ્, નડિયાદમાં જોડાયા છે.`;
 
   let pushSuccessCount = 0;

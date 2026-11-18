@@ -2517,15 +2517,19 @@ function SuperAdminContent() {
           maxWidth="md"
         >
           <div className="space-y-4 p-1 text-center">
-            <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 inline-block">
+            <div className="p-4 bg-white rounded-2xl border border-stone-200 inline-block shadow-xs">
               <img
-                src="/icons/icon-512x512.png"
-                alt="HariSumiran"
-                className="h-12 w-12 mx-auto rounded-2xl mb-2 shadow-xs"
+                src="/super_admin_2fa_qr.png"
+                alt="Google Authenticator QR Code"
+                className="h-48 w-48 mx-auto rounded-xl object-contain bg-white"
               />
-              <p className="text-xs font-bold text-stone-800">Master Secret Key (Base32):</p>
-              <code className="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-lg block mt-1.5 select-all break-all border border-amber-200">
-                HARISUMIRANROOT2026NADIA3690MFA
+              <p className="text-xs font-bold text-stone-800 mt-2">Scan in Google Authenticator</p>
+            </div>
+
+            <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 text-left text-xs space-y-1.5">
+              <p className="font-bold text-stone-800">Or Enter Key Manually:</p>
+              <code className="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-lg block select-all break-all border border-amber-200">
+                HARISUMIRANROOTMANDIRADMIN234567
               </code>
             </div>
 
@@ -2534,9 +2538,9 @@ function SuperAdminContent() {
               <ol className="list-decimal list-inside space-y-1 text-amber-900 text-[11px]">
                 <li>Open Google Authenticator on your mobile phone.</li>
                 <li>Tap the <strong>+</strong> button in the bottom right corner.</li>
-                <li>Select <strong>Enter a setup key</strong>.</li>
+                <li>Select <strong>Scan a QR code</strong> (scan image above) or <strong>Enter a setup key</strong>.</li>
                 <li>Account name: <strong className="font-mono">hpsuperadmin@gmail.com</strong></li>
-                <li>Your key: <strong className="font-mono">HARISUMIRANROOT2026NADIA3690MFA</strong></li>
+                <li>Key: <strong className="font-mono">HARISUMIRANROOTMANDIRADMIN234567</strong></li>
                 <li>Key type: <strong>Time-based</strong> (30-second interval).</li>
               </ol>
             </div>

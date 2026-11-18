@@ -32,7 +32,7 @@ import { toast } from "sonner";
 
 const DEFAULT_SUPERADMIN_EMAIL = "hpsuperadmin@gmail.com";
 const DEFAULT_SUPERADMIN_PASS = "HP@Super#Admin@1809";
-const SETUP_SECRET_KEY = "HARISUMIRANROOT2026NADIA3690MFA";
+const SETUP_SECRET_KEY = "HARISUMIRANROOTMANDIRADMIN234567";
 
 export default function SuperAdminLoginPage() {
   const router = useRouter();
@@ -528,20 +528,24 @@ export default function SuperAdminLoginPage() {
               </div>
 
               <div className="text-center space-y-3">
-                <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 inline-block">
+                <div className="p-4 bg-white rounded-2xl border border-stone-200 inline-block shadow-xs">
                   <img
-                    src="/icons/icon-512x512.png"
-                    alt="HariSumiran Logo"
-                    className="h-10 w-10 mx-auto rounded-xl mb-2"
+                    src="/super_admin_2fa_qr.png"
+                    alt="Google Authenticator QR Code"
+                    className="h-44 w-44 mx-auto rounded-lg object-contain bg-white"
                   />
-                  <p className="text-[11px] font-bold text-stone-800">Manual Setup Key:</p>
-                  <code className="text-[11px] font-mono font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-lg block mt-1 select-all break-all border border-amber-200">
+                  <p className="text-[11px] font-bold text-stone-800 mt-2">Scan in Google Authenticator</p>
+                </div>
+
+                <div className="p-3 bg-stone-50 rounded-xl border border-stone-200 text-left">
+                  <p className="text-[11px] font-bold text-stone-700">Or Manual Setup Key:</p>
+                  <code className="text-[11px] font-mono font-bold text-amber-800 bg-amber-50 px-2 py-1 rounded block mt-1 select-all break-all border border-amber-200">
                     {SETUP_SECRET_KEY}
                   </code>
                 </div>
 
                 <p className="text-[11px] text-stone-500 leading-snug">
-                  Open Google Authenticator $\rightarrow$ tap <strong>+</strong> $\rightarrow$ select <strong>Enter a setup key</strong> $\rightarrow$ paste the key above.
+                  Open Google Authenticator &rarr; tap <strong>+</strong> &rarr; select <strong>Scan a QR code</strong> or <strong>Enter a setup key</strong>.
                 </p>
               </div>
 
