@@ -126,6 +126,7 @@ export async function POST(req: Request) {
       gujaratiBody,
       targetAudience = "all",
       targetRole,
+      targetUserId,
       deepLinkRoute = "/",
       priority = "high",
       sentBy,
@@ -153,6 +154,7 @@ export async function POST(req: Request) {
       gujaratiBody: gujaratiBody?.trim() || undefined,
       targetAudience,
       targetRole: targetRole || undefined,
+      targetUserId: targetUserId || undefined,
       deepLinkRoute: deepLinkRoute?.trim() || "/",
       priority,
       sentBy: sentBy || {

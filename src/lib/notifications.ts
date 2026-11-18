@@ -18,8 +18,9 @@ export interface BroadcastNotificationParams {
   gujaratiTitle?: string;
   body: string;
   gujaratiBody?: string;
-  targetAudience?: "all" | "role" | "custom";
+  targetAudience?: "all" | "role" | "custom" | "single_user";
   targetRole?: string;
+  targetUserId?: string;
   deepLinkRoute?: string;
   priority?: "high" | "normal";
   sentBy?: {
@@ -107,7 +108,9 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
 
     // Build user query
     const query: any = { active: { $ne: false } };
-    if (targetAudience === "role" && targetRole && targetRole !== "all") {
+    if (params.targetUserId) {
+      query._id = params.targetUserId;
+    } else if (targetAudience === "role" && targetRole && targetRole !== "all") {
       query.$or = [
         { role: targetRole },
         { "responsibilities.type": targetRole },
