@@ -1,5 +1,6 @@
-import { getApps, initializeApp, cert, App } from "firebase-admin/app";
+import { getApps, initializeApp, cert, App, ServiceAccount } from "firebase-admin/app";
 import { getMessaging, Messaging } from "firebase-admin/messaging";
+import { createPrivateKey } from "crypto";
 import fs from "fs";
 import path from "path";
 
@@ -18,73 +19,126 @@ function cleanEnvString(val?: string | null): string {
   return s;
 }
 
-function sanitizePrivateKey(rawKey?: string | null): string {
-  if (!rawKey) return "";
-  let key = rawKey.trim();
-
-  // If the user pasted the entire service account JSON into FIREBASE_PRIVATE_KEY
-  if (key.startsWith("{") && key.endsWith("}")) {
-    try {
-      const parsed = JSON.parse(key);
-      if (parsed.private_key) {
-        return sanitizePrivateKey(parsed.private_key);
-      }
-    } catch {
-      // Not JSON, continue with normal processing
-    }
-  }
+export function reconstructPemKey(input?: string | null): string {
+  if (!input) return "";
+  let str = input.trim();
 
   // Strip surrounding quotes
   while (
-    (key.startsWith('"') && key.endsWith('"')) ||
-    (key.startsWith("'") && key.endsWith("'"))
+    (str.startsWith('"') && str.endsWith('"')) ||
+    (str.startsWith("'") && str.endsWith("'"))
   ) {
-    key = key.slice(1, -1).trim();
+    str = str.slice(1, -1).trim();
   }
 
-  // Replace escaped newlines (both \\\\n and \\n) with actual newlines
-  key = key.replace(/\\\\n/g, "\n");
-  key = key.replace(/\\n/g, "\n");
-  key = key.replace(/\\r/g, "");
-  key = key.replace(/\r\n/g, "\n");
-  key = key.replace(/\\"/g, '"');
+  // If the user pasted the entire service account JSON into FIREBASE_PRIVATE_KEY
+  if (str.startsWith("{") && str.endsWith("}")) {
+    try {
+      const parsed = JSON.parse(str);
+      if (parsed.private_key) {
+        return reconstructPemKey(parsed.private_key);
+      }
+    } catch {}
+  }
 
-  return key.trim();
+  // Check if placeholder was copied from .env.example
+  if (str.includes("...")) {
+    throw new Error(
+      "FIREBASE_PRIVATE_KEY contains placeholder '...' — please paste the full private key from your service account JSON file."
+    );
+  }
+
+  // Convert literal \n or \\n into real newlines
+  str = str.replaceAll("\\n", "\n").replaceAll("\\r", "").replaceAll("\r\n", "\n");
+
+  const beginTag = "-----BEGIN PRIVATE KEY-----";
+  const endTag = "-----END PRIVATE KEY-----";
+
+  if (str.includes(beginTag) && str.includes(endTag)) {
+    const startIdx = str.indexOf(beginTag) + beginTag.length;
+    const endIdx = str.indexOf(endTag);
+    const middle = str.slice(startIdx, endIdx);
+
+    // Filter to base64 characters only
+    const cleanBase64 = middle.replace(/[\s\r\n]+/g, "");
+    const chunks = cleanBase64.match(/.{1,64}/g) || [];
+    return `${beginTag}\n${chunks.join("\n")}\n${endTag}\n`;
+  }
+
+  // Ensure headers exist if they were stripped
+  if (!str.includes(beginTag)) {
+    str = `${beginTag}\n${str}`;
+  }
+  if (!str.includes(endTag)) {
+    str = `${str}\n${endTag}\n`;
+  }
+  return str;
 }
 
 /**
- * Attempt to load credentials from multiple possible sources:
- * 1. Process environment variables (Vercel / Production)
- * 2. FIREBASE_SERVICE_ACCOUNT_KEY (full JSON string or base64)
- * 3. Local .env.local file fallback for development
+ * Attempt to resolve service account credentials from:
+ * 1. FIREBASE_SERVICE_ACCOUNT_BASE64 (base64 encoded JSON)
+ * 2. FIREBASE_SERVICE_ACCOUNT_KEY / FIREBASE_CONFIG (raw JSON)
+ * 3. Individual FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY
+ * 4. Local .env.local fallback for dev
  */
-function resolveCredentials() {
-  let projectId = cleanEnvString(process.env.FIREBASE_PROJECT_ID);
-  let clientEmail = cleanEnvString(process.env.FIREBASE_CLIENT_EMAIL);
-  let privateKey = sanitizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
+function resolveCredentials(): {
+  serviceAccount?: ServiceAccount;
+  projectId?: string;
+  clientEmail?: string;
+  privateKey?: string;
+  error?: string;
+} {
+  // Option 1: Base64 encoded Service Account JSON (100% newline/quote safe for Vercel)
+  const base64Json = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+  if (base64Json && base64Json.trim()) {
+    try {
+      const decoded = Buffer.from(base64Json.trim(), "base64").toString("utf8");
+      const parsed = JSON.parse(decoded);
+      if (parsed.project_id && parsed.client_email && parsed.private_key) {
+        parsed.private_key = reconstructPemKey(parsed.private_key);
+        return {
+          serviceAccount: parsed,
+          projectId: parsed.project_id,
+          clientEmail: parsed.client_email,
+        };
+      }
+    } catch (e: any) {
+      console.warn("[FirebaseAdmin] Failed to parse FIREBASE_SERVICE_ACCOUNT_BASE64:", e.message);
+    }
+  }
 
-  // Check if a full service account JSON was provided in an env var
+  // Option 2: Full JSON string in FIREBASE_SERVICE_ACCOUNT_KEY
   const fullJsonRaw = process.env.FIREBASE_SERVICE_ACCOUNT_KEY || process.env.FIREBASE_CONFIG;
-  if (fullJsonRaw && (!projectId || !privateKey)) {
+  if (fullJsonRaw && fullJsonRaw.trim()) {
     try {
       let jsonStr = fullJsonRaw.trim();
       if (!jsonStr.startsWith("{")) {
-        // Maybe base64 encoded
         try {
           jsonStr = Buffer.from(jsonStr, "base64").toString("utf8");
         } catch {}
       }
       const parsed = JSON.parse(jsonStr);
-      if (parsed.project_id) projectId = parsed.project_id;
-      if (parsed.client_email) clientEmail = parsed.client_email;
-      if (parsed.private_key) privateKey = sanitizePrivateKey(parsed.private_key);
+      if (parsed.project_id && parsed.client_email && parsed.private_key) {
+        parsed.private_key = reconstructPemKey(parsed.private_key);
+        return {
+          serviceAccount: parsed,
+          projectId: parsed.project_id,
+          clientEmail: parsed.client_email,
+        };
+      }
     } catch (e: any) {
-      console.warn("[FirebaseAdmin] Failed to parse FIREBASE_SERVICE_ACCOUNT_KEY JSON:", e.message);
+      console.warn("[FirebaseAdmin] Failed to parse FIREBASE_SERVICE_ACCOUNT_KEY:", e.message);
     }
   }
 
-  // Local development fallback: try loading .env.local manually if running in Node
-  if ((!projectId || !privateKey) && typeof process !== "undefined" && process.cwd) {
+  // Option 3: Individual Environment Variables
+  let projectId = cleanEnvString(process.env.FIREBASE_PROJECT_ID);
+  let clientEmail = cleanEnvString(process.env.FIREBASE_CLIENT_EMAIL);
+  let rawPrivateKey = process.env.FIREBASE_PRIVATE_KEY;
+
+  // Local development fallback
+  if ((!projectId || !rawPrivateKey) && typeof process !== "undefined" && process.cwd) {
     try {
       const localEnvPath = path.resolve(process.cwd(), ".env.local");
       if (fs.existsSync(localEnvPath)) {
@@ -96,12 +150,35 @@ function resolveCredentials() {
             projectId = cleanEnvString(trimmed.slice("FIREBASE_PROJECT_ID=".length));
           } else if (trimmed.startsWith("FIREBASE_CLIENT_EMAIL=") && !clientEmail) {
             clientEmail = cleanEnvString(trimmed.slice("FIREBASE_CLIENT_EMAIL=".length));
-          } else if (trimmed.startsWith("FIREBASE_PRIVATE_KEY=") && !privateKey) {
-            privateKey = sanitizePrivateKey(trimmed.slice("FIREBASE_PRIVATE_KEY=".length));
+          } else if (trimmed.startsWith("FIREBASE_PRIVATE_KEY=") && !rawPrivateKey) {
+            rawPrivateKey = trimmed.slice("FIREBASE_PRIVATE_KEY=".length);
           }
         }
       }
     } catch {}
+  }
+
+  if (!projectId || !clientEmail || !rawPrivateKey) {
+    const missing: string[] = [];
+    if (!projectId) missing.push("FIREBASE_PROJECT_ID");
+    if (!clientEmail) missing.push("FIREBASE_CLIENT_EMAIL");
+    if (!rawPrivateKey) missing.push("FIREBASE_PRIVATE_KEY");
+    return {
+      error: `Missing required environment variables: ${missing.join(", ")}. If recently updated in Vercel, please trigger a redeployment.`,
+    };
+  }
+
+  let privateKey: string;
+  try {
+    privateKey = reconstructPemKey(rawPrivateKey);
+    // Validate with native crypto
+    createPrivateKey(privateKey);
+  } catch (err: any) {
+    return {
+      error: `Failed to parse private key: ${err.message}. Ensure the full private key from your service account JSON is set.`,
+      projectId,
+      clientEmail,
+    };
   }
 
   return { projectId, clientEmail, privateKey };
@@ -118,36 +195,34 @@ export function getFirebaseAdminApp(): App | null {
     return firebaseAdminApp;
   }
 
-  const { projectId, clientEmail, privateKey } = resolveCredentials();
+  const creds = resolveCredentials();
 
-  if (!projectId || !clientEmail || !privateKey) {
-    const missing: string[] = [];
-    if (!projectId) missing.push("FIREBASE_PROJECT_ID");
-    if (!clientEmail) missing.push("FIREBASE_CLIENT_EMAIL");
-    if (!privateKey) missing.push("FIREBASE_PRIVATE_KEY");
-
-    lastInitError = `Missing required environment variables: ${missing.join(", ")}. If you just added them in Vercel, please trigger a redeployment.`;
+  if (creds.error) {
+    lastInitError = creds.error;
     console.warn(`[FirebaseAdmin] ${lastInitError}`);
     return null;
   }
 
-  if (!privateKey.includes("BEGIN PRIVATE KEY")) {
-    lastInitError =
-      "FIREBASE_PRIVATE_KEY is invalid: missing '-----BEGIN PRIVATE KEY-----' header. Check quotes and line breaks.";
-    console.error(`[FirebaseAdmin] ${lastInitError}`);
-    return null;
-  }
-
   try {
-    firebaseAdminApp = initializeApp({
-      credential: cert({
-        projectId,
-        clientEmail,
-        privateKey,
-      }),
-    });
+    if (creds.serviceAccount) {
+      firebaseAdminApp = initializeApp({
+        credential: cert(creds.serviceAccount),
+      });
+    } else if (creds.projectId && creds.clientEmail && creds.privateKey) {
+      firebaseAdminApp = initializeApp({
+        credential: cert({
+          projectId: creds.projectId,
+          clientEmail: creds.clientEmail,
+          privateKey: creds.privateKey,
+        }),
+      });
+    } else {
+      lastInitError = "Missing Firebase service account credentials.";
+      return null;
+    }
+
     lastInitError = null;
-    console.log("[FirebaseAdmin] Successfully initialized Firebase Admin app for project:", projectId);
+    console.log("[FirebaseAdmin] Successfully initialized Firebase Admin app for project:", creds.projectId);
     return firebaseAdminApp;
   } catch (error: any) {
     lastInitError = `Firebase Admin initialization error: ${error.message}`;
@@ -175,13 +250,13 @@ export function getFirebaseAdminStatus(): {
   hasPrivateKey: boolean;
   error: string | null;
 } {
-  const { projectId, clientEmail, privateKey } = resolveCredentials();
+  const creds = resolveCredentials();
   const app = getFirebaseAdminApp();
   return {
     connected: !!app,
-    projectId: projectId || null,
-    clientEmail: clientEmail || null,
-    hasPrivateKey: !!privateKey,
-    error: lastInitError,
+    projectId: creds.projectId || null,
+    clientEmail: creds.clientEmail || null,
+    hasPrivateKey: !!(creds.privateKey || creds.serviceAccount),
+    error: lastInitError || creds.error || null,
   };
 }
