@@ -206,6 +206,8 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
       ...customData,
     };
 
+    const isFullScreenAlert = payloadData.type === "full_screen_alert";
+
     for (const batch of tokenBatches) {
       const multicastMessage: MulticastMessage = {
         tokens: batch,
@@ -215,9 +217,11 @@ export async function broadcastNotification(params: BroadcastNotificationParams)
         },
         data: payloadData,
         android: {
-          priority: priority === "high" ? "high" : "normal",
+          priority: isFullScreenAlert ? "high" : priority === "high" ? "high" : "normal",
           notification: {
-            channelId: "harisumiran_announcements",
+            channelId: isFullScreenAlert
+              ? "hari_sumiran_urgent_fullscreen"
+              : "harisumiran_announcements",
             sound: "default",
             defaultSound: true,
             defaultVibrateTimings: true,

@@ -80,31 +80,63 @@ interface PushNotificationStudioProps {
   currentUser?: any;
 }
 
-// 5 Curated Temple Notification Presets for HariPrabodham, Nadiad
+// Curated Temple Notification Presets for HariPrabodham, Nadiad
 const PRESET_TEMPLATES = [
   {
-    id: "sabha",
-    label: "Sunday Sabha Alert",
-    gujaratiLabel: "રવિવાર સભા સૂચના",
-    title: "Sunday Sabha at 5:00 PM",
-    gujaratiTitle: "રવિવાર સભા સાંજે ૫:૦૦ કલાકે",
-    body: "All devotees are warmly welcomed for this week's sacred sabha and divine darshan. Mahaprasad will follow.",
-    gujaratiBody: "આ અઠવાડિયાની પવિત્ર સભા અને દિવ્ય દર્શન માટે તમામ ભક્તોનું સ્વાગત છે. સભા બાદ મહાપ્રસાદ યોજાશે.",
-    route: "/sabha",
+    id: "sabha_fullscreen",
+    label: "🕉️ Sabha Day Alert",
+    gujaratiLabel: "સાપ્તાહિક રવિસભા (Full Screen)",
+    title: "Weekly Youth Satsang Sabha • Nadiad Mandir",
+    gujaratiTitle: "આજે સાપ્તાહિક રવિસભા છે",
+    body: "સત્સંગ, કથા-વાર્તા અને દિવ્ય સાનિધ્યનો અનેરો લાભ. સાંજે ૫:૩૦ થી ૭:૩૦ કલાકે મુખ્ય સભાખંડ.",
+    gujaratiBody: "સત્સંગ, કથા-વાર્તા અને દિવ્ય સાનિધ્યનો અનેરો લાભ. સાંજે ૫:૩૦ થી ૭:૩૦ કલાકે મુખ્ય સભાખંડ.",
+    route: "/calendar",
     priority: "high" as const,
     icon: Sparkles,
+    isFullScreen: true,
+    alertType: "sabha" as const,
   },
   {
-    id: "thal",
-    label: "Mahaprasad Thal Rotation",
-    gujaratiLabel: "મહાપ્રસાદ થાળ સેવા",
-    title: "Today's Thal Seva Rotation Updated",
-    gujaratiTitle: "આજનો થાળ સેવા રોટેશન અપડેટ",
-    body: "Assigned Thal Captains: Kindly check your scheduled timing and devotee parivar responsibilities in the app.",
-    gujaratiBody: "પરિવાર થાળ કેપ્ટનશ્રીઓ: કૃપા કરી એપ્લિકેશનમાં તમારા નિર્ધારિત સમય અને જવાબદારીઓની સમીક્ષા કરો.",
-    route: "/thal",
+    id: "thal_today_fullscreen",
+    label: "🔔 Thal Seva Today",
+    gujaratiLabel: "આજે થાળ સેવા છે (૧૦:૩૦ AM પૂર્વે)",
+    title: "Mandir Delivery Deadline: 10:30 AM",
+    gujaratiTitle: "આજે તમારી થાળ સેવા છે!",
+    body: "ઠાકોરજીના ભોગ માટે ૧૦:૩૦ વાગ્યા સુધીમાં મંદિરે પહોંચાડવો.",
+    gujaratiBody: "ઠાકોરજીના ભોગ માટે ૧૦:૩૦ વાગ્યા સુધીમાં મંદિરે પહોંચાડવો.",
+    route: "/kitchen-recipe",
     priority: "high" as const,
     icon: UtensilsCrossed,
+    isFullScreen: true,
+    alertType: "thal_today" as const,
+  },
+  {
+    id: "thal_2days_fullscreen",
+    label: "🌾 Thal 2 Days Advance",
+    gujaratiLabel: "થાળ સેવા ૨ દિવસ બાકી",
+    title: "Thal Preparation & Grocery Check",
+    gujaratiTitle: "તમારી થાળ સેવા ૨ દિવસમાં છે",
+    body: "રસોઈ સામગ્રી અને કરિયાણાની સમયસર ચકાસણી કરી લેવી.",
+    gujaratiBody: "રસોઈ સામગ્રી અને કરિયાણાની સમયસર ચકાસણી કરી લેવી.",
+    route: "/kitchen-recipe",
+    priority: "high" as const,
+    icon: UtensilsCrossed,
+    isFullScreen: true,
+    alertType: "thal_2_days" as const,
+  },
+  {
+    id: "thal_1day_fullscreen",
+    label: "👨‍🍳 Thal 1 Day Prior",
+    gujaratiLabel: "આવતીકાલે થાળ સેવા",
+    title: "Cook & Captain Coordination",
+    gujaratiTitle: "આવતીકાલે તમારી થાળ સેવા છે",
+    body: "મુખ્ય રસોઈયા તથા કેપ્ટન સાથે સમય અને મેનુ કન્ફર્મ કરો.",
+    gujaratiBody: "મુખ્ય રસોઈયા તથા કેપ્ટન સાથે સમય અને મેનુ કન્ફર્મ કરો.",
+    route: "/my-responsibilities",
+    priority: "high" as const,
+    icon: UtensilsCrossed,
+    isFullScreen: true,
+    alertType: "thal_1_day" as const,
   },
   {
     id: "announcement",
@@ -117,30 +149,8 @@ const PRESET_TEMPLATES = [
     route: "/announcements",
     priority: "normal" as const,
     icon: BellRing,
-  },
-  {
-    id: "youth",
-    label: "Youth Satsang Sabha",
-    gujaratiLabel: "યુવા સત્સંગ સભા",
-    title: "Special Youth Sabha This Saturday",
-    gujaratiTitle: "શનિવારે વિશેષ યુવા સત્સંગ સભા",
-    body: "Inspiring guidance, satsang discourse, and group seva projects for young haribhaktas. 6:30 PM at the main hall.",
-    gujaratiBody: "યુવા હરિભક્તો માટે પ્રેરક માર્ગદર્શન અને સત્સંગ ચર્ચા. શનિવારે સાંજે ૬:૩૦ કલાકે મુખ્ય હોલમાં.",
-    route: "/sabha",
-    priority: "normal" as const,
-    icon: Flame,
-  },
-  {
-    id: "urgent",
-    label: "Emergency Seva Call",
-    gujaratiLabel: "તાકીદની સેવા સહાય",
-    title: "Urgent Seva Assistance Requested",
-    gujaratiTitle: "મંદિર સેવામાં સ્વયંસેવકોની જરૂર છે",
-    body: "Additional volunteers requested in the kitchen and assembly hall for upcoming sabha preparations.",
-    gujaratiBody: "આગામી સભા વ્યવસ્થા અને રસોઈ સેવામાં સહાય માટે સ્વયંસેવકોની તાકીદે જરૂર છે.",
-    route: "/seva",
-    priority: "high" as const,
-    icon: Zap,
+    isFullScreen: false,
+    alertType: "general" as const,
   },
 ];
 
@@ -216,6 +226,10 @@ export function PushNotificationStudio({
   // UI Interactive States
   const [submitting, setSubmitting] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [isFullScreenAlert, setIsFullScreenAlert] = useState(false);
+  const [fullScreenType, setFullScreenType] = useState<
+    "sabha" | "thal_2_days" | "thal_1_day" | "thal_today"
+  >("sabha");
   const [previewPlatform, setPreviewPlatform] = useState<"ios" | "android">("ios");
   const [simulatedAlertActive, setSimulatedAlertActive] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -275,6 +289,14 @@ export function PushNotificationStudio({
       deepLinkRoute: tpl.route,
       priority: tpl.priority,
     });
+    if ((tpl as any).isFullScreen) {
+      setIsFullScreenAlert(true);
+      if ((tpl as any).alertType) {
+        setFullScreenType((tpl as any).alertType);
+      }
+    } else {
+      setIsFullScreenAlert(false);
+    }
     triggerSimulatedAlert(true);
     toast.success(`Template applied: ${tpl.label}`, {
       description: "Composer fields and simulated device preview updated.",
@@ -294,11 +316,45 @@ export function PushNotificationStudio({
 
     setSubmitting(true);
     try {
+      const customData = isFullScreenAlert
+        ? {
+            type: "full_screen_alert",
+            alertType: fullScreenType,
+            badge:
+              fullScreenType === "sabha"
+                ? "🕉️ સાપ્તાહિક સભા • SABHA DAY"
+                : fullScreenType === "thal_today"
+                ? "🔔 અતિ મહત્વપૂર્ણ • TODAY'S THAL SEVA"
+                : fullScreenType === "thal_2_days"
+                ? "🌾 આગોતરી યાદી • T-2 DAYS ADVANCE"
+                : "⚠️ આવતીકાલે સેવા • TOMORROW'S SEVA",
+            title: form.gujaratiTitle || form.title,
+            subtitle: form.title,
+            tagline: form.gujaratiBody || form.body,
+            category: fullScreenType === "sabha" ? "SATSANG SABHA" : "THAL SEVA",
+            categoryIcon: fullScreenType === "sabha" ? "temple" : "soup_kitchen",
+            scheduledTime:
+              fullScreenType === "thal_today" ? "૧૦:૩૦ AM પૂર્વે" : "સાંજે ૫:૩૦ થી ૭:૩૦",
+            location: "હરિપ્રબોધમ, નડીઆદ મંદિર",
+            actionDoneText:
+              fullScreenType === "sabha"
+                ? "✓ હા, હું આવીશ"
+                : fullScreenType === "thal_today"
+                ? "🚗 નીકળી ગયા"
+                : "✓ સેવા સ્વીકારો",
+            snoozeLabel: fullScreenType === "thal_today" ? "૧૫ મિ. યાદ" : "૩૦ મિ. યાદ",
+            snoozeDurationMinutes: fullScreenType === "thal_today" ? "15" : "30",
+            actionSkipText: fullScreenType === "sabha" ? "સભા વિગત" : "મેનુ જુઓ",
+            targetRoute: form.deepLinkRoute,
+          }
+        : undefined;
+
       const res = await fetch("/api/super-admin/notifications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
+          customData,
           sentBy: {
             name: currentUser?.name || "Super Admin",
             phone: currentUser?.phone || "",
@@ -1051,6 +1107,81 @@ export function PushNotificationStudio({
             </div>
           </div>
 
+          {/* Full-Screen Alert Takeover Mode Toggle */}
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/5 border border-amber-300/80 space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 text-white flex items-center justify-center shadow-xs">
+                  <Maximize2 className="h-4 w-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-amber-950 flex items-center gap-1.5">
+                    Mandir Full-Screen Takeover Alert
+                    <span className="px-1.5 py-0.5 rounded-md bg-amber-200/80 text-[9px] font-extrabold text-amber-900 tracking-wider uppercase">
+                      Urgent Mode
+                    </span>
+                  </h4>
+                  <p className="text-[10px] text-amber-800">
+                    Immediately wakes devotee device with sacred saffron waves &amp; action buttons (RSVP / Confirm)
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  const nextState = !isFullScreenAlert;
+                  setIsFullScreenAlert(nextState);
+                  if (nextState) {
+                    setForm({ ...form, priority: "high" });
+                  }
+                  triggerSimulatedAlert(true);
+                }}
+                className={cn(
+                  "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden",
+                  isFullScreenAlert ? "bg-amber-600" : "bg-stone-300"
+                )}
+              >
+                <span
+                  className={cn(
+                    "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out",
+                    isFullScreenAlert ? "translate-x-5" : "translate-x-0"
+                  )}
+                />
+              </button>
+            </div>
+
+            {isFullScreenAlert && (
+              <div className="pt-2 border-t border-amber-200/80 flex flex-wrap items-center gap-2">
+                <span className="text-[10px] font-bold text-amber-900 uppercase">Scenario:</span>
+                {(
+                  [
+                    { id: "sabha", label: "🕉️ Sabha Day", badge: "🕉️ સાપ્તાહિક સભા" },
+                    { id: "thal_today", label: "🔔 Thal Today", badge: "🔔 આજે થાળ સેવા" },
+                    { id: "thal_2_days", label: "🌾 Thal 2-Days", badge: "🌾 ૨ દિવસ બાકી" },
+                    { id: "thal_1_day", label: "👨‍🍳 Thal 1-Day", badge: "⚠️ આવતીકાલે સેવા" },
+                  ] as const
+                ).map((sc) => (
+                  <button
+                    key={sc.id}
+                    type="button"
+                    onClick={() => {
+                      setFullScreenType(sc.id);
+                      triggerSimulatedAlert(true);
+                    }}
+                    className={cn(
+                      "px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all border",
+                      fullScreenType === sc.id
+                        ? "bg-amber-600 text-white border-amber-700 shadow-xs"
+                        : "bg-white/90 text-stone-700 border-stone-200 hover:bg-white"
+                    )}
+                  >
+                    {sc.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Form Action Controls */}
           <div className="flex items-center justify-between pt-4 border-t border-stone-200">
             <Button
@@ -1688,6 +1819,17 @@ export function PushNotificationStudio({
               <div className="flex items-center justify-between">
                 <span className="text-stone-600 font-medium">Priority:</span>
                 <span className="font-bold text-amber-800 uppercase font-mono">{form.priority}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-stone-600 font-medium">Alert Style:</span>
+                <span className={cn(
+                  "font-bold uppercase font-mono text-[11px] px-2 py-0.5 rounded-md",
+                  isFullScreenAlert
+                    ? "bg-amber-500 text-white shadow-2xs"
+                    : "bg-stone-200 text-stone-700"
+                )}>
+                  {isFullScreenAlert ? `⚡ Full-Screen Takeover (${fullScreenType})` : "📱 Standard Banner"}
+                </span>
               </div>
             </div>
 
